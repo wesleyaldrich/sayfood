@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+.home-header{
+    padding-top: 30px;
+    padding-left: 40px;
+}
+
+.home-header h1{
+    color: #234C4C;
+    font-size: 95.78px;
+    font-weight: 700;
+}   
+
+.lato-bold-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 25px;
+  color: #063434;
+  padding-top: 15px;
+}
+
+.lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #063434;
+}
+
+.link-button-home{
+    padding-top: 50px;
+}
+
+.link-button-home a {
+    font-size: 30px;       
+    padding: 0.5rem 2rem;    
+    margin-right: 1rem;    
+    text-decoration: none;
+}
+
+.btn-custom-menu {
+    background-color: #007771;
+    border: 1px solid #007771;
+    color: white;   
+}
+
+.btn-custom-menu:hover {
+    background-color: #005f5a;
+    border-color: #005f5a;
+    color: white;
+}
+
+.btn-custom-join {
+    background-color: #FEA322;
+    border: 1px solid #FEA322;
+    color: white;
+}
+
+.btn-custom-join:hover {
+    background-color: #d88d1c;
+    border-color: #d88d1c;
+    color: white;
+}
+
