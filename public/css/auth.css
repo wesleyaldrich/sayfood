@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+.oswald {
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F8F4E9;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.auth-page {
+    background-image: url('/assets/auth_bg.png');
+    background-size: cover;
+    background-position: left;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+}
+
+.auth-form-container {
+    width: 650px;
+    margin: 0 7.5%;
+    color: #234C4C;
+    font-weight: 500;
+    background-color: rgba(224, 224, 224, 0.3);
+    border-radius: 24px;
+}
+
+.logo {
+    height: 100%;
+    width: 50%;
+    min-width: 220px;
+}
+
+.form-group label {
+    font-size: 1.25rem;
+}
+
+.form-group input {
+    border-radius: 12px;
+    background-color: #D9D9D9;
+}
+
+.auth-button {
+    width: 200px;
+    background-color: #234C4C;
+    border-radius: 32px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    border: solid 3px #FEA322;
+}
+
+.google-icon-container {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.google-icon {
+    width: 50%;
+    height: 50%;
+}
+
+.google-auth-button {
+    background-color: #234C4C;
+    border-radius: 32px;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.auth-button:hover,
+.google-auth-button:hover {
+    background-color: #1a6e6e;
+}
