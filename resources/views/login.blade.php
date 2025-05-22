@@ -9,7 +9,7 @@
         <h2 class="oswald mt-3 mb-2">LOGIN</h2>
 
         <div class="container">
-            <form action=" {{ route('login') }} ">
+            <form action=" {{ route('login') }} " method="POST">
                 @csrf
 
                 <div class="form-group mb-2">
