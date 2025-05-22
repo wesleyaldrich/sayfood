@@ -5,6 +5,17 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('home');
+})->name('home');
+
+Route::middleware('auth')->group(function () {
+    // DELETE SOON!
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/test', function () {
+        return "You are currently authenticated!";
+    });
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::middleware('guest')->group(function () {

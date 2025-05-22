@@ -9,7 +9,7 @@
         <h2 class="oswald mt-3 mb-2">REGISTER</h2>
 
         <div class="container">
-            <form action=" {{ route('register') }} ">
+            <form action=" {{ route('register') }} " method="POST">
                 @csrf
 
                 <div class="form-group mb-2">
@@ -29,7 +29,7 @@
 
                 <div class="form-group mb-2">
                     <label for="confirmPassword" class="oswald">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                 </div>
 
                 <div class="container d-flex justify-content-center pt-3">
