@@ -10,10 +10,10 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/login', function () {
         return view('login');
-    })->name('login');
+    })->name('show.login');
 
     Route::get('/register', function () {
         return view('register');
-    })->name('register');
-    
+    })->name('show.register');
+
 });
