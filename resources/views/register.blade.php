@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="container d-flex justify-content-center mt-3">
-                    <a href="">
+                    <a href="{{ route('auth.google.redirect') }}">
                         <div class="d-flex flex-row align-items-center google-auth-button p-1 pr-3">
                             <div class="google-icon-container d-flex justify-content-center align-items-center">
                                 <img src="{{ asset('assets/google_icon.png') }}" alt="Google Icon" class="google-icon">
