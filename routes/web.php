@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     // DELETE SOON!
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/logout', [AuthController::class, 'logout']);
 
     Route::get('/test', function () {
         return "You are currently authenticated!";
