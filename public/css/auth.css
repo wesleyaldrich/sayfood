@@ -20,7 +20,7 @@ a {
 .auth-page {
     background-image: url('/assets/auth_bg.png');
     background-size: cover;
-    background-position: left;
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;

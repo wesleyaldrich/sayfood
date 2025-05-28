@@ -1,5 +1,5 @@
 @extends('layout.auth')
-@section('title', 'Sayfood | Login Page')
+@section('title', 'Sayfood | Restaurant Login Page')
 @section('content')	
     <div class="auth-form-container d-flex align-items-center justify-content-center flex-column p-3" >
         <div class="container d-flex justify-content-center">
@@ -9,11 +9,11 @@
         <h2 class="oswald mt-3 mb-2">LOGIN</h2>
 
         <div class="container">
-            <form action=" {{ route('login') }} " method="POST">
+            <form action=" {{ route('login.restaurant') }} " method="POST">
                 @csrf
 
                 <div class="form-group mb-2">
-                    <label for="name" class="oswald">Username</label>
+                    <label for="name" class="oswald">Restaurant Username</label>
                     <input type="text" class="form-control" id="username" name="username" required>
                 </div>
 
@@ -25,18 +25,6 @@
                 <div class="container d-flex justify-content-center pt-3">
                     <button type="submit" class="btn btn-primary oswald auth-button ">Log in</button>
                 </div>
-
-                <div class="container d-flex justify-content-center mt-3">
-                    <a href="{{ route('auth.google.redirect') }}">
-                        <div class="d-flex flex-row align-items-center google-auth-button p-1 pr-3">
-                            <div class="google-icon-container d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('assets/google_icon.png') }}" alt="Google Icon" class="google-icon">
-                            </div>
-                            <p class="oswald m-0 ml-2">Sign in with Google</p>
-                        </div>
-                    </a>
-                </div>
-
             </form>
         </div>
     

@@ -1,1 +1,1 @@
-<p>Under development. Please visit the "develop" branch instead for potentially newer codes.</p>
+<p>Under development.</p>
