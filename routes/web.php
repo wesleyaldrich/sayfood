@@ -40,4 +40,21 @@ Route::middleware('guest')->group(function () {
     // GOOGLE AUTH
     Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
     Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
+
+
+    // RESTAURANTS
+    Route::get('/login-restaurant', function () {
+        return view('login-restaurant');
+    })->name('show.login.restaurant');
+
+    Route::get('/register-restaurant', function () {
+        return view('register-restaurant');
+    })->name('show.register.restaurant');
+
+    Route::post('/login-restaurant', [AuthController::class, 'loginRestaurant'])->name('login.restaurant');
+    Route::post('/register-restaurant', [AuthController::class, 'registerRestaurant'])->name('register.restaurant');
+
+    
+    // ADMIN
+    Route::get('/approve-registration/{id}', [AuthController::class, 'approveRegistration'])->name('approve.registration');
 });

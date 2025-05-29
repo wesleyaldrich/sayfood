@@ -3,9 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,25 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'role',
+    ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $guarded = [
+        'id',
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'role' => 'customer',
     ];
 
     /**
@@ -42,7 +62,15 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password' => 'hashed'
         ];
+    }
+
+    /**
+     * Get the restaurant associated with the user.
+     */
+    public function restaurant()
+    {
+        return $this->hasOne(Restaurant::class);
     }
 }
