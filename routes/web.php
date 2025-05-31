@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+// TWO-FACTOR AUTH
+Route::get('/two-factor', [AuthController::class, 'twoFactorVerification'])->name('twofactor.verif');
+Route::post('/two-factor', [AuthController::class, 'twoFactorSubmit'])->name('twofactor.submit');
+
 Route::middleware('auth')->group(function () {
     // DELETE SOON!
     Route::get('/logout', [AuthController::class, 'logout']);
