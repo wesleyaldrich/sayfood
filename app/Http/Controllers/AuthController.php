@@ -85,12 +85,42 @@ class AuthController extends Controller
             // Log the user in (if not already)
             Auth::login($currentUser);
 
+            session(['two_factor_verified' => true]);
+
             return redirect()->route('home')->with('success', 'Two-factor authentication successful.');
         } else {
             throw ValidationException::withMessages([
                 'otp' => 'The provided two-factor code is incorrect.',
             ]);
         }
+    }
+
+    public function twoFactorResend(Request $request)
+    {
+        // Check if the user is authenticated
+        if (!Auth::check()) {
+            return redirect()->route('show.register');
+        }
+
+        $currentUser = Auth::user();
+
+        // Ensure $currentUser is a fresh Eloquent model instance
+        if ($currentUser) {
+            $currentUser = User::find($currentUser->id);
+        }
+
+        // Generate a new two-factor code
+        $twofactorCode = random_int(100000, 999999);
+        $currentUser->two_factor_code = $twofactorCode;
+        $currentUser->save();
+
+        // Send the new two-factor code to the user via email message
+        Mail::raw("Your two-factor authentication code is: $twofactorCode", function ($message) use ($currentUser) {
+            $message->to($currentUser->email)
+                    ->subject('Sayfood | Two-Factor Authentication Code');
+        });
+
+        return redirect()->route('twofactor.verif')->with('success', 'A new two-factor authentication code has been sent to your email.');
     }
 
     public function registerRestaurant(Request $request)

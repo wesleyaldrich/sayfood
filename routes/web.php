@@ -8,11 +8,8 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// TWO-FACTOR AUTH
-Route::get('/two-factor', [AuthController::class, 'twoFactorVerification'])->name('twofactor.verif');
-Route::post('/two-factor', [AuthController::class, 'twoFactorSubmit'])->name('twofactor.submit');
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'twofactor'])->group(function () {
+ 
     // DELETE SOON!
     Route::get('/logout', [AuthController::class, 'logout']);
 
@@ -21,6 +18,16 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+});
+
+Route::middleware('auth')->group(function () {
+
+    // TWO-FACTOR AUTH
+    Route::get('/two-factor', [AuthController::class, 'twoFactorVerification'])->name('twofactor.verif');
+    Route::post('/two-factor', [AuthController::class, 'twoFactorSubmit'])->name('twofactor.submit');
+    Route::post('/two-factor-resend', [AuthController::class, 'twoFactorResend'])->name('twofactor.resend');
+    
 });
 
 Route::middleware('guest')->group(function () {
@@ -57,4 +64,5 @@ Route::middleware('guest')->group(function () {
     
     // ADMIN
     Route::get('/approve-registration/{id}', [AuthController::class, 'approveRegistration'])->name('approve.registration');
+
 });

@@ -46,8 +46,10 @@
                         </div>
                     </a>
                 </div>
-
             </form>
+
+            <div class="container d-flex justify-content-center mt-3">
+                <p class="oswald m-0" style="font-weight: 400">Already have an account? <a href="{{ route('login') }}">Login</a></p>
         </div>
     
     </div>

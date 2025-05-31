@@ -21,7 +21,14 @@
                     <button type="submit" class="btn btn-primary oswald auth-button ">Register</button>
                 </div>
             </form>
+
+            {{-- Resend OTP --}}
+            <div class="container d-flex justify-content-center pt-3">
+                <form id="resend-otp-form" action="{{ route('twofactor.resend') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <a href="#" class="oswald" onclick="event.preventDefault(); document.getElementById('resend-otp-form').submit();">Resend OTP</a>
+                </form>
+            </div>
         </div>
-    
     </div>
 @endsection
