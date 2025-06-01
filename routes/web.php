@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/foods', function () {
+    return view('foods');
+})->name('foods');
+
 Route::middleware(['auth', 'twofactor'])->group(function () {
  
     // DELETE SOON!
