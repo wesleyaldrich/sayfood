@@ -36,8 +36,10 @@
                         </div>
                     </a>
                 </div>
-
             </form>
+
+            <div class="container d-flex justify-content-center mt-3">
+                <p class="oswald m-0" style="font-weight: 400">Don't have an account? <a href="{{ route('register') }}">Register</a></p>
         </div>
     
     </div>
