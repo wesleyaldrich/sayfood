@@ -1,0 +1,390 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+h1 {
+    font-family: "Oswald", sans-serif;
+    font-size: 40px;
+    color: 063434;
+}
+
+.nav-link{
+    width: 270px;
+    height: 50px;
+    margin-top: 10px;
+    padding: 0;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+/* Jarak antar item nav (tab) */
+.nav-pills .nav-item {
+    margin-right: 25px;
+}
+
+
+/* Specific background images for each tab */
+.nav-pills .nav-link.food-tab {
+    background-image: url('../assets/bg_foodactivity_btn.svg');
+    background-color:#FFCC5F;
+    color: black;
+}
+
+.nav-pills .nav-link.charity-tab {
+    background-image: url('../assets/bg_charityactivity_btn.svg');
+    background-color: #234C4C;
+    color: white;
+}
+
+/* --- Hover state: NORMAL (opacity 100%) --- */
+.nav-pills .nav-link:hover {
+    opacity: 1; /* Opacity menjadi normal (100%) */
+    transform: translateY(-2px); /* Efek lift saat hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,.15);
+}
+
+/* --- Active/Selected state: NORMAL (opacity 100%) + BORDER WARNA --- */
+.nav-pills .nav-link.active {
+    opacity: 1; 
+    border: 5px solid #EE8D4A; 
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    transform: translateY(-1px);
+}
+
+/* --- Donation Info Card--- */
+.donation-info-card {
+    background-color: #ffcd3a;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+    color: #6a4421;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.donation-info-card #toggleDonationVisibility {
+    z-index: 10;
+}
+
+.donation-info-card .card-title {
+    color: #6a4421;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.donation-info-card .card-text {
+    color: #6a4421;
+}
+
+.donation-info-card small.text-muted {
+    color: #7a5e3f !important;
+    font-size: 0.8rem;
+}
+
+.donation-info-card .check-in-action-link {
+    color: #ff6347;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.donation-info-card .check-in-action-link:hover {
+    text-decoration: underline;
+}
+
+.donation-info-card .donation-potato-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.donation-info-card .donation-piggy-bank-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+/* --- Activity List Item (Revisi dan Tambahan) --- */
+.activity-main-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08); /* Sedikit lebih tebal */
+    overflow: hidden; /* Penting untuk border-radius pada card */
+}
+
+
+.activity-item-date,
+.activity-item-total {
+    flex-shrink: 0;
+    min-width: 120px; /* Cukupkan ruang untuk teks */
+    font-size: 0.95rem;
+}
+.activity-item-total .text-success {
+    font-size: 1.1rem; /* Sedikit lebih besar untuk total */
+}
+
+.activity-item-location {
+    flex-grow: 1;
+    font-size: 0.9rem;
+    color: #555;
+}
+.activity-item-location span.fw-bold {
+    color: #333;
+}
+
+/* Button "Ready to Pick Up" */
+.btn-ready-pickup {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    font-size: 0.85rem;
+    padding: 6px 15px;
+    font-weight: 500;
+}
+
+.btn-ready-pickup:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* "See Details" Dropdown Button */
+.activity-item-actions .btn-outline-secondary {
+    border-color: #ced4da;
+    color: #555;
+    font-size: 0.85rem;
+    padding: 6px 15px;
+    font-weight: 500;
+}
+
+.activity-item-actions .btn-outline-secondary:hover {
+    background-color: #e2e6ea;
+    color: #333;
+}
+
+.activity-item-actions .dropdown-toggle::after {
+    margin-left: 0.5em;
+}
+
+/* --- Details Section (when collapsed) --- */
+.details-section {
+    background-color: #fff; /* Pastikan background putih */
+    /* Border-radius sudah diatur di .activity-main-item */
+}
+
+.details-title {
+    color: #ff6347; /* Warna orange untuk "DETAILS :" */
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.order-items {
+    font-size: 0.95rem;
+    color: #555;
+    border-bottom: 1px dashed #ddd; /* Garis putus-putus */
+    padding-bottom: 15px;
+    margin-bottom: 25px !important;
+}
+
+.order-items span:first-child {
+    font-weight: 600; /* Nama item lebih tebal */
+    color: #333;
+}
+
+.order-items span:last-child {
+    font-weight: 600; /* Harga juga tebal */
+}
+
+/* --- Order Status Timeline --- */
+.order-status-timeline {
+    position: relative;
+    padding: 0 10px; /* Beri sedikit padding agar lingkaran tidak terlalu mepet */
+}
+
+.timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1; /* Agar setiap langkah memiliki lebar yang sama */
+    position: relative;
+    z-index: 1; /* Pastikan lingkaran di atas garis */
+}
+
+.timeline-step .circle {
+    width: 35px; /* Ukuran lingkaran */
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #ccc; /* Border default untuk lingkaran kosong */
+    background-color: #fff; /* Background putih untuk lingkaran kosong */
+    color: #ccc; /* Warna ikon centang default */
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2; /* Ikon dan lingkaran di atas garis */
+}
+
+.timeline-step.active-step .circle {
+    background-color: #28a745; /* Warna hijau untuk lingkaran penuh */
+    border-color: #28a745;
+    color: #fff; /* Warna ikon centang putih */
+}
+
+/* Sembunyikan ikon centang default di lingkaran kosong */
+.timeline-step .circle .fas.fa-check {
+    display: none;
+}
+
+/* Tampilkan ikon centang di lingkaran penuh */
+.timeline-step.active-step .circle .fas.fa-check {
+    display: block;
+}
+
+/* Sembunyikan placeholder di lingkaran penuh */
+.timeline-step.active-step .circle .icon-placeholder {
+    display: none;
+}
+
+
+.timeline-step .status-label {
+    font-size: 0.8rem;
+    color: #777;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Garis penghubung */
+.order-status-timeline .line {
+    position: absolute;
+    height: 2px; /* Tebal garis */
+    background-color: #ccc; /* Warna garis default */
+    width: calc(100% / 5 - 40px); /* Kurangi lebar agar pas antar lingkaran, sesuaikan */
+    top: 17px; /* Sesuaikan agar berada di tengah lingkaran */
+    left: 50px; /* Mulai setelah lingkaran pertama */
+    z-index: 0; /* Di bawah lingkaran */
+    transition: background-color 0.3s ease;
+}
+
+/* Atur posisi garis spesifik agar menghubungkan setiap lingkaran */
+.order-status-timeline .timeline-step:nth-child(1) ~ .line { /* Garis setelah langkah 1 */
+    left: calc(1 * (100% / 6)); /* Sesuaikan posisi awal */
+    width: calc(100% / 6 - 35px); /* Sesuaikan lebar */
+    left: 35px; /* Posisi awal garis setelah lingkaran pertama */
+    width: calc((100% - (6 * 35px)) / 5 + 35px); /* Perhitungan lebih akurat */
+    top: 17px;
+    left: calc(35px / 2); /* Awal garis di tengah lingkaran pertama */
+    transform: translateX(100%); /* Geser ke kanan */
+    width: calc( (100% - (6 * 35px) - (5 * 20px) ) / 5 + 20px); /* Lebar garis, 20px gap */
+
+}
+
+/* Perhitungan yang lebih generik untuk posisi garis */
+.order-status-timeline .line {
+    position: absolute;
+    height: 2px;
+    background-color: #ccc;
+    z-index: 0;
+    transition: background-color 0.3s ease;
+    /* Lebar garis akan dihitung berdasarkan jumlah langkah */
+    /* Contoh: ada 6 langkah, berarti ada 5 garis penghubung */
+    width: calc((100% - (6 * 35px)) / 5); /* (Total Lebar - Total Lingkaran) / Jumlah Garis */
+    top: 17px; /* Pusat vertikal */
+}
+
+/* Posisi setiap garis secara manual atau dengan JS */
+.order-status-timeline .line:nth-child(1) { left: calc(35px + (100% - (6 * 35px)) / 10); }
+.order-status-timeline .line:nth-child(2) { left: calc(2 * 35px + 1 * (100% - (6 * 35px)) / 5 + (100% - (6 * 35px)) / 10); }
+/* ... ini akan sangat sulit dengan CSS murni dan perlu lebih banyak baris */
+/* Mari kita pakai pendekatan lebih sederhana dengan margin atau gap pada timeline-step */
+
+/* --- REVISED TIMELINE LINE CSS (lebih sederhana) --- */
+.order-status-timeline {
+    position: relative;
+    display: flex; /* Sudah ada */
+    justify-content: space-between; /* Untuk menyebar item */
+    align-items: center;
+    margin-bottom: 25px;
+    /* Padding horizontal agar garis tidak mepet ujung */
+    padding: 0 10px;
+}
+
+.timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0; /* Penting agar lingkaran tidak menyusut */
+    position: relative;
+    z-index: 1;
+    text-align: center; /* Pusatkan teks */
+}
+
+.timeline-step .circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    color: #ccc;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.timeline-step.active-step .circle {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}
+
+.timeline-step .circle .fas.fa-check {
+    display: none; /* Defaultnya tersembunyi */
+}
+
+.timeline-step.active-step .circle .fas.fa-check {
+    display: block; /* Tampilkan jika aktif */
+}
+
+.timeline-step .status-label {
+    font-size: 0.75rem; /* Sedikit lebih kecil */
+    color: #777;
+    margin-top: 5px; /* Jarak dari lingkaran */
+    line-height: 1.2;
+    max-width: 60px; /* Batasi lebar teks agar tidak terlalu panjang */
+}
+
+/* Garis penghubung antar lingkaran */
+.order-status-timeline .line {
+    height: 2px;
+    background-color: #ccc; /* Warna garis default */
+    flex-grow: 1; /* Agar garis mengisi ruang di antara lingkaran */
+    margin: 0 10px; /* Jarak antara garis dan lingkaran */
+    transition: background-color 0.3s ease;
+}
+
+.order-status-timeline .line.active-line {
+    background-color: #28a745; /* Warna hijau untuk garis yang aktif */
+}
+
+/* --- Review Order Button --- */
+.review-order-btn {
+    background-color: #ffcd3a; /* Warna kuning dari desain */
+    color: #6a4421; /* Warna teks cokelat */
+    font-weight: bold;
+    border: none;
+    padding: 10px 40px; /* Padding lebih besar */
+    font-size: 1.1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    transition: background-color 0.3s ease;
+}
+
+.review-order-btn:hover {
+    background-color: #e6b82c; /* Warna kuning lebih gelap saat hover */
+    color: #6a4421; /* Pastikan warna teks tetap */
+}
+
+/* --- END NEW STYLES --- */

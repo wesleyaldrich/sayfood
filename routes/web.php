@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/activity', function(){
+    return view('activity');
+})->name('activity');
+
 Route::middleware('auth')->group(function () {
     // DELETE SOON!
     Route::get('/logout', [AuthController::class, 'logout']);
