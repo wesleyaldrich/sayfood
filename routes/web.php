@@ -39,10 +39,14 @@ Route::middleware('guest')->group(function () {
     // LOCAL AUTH
     Route::get('/login', function () {
         return view('login');
+    })->name('selection.login');
+
+    Route::get('/login-customer', function () {
+        return view('login-customer');
     })->name('show.login');
 
-    Route::get('/register', function () {
-        return view('register');
+    Route::get('/register-customer', function () {
+        return view('register-customer');
     })->name('show.register');
     
     Route::post('/login', [AuthController::class, 'login'])->name('login');

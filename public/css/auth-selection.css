@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+.oswald {
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: white;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F8F4E9;
+}
+
+.top-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 25vw;
+    max-height: 150px;
+    z-index: -1;
+}
+
+.decor {
+    height: 100%;
+}
+
+.decor img {
+    height: 100%;
+    object-fit: contain;
+}
+
+.master-container {
+    padding-top: 150px;
+    height: 100vh;
+    width: 100vw;
+}
+
+.box-selection {
+    width: 100%;
+    gap: 5vw;
+    padding: 0 5vw;
+}
+
+.auth-box {
+    height: 40vw;
+    min-height: 240px;
+    max-height: 320px;
+    width: 40vw;
+    min-width: 270px;
+    max-width: 440px;
+
+    background-color: #234C4C;
+    border: 3px solid #FEA322;
+    border-radius: 25px;
+    gap: 10px;
+}
+
+.logo-container {
+    width: 30vw;
+    max-width: 320px;
+    min-width: 200px;
+}
+
+.logo-container img {
+    width: 100%;
+    height: auto;
+}
+
+.box-selection a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.auth-box:hover {
+    background-color: #1a6e6e;
+    transition: background-color 0.1s ease-in-out;
+}

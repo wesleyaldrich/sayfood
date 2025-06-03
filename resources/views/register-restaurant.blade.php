@@ -30,9 +30,11 @@
                 <div class="container d-flex justify-content-center pt-3">
                     <button type="submit" class="btn btn-primary oswald auth-button ">Register</button>
                 </div>
-
             </form>
+
+            <div class="container d-flex justify-content-center mt-3">
+                <p class="oswald m-0" style="font-weight: 400">Already have an account? <a href="{{ route('show.login.restaurant') }}">Login</a></p>
+            </div>
         </div>
-    
     </div>
 @endsection
