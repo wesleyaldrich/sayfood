@@ -26,6 +26,10 @@
                     <button type="submit" class="btn btn-primary oswald auth-button ">Log in</button>
                 </div>
             </form>
+
+            <div class="container d-flex justify-content-center mt-3">
+                <p class="oswald m-0" style="font-weight: 400">Don't have an account? <a href="{{ route('show.register.restaurant') }}">Register</a></p>
+            </div>
         </div>
     
     </div>
