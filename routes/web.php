@@ -8,7 +8,12 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::middleware('auth')->group(function () {
+Route::get('/foods', function () {
+    return view('foods');
+})->name('foods');
+
+Route::middleware(['auth', 'twofactor'])->group(function () {
+ 
     // DELETE SOON!
     Route::get('/logout', [AuthController::class, 'logout']);
 
@@ -17,6 +22,16 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+});
+
+Route::middleware('auth')->group(function () {
+
+    // TWO-FACTOR AUTH
+    Route::get('/two-factor', [AuthController::class, 'twoFactorVerification'])->name('twofactor.verif');
+    Route::post('/two-factor', [AuthController::class, 'twoFactorSubmit'])->name('twofactor.submit');
+    Route::post('/two-factor-resend', [AuthController::class, 'twoFactorResend'])->name('twofactor.resend');
+    
 });
 
 Route::middleware('guest')->group(function () {
@@ -24,10 +39,14 @@ Route::middleware('guest')->group(function () {
     // LOCAL AUTH
     Route::get('/login', function () {
         return view('login');
+    })->name('selection.login');
+
+    Route::get('/login-customer', function () {
+        return view('login-customer');
     })->name('show.login');
 
-    Route::get('/register', function () {
-        return view('register');
+    Route::get('/register-customer', function () {
+        return view('register-customer');
     })->name('show.register');
     
     Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -53,4 +72,5 @@ Route::middleware('guest')->group(function () {
     
     // ADMIN
     Route::get('/approve-registration/{id}', [AuthController::class, 'approveRegistration'])->name('approve.registration');
+
 });

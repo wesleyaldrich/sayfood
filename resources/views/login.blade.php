@@ -1,44 +1,34 @@
-@extends('layout.auth')
-@section('title', 'Sayfood | Login Page')
+@extends('layout.empty')
+@section('title', 'Sayfood | Login Selection Page')
 @section('content')	
-    <div class="auth-form-container d-flex align-items-center justify-content-center flex-column p-3" >
-        <div class="container d-flex justify-content-center">
+    <div class="top-decor d-flex flex-direction-row justify-content-between">
+        <div class="decor">
+            <img src="{{ asset('assets/circles-top-left.png') }}" alt="decor top left">
+        </div>
+        <div class="decor">
+            <img src="{{ asset('assets/circles-top-right.png') }}" alt="decor top right">
+        </div>
+    </div>
+    
+    <div class="master-container d-flex justify-content-around align-items-center flex-column">
+        <div class="mb-5 logo-container d-flex justify-content-center align-items-center">
             <img src="{{ asset('assets/sayfood.png') }}" alt="Sayfood Logo" class="logo">
         </div>
-        
-        <h2 class="oswald mt-3 mb-2">LOGIN</h2>
-
-        <div class="container">
-            <form action=" {{ route('login') }} " method="POST">
-                @csrf
-
-                <div class="form-group mb-2">
-                    <label for="name" class="oswald">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
-                </div>
-
-                <div class="form-group mb-2">
-                    <label for="password" class="oswald">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-
-                <div class="container d-flex justify-content-center pt-3">
-                    <button type="submit" class="btn btn-primary oswald auth-button ">Log in</button>
-                </div>
-
-                <div class="container d-flex justify-content-center mt-3">
-                    <a href="{{ route('auth.google.redirect') }}">
-                        <div class="d-flex flex-row align-items-center google-auth-button p-1 pr-3">
-                            <div class="google-icon-container d-flex justify-content-center align-items-center">
-                                <img src="{{ asset('assets/google_icon.png') }}" alt="Google Icon" class="google-icon">
-                            </div>
-                            <p class="oswald m-0 ml-2">Sign in with Google</p>
-                        </div>
-                    </a>
-                </div>
-
-            </form>
+        <div class="container-lg">
+            <div class="box-selection mb-5 d-flex flex-row justify-content-center align-items-center flex-wrap">
+                <a href=" {{ route('show.login') }}">
+                    <div class="auth-box d-flex justify-content-center align-items-center flex-column">
+                        <img src="{{ asset('assets/login_customer_icon.png') }}" alt="customer login icon">
+                        <h3 class="text-center oswald">Login as a Customer</h3>
+                    </div>
+                </a>
+                <a href=" {{ route('show.login.restaurant') }}">
+                    <div class="auth-box d-flex justify-content-center align-items-center flex-column">
+                        <img src="{{ asset('assets/login_restaurant_icon.png') }}" alt="restaurant login icon">
+                        <h3 class="text-center oswald">Login as a Restaurant</h3>
+                    </div>
+                </a>
+            </div>
         </div>
-    
     </div>
 @endsection
