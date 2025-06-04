@@ -80,12 +80,11 @@ class AuthController extends Controller
         if ($currentUser && $currentUser->two_factor_code === $validatedData['otp']) {
             // Remove the two-factor code from the database
             $currentUser->two_factor_code = null;
+            $currentUser->two_factor_verified = true; // Set the verification timestamp
             $currentUser->save();
 
             // Log the user in (if not already)
             Auth::login($currentUser);
-
-            session(['two_factor_verified' => true]);
 
             return redirect()->route('home')->with('success', 'Two-factor authentication successful.');
         } else {
