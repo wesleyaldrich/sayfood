@@ -15,12 +15,22 @@
                 <div class="form-group mb-2">
                     <label for="name" class="oswald">Username</label>
                     <input type="text" class="form-control" id="username" name="username" required>
+                    @error('username')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group mb-2">
                     <label for="password" class="oswald">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
+                    @error('password')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+
+                @error('credentials')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
 
                 <div class="container d-flex justify-content-center pt-3">
                     <button type="submit" class="btn btn-primary oswald auth-button ">Log in</button>

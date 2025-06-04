@@ -124,20 +124,16 @@ class AuthController extends Controller
 
     public function registerRestaurant(Request $request)
     {
-        try {
-            // Validate the request data
-            $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'address' => 'required|string|max:255',
-                'email' => 'required|email|max:320|unique:users,email',
-            ]);
+        // Validate the request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'email' => 'required|email|max:320|unique:users,email',
+        ]);
 
-            RestaurantRegistration::create($validatedData);
+        RestaurantRegistration::create($validatedData);
 
-            return redirect()->route('home')->with('success', 'Restaurant registration successful. We will contact you soon.');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        return redirect()->route('home')->with('success', 'Restaurant registration successful. We will contact you soon.');
     }
 
     public function approveRegistration($id)
