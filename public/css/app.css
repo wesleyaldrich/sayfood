@@ -19,11 +19,11 @@ a {
 }
 
 header {
-    height: 80px;
+    height: 65px;
     display: flex;
     justify-content: space-between;
     padding: 0 24px;
-    font-size: 32px;
+    font-size: 1.75rem;
 }
 
 header .logo, header .logo a {
@@ -40,10 +40,22 @@ header .logo a img {
     height: 65%;
 }
 
+header .icon-hamburger {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    width: 25px;
+    height: 25px;
+    display: none;
+}
+
+header .icon-hamburger img {
+    height: 100%;
+}
+
 header .right {
     display: flex;
     height: 100%;
-    gap: 32px;
     font-weight: 500;
     color: #234C4C;
 }
@@ -72,6 +84,10 @@ header .right nav ul {
     text-decoration: underline;
 }
 
+.nav-hide {
+    display: none;
+}
+
 header .right .icons {
     height: 100%;
     display: flex;
@@ -87,9 +103,123 @@ header .right .icons a {
 }
 
 header .right .icons a .notif-icon-img {
-    height: 56px;
+    height: 40px;
 }
 
 header .right .icons a .profile-icon-img {
-    height: 60px;
+    height: 40px;
+}
+
+header .right .icons .language-icon-img {
+    height: 35px;
+}
+
+header .dropdown-nav {
+    position: absolute;
+    width: 200px;
+    font-weight: 500;
+    color: #234C4C;
+    z-index: 12;
+    background: #F9C479;
+    right: 24px;
+    top: 70px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+header .dropdown-nav.show {
+    max-height: 500px;
+}
+
+header .dropdown-nav ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header .dropdown-nav ul li {
+    width: 100%;
+    padding: 4px 0px;
+    text-align: center;
+}
+
+header .dropdown-nav ul li a {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+header .dropdown-nav ul li a:hover {
+    color: unset;
+    text-decoration: none;
+}
+
+header .dropdown-nav .nav-active {
+    background: #234C4C;
+    text-decoration: none;
+    color: white;
+}
+
+
+/* RESPONSIVE DESIGN */
+
+@media(max-width: 1024px) {
+    header {
+        font-size: 1.5rem;
+    }
+
+    header .logo a img {
+        height: 55%;
+    }
+    
+    header .right .icons a .notif-icon-img {
+        height: 35px;
+    }
+
+    header .right .icons a .profile-icon-img {
+        height: 35px;
+    }
+
+    header .right .icons .language-icon-img {
+        height: 30px;
+    }
+    
+    header .right nav ul {
+        gap: 24px;
+    }
+}
+
+@media(max-width: 768px) {
+    header .icon-hamburger {
+        display: block;
+    }
+
+    header .right .icons a .profile-icon-img {
+        display: none;
+    }
+
+    header .right .icons {
+        margin-right: 35px;
+    }
+
+    header .right nav {
+        display: none;
+    }
+}
+
+@media (max-width:430px) {
+    header .dropdown-nav {
+        right: 8px;
+        left: 8px;
+        width: calc(100% - 16px);
+    }
 }
