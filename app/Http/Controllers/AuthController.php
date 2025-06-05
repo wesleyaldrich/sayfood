@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\RestaurantRegistration;
+use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -257,4 +258,29 @@ class AuthController extends Controller
         );
     }
 
+    public function updateProfile(Request $request) {
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:64',
+            'dob' => [
+                'required',
+                'date',
+                'before_or_equal:' . Carbon::now()->subYears(18)->toDateString(), // at least 18
+                'after_or_equal:' . Carbon::now()->subYears(125)->toDateString(), // at most 125
+            ],
+            'address' => 'string|max:200'
+        ]);
+
+        $currentUser = Auth::user();
+
+        if ($currentUser) {
+            $currentUser = User::find($currentUser->id);
+
+            $currentUser->username = $validatedData['username'];
+            $currentUser->dob = $validatedData['dob'];
+            $currentUser->address = $validatedData['address'];
+            $currentUser->save();
+        }
+
+        return redirect()->back()->with('status', 'Profile successfully updated!');
+    }
 }

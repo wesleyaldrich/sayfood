@@ -10,11 +10,11 @@
     <div class="right">
         <nav>
             <ul>
-                <li><a href="{{ url('/') }}" class="oswald nav-button nav-active">HOME</a></li>
-                <li><a href="{{ url('/foods') }}" class="oswald nav-button">FOODS</a></li>
-                <li><a href="{{ url('/charity') }}" class="oswald nav-button">EVENTS</a></li>
-                <li><a href="{{ url('/activity') }}" class="oswald nav-button">ACTIVITY</a></li>
-                <li><a href="{{ url('/profile') }}" class="oswald nav-button nav-hide">PROFILE</a></li>
+                <li><a href="{{ route('home') }}" class="oswald nav-button nav-active">HOME</a></li>
+                <li><a href="{{ route('foods') }}" class="oswald nav-button">FOODS</a></li>
+                <li><a href="{{ route('charity') }}" class="oswald nav-button">EVENTS</a></li>
+                <li><a href="{{ route('activity') }}" class="oswald nav-button">ACTIVITY</a></li>
+                <li><a href="{{ route('profile') }}" class="oswald nav-button nav-hide">PROFILE</a></li>
             </ul>
         </nav>
         <div class="icons">

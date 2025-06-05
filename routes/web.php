@@ -12,6 +12,14 @@ Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
 
+Route::get('/charity', function () {
+    return view('charity');
+})->name('charity');
+
+Route::get('/activity', function () {
+    return view('activity');
+})->name('activity');
+
 Route::middleware(['auth', 'twofactor'])->group(function () {
  
     // DELETE SOON!
@@ -24,7 +32,8 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-    
+
+    Route::post('/profile', [AuthController::class, 'updateProfile'])->name('updateProfile');
 });
 
 Route::middleware('auth')->group(function () {

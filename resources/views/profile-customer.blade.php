@@ -12,12 +12,12 @@
                 <img class="profile-image" src="{{ asset('assets/example/profile.jpg') }}" alt="profile image">
             </div>
             <div class="profile-details container-fluid flex-1 flex-column align-items-center justify-content-center">
-                <form action=" {{ route('login') }} " method="POST" class="d-flex flex-column justify-content-between align-items-center">
+                <form action=" {{ route('updateProfile') }} " method="POST" class="d-flex flex-column justify-content-between align-items-center">
                     @csrf   
 
                     <div class="form-group mb-3">
                         <label for="username" class="oswald">Username</label>
-                        <input type="text" class="oswald form-control" id="username" name="username" autocomplete="on" required>
+                        <input type="text" class="oswald form-control" id="username" name="username" autocomplete="on" required value="{{ $user->username }}">
                         @error('username')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -25,7 +25,7 @@
 
                     <div class="form-group mb-3">
                         <label for="dob" class="oswald">Date of Birth</label>
-                        <input type="date" class="oswald form-control" id="dob" name="dob" autocomplete="on" required>
+                        <input type="date" class="oswald form-control" id="dob" name="dob" autocomplete="on" required value="{{ $user->dob }}">
                         @error('dob')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -33,7 +33,7 @@
 
                     <div class="form-group mb-3">
                         <label for="address" class="oswald">Address</label>
-                        <input type="text" class="oswald form-control" id="address" name="address" autocomplete="on" required>
+                        <input type="text" class="oswald form-control" id="address" name="address" autocomplete="on" required value="{{ $user->address }}">
                         @error('address')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -45,11 +45,17 @@
 
                     <div class="profile-update-btn-container d-flex flex-row justify-content-center align-items-center py-3">
                         <div class="row justify-content-around">
-                            <a href="" class="col-sm-5 btn oswald profile-update-btn">CANCEL CHANGES</a>
+                            <a href="{{ route('profile') }}" class="col-sm-5 btn oswald profile-update-btn">CANCEL CHANGES</a>
                             <button type="submit" class="col-sm-5 btn oswald profile-update-btn">SAVE CHANGES</button>
                         </div>
                     </div>
                 </form>
+
+                @if(session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
             </div>
 
             <div class="container-fluid d-flex justify-content-center align-items-center">
