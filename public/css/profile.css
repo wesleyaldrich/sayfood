@@ -1,0 +1,111 @@
+.profile-heading {
+    width: 100%;
+    height: 25vh;
+    background-image: url('/assets/edit_profile_header.png');
+}
+
+.profile-content {
+    flex: 1;
+    background-color: #F8F4E9;
+}
+
+.profile-content 
+.profile-image-container 
+.profile-image {
+    position: relative;
+    top: -75px;
+    height: 150px;
+    aspect-ratio: 1/1;
+    border: 5px solid #234C4C;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    object-fit: cover;
+}
+
+.profile-content 
+.profile-image-container {
+    height: 75px;
+}
+
+.profile-details .form-group {
+    width: 80%;
+    max-width: 600px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.profile-details .form-group input {
+    background-color: #EEDDC6;
+    border-radius: 2px;
+}
+
+
+.profile-update-btn-container {
+    width: 80%;
+    max-width: 510px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.profile-update-btn-container .row {
+    width: 100%;
+    gap: 4px;
+}
+
+.profile-update-btn-container
+.profile-update-btn {
+    /* width: 250px; */
+    width: 90%;
+    background-color: #234C4C;
+    border-radius: 12px;
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: none;   
+}
+
+.profile-update-btn-container
+.profile-update-btn:hover {
+    background-color: #2a9696;
+}
+
+.profile-options {
+    width: 80%;
+    max-width: 600px;
+    gap: 6px;
+    position: relative;
+    right: -10px;
+}
+
+.profile-options .profile-option {
+    display: block;
+    width: 100%;
+    height: 34px;
+    /* max-height: 36px; */
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: white;
+    background-color: #538787;
+    border: 3px solid #234C4C;
+    border-radius: 12px;
+}
+
+.profile-options .profile-option img {
+    box-sizing: content-box;
+    z-index: 1;
+    height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    background-color: #234C4C;
+    border-radius: 50%;
+    position: relative;
+    left: -30px;
+}
+
+.profile-options .profile-option p {
+    position: relative;
+    left: -20px;
+    text-align: start;
+    width: 100%;
+    margin: 0;
+}

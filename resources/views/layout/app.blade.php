@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <link rel="stylesheet" href="{{ asset('css/foods.css') }}">
     <script src="{{ asset('js/foods.js') }}" defer></script>
 </head>
@@ -17,6 +17,8 @@
     @if ($errors->has('error'))
         <div class="alert alert-danger">{{ $errors->first('error') }}</div>
     @endif
-    @yield('content')
+    <div class="sayfood-content-container">
+        @yield('content')
+    </div>
 </body>
 </html>
