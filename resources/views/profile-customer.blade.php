@@ -4,24 +4,21 @@
     {{-- {{$user}} --}}
 
     <div class="d-flex flex-column mb-5">
-        <div class="container-fluid profile-heading">
-
-        </div>
+        <div class="container-fluid profile-heading"></div>
         <div class="profile-content d-flex flex-column align-items-center">
             <div class="profile-image-container mb-4">
-                
                 <form action="{{ route('updateProfileImage') }}" method="POST" enctype="multipart/form-data" id="profile-image-form">
                     @csrf
                     <label for="profile-image-input" style="cursor:pointer;">
                         <img class="profile-image" src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : asset('assets/example/profile.jpg') }}" alt="profile image" id="profile-image-preview">
                         <input type="file" name="profile_image" id="profile-image-input" accept="image/*" style="display:none;" onchange="document.getElementById('profile-image-form').submit();">
                     </label>
-                    @error('profile_image')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
                 </form>
             </div>
             <div class="profile-details container-fluid flex-1 flex-column align-items-center justify-content-center">
+                @error('profile_image')
+                    <div class="text-danger text-center">{{ $message }}</div>
+                @enderror
                 <form action=" {{ route('updateProfile') }} " method="POST" class="d-flex flex-column justify-content-between align-items-center">
                     @csrf   
 
