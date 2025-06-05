@@ -41,6 +41,8 @@ class GoogleAuthController extends Controller
                 ]
             );
 
+            $newUser->two_factor_verified = true;
+
             // Automatically log in the new user
             Auth::login($newUser);
         }

@@ -234,4 +234,27 @@ class AuthController extends Controller
 
         return redirect()->route('show.login');
     }
+
+    public function profile()
+    {
+        // get the user of the current session
+        $currentUser = Auth::user();
+
+        if (!$currentUser){
+            return redirect()->route('selection-login');
+        }
+
+        if ($currentUser->role === 'customer' || $currentUser === 'admin'){
+            return view('profile-customer', ['user' => $currentUser]);
+        }
+        else if ($currentUser->role === 'restaurant'){
+            return view('profile-restaurant', ['user' => $currentUser]);
+        }
+
+        // Unexpected role - throw an error
+        return redirect()->back()->withErrors(
+            ['error' => 'Error: unexpected user role.']
+        );
+    }
+
 }

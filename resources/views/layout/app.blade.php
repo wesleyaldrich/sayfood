@@ -14,6 +14,9 @@
 </head>
 <body>
     @include('layout.header')
+    @if ($errors->has('error'))
+        <div class="alert alert-danger">{{ $errors->first('error') }}</div>
+    @endif
     @yield('content')
 </body>
 </html>
