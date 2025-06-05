@@ -258,16 +258,17 @@ class AuthController extends Controller
         );
     }
 
-    public function updateProfile(Request $request) {
+    public function updateProfile(Request $request)
+    {
         $validatedData = $request->validate([
             'username' => 'required|string|max:64',
             'dob' => [
-                'required',
+                'nullable',
                 'date',
                 'before_or_equal:' . Carbon::now()->subYears(18)->toDateString(), // at least 18
                 'after_or_equal:' . Carbon::now()->subYears(125)->toDateString(), // at most 125
             ],
-            'address' => 'string|max:200'
+            'address' => 'nullable|string|max:200'
         ]);
 
         $currentUser = Auth::user();
@@ -282,5 +283,35 @@ class AuthController extends Controller
         }
 
         return redirect()->back()->with('status', 'Profile successfully updated!');
+    }
+
+    public function updateProfileImage(Request $request)
+    {
+        $request->validate([
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $currentUser = Auth::user();
+
+        if ($currentUser) {
+            $currentUser = User::find($currentUser->id);
+
+            $image = $request->file('profile_image');
+            $imageName = 'profile_' . $currentUser->id . '_' . time() . '.' . $image->getClientOriginalExtension();
+            // $imagePath = $image->storeAs('public/profile_images', $imageName);
+            $imagePath = $image->storeAs('profile_images', $imageName, 'public');
+
+            // Save the image path to the user (assuming a 'profile_image' column exists)
+            $currentUser->profile_image = 'profile_images/' . $imageName;
+            $currentUser->save();
+
+            return redirect()->route('profile')->with(
+                'status', 'Successfully updated profile image!'
+            );
+        }
+
+        return redirect()->route('profile')->withErrors([
+            ['error' => 'Error: failed to change profile image.']
+        ]);
     }
 }

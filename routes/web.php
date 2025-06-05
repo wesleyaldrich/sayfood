@@ -34,6 +34,8 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('updateProfile');
+
+    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('updateProfileImage');
 });
 
 Route::middleware('auth')->group(function () {
