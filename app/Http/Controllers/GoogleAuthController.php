@@ -38,10 +38,9 @@ class GoogleAuthController extends Controller
                     'username' => $user->name,
                     'password' => bcrypt(Str::random(16)),
                     'email_verified_at' => now(),
+                    'two_factor_verified' => true
                 ]
             );
-
-            $newUser->two_factor_verified = true;
 
             // Automatically log in the new user
             Auth::login($newUser);

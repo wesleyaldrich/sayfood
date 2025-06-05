@@ -14,10 +14,15 @@
 </head>
 <body>
     @include('layout.header')
-    @if ($errors->has('error'))
-        <div class="alert alert-danger">{{ $errors->first('error') }}</div>
-    @endif
     <div class="sayfood-content-container">
+        @if ($errors->has('error'))
+            <div class="alert alert-danger">{{ $errors->first('error') }}</div>
+        @endif
+        @if(session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         @yield('content')
     </div>
 </body>

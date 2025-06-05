@@ -50,12 +50,6 @@
                         </div>
                     </div>
                 </form>
-
-                @if(session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
             </div>
 
             <div class="container-fluid d-flex justify-content-center align-items-center">

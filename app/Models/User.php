@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'role',
         'two_factor_code',
+        'two_factor_verified'
     ];
 
     /**
