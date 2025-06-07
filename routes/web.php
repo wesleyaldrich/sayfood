@@ -16,6 +16,14 @@ Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
 
+Route::get('/charity', function () {
+    return view('charity');
+})->name('charity');
+
+Route::get('/activity', function () {
+    return view('activity');
+})->name('activity');
+
 Route::middleware(['auth', 'twofactor'])->group(function () {
     // DELETE SOON!
     Route::get('/logout', [AuthController::class, 'logout']);
@@ -26,6 +34,11 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+
+    Route::post('/profile', [AuthController::class, 'updateProfile'])->name('updateProfile');
+
+    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('updateProfileImage');
 });
 
 Route::middleware('auth')->group(function () {
@@ -42,10 +55,14 @@ Route::middleware('guest')->group(function () {
     // LOCAL AUTH
     Route::get('/login', function () {
         return view('login');
+    })->name('selection.login');
+
+    Route::get('/login-customer', function () {
+        return view('login-customer');
     })->name('show.login');
 
-    Route::get('/register', function () {
-        return view('register');
+    Route::get('/register-customer', function () {
+        return view('register-customer');
     })->name('show.register');
     
     Route::post('/login', [AuthController::class, 'login'])->name('login');
