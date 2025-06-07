@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="{{ asset('css/activity.css') }}">
     <script src="{{ asset('js/activity.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 
@@ -21,9 +20,6 @@
 </head>
 <body>
     @include('layout.header')
-    @yield('content')
-
-    @stack('scripts')
 
     <div class="sayfood-content-container">
         @if ($errors->has('error'))
@@ -36,6 +32,9 @@
         @endif
         @yield('content')
     </div>
+
+    @stack('scripts')
+
 
     
     

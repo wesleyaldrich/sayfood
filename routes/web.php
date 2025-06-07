@@ -32,7 +32,7 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
         return "You are currently authenticated!";
     });
 
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 

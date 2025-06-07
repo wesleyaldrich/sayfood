@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+/* Title Page */
 h1 {
     font-family: "Oswald", sans-serif;
-    font-size: 40px;
     color: 063434;
 }
 
+/* Tab Control */
 .nav-link{
     width: 270px;
     height: 50px;
@@ -17,18 +18,16 @@ h1 {
     justify-content: center; 
     align-items: center; 
     font-family: "Oswald", sans-serif;
-    font-size: 14px;
+    font-size: 1rem;
+    font-weight: 500;
     opacity: 0.5;
 }
 
-/* Jarak antar item nav (tab) */
-.nav-pills .nav-item {
-    margin-right: 25px;
+.nav-pills .nav-item { /* Jarak antar item nav (tab) */
+    margin-right: 25px
 }
 
-
-/* Specific background images for each tab */
-.nav-pills .nav-link.food-tab {
+.nav-pills .nav-link.food-tab { /* Specific background images for each tab */
     background-image: url('../assets/bg_foodactivity_btn.svg');
     background-color:#FFCC5F;
     color: black;
@@ -40,14 +39,12 @@ h1 {
     color: white;
 }
 
-/* --- Hover state: NORMAL (opacity 100%) --- */
 .nav-pills .nav-link:hover {
     opacity: 1; /* Opacity menjadi normal (100%) */
     transform: translateY(-2px); /* Efek lift saat hover */
     box-shadow: 0 4px 8px rgba(0,0,0,.15);
 }
 
-/* --- Active/Selected state: NORMAL (opacity 100%) + BORDER WARNA --- */
 .nav-pills .nav-link.active {
     opacity: 1; 
     border: 5px solid #EE8D4A; 
@@ -57,11 +54,11 @@ h1 {
 
 /* --- Donation Info Card--- */
 .donation-info-card {
-    background-color: #ffcd3a;
+    background-color: #FFD18F;
     border-radius: 15px;
     border: none;
     overflow: hidden;
-    color: #6a4421;
+    position: relative;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
@@ -70,8 +67,8 @@ h1 {
 }
 
 .donation-info-card .card-title {
-    color: #6a4421;
-    font-size: 0.9rem;
+    color: #C3770B;
+    font-size: 18px;
     font-weight: 600;
 }
 
@@ -80,34 +77,40 @@ h1 {
 }
 
 .donation-info-card small.text-muted {
-    color: #7a5e3f !important;
+    margin-top: 2px;
+    color: #063434 !important;
     font-size: 0.8rem;
-}
-
-.donation-info-card .check-in-action-link {
-    color: #ff6347;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.donation-info-card .check-in-action-link:hover {
-    text-decoration: underline;
+    font-family: "lato";
 }
 
 .donation-info-card .donation-potato-img {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 100px;
     object-fit: contain;
 }
 
 .donation-info-card .donation-piggy-bank-img {
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 100px;
     object-fit: contain;
 }
 
-/* --- Activity List Item (Revisi dan Tambahan) --- */
+.donation-info-card .card-text{
+    margin-top: 2px;
+    font-size: 20px;
+    font-family: "Oswald", sans-serif;
+    font-weight: bold;
+    color: #063434;
+}
+
+.donation-info-card #quote{
+    margin-top: 2px;
+    font-family: "lato";
+    font-style: italic;
+    font-weight: bolder;
+}
+
+/* Food Activities */
 .activity-main-item {
     background-color: #fff;
     border-radius: 10px;
@@ -115,6 +118,65 @@ h1 {
     overflow: hidden; /* Penting untuk border-radius pada card */
 }
 
+.card-header{
+    min-height: 80px;
+    background-color: #EE8D4A;  
+    border-radius: 10px 10px 0 0;
+    flex-direction: row;
+}
+
+@media(max-width: 1023px){
+    .card-header{
+        flex-direction: column;
+        align-items: start !important;
+        gap: 5px;
+    }
+}
+
+@media(max-width: 768px){
+    .upcoming-event-wrap{
+        flex-direction: column !important;
+    }
+}
+
+@media(max-width:559px){
+    .card-header-content{
+        flex-direction: column !important;
+        align-items: start !important;
+        gap: 10px;
+    }
+}
+
+@media(max-width:468px){
+    .event-card-body{
+        flex-direction: column;
+        align-items: center !important;
+    }
+
+    .event-meta{
+        display: flex !important;
+        flex-direction: column;
+    }
+}
+
+.fw-bold{
+    font-family: "Oswald";
+    font-size: 1rem;
+}
+
+.fw-semi-bold{
+    margin-top: 2px;
+    font-family: "Lato";
+    font-size: 0.8rem;
+    color: black;
+}
+
+.fw-normal{
+    margin-top: 2px;
+    font-family: "Lato";
+    font-size: 0.8rem;
+    color: black;
+}
 
 .activity-item-date,
 .activity-item-total {
@@ -122,50 +184,53 @@ h1 {
     min-width: 120px; /* Cukupkan ruang untuk teks */
     font-size: 0.95rem;
 }
+
 .activity-item-total .text-success {
     font-size: 1.1rem; /* Sedikit lebih besar untuk total */
 }
 
-.activity-item-location {
-    flex-grow: 1;
-    font-size: 0.9rem;
-    color: #555;
-}
-.activity-item-location span.fw-bold {
-    color: #333;
+.resto-name{
+    margin-right: 10px;
+    font-style: italic;
 }
 
 /* Button "Ready to Pick Up" */
 .btn-ready-pickup {
-    background-color: #28a745;
-    border-color: #28a745;
+    margin-right: 10px;
+    background-color: #007771;
+    border: #007771 2px solid !important;
+    border-radius: 12px;
     color: white;
+    font-family: "Lato";
     font-size: 0.85rem;
     padding: 6px 15px;
-    font-weight: 500;
+    font-weight: bold;
 }
 
-.btn-ready-pickup:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
+.dropdown-toggle{
+    background-color: #FFF2CE;
+    border: #007771 2px solid !important;
+    border-radius: 12px;
+    color: #063434;
 }
 
-/* "See Details" Dropdown Button */
-.activity-item-actions .btn-outline-secondary {
-    border-color: #ced4da;
-    color: #555;
+.btn-ready-pickup:hover{
+    margin-right: 10px;
+    background-color: #007771;
+    border: #007771 2px solid !important;
+    border-radius: 12px;
+    color: white;
+    font-family: "Lato";
     font-size: 0.85rem;
     padding: 6px 15px;
-    font-weight: 500;
+    font-weight: bold;
 }
 
-.activity-item-actions .btn-outline-secondary:hover {
-    background-color: #e2e6ea;
-    color: #333;
-}
-
-.activity-item-actions .dropdown-toggle::after {
-    margin-left: 0.5em;
+.dropdown-toggle:hover{
+    background-color: #FFF2CE;
+    border: #007771 2px solid !important;
+    border-radius: 12px;
+    color: #063434;
 }
 
 /* --- Details Section (when collapsed) --- */
@@ -175,155 +240,41 @@ h1 {
 }
 
 .details-title {
-    color: #ff6347; /* Warna orange untuk "DETAILS :" */
+    color: #EE8D4A; /* Warna orange untuk "DETAILS :" */
     font-weight: bold;
+    font-family: "Oswald";
     font-size: 1.1rem;
     margin-bottom: 15px;
 }
 
 .order-items {
     font-size: 0.95rem;
-    color: #555;
-    border-bottom: 1px dashed #ddd; /* Garis putus-putus */
-    padding-bottom: 15px;
-    margin-bottom: 25px !important;
+    font-family: "Lato";
+    color: black;
 }
 
-.order-items span:first-child {
-    font-weight: 600; /* Nama item lebih tebal */
-    color: #333;
-}
-
-.order-items span:last-child {
-    font-weight: 600; /* Harga juga tebal */
-}
-
-/* --- Order Status Timeline --- */
-.order-status-timeline {
+/* Status Timeline */
+.order-status-timeline-container {
     position: relative;
-    padding: 0 10px; /* Beri sedikit padding agar lingkaran tidak terlalu mepet */
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    flex-wrap: nowrap;
 }
 
 .timeline-step {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1; /* Agar setiap langkah memiliki lebar yang sama */
+    flex-shrink: 0; 
     position: relative;
-    z-index: 1; /* Pastikan lingkaran di atas garis */
-}
-
-.timeline-step .circle {
-    width: 35px; /* Ukuran lingkaran */
-    height: 35px;
-    border-radius: 50%;
-    border: 2px solid #ccc; /* Border default untuk lingkaran kosong */
-    background-color: #fff; /* Background putih untuk lingkaran kosong */
-    color: #ccc; /* Warna ikon centang default */
-    font-size: 1rem;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2; /* Ikon dan lingkaran di atas garis */
-}
-
-.timeline-step.active-step .circle {
-    background-color: #28a745; /* Warna hijau untuk lingkaran penuh */
-    border-color: #28a745;
-    color: #fff; /* Warna ikon centang putih */
-}
-
-/* Sembunyikan ikon centang default di lingkaran kosong */
-.timeline-step .circle .fas.fa-check {
-    display: none;
-}
-
-/* Tampilkan ikon centang di lingkaran penuh */
-.timeline-step.active-step .circle .fas.fa-check {
-    display: block;
-}
-
-/* Sembunyikan placeholder di lingkaran penuh */
-.timeline-step.active-step .circle .icon-placeholder {
-    display: none;
-}
-
-
-.timeline-step .status-label {
-    font-size: 0.8rem;
-    color: #777;
+    z-index: 1; 
     text-align: center;
-    line-height: 1.2;
-}
-
-/* Garis penghubung */
-.order-status-timeline .line {
-    position: absolute;
-    height: 2px; /* Tebal garis */
-    background-color: #ccc; /* Warna garis default */
-    width: calc(100% / 5 - 40px); /* Kurangi lebar agar pas antar lingkaran, sesuaikan */
-    top: 17px; /* Sesuaikan agar berada di tengah lingkaran */
-    left: 50px; /* Mulai setelah lingkaran pertama */
-    z-index: 0; /* Di bawah lingkaran */
-    transition: background-color 0.3s ease;
-}
-
-/* Atur posisi garis spesifik agar menghubungkan setiap lingkaran */
-.order-status-timeline .timeline-step:nth-child(1) ~ .line { /* Garis setelah langkah 1 */
-    left: calc(1 * (100% / 6)); /* Sesuaikan posisi awal */
-    width: calc(100% / 6 - 35px); /* Sesuaikan lebar */
-    left: 35px; /* Posisi awal garis setelah lingkaran pertama */
-    width: calc((100% - (6 * 35px)) / 5 + 35px); /* Perhitungan lebih akurat */
-    top: 17px;
-    left: calc(35px / 2); /* Awal garis di tengah lingkaran pertama */
-    transform: translateX(100%); /* Geser ke kanan */
-    width: calc( (100% - (6 * 35px) - (5 * 20px) ) / 5 + 20px); /* Lebar garis, 20px gap */
-
-}
-
-/* Perhitungan yang lebih generik untuk posisi garis */
-.order-status-timeline .line {
-    position: absolute;
-    height: 2px;
-    background-color: #ccc;
-    z-index: 0;
-    transition: background-color 0.3s ease;
-    /* Lebar garis akan dihitung berdasarkan jumlah langkah */
-    /* Contoh: ada 6 langkah, berarti ada 5 garis penghubung */
-    width: calc((100% - (6 * 35px)) / 5); /* (Total Lebar - Total Lingkaran) / Jumlah Garis */
-    top: 17px; /* Pusat vertikal */
-}
-
-/* Posisi setiap garis secara manual atau dengan JS */
-.order-status-timeline .line:nth-child(1) { left: calc(35px + (100% - (6 * 35px)) / 10); }
-.order-status-timeline .line:nth-child(2) { left: calc(2 * 35px + 1 * (100% - (6 * 35px)) / 5 + (100% - (6 * 35px)) / 10); }
-/* ... ini akan sangat sulit dengan CSS murni dan perlu lebih banyak baris */
-/* Mari kita pakai pendekatan lebih sederhana dengan margin atau gap pada timeline-step */
-
-/* --- REVISED TIMELINE LINE CSS (lebih sederhana) --- */
-.order-status-timeline {
-    position: relative;
-    display: flex; /* Sudah ada */
-    justify-content: space-between; /* Untuk menyebar item */
-    align-items: center;
-    margin-bottom: 25px;
-    /* Padding horizontal agar garis tidak mepet ujung */
-    padding: 0 10px;
-}
-
-.timeline-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0; /* Penting agar lingkaran tidak menyusut */
-    position: relative;
-    z-index: 1;
-    text-align: center; /* Pusatkan teks */
 }
 
 .timeline-step .circle {
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 2px solid #ccc;
     background-color: #fff;
@@ -336,39 +287,45 @@ h1 {
 }
 
 .timeline-step.active-step .circle {
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: #234C4C; /* Warna hijau untuk lingkaran aktif */
+    border-color: #234C4C;
     color: #fff;
 }
 
 .timeline-step .circle .fas.fa-check {
-    display: none; /* Defaultnya tersembunyi */
+    display: none; /* Icon centang tersembunyi secara default */
 }
 
 .timeline-step.active-step .circle .fas.fa-check {
-    display: block; /* Tampilkan jika aktif */
+    display: block; /* Tampilkan icon centang jika aktif */
 }
 
 .timeline-step .status-label {
-    font-size: 0.75rem; /* Sedikit lebih kecil */
-    color: #777;
-    margin-top: 5px; /* Jarak dari lingkaran */
-    line-height: 1.2;
-    max-width: 60px; /* Batasi lebar teks agar tidak terlalu panjang */
+    width: 65px; /* Lebar tetap untuk label status agar konsisten */
+    height: 40px; /* Tinggi disesuaikan dengan konten */
+    align-items: center;
+    font-size: 0.9rem;
+    font-family: "Oswald";
+    color: #234C4C;
+    text-align: center;
+    
 }
 
 /* Garis penghubung antar lingkaran */
-.order-status-timeline .line {
+.order-status-timeline-container .line { /* Target garis di dalam kontainer baru */
     height: 2px;
     background-color: #ccc; /* Warna garis default */
-    flex-grow: 1; /* Agar garis mengisi ruang di antara lingkaran */
-    margin: 0 10px; /* Jarak antara garis dan lingkaran */
+    flex-grow: 1; /* Ini yang membuat garis mengisi ruang di antara langkah-langkah */
+    margin: 0 -2px; /* Margin negatif kecil agar garis terlihat menyambung sempurna dengan lingkaran */
     transition: background-color 0.3s ease;
+    margin-bottom: 55px;
 }
 
-.order-status-timeline .line.active-line {
-    background-color: #28a745; /* Warna hijau untuk garis yang aktif */
+.order-status-timeline-container .line.active-line {
+    background-color: #234C4C; /* Warna hijau untuk garis aktif */
 }
+
+
 
 /* --- Review Order Button --- */
 .review-order-btn {
@@ -377,14 +334,453 @@ h1 {
     font-weight: bold;
     border: none;
     padding: 10px 40px; /* Padding lebih besar */
-    font-size: 1.1rem;
+    font-size: 1rem;
     box-shadow: 0 2px 5px rgba(0,0,0,.1);
     transition: background-color 0.3s ease;
 }
 
 .review-order-btn:hover {
-    background-color: #e6b82c; /* Warna kuning lebih gelap saat hover */
-    color: #6a4421; /* Pastikan warna teks tetap */
+    background-color: #ffcd3a !important; /* Warna kuning dari desain */
+    color: #6a4421; /* Warna teks cokelat */
+    font-weight: bold;
+    border: none;
+    padding: 10px 40px; /* Padding lebih besar */
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    transition: background-color 0.3s ease;
 }
 
-/* --- END NEW STYLES --- */
+/* CHARITY ACTIVITIES */
+.upcoming-events {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.upcoming-events h2,
+.create-event h2 {
+    color: #063434;
+}
+
+.scroll-container{
+    display: flex;
+    overflow-x: auto;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+
+.event-cards-wrapper {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+.container-arrow{
+    background-color: #FFDD7A; /* warna kuning soft */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    line-height: 1;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.arrow {
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    color: #005D56; /* hijau gelap untuk panah */
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.event-cards-wrapper{
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    margin-top: 2px;
+}
+
+
+/* Individual Event Card (Yang baru disesuaikan) */
+.event-card-upcoming {
+    /* display: flex; */
+    flex: 0 0 auto;
+    width: 400px;
+    scroll-snap-align: start;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 6px solid #005D56;
+}
+
+.event-card-upcoming .event-background-image {
+    width: 400px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px 12px 0 0;
+    /* z-index: 0; */
+}
+
+.parent-container {
+  overflow-x: hidden; /* agar tidak melebihi batas body */
+}
+
+/* Overlay Informasi Event */
+.event-info-overlay {
+    gap: 0;
+    color: white;
+    z-index: 1;
+}
+
+.event-info-overlay-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.event-main-details {
+    flex-basis: calc(65% - 5px); /* Sesuaikan lebar */
+    text-align: left;
+}
+
+.event-main-details h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.2em; /* Sedikit lebih besar */
+    font-weight: 700; /* Lebih tebal */
+}
+
+.event-main-details p {
+    margin: 5px 0 0;
+    font-size: 0.9em; /* Sedikit lebih besar */
+    color: #E0E0E0; /* Warna teks abu-abu terang */
+    font-weight: 500; /* Sedikit lebih tebal */
+}
+
+.event-meta-details {
+    flex-basis: calc(35% - 5px); /* Sisa lebar */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin-bottom: 5px; /* Jarak dari bawah overlay jika ada spasi */
+}
+
+.event-meta-details .meta-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.85em; /* Sedikit lebih besar */
+    color: white; /* Warna teks putih */
+}
+
+.event-meta-details .meta-item img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    object-fit: contain;
+    filter: none; /* Asumsi ikon sudah putih, jika hitam bisa pakai invert(1) */
+}
+
+.overlay-area{
+    height: 70px; /* Contoh: beri tinggi */
+    justify-content: flex-start; /* Sejajarkan ke kiri */
+    bottom: 85px;
+    background-color: #234C4C;
+}
+
+.circle{
+    width: 70px;
+    height: 70px;
+    border: 4px #EE8D4A solid;
+    border-radius: 040px;
+    background-color: #234C4C;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.circle img{
+    width: 30px;
+    height: auto;
+    margin-top: -4px;
+}
+
+.box{
+    flex: 1;
+    height: 70px;
+    background-color: #234C4C;
+    z-index: 2;
+}
+
+.total-participants{
+    font-family: "Oswald";
+    font-size: 0.9rem;
+    color: white;
+    margin-top: -5px;
+}
+
+p{
+    font-family: "Lato";
+    font-size: 0.4rem;
+    margin-bottom: 0px !important;
+    margin-top: -4px;
+    color: white;
+}
+
+.event-main-details{
+    margin: 10px;
+    max-width: 170px;
+}
+
+.event-main-details h5{
+    color: white;
+    font-family: "Oswald";
+    font-size: 1.4rem;
+    margin-bottom: 2px;
+    margin-top: 1px;
+}
+
+.event-main-details p{
+    color: white;
+    font-family: "Lato";
+    font-size: 0.75rem;
+}
+
+.event-main-subdetails{
+    color: white;
+    font-family: "Lato";
+    font-size: 0.75rem;
+    align-content: center;
+}
+
+.meta-item img{
+    width: 15px;
+    justify-content: end;
+    align-items: end;
+    margin-bottom: 2px;
+    margin-right: 5px;
+}
+
+.create-event-container{
+    position: relative;
+}
+
+/* --- CREATE YOUR OWN EVENT section --- */
+.create-event {
+    background-color: #FEA322;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    top: -12.5%;
+    height: 82.005%;
+    border-radius: 12px;
+    gap: 20px;
+}
+
+.create-event-mascot img{
+    z-index: 1;
+}
+
+.create-event-quote{
+    font-family: "lato";
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: black;
+}
+
+.btn-propose-event{
+    background-color: white !important;
+    color: #234C4C;
+    border: white solid;
+    border-radius: 12px;
+    border-top: 10px;
+    font-size: 1.52rem;
+    font-family: "Oswald";
+    font-weight: bold;
+}
+
+.create-event img.top-right-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+/* History Card*/
+
+.journey-section {
+    margin-top: 40px;
+    text-align: left;
+}
+
+.journey-section h2 {
+    font-size: 2em;
+    color: #234C4C;
+}
+
+/* Journey Card */
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.event-card {
+    background-color: #234C4C;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-card-header {
+    background-color: #234C4C; /* Contoh warna header, bisa disesuaikan */
+    color: white;
+    padding: 10px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.event-card-header h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.5em;
+}
+
+.event-card-header p {
+    margin: 0;
+    font-size: 0.9em;
+    font-style: italic;
+    opacity: 0.8;
+    color: #FFDD88;
+}
+
+.event-card-body {
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: flex-start; /* Align image and text at the top */
+}
+
+.event-card-body-img {
+    border-radius: 12px;
+    border: white 4px solid;
+    object-fit: cover;
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.event-details {
+    flex-grow: 1; /* Allow details to take remaining space */
+    text-align: left;
+}
+
+.event-details p {
+    font-family: "Lato";
+    font-size: 0.65em;
+    line-height: 1.6;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.event-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for meta info */
+    gap: 10px 15px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.event-meta div {
+    display: flex;
+    align-items: center;
+    font-size: 0.7em;
+    color: #FFDD88;
+}
+
+.event-meta img {
+    width: 20px;
+    height: auto;
+    margin-right: 8px;
+}
+
+.download-button {
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    background-color: #4CAF50; /* Warna hijau untuk tombol download */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: "Lato";
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    margin-top: auto;
+    border: none;
+}
+.download-button-img{
+    padding-left: 20px;
+}
+
+.download-button:hover {
+    background-color: #45a049;
+    border: none;
+}
+
+/* POP UP SECTION */
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+.d-none {
+    display: none;
+}

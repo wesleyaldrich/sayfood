@@ -2,12 +2,10 @@
 
 @section('title', 'Activity Page')
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-{{-- Pastikan Font Awesome CSS terhubung --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<script src="{{ asset('js/activity.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 @section('content')
 
@@ -29,25 +27,22 @@
         </div>
 
         {{-- Donation Info Card - This card should always be visible (based on your images) --}}
-        {{-- Donation Info Card - This card should always be visible (based on your images) --}}
         <div class="card donation-info-card flex-shrink-0">
             <div class="card-body d-flex align-items-center justify-content-between p-4" style="position: relative;">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center text-center">
                     <img src="{{ asset('assets/mascot_donationaccumulation.svg') }}" alt="Donating Potato" class="me-3 donation-potato-img">
                     <div>
-                        {{-- Pindahkan tombol toggle ke sini, sejajar dengan h5 --}}
-                        <div class="d-flex align-items-center mb-1">
-                            <h5 class="card-title mb-0 me-2">YOU'VE BEEN DONATING</h5>
+                        {{-- Tombol toggle ejajar dengan h5 --}}
+                        <h5 class="card-title mb-0 me-2">YOU'VE BEEN DONATING</h5>
+                        {{-- Nominal donasi sekarang ada di bawahnya --}}
+                        <div class="d-flex-fluid card-text mb-0 fs-4 fw-bold">
+                            <span id="donationAmountValue">IDR 472.300,00</span>
                             <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none" id="toggleDonationVisibility">
                                 <i class="bi bi-eye-slash-fill" id="visibilityIcon"></i> {{-- Icon default: mata dicoret (sembunyi) --}}
                             </button>
                         </div>
-                        {{-- Nominal donasi sekarang ada di bawahnya --}}
-                        <p class="card-text mb-0 fs-4 fw-bold">
-                            <span id="donationAmountValue">IDR 472.300,00</span>
-                        </p>
                         <small class="text-muted d-block">this past 6 months, accumulated from your orders!</small>
-                        <a href="#" class="d-block mt-2 check-in-action-link">"Charity is love in action."</a>
+                        <a id="quote">"Charity is love in action."</a>
                     </div>
                 </div>
                 <img src="{{ asset('assets/bg_donationaccumulation.svg') }}" alt="Money Bag" class="donation-piggy-bank-img ms-3">
@@ -65,129 +60,222 @@
             <div class="activity-list">
                 @php
                     $orderStatuses = [
-                        ['status' => 'order_created'],
-                        ['status' => 'order_accepted'],
-                        ['status' => 'in_progress'],
-                        ['status' => 'ready_to_pickup'],
-                        ['status' => 'order_completed'],
-                        ['status' => 'review_order'],
+                        [
+                            'status' => 'order_created',
+                            'orderPlacedLabel' => 'ORDER PLACED',
+                            'orderPlacedDate' => '25 May 2025',
+                            'total' => 'IDR 50.000,00',
+                            'restoName' => 'Restoran Ny. Nita',
+                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
+                            'readyPickupText' => 'Ready to Pick Up',
+                            'items' => [
+                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
+                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
+                            ],
+                            'reviewButtonText' => 'Review Order',
+                        ],
                     ];
                 @endphp
 
-                @foreach ($orderStatuses as $index => $orderData)
-                    <div class="card activity-main-item mb-3">
-                        <div class="card-header activity-header d-flex align-items-center justify-content-between p-3"
-                             style="background-color: #EE8D4A; border-bottom: 1px solid #eee; border-radius: 10px 10px 0 0;">
-                            <div class="d-flex flex-column me-3 activity-item-date">
-                                <span class="fw-bold" style="color: black;">ORDER PLACED</span>
-                                <small class="text-muted">25 May 2025</small>
-                            </div>
-                            <div class="d-flex flex-column me-3 activity-item-total">
-                                <span class="fw-bold" style="color: black;">TOTAL</span>
-                                <span class="text-success fw-bold">IDR 50.000,00</span>
-                            </div>
-                            <div class="d-flex flex-column flex-grow-1 me-3 activity-item-location">
-                                <span class="fw-bold" style="color: black;">PICK UP LOCATION</span>
-                                <span>Restoran Ny. Nita Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor</span>
-                            </div>
-                            <div class="d-flex align-items-center activity-item-actions">
-                                <button class="btn btn-sm rounded-pill px-3 me-2 btn-ready-pickup">Ready to Pick Up</button>
-                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 dropdown-toggle" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#detailsCollapseFood{{ $index }}"
-                                        aria-expanded="false" aria-controls="detailsCollapseFood{{ $index }}">
-                                    See Details
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="collapse" id="detailsCollapseFood{{ $index }}">
-                            <div class="card-body details-section p-4">
-                                <p class="details-title">DETAILS :</p>
-                                <div class="order-items mb-4">
-                                    <div class="d-flex justify-content-between mb-1">
-                                        <span>Bubur Sukabumi</span>
-                                        <span>x1</span>
-                                        <span>IDR 6.000,00</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <span>Lemongrass Tea</span>
-                                        <span>x1</span>
-                                        <span>IDR 1.000,00</span>
-                                    </div>
-                                </div>
-                                <div class="order-status-timeline d-flex justify-content-between align-items-center mb-4">
-                                    @php
-                                        $statuses = [
-                                            'Order Created' => 'order_created',
-                                            'Order Accepted' => 'order_accepted',
-                                            'In Progress' => 'in_progress',
-                                            'Ready to Pickup' => 'ready_to_pickup',
-                                            'Order Completed' => 'order_completed',
-                                            'Review Order' => 'review_order'
-                                        ];
-                                        $currentStatusReached = false;
-                                    @endphp
-                                    @foreach ($statuses as $label => $key)
-                                        @php
-                                            $isActive = false;
-                                            if ($orderData['status'] == $key) {
-                                                $isActive = true;
-                                                $currentStatusReached = true;
-                                            } elseif (!$currentStatusReached) {
-                                                $isActive = true;
-                                            }
-                                        @endphp
-                                        <div class="timeline-step text-center {{ $isActive ? 'active-step' : '' }}">
-                                            <div class="circle d-flex justify-content-center align-items-center">
-                                                <i class="fas fa-check"></i>
-                                                <span class="icon-placeholder"></span>
-                                            </div>
-                                            <p class="status-label mt-2">{{ $label }}</p>
-                                        </div>
-                                        @if (!$loop->last)
-                                            <div class="line {{ $isActive ? 'active-line' : '' }}"></div>
-                                        @endif
-                                    @endforeach
-                                </div>
-                                <button class="btn btn-warning review-order-btn d-block mx-auto px-5 py-2 rounded-pill">Review Order</button>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                @for ($i = 0; $i < 10; $i++)
+                    <x-food-activities-item :orderStatuses="$orderStatuses" />
+                @endfor
             </div>
         </div>
 
         {{-- TAB PANE: CHARITY ACTIVITIES CONTENT --}}
         <div class="tab-pane fade" id="charity-content" role="tabpanel" aria-labelledby="charity-tab">
-            <div class="alert alert-info" role="alert">
-                Charity activities will be displayed here.
+            <div class="d-flex flex-row upcoming-event-wrap">
+                <section class="upcoming-events col-12 col-md-8 d-flex flex-column gap-2">
+                    <h2>YOUR UPCOMING EVENTS</h2>
+                    <div class="upcoming-content d-flex flex-row align-items-center">
+                        <div class="container-arrow d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-angle-left arrow"></i>
+                        </div>
+
+                        <div class="scroll-container d-flex mx-3">
+                            <div class="event-cards-wrapper">
+                               @php
+                                    $upcomingEvents = [
+                                        (object)[
+                                            'title' => 'Flavor & Favor',
+                                            'organizer' => 'Chef Renatto Moeloek',
+                                            'location' => 'Yogyakarta',
+                                            'date' => 'April 2025',
+                                            'participants' => '1,350',
+                                            'image' =>asset('assets/memasak.jpeg')
+                                        ],
+                                        (object)[
+                                            'title' => 'Flavor & Favor',
+                                            'organizer' => 'Chef Renatto Moeloek',
+                                            'location' => 'Yogyakarta',
+                                            'date' => 'April 2025',
+                                            'participants' => '1,500',
+                                            'image' =>asset('assets/memasak.jpeg')
+                                        ],
+                                        (object)[
+                                            'title' => 'Flavor & Favor',
+                                            'organizer' => 'Chef Renatto Moeloek',
+                                            'location' => 'Yogyakarta',
+                                            'date' => 'April 2025',
+                                            'participants' => '1,500',
+                                            'image' =>asset('assets/memasak.jpeg')
+                                        ],
+                                        (object)[
+                                            'title' => 'Flavor & Favor',
+                                            'organizer' => 'Chef Renatto Moeloek',
+                                            'location' => 'Yogyakarta',
+                                            'date' => 'April 2025',
+                                            'participants' => '1,500',
+                                            'image' =>asset('assets/memasak.jpeg')
+                                        ],
+                                        (object)[
+                                            'title' => 'Flavor & Favor',
+                                            'organizer' => 'Chef Renatto Moeloek',
+                                            'location' => 'Yogyakarta',
+                                            'date' => 'April 2025',
+                                            'participants' => '1,500',
+                                            'image' =>asset('assets/memasak.jpeg')
+                                        ],
+                                    ];
+                                @endphp
+ 
+                                <x-event-upcoming-item :upcomingEvents="$upcomingEvents" />
+
+                            </div>
+                        </div>
+                        <div class="container-arrow d-flex align-items-center justify-content-center">
+                            <i class="fa-solid fa-angle-right arrow"></i>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="create-event-container col-12 col-md-4">
+                    <div class="create-event-mascot d-flex justify-content-end">
+                        <img src="{{asset('assets/mascot_create_event.png')}}">
+                    </div>
+                    
+                    <div class="create-event d-flex">
+                        <h2 class="create-event-title">CREATE YOUR OWN EVENT!</h2>
+                        <p class="create-event-quote">Don't Just Join-Lead!<br>Propose Your Own Sayfood Gathering</p>
+                        <button class="btn btn-propose-event"n>PROPOSE EVENT</button>
+                    </div>
+                </section>
+        
             </div>
-            {{-- List aktivitas charity (jika ada) --}}
-            @for ($i = 0; $i < 2; $i++)
-                <div class="activity-item d-flex align-items-center justify-content-between p-3 mb-3 rounded-3" style="background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,.05);">
-                    <div class="d-flex flex-column me-3">
-                        <span class="fw-bold">DONATION MADE</span>
-                        <small class="text-muted">20 May 2023</small>
-                    </div>
-                    <div class="d-flex flex-column me-3">
-                        <span class="fw-bold">AMOUNT</span>
-                        <span class="text-info fw-bold">IDR 10.000,00</span>
-                    </div>
-                    <div class="d-flex flex-column flex-grow-1 me-3">
-                        <span class="fw-bold">CAMPAIGN</span>
-                        <span>"Food for Homeless in Bogor"</span>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-primary btn-sm rounded-pill px-3 dropdown-toggle" type="button" id="dropdownMenuButtonCharity{{ $i }}" data-bs-toggle="dropdown" aria-expanded="false">
-                            View Details
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonCharity{{ $i }}">
-                            <li><a class="dropdown-item" href="#">Charity Detail 1</a></li>
-                            <li><a class="dropdown-item" href="#">Charity Detail 2</a></li>
-                        </ul>
-                    </div>
+            
+            <section class="journey-section">
+                <h2>Let's Take a Look of Your Journey With SAYFOOD!</h2>
+                <div class="event-grid">
+                    @php
+                        $events = [
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ],
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ],
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ],
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ],
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ],
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ],
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ],
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ],
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ],
+                            [
+                                'title' => 'RENDANG FOR PALEMBANG',
+                                'organizer' => 'Willie Salim',
+                                'image_color' => 'FFDDC1',
+                                'description' => 'Rendang for Palembang was a heartwarming donation event...',
+                                'location' => 'Keluar Barops, Palembang',
+                                'date' => 'Senin, 12 Mei 2025',
+                                'time' => '10.45',
+                                'duration' => '12 hours',
+                            ]
+                        ];
+                    @endphp
+
+                    <x-event-journey-section :events="$events" />
+
                 </div>
-            @endfor
+            </section>
         </div>
     </div>
     {{-- END SINGLE TAB CONTENT CONTAINER --}}
@@ -195,46 +283,3 @@
 
 
 @endsection
-
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const donationAmountValue = document.getElementById('donationAmountValue');
-    const toggleButton = document.getElementById('toggleDonationVisibility');
-    const visibilityIcon = document.getElementById('visibilityIcon');
-
-    console.log('Script Donasi Dimuat.');
-    console.log('donationAmountValue:', donationAmountValue);
-    console.log('toggleButton:', toggleButton);
-    console.log('visibilityIcon:', visibilityIcon);
-
-    if (donationAmountValue && toggleButton && visibilityIcon) {
-        console.log('Semua elemen yang diperlukan ditemukan.');
-
-        function setDonationVisibility(isVisible) {
-            if (isVisible) {
-                donationAmountValue.style.filter = 'none';
-                visibilityIcon.classList.remove('bi-eye-fill');
-                visibilityIcon.classList.add('bi-eye-slash-fill');
-            } else {
-                donationAmountValue.style.filter = 'blur(5px)';
-                visibilityIcon.classList.remove('bi-eye-slash-fill');
-                visibilityIcon.classList.add('bi-eye-fill');
-            }
-            localStorage.setItem('hideDonationAmount', !isVisible);
-        }
-
-        const hideAmountFromStorage = localStorage.getItem('hideDonationAmount') === 'true';
-        setDonationVisibility(!hideAmountFromStorage);
-
-        toggleButton.addEventListener('click', function() {
-            console.log('Tombol toggle diklik!');
-            const currentVisibility = donationAmountValue.style.filter === 'none';
-            setDonationVisibility(!currentVisibility);
-        });
-    } else {
-        console.error('Satu atau lebih elemen untuk toggle donasi tidak ditemukan.');
-    }
-});
-</script>
-@endpush

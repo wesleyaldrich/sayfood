@@ -3,11 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleButton = document.getElementById('toggleDonationVisibility');
     const visibilityIcon = document.getElementById('visibilityIcon');
 
-    console.log('Script Donasi Dimuat.');
-    console.log('donationAmountValue:', donationAmountValue);
-    console.log('toggleButton:', toggleButton);
-    console.log('visibilityIcon:', visibilityIcon);
-
     if (donationAmountValue && toggleButton && visibilityIcon) {
         console.log('Semua elemen yang diperlukan ditemukan.');
 
