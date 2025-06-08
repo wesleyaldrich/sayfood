@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/activity', function(){
+    return view('activity');
+})->name('activity');
+
 Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
@@ -21,7 +25,6 @@ Route::get('/activity', function () {
 })->name('activity');
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
- 
     // DELETE SOON!
     Route::get('/logout', [AuthController::class, 'logout']);
 
@@ -29,7 +32,7 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
         return "You are currently authenticated!";
     });
 
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 
