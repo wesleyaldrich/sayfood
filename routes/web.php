@@ -22,7 +22,7 @@ Route::get('/activity', function(){
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
     // DELETE SOON!
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/test', function () {
         return "You are currently authenticated!";
@@ -32,10 +32,14 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
 
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 
-    Route::post('/profile', [AuthController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
 
-    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('updateProfileImage');
-    
+    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
+
+    Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
+
+    Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
+
 });
 
 Route::middleware('auth')->group(function () {

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\RestaurantRegistration;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -227,13 +228,12 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Invalidate the user's session
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('show.login');
+        return redirect()->route('selection.login');
     }
 
     public function profile()
@@ -313,5 +313,29 @@ class AuthController extends Controller
         return redirect()->route('profile')->withErrors([
             ['error' => 'Error: failed to change profile image.']
         ]);
+    }
+    
+    public function redirectToRestaurantLogin(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('show.login.restaurant');
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        $currentUser = Auth::user();
+        $currentUser = User::find($currentUser->id);
+        $currentUser->delete();
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('selection.login');
     }
 }

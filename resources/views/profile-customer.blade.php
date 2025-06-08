@@ -7,7 +7,7 @@
         <div class="container-fluid profile-heading"></div>
         <div class="profile-content d-flex flex-column align-items-center">
             <div class="profile-image-container mb-4">
-                <form action="{{ route('updateProfileImage') }}" method="POST" enctype="multipart/form-data" id="profile-image-form">
+                <form action="{{ route('update.profile.image') }}" method="POST" enctype="multipart/form-data" id="profile-image-form">
                     @csrf
                     <label for="profile-image-input" style="cursor:pointer;">
                         <img class="profile-image" src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : asset('assets/example/profile.jpg') }}" alt="profile image" id="profile-image-preview">
@@ -19,7 +19,7 @@
                 @error('profile_image')
                     <div class="text-danger text-center">{{ $message }}</div>
                 @enderror
-                <form action=" {{ route('updateProfile') }} " method="POST" class="d-flex flex-column justify-content-between align-items-center">
+                <form action=" {{ route('update.profile') }} " method="POST" class="d-flex flex-column justify-content-between align-items-center">
                     @csrf   
 
                     <div class="form-group mb-3">
@@ -61,11 +61,23 @@
 
             <div class="container-fluid d-flex justify-content-center align-items-center">
                 <div class="profile-options justify-content-around row mt-5">
-                    <a href="" class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                    <form id="login-as-restaurant-form" method="POST" action="{{ route('login.as.restaurant') }}" style="display: none;">@csrf</form>
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf</form>
+                    <form id="delete-account-form" method="POST" action="{{ route('delete.account') }}" style="display: none;">@csrf</form>
+
+                    <a href="{{ route('login.as.restaurant') }}"
+                    onclick="
+                        event.preventDefault();
+                        document.getElementById('login-as-restaurant-form').submit();"
+                    class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
                         <img src="{{ asset('assets/profile_option_login_as_restaurant.png') }}" class="p-2" alt="icon">
                         <p class="oswald">LOG IN AS RESTAURANT</p>
                     </a>
-                    <a href="" class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                    <a href="{{ route('logout') }}"
+                    onclick="
+                        event.preventDefault();
+                        document.getElementById('logout-form').submit();"
+                    class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
                         <img src="{{ asset('assets/profile_option_logout.png') }}" class="p-2" alt="icon">
                         <p class="oswald">LOG OUT</p>
                     </a>
@@ -73,7 +85,11 @@
                         <img src="{{ asset('assets/profile_option_reset_password.png') }}" class="p-2" alt="icon">
                         <p class="oswald">RESET PASSWORD</p>
                     </a>
-                    <a href="" class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                    <a href="{{ route('delete.account') }}"
+                    onclick="
+                        event.preventDefault();
+                        document.getElementById('delete-account-form').submit()"
+                    class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
                         <img src="{{ asset('assets/profile_option_delete.png') }}" class="p-2" alt="icon">
                         <p class="oswald">DELETE ACCOUNT</p>
                     </a>
