@@ -280,6 +280,12 @@
     </div>
     {{-- END SINGLE TAB CONTENT CONTAINER --}}
 </div>
-
-
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/activity.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/activity.js') }}" defer></script>
+@endpush

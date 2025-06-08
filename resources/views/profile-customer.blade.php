@@ -83,3 +83,7 @@
     </div>
 
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+@endpush
