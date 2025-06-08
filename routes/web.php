@@ -8,10 +8,6 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/activity', function(){
-    return view('activity');
-})->name('activity');
-
 Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
@@ -20,7 +16,7 @@ Route::get('/charity', function () {
     return view('charity');
 })->name('charity');
 
-Route::get('/activity', function () {
+Route::get('/activity', function(){
     return view('activity');
 })->name('activity');
 
@@ -32,13 +28,14 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
         return "You are currently authenticated!";
     });
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('updateProfile');
 
     Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('updateProfileImage');
+    
 });
 
 Route::middleware('auth')->group(function () {
