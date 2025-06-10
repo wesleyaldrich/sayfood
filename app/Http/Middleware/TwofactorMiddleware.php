@@ -21,7 +21,9 @@ class TwofactorMiddleware
             return redirect()->route('show.login');
         }
 
-        if (!session()->has('two_factor_verified')) {
+        $user = Auth::user();
+
+        if (!$user->two_factor_verified) {
             // Redirect to the two-factor verification page
             return redirect()->route('twofactor.verif');
         }

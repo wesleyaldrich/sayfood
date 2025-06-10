@@ -219,3 +219,11 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 </div>
 
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/foods.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/foods.js') }}" defer></script>
+@endpush
