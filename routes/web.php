@@ -3,17 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\HomeDishesController;
+
+
+Route::get('/home1', function () {
+    return view('home1');
+})->name('home1');
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/foods', function () {
-    return view('foods');
-})->name('foods');
+Route::get('/', [HomeDishesController::class, 'show'])->name('home');
 
-Route::middleware(['auth', 'twofactor'])->group(function () {
- 
+Route::middleware('auth')->group(function () {
     // DELETE SOON!
     Route::get('/logout', [AuthController::class, 'logout']);
 

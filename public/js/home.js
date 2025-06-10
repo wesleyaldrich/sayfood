@@ -372,3 +372,79 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const slidesContainer = document.getElementById('slides');
+    const prevBtn = document.getElementById('prevBtn_shamo');
+    const nextBtn = document.getElementById('nextBtn_shamo');
+    const indicatorsContainer = document.getElementById('indicators');
+    const slideElements = document.querySelectorAll('.share_moment-slide');
+    const indicatorElements = document.querySelectorAll('.share_moment-indicator');
+
+    let currentIndex = 0;
+    const slideCount = slideElements.length;
+
+    if (slideCount === 0) { 
+        if(prevBtn) prevBtn.style.display = 'none';
+        if(nextBtn) nextBtn.style.display = 'none';
+        if(indicatorsContainer) indicatorsContainer.style.display = 'none';
+        const navButtonsContainer = document.querySelector('.share_moment-nav-buttons-container');
+        if (navButtonsContainer) navButtonsContainer.style.display = 'none';
+        return;
+    }
+    
+    function updateCarousel() {
+        slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        indicatorElements.forEach((indicator, index) => {
+            if (index === currentIndex) {
+                indicator.classList.add('share_moment-active');
+            } else {
+                indicator.classList.remove('share_moment-active');
+            }
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateCarousel();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+            updateCarousel();
+        });
+    }
+
+    indicatorElements.forEach(indicator => {
+        indicator.addEventListener('click', function() {
+            currentIndex = parseInt(this.getAttribute('data-index'));
+            updateCarousel();
+        });
+    });
+
+    let autoAdvanceInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % slideCount;
+        updateCarousel();
+    }, 5000);
+
+    const carouselContainer = document.querySelector('.share_moment-carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoAdvanceInterval);
+        });
+        carouselContainer.addEventListener('mouseleave', () => {
+            autoAdvanceInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % slideCount;
+                updateCarousel();
+            }, 5000);
+        });
+    }
+    if (slideCount > 0) {
+        updateCarousel();
+    }
+});
+
