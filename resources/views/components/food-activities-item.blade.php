@@ -70,12 +70,14 @@
                                             $isActive = true;
                                         }
                                     @endphp
-                                    <div class="timeline-step text-center {{ $isActive ? 'active-step' : '' }}">
-                                        <div class="circle d-flex justify-content-center align-items-center">
-                                            <i class="fas fa-check"></i>
-                                            <span class="icon-placeholder"></span>
+                                    <div class="timeline-wrapper d-flex flex-wrap justify-content-center gap-3">
+                                        <div class="timeline-step text-center {{ $isActive ? 'active-step' : '' }}">
+                                            <div class="circle d-flex justify-content-center align-items-center">
+                                                <i class="fas fa-check"></i>
+                                                <span class="icon-placeholder"></span>
+                                            </div>
+                                            <p class="status-label d-flex mt-1">{{ $label }}</p>
                                         </div>
-                                        <p class="status-label d-flex mt-1">{{ $label }}</p>
                                     </div>
                                     @if (!$loop->last)
                                         <div class="line {{ $isActive ? 'active-line' : '' }}"></div>
@@ -84,12 +86,43 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-2 align-items-end">
-                            <button class="btn review-order-btn px-5 py-2 rounded-pill">{{ $orderData['reviewButtonText'] ?? 'Review Order' }}</button>
+                         <div class="col-12 col-md-2 align-items-end">
+                            <button type="button" class="btn review-order-btn px-5 py-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#reviewModal{{ $index }}">
+                                {{ $orderData['reviewButtonText'] ?? 'Review Order' }}
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+ 
+        <div class="modal fade" id="reviewModal{{ $index }}" tabindex="-1" aria-labelledby="reviewModalLabel{{ $index }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content custom-review-modal">
+                    
+                    <div class="modal-header border-0 d-flex justify-content-end">
+                        <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close" style="background: none; border: none;">
+                            <i class="bi bi-x-lg text-white fs-4"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        <h5 class="mb-3">How Was Your Food?</h5>
+
+                        <div class="star-rating mb-3">
+                            @for ($i = 5; $i >= 1; $i--)
+                                <i class="fa fa-star star" data-rating="{{ $i }}"></i>
+                            @endfor
+                        </div>
+
+                        <textarea class="form-control comment-box mb-3" rows="3" placeholder="Write your comments here..."></textarea>
+
+                        <button type="button" class="btn submit px-4 rounded-pill">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     @endforeach
 </div>
+    

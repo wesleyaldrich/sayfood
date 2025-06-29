@@ -23,11 +23,11 @@ h1 {
     opacity: 0.5;
 }
 
-.nav-pills .nav-item { /* Jarak antar item nav (tab) */
+.nav-pills .nav-item { 
     margin-right: 25px
 }
 
-.nav-pills .nav-link.food-tab { /* Specific background images for each tab */
+.nav-pills .nav-link.food-tab { 
     background-image: url('../assets/bg_foodactivity_btn.svg');
     background-color:#FFCC5F;
     color: black;
@@ -40,8 +40,8 @@ h1 {
 }
 
 .nav-pills .nav-link:hover {
-    opacity: 1; /* Opacity menjadi normal (100%) */
-    transform: translateY(-2px); /* Efek lift saat hover */
+    opacity: 1; 
+    transform: translateY(-2px); 
     box-shadow: 0 4px 8px rgba(0,0,0,.15);
 }
 
@@ -114,8 +114,8 @@ h1 {
 .activity-main-item {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08); /* Sedikit lebih tebal */
-    overflow: hidden; /* Penting untuk border-radius pada card */
+    box-shadow: 0 2px 8px rgba(0,0,0,.08); 
+    overflow: hidden; 
 }
 
 .card-header{
@@ -181,12 +181,12 @@ h1 {
 .activity-item-date,
 .activity-item-total {
     flex-shrink: 0;
-    min-width: 120px; /* Cukupkan ruang untuk teks */
+    min-width: 120px; 
     font-size: 0.95rem;
 }
 
 .activity-item-total .text-success {
-    font-size: 1.1rem; /* Sedikit lebih besar untuk total */
+    font-size: 1.1rem;
 }
 
 .resto-name{
@@ -235,12 +235,11 @@ h1 {
 
 /* --- Details Section (when collapsed) --- */
 .details-section {
-    background-color: #fff; /* Pastikan background putih */
-    /* Border-radius sudah diatur di .activity-main-item */
+    background-color: #fff;
 }
 
 .details-title {
-    color: #EE8D4A; /* Warna orange untuk "DETAILS :" */
+    color: #EE8D4A; 
     font-weight: bold;
     font-family: "Oswald";
     font-size: 1.1rem;
@@ -259,7 +258,7 @@ h1 {
     display: flex;
     justify-content: space-between; 
     align-items: center; 
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .timeline-step {
@@ -270,6 +269,7 @@ h1 {
     position: relative;
     z-index: 1; 
     text-align: center;
+    flex: 1 1 16%;
 }
 
 .timeline-step .circle {
@@ -286,23 +286,24 @@ h1 {
     transition: all 0.3s ease;
 }
 
+
 .timeline-step.active-step .circle {
-    background-color: #234C4C; /* Warna hijau untuk lingkaran aktif */
+    background-color: #234C4C; 
     border-color: #234C4C;
     color: #fff;
 }
 
 .timeline-step .circle .fas.fa-check {
-    display: none; /* Icon centang tersembunyi secara default */
+    display: none;
 }
 
 .timeline-step.active-step .circle .fas.fa-check {
-    display: block; /* Tampilkan icon centang jika aktif */
+    display: block; 
 }
 
 .timeline-step .status-label {
-    width: 65px; /* Lebar tetap untuk label status agar konsisten */
-    height: 40px; /* Tinggi disesuaikan dengan konten */
+    width: 65px; 
+    height: 40px; 
     align-items: center;
     font-size: 0.9rem;
     font-family: "Oswald";
@@ -312,39 +313,46 @@ h1 {
 }
 
 /* Garis penghubung antar lingkaran */
-.order-status-timeline-container .line { /* Target garis di dalam kontainer baru */
+.order-status-timeline-container .line { 
     height: 2px;
-    background-color: #ccc; /* Warna garis default */
-    flex-grow: 1; /* Ini yang membuat garis mengisi ruang di antara langkah-langkah */
-    margin: 0 -2px; /* Margin negatif kecil agar garis terlihat menyambung sempurna dengan lingkaran */
+    background-color: #ccc; 
+    flex-grow: 1;
+    margin: 0 -2px; 
     transition: background-color 0.3s ease;
     margin-bottom: 55px;
 }
 
 .order-status-timeline-container .line.active-line {
-    background-color: #234C4C; /* Warna hijau untuk garis aktif */
+    background-color: #234C4C; 
 }
 
+.order-status-timeline-container {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+}
 
+.timeline-step {
+    min-width: 80px;
+}
 
 /* --- Review Order Button --- */
 .review-order-btn {
-    background-color: #ffcd3a; /* Warna kuning dari desain */
-    color: #6a4421; /* Warna teks cokelat */
+    background-color: #ffcd3a;
+    color: #6a4421; 
     font-weight: bold;
     border: none;
-    padding: 10px 40px; /* Padding lebih besar */
+    padding: 10px 40px; 
     font-size: 1rem;
     box-shadow: 0 2px 5px rgba(0,0,0,.1);
     transition: background-color 0.3s ease;
 }
 
 .review-order-btn:hover {
-    background-color: #ffcd3a !important; /* Warna kuning dari desain */
-    color: #6a4421; /* Warna teks cokelat */
+    background-color: #ffcd3a !important; 
+    color: #6a4421; 
     font-weight: bold;
     border: none;
-    padding: 10px 40px; /* Padding lebih besar */
+    padding: 10px 40px; 
     font-size: 1rem;
     box-shadow: 0 2px 5px rgba(0,0,0,.1);
     transition: background-color 0.3s ease;
@@ -362,6 +370,7 @@ h1 {
 .upcoming-events h2,
 .create-event h2 {
     color: #063434;
+    font-family: "Oswald";
 }
 
 .scroll-container{
@@ -382,7 +391,7 @@ h1 {
 }
 
 .container-arrow{
-    background-color: #FFDD7A; /* warna kuning soft */
+    background-color: #FFDD7A; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
     line-height: 1;
@@ -402,7 +411,7 @@ h1 {
     align-items: center;
     justify-content: center;
     border-radius: 50px;
-    color: #005D56; /* hijau gelap untuk panah */
+    color: #005D56; 
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
@@ -417,9 +426,8 @@ h1 {
 }
 
 
-/* Individual Event Card (Yang baru disesuaikan) */
+/* Individual Event Card*/
 .event-card-upcoming {
-    /* display: flex; */
     flex: 0 0 auto;
     width: 400px;
     scroll-snap-align: start;
@@ -435,18 +443,16 @@ h1 {
     object-fit: cover;
     display: block;
     border-radius: 12px 12px 0 0;
-    /* z-index: 0; */
 }
 
 .parent-container {
-  overflow-x: hidden; /* agar tidak melebihi batas body */
+  overflow-x: hidden;
 }
 
 /* Overlay Informasi Event */
 .event-info-overlay {
     gap: 0;
     color: white;
-    z-index: 1;
 }
 
 .event-info-overlay-content {
@@ -456,38 +462,38 @@ h1 {
 }
 
 .event-main-details {
-    flex-basis: calc(65% - 5px); /* Sesuaikan lebar */
+    flex-basis: calc(65% - 5px);
     text-align: left;
 }
 
 .event-main-details h3 {
     margin: 0;
     color: white;
-    font-size: 1.2em; /* Sedikit lebih besar */
-    font-weight: 700; /* Lebih tebal */
+    font-size: 1.2em; 
+    font-weight: 700; 
 }
 
 .event-main-details p {
     margin: 5px 0 0;
-    font-size: 0.9em; /* Sedikit lebih besar */
-    color: #E0E0E0; /* Warna teks abu-abu terang */
-    font-weight: 500; /* Sedikit lebih tebal */
+    font-size: 0.9em; 
+    color: #E0E0E0; 
+    font-weight: 500; 
 }
 
 .event-meta-details {
-    flex-basis: calc(35% - 5px); /* Sisa lebar */
+    flex-basis: calc(35% - 5px);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
-    margin-bottom: 5px; /* Jarak dari bawah overlay jika ada spasi */
+    margin-bottom: 5px; 
 }
 
 .event-meta-details .meta-item {
     display: flex;
     align-items: center;
-    font-size: 0.85em; /* Sedikit lebih besar */
-    color: white; /* Warna teks putih */
+    font-size: 0.85em; 
+    color: white; 
 }
 
 .event-meta-details .meta-item img {
@@ -495,12 +501,12 @@ h1 {
     height: 16px;
     margin-right: 5px;
     object-fit: contain;
-    filter: none; /* Asumsi ikon sudah putih, jika hitam bisa pakai invert(1) */
+    filter: none; 
 }
 
 .overlay-area{
-    height: 70px; /* Contoh: beri tinggi */
-    justify-content: flex-start; /* Sejajarkan ke kiri */
+    height: 70px; 
+    justify-content: flex-start; 
     bottom: 85px;
     background-color: #234C4C;
 }
@@ -582,7 +588,6 @@ p{
     position: relative;
 }
 
-/* --- CREATE YOUR OWN EVENT section --- */
 .create-event {
     background-color: #FEA322;
     box-shadow: 0 2px 5px rgba(0,0,0,.1);
@@ -630,6 +635,7 @@ p{
     height: 50px;
     object-fit: contain;
 }
+
 /* History Card*/
 
 .journey-section {
@@ -666,7 +672,7 @@ p{
 }
 
 .event-card-header {
-    background-color: #234C4C; /* Contoh warna header, bisa disesuaikan */
+    background-color: #234C4C; 
     color: white;
     padding: 10px;
     padding-top: 20px;
@@ -692,18 +698,18 @@ p{
     gap: 20px;
     margin-left: 10px;
     margin-right: 10px;
-    align-items: flex-start; /* Align image and text at the top */
+    align-items: flex-start; 
 }
 
 .event-card-body-img {
     border-radius: 12px;
     border: white 4px solid;
     object-fit: cover;
-    flex-shrink: 0; /* Prevent image from shrinking */
+    flex-shrink: 0; 
 }
 
 .event-details {
-    flex-grow: 1; /* Allow details to take remaining space */
+    flex-grow: 1; 
     text-align: left;
 }
 
@@ -718,7 +724,7 @@ p{
 
 .event-meta {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns for meta info */
+    grid-template-columns: 1fr 1fr;
     gap: 10px 15px;
     margin-bottom: 20px;
     margin-top: 20px;
@@ -741,7 +747,7 @@ p{
     width: fit-content;
     justify-content: center;
     align-items: center;
-    background-color: #4CAF50; /* Warna hijau untuk tombol download */
+    background-color: #4CAF50;
     color: white;
     padding: 10px 18px;
     border-radius: 6px;
@@ -762,25 +768,235 @@ p{
     border: none;
 }
 
-/* POP UP SECTION */
-.modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+.custom-review-modal {
+    background-color: #1d4c4f;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
 }
+
+.custom-review-modal h5 {
+    font-weight: bold;
+}
+
+.star-rating {
+    font-size: 28px;
+    color: #ccc;
+    cursor: pointer;
+    direction: rtl; /* <-- Tambahan ini */
+    display: inline-flex;
+    gap: 5px;
+}
+
+.star-rating .star:hover,
+.star-rating .star:hover ~ .star,
+.star-rating .star.selected,
+.star-rating .star.selected ~ .star {
+    color: gold;
+}
+
+.comment-box {
+    margin-top: 10px;
+    height: 120px;
+    border-radius: 15px;
+    padding: 15px;
+    resize: none;
+    color: black;
+}
+
+.submit{
+    background-color: #007771 !important;
+    color: white;
+    font-size: "Lato";
+}
+
+.event-card-upcoming {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.event-card-upcoming:hover {
+    transform: scale(1.01);
+}
+
 .modal-content {
-    background: white;
-    padding: 2rem;
     border-radius: 1rem;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
 }
-.d-none {
-    display: none;
+
+.modal-body img {
+    border-radius: 1rem;
+    object-fit: cover;
+}
+
+
+/* EVENT UPCOMING */
+
+.event-modal-card {
+    background-color: #fff6eb;
+    border-radius: 30px;
+    border: none;
+}
+
+
+.event-title {
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: 'Oswald';
+    color: #234C4C;
+    margin-bottom: 0.25rem;
+}
+
+.event-organizer {
+    font-weight: 600;
+    font-size: 1rem;
+    font-style: italic;
+    font-family: 'Lato';
+    color: #d38800;
+    margin-bottom: 1rem;
+}
+
+.event-description {
+    color: #333;
+    font-size: 0.95rem;
+    font-family: 'Lato';
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.event-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid #d38800;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-family: 'Lato';
+    color: black;
+}
+
+.event-info-icon{
+    filter: brightness(0) saturate(100%) invert(24%) sepia(6%) saturate(3929%) hue-rotate(131deg) brightness(90%) contrast(84%);
+}
+
+.participant-avatars {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 4px;
+}
+
+.participant-avatar {
+    flex: 0 0 auto;
+    text-align: center;
+    min-width: 60px;
+}
+
+.avatar-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    
+}
+
+.avatar-name {
+    font-size: 0.75rem;
+    color: #444;
+    white-space: nowrap;
+}
+
+.link-whatsapp {
+    color: #007f7f;
+    text-decoration: none;
+    font-size: 0.95rem;
+    word-break: break-all;
+}
+
+.modal-dialog{
+    width: 55vw;
+}
+
+@media(max-width: 580px){
+    .modal-dialog{
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 90% !important;
+    }
+}
+
+/* PROPOSE EVENT */
+label{
+    font-family: 'Lato';
+}
+
+.time-box {
+    height: px !important;
+    font-size: 18px !important;
+    text-align: center;
+    border-radius: 10px;
+}
+.submit-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-terms {
+    background-color: #FEA322;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+
+.btn-submit {
+    background-color: #007771;
+    color: #fff;
+    font-weight: bold;
+    font-family: 'Oswald';
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.btn-submit:hover{
+    color: none;
+}
+
+.modal .modal-dialog {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+
+#termsAndConditionsModal .modal-dialog {
+position: absolute;
+top: 10%;
+left: 50%;
+transform: translateX(-50%);
+z-index: 1060; /* Lebih tinggi dari modal utama */
+}
+
+input[type="checkbox"] {
+  vertical-align: middle;
+  margin: 0 6px 0 0;
+}
+
+label[for="agreeTermsCheckbox"] {
+  display: inline !important;
+  vertical-align: middle;
 }
