@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/foods.css') }}">
     <script src="{{ asset('js/foods.js') }}" defer></script>
+    <script src="{{ asset('js/header.js') }}" defer></script>
 </head>
 <body>
     @include('layout.header')
