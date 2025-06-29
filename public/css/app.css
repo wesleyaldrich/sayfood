@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+
 .oswald {
     font-family: "Oswald", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
 }
 
-body {
+.sayfood-content-container {
+    padding-top: 65px;
+}
+
+html, body {
     margin: 0;
     padding: 0;
     background-color: #F8F4E9;
@@ -24,6 +29,12 @@ header {
     justify-content: space-between;
     padding: 0 24px;
     font-size: 1.75rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #F8F4E9;
+    z-index: 100;
 }
 
 header .logo, header .logo a {
