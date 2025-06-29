@@ -13,9 +13,10 @@ Route::get('/', function () {
 
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
 
-Route::get('/charity', function () {
-    return view('charity');
-})->name('charity');
+Route::get('/events', function () {
+    return "Coming soon";
+    // return view('charity');
+})->name('events');
 
 Route::get('/activity', function(){
     return view('activity');
