@@ -230,3 +230,32 @@
     font-weight: bold;
     font-size: larger;
 }
+
+.addnotesmodal{
+    border-radius: 1rem; /* Membuat sudut lebih tumpul (1rem = 16px) */
+    border: 3px solid #234C4C; /* Menambahkan border dengan warna tema Anda */
+    overflow: hidden;
+}
+
+/* Style untuk bagian header */
+.addnotesmodal .modal-header {
+    background-color: #234C4C; /* Warna background hijau toska */
+    color: white; /* Warna teks judul menjadi putih */
+    border-bottom: none; /* Menghilangkan garis batas bawah header */
+}
+
+/* Style untuk tombol close (X) di header agar terlihat jelas */
+.addnotesmodal .modal-header .close {
+    color: white;
+    opacity: 0.8;
+    text-shadow: none; /* Menghilangkan bayangan default agar lebih bersih */
+}
+.addnotesmodal .modal-header .close:hover {
+    opacity: 1;
+}
+
+.addnotesmodal .modal-footer {
+    background-color: #f8f9fa; /* Memberi sedikit warna pada footer */
+    border-top: 1px solid #dee2e6;
+}
+
