@@ -13,7 +13,7 @@
                 @csrf
                 <div class="form-group mb-2">
                     <label for="email" class="oswald">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') ?? $email }}" required>
                     @error('email')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror

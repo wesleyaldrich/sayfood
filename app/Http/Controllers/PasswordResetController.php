@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -14,7 +15,14 @@ class PasswordResetController extends Controller
 {
     public function requestForm()
     {
-        return view('forgot-password');
+        $currentUser = Auth::user();
+        $email = '';
+
+        if ($currentUser){
+            $email = $currentUser->email;
+        }
+
+        return view('forgot-password', compact('email'));
     }
 
     public function sendResetLink(Request $request)
