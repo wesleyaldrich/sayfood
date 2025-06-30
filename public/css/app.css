@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-
 .oswald {
     font-family: "Oswald", sans-serif;
     font-optical-sizing: auto;
@@ -58,6 +57,7 @@ header .icon-hamburger {
     width: 25px;
     height: 25px;
     display: none;
+    font-size: 0.5rem;
 }
 
 header .icon-hamburger img {
@@ -75,6 +75,7 @@ header .right nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 32px;
 }
 
 header .right nav ul {
@@ -113,8 +114,15 @@ header .right .icons a {
     height: 100%;
 }
 
+.icon-language {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 header .right .icons a .notif-icon-img {
     height: 40px;
+    cursor: pointer;
 }
 
 header .right .icons a .profile-icon-img {
@@ -125,7 +133,8 @@ header .right .icons .language-icon-img {
     height: 35px;
 }
 
-header .dropdown-nav {
+header .dropdown-nav, 
+header .dropdown-language {
     position: absolute;
     width: 200px;
     font-weight: 500;
@@ -142,11 +151,13 @@ header .dropdown-nav {
     transition: max-height 0.3s ease-in-out;
 }
 
-header .dropdown-nav.show {
+header .dropdown-nav.show, 
+header .dropdown-language.show {
     max-height: 500px;
 }
 
-header .dropdown-nav ul {
+header .dropdown-nav ul, 
+header .dropdown-language ul {
     list-style: none;
     padding: 0;
     margin-bottom: 0;
@@ -156,30 +167,124 @@ header .dropdown-nav ul {
     justify-content: center;
 }
 
-header .dropdown-nav ul li {
+header .dropdown-nav ul li, 
+header .dropdown-language ul li {
     width: 100%;
     padding: 4px 0px;
     text-align: center;
 }
 
-header .dropdown-nav ul li a {
+header .dropdown-nav ul li a, 
+header .dropdown-language ul li a {
     display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
 }
 
-header .dropdown-nav ul li a:hover {
+header .dropdown-nav ul li a:hover, 
+header .dropdown-language ul li a:hover {
     color: unset;
     text-decoration: none;
 }
 
-header .dropdown-nav .nav-active {
+header .dropdown-nav .nav-active, 
+header .dropdown-language .language-active {
     background: #234C4C;
     text-decoration: none;
     color: white;
 }
 
+.offcanvas-notif {
+    position: fixed;
+    top: 0;
+    right: -300px; /* hidden by default */
+    width: 300px;
+    height: 100vh; /* full viewport height */
+    color: white;
+    background-color: #007771;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.offcanvas-notif.active {
+    right: 0;
+}
+
+.offcanvas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+h4 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+}
+
+.offcanvas-body {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;      /* enable vertical scrolling */
+    flex-grow: 1;          /* take remaining vertical space */
+}
+
+.offcanvas-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.offcanvas-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #FFF2CE;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notif-content {
+    font-family: lato;
+    margin: 0;
+    font-size: 0.9rem;
+    color: black;
+}
+
+.notif-title {
+    font-weight: bold;
+}
+
+.notif-time {
+    color: gray;
+}
 
 /* RESPONSIVE DESIGN */
 

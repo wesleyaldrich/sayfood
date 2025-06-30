@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('css/foods.css') }}">
+    <script src="{{ asset('js/foods.js') }}" defer></script>
+    <script src="{{ asset('js/header.js') }}" defer></script>
+
     @stack('styles')
 </head>
 <body>
