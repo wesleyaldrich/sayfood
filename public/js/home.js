@@ -339,18 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial Setup
     setTimeout(() => {
-        // Ensure items are cloned for infinite scroll if not already handled by backend:
-        // This assumes your HTML is set up for infinite scrolling like:
-        // [clones of last items] [original items] [clones of first items]
-        // If originalItemCount is the true number of unique items, and `items.length`
-        // is 3 * originalItemCount, this is good.
-        // If `items` only contains original items, you need to clone them here.
-        // For this example, I assume cloning is handled, and `originalItemCount`
-        // is the count of unique items, and `itemCount` includes clones.
-        // The `currentIndex` starts at `originalItemCount` which implies the first
-        // actual item in a setup like: [..., N-1, N] [1, 2, ..., N] [1, 2, ...]
-        //                               ^clones          ^originals     ^clones
-        //                                                ^currentIndex starts here
 
         setupSliderThumb();
         if (items.length > 0) {
@@ -448,3 +436,95 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+        const eventCards = document.querySelectorAll('.event-card');
+        const joinFormModal = document.getElementById('joinFormModal');
+        const closeModal = document.getElementById('closeModal');
+        const joinForm = document.getElementById('joinForm');
+        const phoneInput = document.getElementById('phoneNumber');
+        const phoneError = document.getElementById('phoneError');
+
+        // Modal Title Elements
+        const modalEventTitle = document.getElementById('modalEventTitle');
+        const modalEventHost = document.getElementById('modalEventHost');
+        const modalEventLocation = document.getElementById('modalEventLocation');
+
+        // Show modal with correct event data when card is clicked
+        eventCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Get event data from data attributes
+                const title = card.dataset.eventTitle;
+                const host = card.dataset.eventHost;
+                const location = card.dataset.eventLocation;
+                
+                // Update modal content
+                modalEventTitle.textContent = title;
+                // modalEventHost.textContent = host;
+                // modalEventLocation.textContent = `Location: ${location}`;
+                
+                // Show modal
+                joinFormModal.style.display = 'flex';
+               
+            });
+        });
+
+        // Close modal when X is clicked
+        closeModal.addEventListener('click', () => {
+            joinFormModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        });
+
+        // Close modal when clicking outside
+        joinFormModal.addEventListener('click', (e) => {
+            if (e.target === joinFormModal) {
+                joinFormModal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+        });
+
+        // Phone number validation
+        phoneInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+            if (this.value.length < 10 || this.value.length > 15) {
+                phoneError.style.display = 'block';
+                this.classList.add('error');
+            } else {
+                phoneError.style.display = 'none';
+                this.classList.remove('error');
+            }
+        });
+
+        joinForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Validate phone number again on submit
+            const phoneNumber = phoneInput.value;
+            if (phoneNumber.length < 10 || phoneNumber.length > 15 || !/^[0-9]+$/.test(phoneNumber)) {
+                phoneError.style.display = 'block';
+                phoneInput.classList.add('error');
+                phoneInput.focus();
+                return;
+            }
+            
+            // Get other form values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const age = document.getElementById('age').value;
+            const address = document.getElementById('address').value;
+            
+            // Here you would typically send this data to a server
+            console.log('Form submitted:', {
+                firstName,
+                lastName,
+                phoneNumber,
+                age,
+                address
+            });
+            
+            // Show success message
+            alert('Thank you for registering! We look forward to seeing you at the event.');
+            
+            // Close modal and reset form
+            joinFormModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            joinForm.reset();
+        });
