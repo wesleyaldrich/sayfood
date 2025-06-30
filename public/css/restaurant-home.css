@@ -1,0 +1,385 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+body {
+    font-family: "Oswald", sans-serif;
+}
+
+/* TODAY SUMMARY */
+
+.today-summary-container {
+    background: #234C4C;
+    width: fit-content;
+    color: white;
+    padding: 24px 56px;
+    height: 200px;
+    gap: 56px;
+    align-items: center;
+    border-radius: 56px;
+}
+
+.today-summary-divider {
+    width: 2px;
+    background: white;
+    height: 100%;
+}
+
+.today-summary-title {
+    font-size: 1.5rem;
+}
+
+.today-summary-content {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.mascot_peganghati {
+    height: 200px;
+    margin-left: 40px;
+}
+
+
+
+/* ORDER LIST */
+
+.order-list-container {
+    background: white;
+    padding: 24px;
+    width: 95%;
+    border-radius: 40px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-order-list-container {
+    width: 100%;
+    gap: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.restaurant-order-scroll-wrapper {
+    gap: 10px;
+    align-items: center;
+}
+
+.scroll-btn {
+    padding: 5px;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    background: #FFDD88;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #234C4C;
+    border-radius: 50%;
+    padding: 0px 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.restaurant-order-item {
+    background: #3A3630;
+    color: white;
+    display: flex;
+    min-width: 275px;
+    max-width: 275px;
+    padding: 16px 24px;
+    padding-top: 0px;
+    border-radius: 24px;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+}
+
+.restaurant-order-item .date {
+    background: #EE8D4A;
+    padding: 5px 10px;
+}
+
+.restaurant-order-item .customer-name {
+    font-size: 1.2rem;
+    text-align: start;
+    font-weight: 500;
+    width: 100%;
+    border: #EE8D4A;
+    border-width: 2px;
+}
+
+.restaurant-order-item .profpic {
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: #EE8D4A;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.restaurant-order-item .customer-profile {
+    width: 100%;
+}
+
+.restaurant-order-item .food-category {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.restaurant-order-item .buttons {
+    gap: 20px;
+    width: 100%;
+}
+
+.restaurant-order-item .btn-decline, 
+.restaurant-order-item .btn-accept {
+    font-size: 1.2rem;
+    width: 100%;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.restaurant-order-item .btn-decline {
+    background: #E04C4F;
+}
+
+.restaurant-order-item .btn-accept {
+    background: #5CC071;
+}
+
+
+
+/* CUSTOMER REVIEW */
+
+.customer-review-container {
+    background: #234C4C;
+}
+
+.customer-review-item {
+    background: white;
+    width: 275px;
+    padding: 16px 24px;
+    border-radius: 24px;
+}
+
+.customer-review-item .customer-name {
+    font-size: 1.2rem;
+    text-align: start;
+    font-weight: 500;
+    width: 100%;
+    border: #EE8D4A;
+    border-width: 2px;
+}
+
+.customer-review-item .profpic {
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: #EE8D4A;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.customer-review-item .customer-profile {
+    width: 100%;
+}
+
+.customer-review-item .rating {
+    font-weight: bold;
+}
+
+.customer-review-item .review {
+    text-align: center;
+    font-family: Lato;
+    font-weight: 500;
+}
+
+.customer-review-item .date {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.8rem;
+}
+
+.customer-review-wrapper {
+    gap: 10px;
+}
+
+.total-orders-container {
+    background: #EE8D4A;
+    color: #234C4C;
+}
+
+.total-orders-category-container {
+    gap: 40px;
+}
+
+.total-orders-category-wrapper {
+    background: white;
+    border: #FFDD88;
+    border-width: 10px;
+    border-style: solid;
+    width: 250px;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 50%;
+    position: relative;
+}
+
+.total-orders-category {
+    font-size: 1.5rem;
+}
+
+.total-orders-num {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.total-orders-category-container img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    background: #FFDD88;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.btn-transaction-report {
+    background: #234C4C;
+    color: white;
+    margin-top: 30px;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 1.5rem;
+    display: flex;
+}
+
+
+
+/* RESPONSIVE DESIGN */
+
+@media(max-width: 1250px) {
+    .mascot_peganghati {
+        margin-left: 0;
+    }
+
+    .today-summary-container {
+        gap: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .order-list-container {
+        width: 100%;
+    }
+
+    .total-orders-category-container {
+        gap: 20px;
+    }
+
+    .customer-review-wrapper {
+        flex-direction: column !important;
+    }
+
+    .customer-review-item {
+        width: 100%;
+    }
+
+    .customer-review-item .customer-profile {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+}
+
+@media(max-width: 1115px) {
+    .total-orders-category-wrapper {
+        width: 200px;
+        height: 200px;
+    }
+
+    .total-orders-category {
+        font-size: 1.2rem;
+    }
+
+    .total-orders-num {
+        font-size: 2.5rem;
+    }
+
+    .today-summary-content {
+        font-size: 2rem;
+    }
+
+    .today-summary-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media(max-width: 885px) {
+    .today-summary-container {
+        flex-direction: column !important;
+        height: fit-content;
+    }
+
+    .today-summary-divider {
+        width: 100%;
+        height: 2px;
+    }
+
+    .mascot_peganghati {
+        margin-top: 50px;
+        margin-left: 50px;
+    }
+
+    .today-summary-content {
+        font-size: 2.5rem;
+    }
+
+    .today-summary-title {
+        font-size: 1.5rem;
+    }
+
+    .total-orders-category-container {
+        flex-direction: column !important;
+    }
+
+    .container-fluid-order-list {
+        padding: 10px !important;
+    }
+}
+
+@media(max-width: 630px) {
+    .mascot_peganghati {
+        margin-top: 50px;
+        margin-left: 0px;
+    }
+
+    .today-summary-content {
+        font-size: 2rem;
+    }
+
+    .today-summary-title {
+        font-size: 1.2rem;
+    }
+
+    .container-fluid-today-summary {
+        flex-direction: column !important;
+        align-items: center;
+    }
+
+    .order-list-container {
+        padding: 10px !important;
+    }
+
+    .scroll-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 1rem;
+    }
+}

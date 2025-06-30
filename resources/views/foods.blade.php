@@ -51,7 +51,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         <img src="assets/icon_star.png" alt="star" class="star-icon-filter">
                         <p class="mb-0">1.0</p>
                         <div class="range-wrapper position-relative">
-                            <input type="range" class="custom-range form-range" id="ratingRange" min="1" max="5" step="1" value="4">
+                            <input type="range" class="custom-range form-range" id="ratingRange" min="1" max="5" step="0.5" value="4">
                             <div id="ratingLabel" class="range-label">5</div>
                         </div>
                         <img src="assets/icon_star.png" alt="star" class="star-icon-filter">
@@ -77,7 +77,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 <img class="mycart" src="assets/icon_mycart.png" alt="mycart">
 
 <div class="container-today container-fluid my-4 px-4 py-4 d-flex">
-    <h2>TODAY'S BEST FOOD</h2>
+    <h2 class="category-title">TODAY'S BEST FOOD</h2>
     <div class="foreach-today d-flex overflow-auto flex-nowrap">
         @for ($i = 0; $i < 10; $i++)
             <x-food-item
@@ -97,7 +97,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 </div>
 
 <div class="container-foodcategories container-maincourses container-fluid my-4 px-4 py-4 d-flex">
-    <h2>MAIN COURSES</h2>
+    <h2 class="category-title">MAIN COURSES</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
         @for ($i = 0; $i < 4; $i++)
             <x-food-item
@@ -113,14 +113,14 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             />
         @endfor
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">
-            <h3>VIEW<br>MORE</h3>
+            <h3 class="viewmore-text">VIEW<br>MORE</h3>
         </div>
     </div>
-    <h4 class="viewmore2 mt-4 text-end" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
+    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
 </div>
 
 <div class="container-foodcategories container-desserts container-fluid my-4 px-4 py-4 d-flex">
-    <h2>DESSERTS</h2>
+    <h2 class="category-title">DESSERTS</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
         @for ($i = 0; $i < 4; $i++)
             <x-food-item
@@ -136,14 +136,14 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             />
         @endfor
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">
-            <h3>VIEW<br>MORE</h3>
+            <h3 class="viewmore-text">VIEW<br>MORE</h3>
         </div>
     </div>
-    <h4 class="viewmore2 mt-4 text-end" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
+    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
 </div>
 
 <div class="container-foodcategories container-snacks container-fluid my-4 px-4 py-4 d-flex">
-    <h2>SNACKS</h2>
+    <h2 class="category-title">SNACKS</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
         @for ($i = 0; $i < 4; $i++)
             <x-food-item
@@ -159,14 +159,14 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             />
         @endfor
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">
-            <h3>VIEW<br>MORE</h3>
+            <h3 class="viewmore-text">VIEW<br>MORE</h3>
         </div>
     </div>
-    <h4 class="viewmore2 mt-4 text-end" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
+    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
 </div>
 
 <div class="container-foodcategories container-drinks container-fluid my-4 px-4 py-4 d-flex">
-    <h2>DRINKS</h2>
+    <h2 class="category-title">DRINKS</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
         @for ($i = 0; $i < 4; $i++)
             <x-food-item
@@ -182,10 +182,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             />
         @endfor
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">
-            <h3>VIEW<br>MORE</h3>
+            <h3 class="viewmore-text">VIEW<br>MORE</h3>
         </div>
     </div>
-    <h4 class="viewmore2 mt-4 text-end" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
+    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
 </div>
 
 <div class="modal fade" id="moreDrinksModal" tabindex="-1" aria-labelledby="moreDrinksLabel" aria-hidden="true">

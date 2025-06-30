@@ -5,7 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
 
-
+// numpang sini gais -kalis
+Route::get('/restaurant-home', function () {
+    return view('restaurant-home');
+})->name('restaurant-home');
+// numpang sini gais -kalis
 
 Route::get('/', function () {
     return view('home');
