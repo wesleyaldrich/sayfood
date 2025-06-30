@@ -24,8 +24,12 @@
             <div class="icon-language">
                 <img src="{{ asset('assets/icon_globe.png') }}" alt="Language Icon" class="language-icon-img">
             </div>
-            <a href="{{ url('/profile') }}">
-                <img src="{{ asset('assets/icon_profile.png') }}" alt="Profile Icon" class="profile-icon-img">
+            <a href="{{ route('profile') }}">
+                @if (Auth::check() && Auth::user()->two_factor_verified)
+                    <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="Profile Icon" class="profile-icon-img" style="width: 40px; border-radius: 50%; border: 2px solid #234c4c; object-fit: cover;">
+                @else
+                    <img src="{{ asset('assets/icon_profile.png') }}" alt="Profile Icon" class="profile-icon-img">
+                @endif
             </a>
         </div>
     </div>
