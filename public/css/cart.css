@@ -38,8 +38,9 @@
     font-size: 18px;
     margin: 24px;
     padding-left: 24px;
-    padding-top: 1.5px;
-    padding-bottom: 1.5px;
+    padding-right: 24px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     background-color: antiquewhite;
     border-radius: 20px;
 }

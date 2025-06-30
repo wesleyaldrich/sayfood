@@ -15,7 +15,7 @@
     <span class=mx-2>Pickup Location</span>
 </div>
 
-<div class="pickup-address-tab">
+<div class="pickup-address-tab pb-3">
     <p class="restaurant-name">{{$item->restaurant->name}}</p>
     <p class="restaurant-address">{{$item->restaurant->address}}</p>
 </div>
