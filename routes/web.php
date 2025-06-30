@@ -14,7 +14,6 @@ Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
 
-
 Route::get('/charity', function () {
     return view('charity');
 })->name('charity');

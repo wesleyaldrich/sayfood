@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="notes-and-qty-section">
-                    <button class="add-notes-btn d-flex">
+                    <button class="add-notes-btn d-flex" data-toggle="modal" data-target="#addNoteModal">
                         <img src="assets/add_notes.png" alt="Add" class="add-notes-icon">
                         <p style="color:white" class="my-0">Notes</p>
                     </button>
@@ -53,9 +53,11 @@
         </div>
         
         <div class="button-section">
-            <button class="add-more-btn">
-                <p style="color:white" class="my-0">ADD MORE</p>
-            </button>
+            <a href="foods">
+                <button class="add-more-btn">
+                    <p style="color:white" class="my-0">ADD MORE</p>
+                </button>
+            </a>
         </div>
     </div>
     <div class="payment-contents-right-side">
@@ -114,5 +116,15 @@
         </div>
     </div>
 </div>
+
+<x-popup-modal id="addNoteModal" title="Add Notes">
+    <p class="text-muted">Tulis permintaan khusus Anda di bawah ini.</p>
+    <textarea class="form-control" rows="4" placeholder="Contoh: Saus dipisah, jangan pedas..."></textarea>
+    
+    <x-slot name="footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-primary">Simpan Perubahan</button>
+    </x-slot>
+</x-popup-modal>
 
 @endsection
