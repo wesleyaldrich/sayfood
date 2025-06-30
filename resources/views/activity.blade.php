@@ -49,7 +49,7 @@
     
     <div class="tab-content" id="activityTabContent">
 
-        <div class="tab-pane fade show active" id="food-content" role="tabpanel" aria-labelledby="food-tab">
+        <div class="tab-pane fade show active mb-5" id="food-content" role="tabpanel" aria-labelledby="food-tab">
 
             <div class="activity-list">
                 @php
