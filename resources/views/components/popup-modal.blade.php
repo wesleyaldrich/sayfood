@@ -1,6 +1,6 @@
 @props(['id', 'title'])
 
-<div class="modal fade" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $id }}Label" aria-hidden="true">
+<div class-content="popupmodal" class="modal fade" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $id }}Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content popupmodal">
             <div class="modal-header">

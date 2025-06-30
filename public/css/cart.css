@@ -235,31 +235,30 @@
     font-weight: bold;
 }
 
-.modal-content .popupmodal{
-    border-radius: 1rem; /* Membuat sudut lebih tumpul (1rem = 16px) */
-    border: 3px solid #234C4C; /* Menambahkan border dengan warna tema Anda */
+.popupmodal{
+    border-radius: 1rem;
+    border: 3px solid #234C4C; 
     overflow: hidden;
 }
 
-/* Style untuk bagian header */
-.modal-content .popupmodal .modal-header {
-    background-color: #234C4C; /* Warna background hijau toska */
-    color: white; /* Warna teks judul menjadi putih */
-    border-bottom: none; /* Menghilangkan garis batas bawah header */
+.popupmodal .modal-header{
+    background-color: #234C4C; 
+    color: white; 
+    border-bottom: none;
 }
 
-/* Style untuk tombol close (X) di header agar terlihat jelas */
-.modal-content.popupmodal .modal-header .close {
+.popupmodal .modal-header .close {
     color: white;
     opacity: 0.8;
-    text-shadow: none; /* Menghilangkan bayangan default agar lebih bersih */
+    text-shadow: none; 
 }
-.modal-content.popupmodal .modal-header .close:hover {
+
+.popupmodal .modal-header .close:hover {
     opacity: 1;
 }
 
-.modal-content.popupmodal .modal-footer {
-    background-color: #f8f9fa; /* Memberi sedikit warna pada footer */
+.popupmodal .modal-footer {
+    background-color: #f8f9fa;
     border-top: 1px solid #dee2e6;
 }
 
