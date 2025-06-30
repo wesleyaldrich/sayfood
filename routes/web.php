@@ -3,19 +3,40 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\HomeDishesController;
+use App\Http\Controllers\PasswordResetController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/', [HomeDishesController::class, 'show'])->name('home');
+
+Route::get('/events', function () {
+    return "Coming soon";
+    // return view('charity');
+})->name('events');
+
+Route::get('/activity', function(){
+    return view('activity');
+})->name('activity');
+
 Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
 
+Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
+
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
+
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
+
 Route::middleware(['auth', 'twofactor'])->group(function () {
- 
+
     // DELETE SOON!
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/test', function () {
         return "You are currently authenticated!";
@@ -23,6 +44,16 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+
+    Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
+
+    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
+
+    Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
+
+    Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
+    
 });
 
 Route::middleware('auth')->group(function () {
