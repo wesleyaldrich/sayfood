@@ -23,7 +23,7 @@
                 <p style="color:white" class="my-0">Notes</p>
             </button>
             
-            <div class="manage-quantity d-flex align-items-center">
+            <div class="manage-quantity d-flex">
                 <button class="qty-button">
                     <img src="{{ asset('assets/add_button.png') }}" alt="add" class="qty-button-img">
                 </button>

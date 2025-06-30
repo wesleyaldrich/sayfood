@@ -209,11 +209,11 @@
     height: 0px;
     flex: 1;
     justify-content: end;
+    align-items: center;
 }
 
 .qty-text{
-    margin-top: 15px;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .qty-button{
@@ -236,7 +236,7 @@
 }
 
 .popupmodal{
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     border: 3px solid #234C4C; 
     overflow: hidden;
 }
