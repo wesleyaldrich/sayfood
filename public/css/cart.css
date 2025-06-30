@@ -56,7 +56,7 @@
     justify-content: center;
     margin: 24px;
     gap: 30px;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 
 .added-to-cart-container{
@@ -82,6 +82,10 @@
 
 .added-to-cart-products{
     padding: 15px;
+}
+
+.item-image{
+    object-fit: contain;
 }
 
 .button-section{
@@ -111,6 +115,7 @@
     display: flex;
     flex: 1;
     flex-direction: column;
+    font-size: 18px;
 }
 
 .payment-buttons{
@@ -166,7 +171,7 @@
 }
 
 .item-description{
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .item-title{
@@ -208,7 +213,7 @@
 
 .qty-text{
     margin-top: 15px;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .qty-button{
@@ -228,34 +233,39 @@
 }
 .total-price-section{
     font-weight: bold;
-    font-size: larger;
 }
 
-.addnotesmodal{
+.modal-content .popupmodal{
     border-radius: 1rem; /* Membuat sudut lebih tumpul (1rem = 16px) */
     border: 3px solid #234C4C; /* Menambahkan border dengan warna tema Anda */
     overflow: hidden;
 }
 
 /* Style untuk bagian header */
-.addnotesmodal .modal-header {
+.modal-content .popupmodal .modal-header {
     background-color: #234C4C; /* Warna background hijau toska */
     color: white; /* Warna teks judul menjadi putih */
     border-bottom: none; /* Menghilangkan garis batas bawah header */
 }
 
 /* Style untuk tombol close (X) di header agar terlihat jelas */
-.addnotesmodal .modal-header .close {
+.modal-content.popupmodal .modal-header .close {
     color: white;
     opacity: 0.8;
     text-shadow: none; /* Menghilangkan bayangan default agar lebih bersih */
 }
-.addnotesmodal .modal-header .close:hover {
+.modal-content.popupmodal .modal-header .close:hover {
     opacity: 1;
 }
 
-.addnotesmodal .modal-footer {
+.modal-content.popupmodal .modal-footer {
     background-color: #f8f9fa; /* Memberi sedikit warna pada footer */
     border-top: 1px solid #dee2e6;
 }
+
+.payment-logo {
+        height: 25px; 
+        width: auto;   
+        object-fit: contain; 
+    }
 

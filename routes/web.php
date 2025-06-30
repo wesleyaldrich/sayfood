@@ -24,7 +24,7 @@ Route::get('/activity', function(){
 
 // CART
 
-Route::get('/cart', [CartController::class,'index']);
+Route::get('/cart', [CartController::class,'show'])->name('show.cart');
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
     // DELETE SOON!

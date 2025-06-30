@@ -2,11 +2,12 @@
 @section('title', 'Cart')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+
 <div class="breadcrumb-nav d-flex align-items-center mb-3">
     <a href="/foods" class="breadcrumb-link">Foods</a>
     <span class="mx-2">></span>
     <span class="text-muted">Cart</span>
-    <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
 </div>
 
 <div class="pickup-location-tab d-flex align-items-center">
@@ -15,8 +16,8 @@
 </div>
 
 <div class="pickup-address-tab">
-    <p class="restaurant-name">Restoran Ny. Dira</p>
-    <p class="restaurant-address">Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor, Jawa Barat</p>
+    <p class="restaurant-name">{{$item->restaurant->name}}</p>
+    <p class="restaurant-address">{{$item->restaurant->address}}</p>
 </div>
 
 <div class="transaction-section">
@@ -24,33 +25,7 @@
         <div class="title">
             <p style="color:white" class="my-0">ADDED TO CART</p>
         </div>
-        <div class="cart-item">
-            <img src="assets/bubur_sukabumi.png" alt="Food Image" class="item-image"/>
-            <div class="cart-item-details">
-                <div class="item-description">
-                    <div>
-                        <p class="item-title" style="color: #234C4C">Bubur Sukabumi</p>
-                        <p class="item-price my-2" style="color: #234C4C">Price : </p>
-                        <p class="item-expiry my-2" style="color: #234C4C">Best Before : </p>
-                    </div>
-                </div>
-                <div class="notes-and-qty-section">
-                    <button class="add-notes-btn d-flex" data-toggle="modal" data-target="#addNoteModal">
-                        <img src="assets/add_notes.png" alt="Add" class="add-notes-icon">
-                        <p style="color:white" class="my-0">Notes</p>
-                    </button>
-                    <div class="manage-quantity d-flex align-items-center">
-                        <button class="qty-button">
-                            <img src="assets/add_button.png" alt="add" class="qty-button-img">
-                        </button>
-                        <p class="qty-text">1</p>
-                        <button class="qty-button">
-                            <img src="assets/subtract_button.png" alt="subtract" class="qty-button-img">
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <x-cart-item :item="$item" />
         
         <div class="button-section">
             <a href="foods">
@@ -78,21 +53,9 @@
                     <tbody class="table-group-divider">
                         <tr>
                         <th scope="row">1</th>
-                        <td>Bubur Sukabumi</td>
-                        <td>x1</td>
-                        <td>IDR6.000,00</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                        <td>Nasi Goreng Bebek</td>
-                        <td>x2</td>
-                        <td>IDR10.000,00</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td>Es Pisang Ijo</td>
-                        <td>x1</td>
-                        <td>IDR5.000,00</td>
+                        <td>{{$item->name}}</td>
+                        <td>x{{$item->stock}} </td>
+                        <td>IDR {{ number_format($item->price, 0, ',', '.') }},00</td>
                         </tr>
                     </tbody>
                     <tfoot class="total-price-section">
@@ -100,87 +63,82 @@
                         <th scope="row"></th>
                         <td>Total Price</td>
                         <td></td>
-                        <td>IDR6.000,00</td>
+                        <td>IDR {{ number_format($item->price, 0, ',', '.') }},00</td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
         </div>
-        <div class="payment-buttons" data-toggle="modal" data-target="#checkoutModal">
+        <div class="payment-buttons">
             <button class="cancel-order-btn">
                 <p style="color: white" class="my-0">CANCEL</p>
             </button>
-            <button class="checkout-btn">
+            <button class="checkout-btn" data-toggle="modal" data-target="#checkoutModal">
                 <p style="color: white" class="my-0">CHECKOUT</p>
             </button>
         </div>
     </div>
 </div>
 
-<x-popup-modal id="addNoteModal" title="Add Notes" content-classes="addnotesmodal">
-    <p class="text-muted">Tulis permintaan khusus Anda di bawah ini.</p>
-    <textarea class="form-control" rows="4" placeholder="Contoh: Saus dipisah, jangan pedas..."></textarea>
+{{-- <div class="modal-content addnotesmodal"> --}}
+    <x-popup-modal id="addNoteModal" title="Add Notes" class="modal-content addnotesmodal">
+            <p class="text-muted">Write your special requests below.</p>
+            <textarea class="form-control" rows="4" placeholder="Example: Separate the sauce, not spicy..."></textarea>
+            
+            <x-slot name="footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save Changes</button>
+            </x-slot>
+    </x-popup-modal>
+{{-- </div> --}}
+
+{{-- <div class="modal-content addnotesmodal"> --}}
+    <x-popup-modal id="checkoutModal" title="Select Payment Method" content-classes="modal-checkout">
+        
+        <h6>Bank Transfer</h6>
+        <p class="text-muted small">Select a bank to view the virtual account number.</p>
+        <div class="list-group">
+            {{-- BCA --}}
+            <label for="paymentBca" class="list-group-item list-group-item-action d-flex align-items-center">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentBca" value="bca">
+                <img src="{{ asset('assets/payment_gateway_images/logobca.png') }}" alt="BCA" class="payment-logo ml-3 mr-3">
+                <span>Bank Central Asia (BCA)</span>
+            </label>
+             {{-- BNI --}}
+             <label for="paymentBni" class="list-group-item list-group-item-action d-flex align-items-center">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentBni" value="bni">
+                <img src="{{ asset('assets/payment_gateway_images/logobni.png') }}" alt="BNI" class="payment-logo ml-3 mr-3">
+                <span>Bank Negara Indonesia (BNI)</span>
+            </label>
+        </div>
     
-    <x-slot name="footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-primary">Simpan Perubahan</button>
-    </x-slot>
-</x-popup-modal>
-
-<x-popup-modal id="checkoutModal" title="Pilih Metode Pembayaran" content-classes="modal-checkout">
+        <h6 class="mt-4">E-Wallet</h6>
+        <div class="list-group">
+            {{-- GoPay --}}
+            <label for="paymentGopay" class="list-group-item list-group-item-action d-flex align-items-center">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentGopay" value="gopay">
+                <img src="{{ asset('assets/payment_gateway_images/logogopay.png') }}" alt="GoPay" class="payment-logo ml-3 mr-3">
+                <span>GoPay</span>
+            </label>
+            {{-- OVO --}}
+            <label for="paymentOvo" class="list-group-item list-group-item-action d-flex align-items-center">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentOvo" value="ovo">
+                <img src="{{ asset('assets/payment_gateway_images/logoovo.png') }}" alt="OVO" class="payment-logo ml-3 mr-3">
+                <span>OVO</span>
+            </label>
+            {{-- Pilihan DANA --}}
+            <label for="paymentDana" class="list-group-item list-group-item-action d-flex align-items-center">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentDana" value="dana">
+                <img src="{{ asset('assets/payment_gateway_images/logodana.png') }}" alt="DANA" class="payment-logo ml-3 mr-3">
+                <span>DANA</span>
+            </label>
+        </div>
     
-    {{-- Opsi untuk Bank Transfer --}}
-    <h6>Bank Transfer</h6>
-    <p class="text-muted small">Pilih salah satu bank untuk melihat nomor virtual account.</p>
-    <div class="list-group">
-        {{-- Pilihan BCA --}}
-        <label for="paymentBca" class="list-group-item list-group-item-action d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentBca" value="bca">
-            <img src="{{ asset('assets/logo-bca.png') }}" alt="BCA" class="payment-logo ml-3 mr-3">
-            <span>Bank Central Asia (BCA)</span>
-        </label>
-        {{-- Pilihan Mandiri --}}
-        <label for="paymentMandiri" class="list-group-item list-group-item-action d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMandiri" value="mandiri">
-            <img src="{{ asset('assets/logo-mandiri.png') }}" alt="Mandiri" class="payment-logo ml-3 mr-3">
-            <span>Bank Mandiri</span>
-        </label>
-         {{-- Pilihan BNI --}}
-         <label for="paymentBni" class="list-group-item list-group-item-action d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentBni" value="bni">
-            <img src="{{ asset('assets/logo-bni.png') }}" alt="BNI" class="payment-logo ml-3 mr-3">
-            <span>Bank Negara Indonesia (BNI)</span>
-        </label>
-    </div>
-
-    {{-- Opsi untuk E-Wallet --}}
-    <h6 class="mt-4">E-Wallet</h6>
-    <div class="list-group">
-        {{-- Pilihan GoPay --}}
-        <label for="paymentGopay" class="list-group-item list-group-item-action d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentGopay" value="gopay">
-            <img src="{{ asset('assets/logo-gopay.png') }}" alt="GoPay" class="payment-logo ml-3 mr-3">
-            <span>GoPay</span>
-        </label>
-        {{-- Pilihan OVO --}}
-        <label for="paymentOvo" class="list-group-item list-group-item-action d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentOvo" value="ovo">
-            <img src="{{ asset('assets/logo-ovo.png') }}" alt="OVO" class="payment-logo ml-3 mr-3">
-            <span>OVO</span>
-        </label>
-        {{-- Pilihan DANA --}}
-        <label for="paymentDana" class="list-group-item list-group-item-action d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentDana" value="dana">
-            <img src="{{ asset('assets/logo-dana.png') }}" alt="DANA" class="payment-logo ml-3 mr-3">
-            <span>DANA</span>
-        </label>
-    </div>
-
-    {{-- Mengisi bagian footer dengan tombol aksi --}}
-    <x-slot name="footer">
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-        <button type="button" class="btn btn-success font-weight-bold">Konfirmasi & Bayar</button>
-    </x-slot>
-</x-popup-modal>
+        <x-slot name="footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success font-weight-bold">Confirm & Pay</button>
+        </x-slot>
+    </x-popup-modal>
+{{-- </div> --}}
 
 @endsection

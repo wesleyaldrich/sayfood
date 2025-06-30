@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Food;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -33,9 +34,21 @@ class CartController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        $foodItem = Food::first(); 
+
+        // // kalau tidak ada makanan sama sekali di database, buat objek dummy
+        // if (!$foodItem) {
+        //     $foodItem = (object)[
+        //         'id' => 0,
+        //         'image_url' => 'assets/default.png',
+        //         'name' => 'No Food Found',
+        //         'price' => 0,
+        //         'exp_datetime' => now()
+        //     ];
+        // }
+        return view('layout.cart', ['item'=>$foodItem]);
     }
 
     /**
