@@ -65,7 +65,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         
         <div>
             <img class="history-icon" src="assets/icon_history.png" alt="History">
-        </div>    
+        </div>
     </div>
 </div>
 
@@ -118,6 +118,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             <h3>VIEW<br>MORE</h3>
         </div>
     </div>
+    <h4 class="viewmore2 mt-4 text-end" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
 </div>
 
 <div class="container-foodcategories container-desserts container-fluid my-4 px-4 py-4 d-flex">
@@ -140,6 +141,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             <h3>VIEW<br>MORE</h3>
         </div>
     </div>
+    <h4 class="viewmore2 mt-4 text-end" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
 </div>
 
 <div class="container-foodcategories container-snacks container-fluid my-4 px-4 py-4 d-flex">
@@ -162,6 +164,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             <h3>VIEW<br>MORE</h3>
         </div>
     </div>
+    <h4 class="viewmore2 mt-4 text-end" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
 </div>
 
 <div class="container-foodcategories container-drinks container-fluid my-4 px-4 py-4 d-flex">
@@ -184,10 +187,11 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             <h3>VIEW<br>MORE</h3>
         </div>
     </div>
+    <h4 class="viewmore2 mt-4 text-end" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">VIEW MORE</h4>
 </div>
 
 <div class="modal fade" id="moreDrinksModal" tabindex="-1" aria-labelledby="moreDrinksLabel" aria-hidden="true">
-    <div class="popup modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="popup modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title" id="moreDrinksLabel">
@@ -196,10 +200,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                 <img src="assets/btn_exit.png" alt="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </div>
             <div class="modal-body pt-0">
-                <div class="container">
+                <div class="container-fluid px-4">
                     <div class="row g-4">
                         @for ($i = 0; $i < 12; $i++)
-                            <div class="col-12 col-sm-6 col-md-3 mb-2">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 justify-content-center align-items-center d-flex">
                                 <x-food-item
                                     image="assets/food_chickenricebowl.png"
                                     title="Chicken Ricebowl"
