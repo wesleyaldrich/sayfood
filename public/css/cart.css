@@ -268,3 +268,109 @@
         object-fit: contain; 
     }
 
+@media (max-width: 768px) {
+
+    /* 1. Atur Layout Utama: Cart di atas, Payment di bawah */
+    .transaction-section {
+        flex-direction: column; /* Ini akan menumpuk item secara vertikal */
+        margin: 10px; /* Kurangi margin di layar kecil */
+        gap: 20px; /* Kurangi jarak antar kontainer */
+    }
+
+    /* 2. Sesuaikan Ukuran Font & Jarak Global */
+    .breadcrumb-nav {
+        font-size: 18px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .pickup-location-tab {
+        font-size: 22px;
+    }
+    .pickup-address-tab {
+        margin: 10px;
+        font-size: 16px;
+    }
+    .title {
+        font-size: 20px;
+    }
+
+    /* 3. Atur Kontainer Item (Bagian Kiri) */
+    .cart-item {
+        flex-direction: column; /* Tumpuk gambar dan detail produk */
+        margin: 10px;
+        padding: 10px;
+    }
+    .item-image {
+        width: 150px; /* Ukuran gambar dibuat tetap tapi lebih kecil */
+        height: 120px;
+        margin-bottom: 15px;
+    }
+    .cart-item-details {
+        margin-left: 0; /* Hapus margin agar center */
+        text-align: center; /* Pusatkan teks detail */
+    }
+    .notes-and-qty-section {
+        justify-content: center; /* Pusatkan tombol notes dan qty */
+    }
+    .add-more-btn, .cancel-order-btn, .checkout-btn {
+        font-size: 16px; /* Kecilkan font di tombol */
+    }
+
+    /* 4. ATASI MASALAH TABEL PEMBAYARAN (Paling Penting) */
+    .product-details {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Sembunyikan header tabel asli */
+    .payment-container table thead {
+        display: none;
+    }
+    
+    /* Ubah setiap baris (tr) dan sel (td) menjadi block agar bisa ditumpuk */
+    .payment-container table,
+    .payment-container table tbody,
+    .payment-container table tfoot,
+    .payment-container table tr,
+    .payment-container table td {
+        display: block;
+        width: 100%;
+    }
+    
+    /* Beri jarak antar baris "virtual" */
+    .payment-container table tr {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #c55b39;
+    }
+    .payment-container table tfoot tr {
+        border-bottom: none; /* Hilangkan garis untuk total */
+    }
+
+    /* Atur posisi teks di dalam sel */
+    .payment-container table td {
+        text-align: right; /* Pindahkan nilai ke kanan */
+        position: relative;
+        padding-left: 50%; /* Beri ruang untuk label */
+    }
+    
+    /* Buat label (dari header) menggunakan pseudo-element ::before */
+    .payment-container table td::before {
+        content: attr(data-label); /* Ambil teks label dari atribut data-label */
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    /* Atur ulang baris Total Price */
+    .total-price-section td {
+        padding-left: 0; /* Tidak perlu indentasi untuk total */
+        text-align: left;
+    }
+    .total-price-section td:last-child {
+        text-align: right; /* Harga total tetap di kanan */
+    }
+}
