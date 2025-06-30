@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+.breadcrumb-nav {
+    border-bottom: 1.5px solid #8b7b77;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: "Lato";
+    font-size: 25px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+.breadcrumb-link {
+    text-decoration: none;
+    color: #8b7b77; /* Warna awal */
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+    color: #c55b39; /* Warna saat hover */
+}
+
+.pickup-location-tab{
+    font-family: "Oswald";
+    font-size: 25px;
+    
+    margin-bottom: 20px;
+}
+
+.pickup-location-icon{
+    width: 30px;
+    height: 30px;
+    margin-left: 24px;
+}
+
+.pickup-address-tab{
+    font-family: "Lato";
+    font-size: 18px;
+    margin: 24px;
+    padding-left: 24px;
+    padding-top: 1.5px;
+    padding-bottom: 1.5px;
+    background-color: antiquewhite;
+    border-radius: 20px;
+}
+
+.restaurant-name{
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.transaction-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 24px;
+    gap: 30px;
+    background-color: aqua;
+}
+
+.added-to-cart-container{
+    background-color: #FFDD88;
+    border-radius: 20px;
+    padding-bottom: 15px;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    min-height: screen;
+    flex-direction: column;
+}
+
+.title{
+    background-color: #234C4C;
+    padding: 15px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: "Oswald";
+}
+
+.added-to-cart-products{
+    padding: 15px;
+}
+
+.button-section{
+    text-align: center;
+    justify-content: start;
+}
+
+.add-more-btn{
+    background-color: #234C4C;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    border-color: #c55b39;
+    border-width: 3px;
+}
+
+.payment-contents-right-side{
+    flex: 0.75;
+}
+
+.payment-container{
+    background-color: #FFDD88;
+    border-radius: 20px;
+    padding-bottom: 0px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.payment-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+.cancel-order-btn{
+   background-color: #c55b39;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    border-width: 0;
+    padding-right: 20px;
+    font-size: 18px;
+}
+
+.checkout-btn{
+    background-color: #234C4C;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    border-color: #c55b39;
+    border-width: 3px;
+}
+
+.cart-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    border-width: 0;
+    margin: 24px;
+    padding: 15px;
+}
+
+.cart-item-details{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.item-image{
+    width: 200px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.item-description{
+    font-size: 20px;
+}
+
+.item-title{
+    font-size: 25px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.notes-and-qty-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+}
+
+.add-notes-btn{
+    background-color: #234C4C;
+    border-radius: 20px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.add-notes-icon{
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+.manage-quantity{
+    background-color: #234C4C;
+    font-size: 20px;
+    font-weight: bold;
+    height: 0px;
+    flex: 1;
+    justify-content: end;
+}
+
+.qty-text{
+    margin-top: 15px;
+    font-size: 25px;
+}
+
+.qty-button{
+    border: 0;
+    background-color: transparent;
+    margin: 0;
+}
+.qty-button-img{
+    width: 30px;
+    height: 30px;
+}
+
+
+.product-details{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.total-price-section{
+    font-weight: bold;
+    font-size: larger;
+}

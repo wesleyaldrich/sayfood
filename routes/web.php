@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\GoogleAuthController;
+use Symfony\Component\Routing\Loader\Configurator\Traits\LocalizedRouteTrait;
 
 Route::get('/', function () {
     return view('home');
@@ -12,6 +14,7 @@ Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
 
+
 Route::get('/charity', function () {
     return view('charity');
 })->name('charity');
@@ -19,6 +22,10 @@ Route::get('/charity', function () {
 Route::get('/activity', function(){
     return view('activity');
 })->name('activity');
+
+// CART
+
+Route::get('/cart', [CartController::class,'index']);
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
     // DELETE SOON!

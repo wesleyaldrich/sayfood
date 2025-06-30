@@ -74,7 +74,9 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
     <button class="btn-filter btn btn-primary rounded-pill d-flex align-items-center" id="btnMostPopular">Most Popular</button>
 </div>
 
-<img class="mycart" src="assets/icon_mycart.png" alt="mycart">
+<a href="/cart">
+    <img class="mycart" src="assets/icon_mycart.png" alt="mycart">
+</a>
 
 <div class="container-today container-fluid my-4 px-4 py-4 d-flex">
     <h2>TODAY'S BEST FOOD</h2>
