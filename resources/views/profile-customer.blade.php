@@ -81,7 +81,8 @@
                         <img src="{{ asset('assets/profile_option_logout.png') }}" class="p-2" alt="icon">
                         <p class="oswald">LOG OUT</p>
                     </a>
-                    <a href="" class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                    <a href="{{ route('password.request') }}" 
+                    class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
                         <img src="{{ asset('assets/profile_option_reset_password.png') }}" class="p-2" alt="icon">
                         <p class="oswald">RESET PASSWORD</p>
                     </a>

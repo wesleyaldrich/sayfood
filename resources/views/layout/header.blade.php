@@ -15,6 +15,7 @@
                 <li><a href="{{ route('events') }}" class="oswald nav-button {{ request()->routeIs('events') ? 'nav-active' : '' }}">EVENTS</a></li>
                 <li><a href="{{ route('activity') }}" class="oswald nav-button {{ request()->routeIs('activity') ? 'nav-active' : '' }}">ACTIVITY</a></li>
                 <li><a href="{{ route('profile') }}" class="oswald nav-button nav-hide">PROFILE</a></li>
+                <li class="nav-hide"><a href="{{ route('profile') }}" class="oswald nav-button {{ request()->routeIs('profile') ? 'nav-active' : '' }}">PROFILE</a></li>
             </ul>
         </nav>
         <div class="icons">
@@ -32,20 +33,20 @@
 
     <nav class="dropdown-nav">
         <ul>
-            <li class="{{ Request::is('/') ? 'nav-active' : '' }}">
-                <a href="{{ url('/') }}" class="oswald nav-button">HOME</a>
+            <li class="{{ request()->routeIs('home') ? 'nav-active' : '' }}">
+                <a href="{{ route('home') }}" class="oswald nav-button">HOME</a>
             </li>
-            <li class="{{ Request::is('foods') ? 'nav-active' : '' }}">
-                <a href="{{ url('/foods') }}" class="oswald nav-button">FOODS</a>
+            <li class="{{ request()->routeIs('foods') ? 'nav-active' : '' }}">
+                <a href="{{ route('foods') }}" class="oswald nav-button">FOODS</a>
             </li>
-            <li class="{{ Request::is('charity') ? 'nav-active' : '' }}">
-                <a href="{{ url('/charity') }}" class="oswald nav-button">EVENTS</a>
+            <li class="{{ request()->routeIs('events') ? 'nav-active' : '' }}">
+                <a href="{{ route('events') }}" class="oswald nav-button">EVENTS</a>
             </li>
-            <li class="{{ Request::is('activity') ? 'nav-active' : '' }}">
-                <a href="{{ url('/activity') }}" class="oswald nav-button">ACTIVITY</a>
+            <li class="{{ request()->routeIs('activity') ? 'nav-active' : '' }}">
+                <a href="{{ route('activity') }}" class="oswald nav-button">ACTIVITY</a>
             </li>
-            <li class="{{ Request::is('profile') ? 'nav-active' : '' }}">
-                <a href="{{ url('/profile') }}" class="oswald nav-button">PROFILE</a>
+            <li class="{{ request()->routeIs('profile') ? 'nav-active' : '' }}">
+                <a href="{{ route('profile') }}" class="oswald nav-button">PROFILE</a>
             </li>
         </ul>
     </nav>

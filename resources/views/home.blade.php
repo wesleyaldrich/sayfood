@@ -75,8 +75,8 @@ $slides = [
                 <p class="lato-regular">Get affordable rescued meals and fight food waste!</p>
                 <p class="lato-regular">Join us as a volunteer to share meals and share kindness.</p>
                 <div class="link-button-home">
-                    <a href="{{ url('/foods') }}" class="oswald btn btn-custom-menu rounded-pill btn-lg">SEE MENUS</a>
-                    <a href="{{ url('/charity') }}" class="oswald btn btn-custom-join rounded-pill btn-lg">JOIN EVENT</a>
+                    <a href="{{ route('foods') }}" class="oswald btn btn-custom-menu rounded-pill btn-lg">SEE MENUS</a>
+                    <a href="{{ route('events') }}" class="oswald btn btn-custom-join rounded-pill btn-lg">JOIN EVENT</a>
                 </div>
             </div>
         </div>

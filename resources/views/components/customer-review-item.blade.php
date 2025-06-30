@@ -5,7 +5,6 @@
         <img class="profpic" src="{{ $profile }}" alt="">
         <div class="name-role">
             <p class="customer-name">{{ $name }}</p>
-            <p>{{ $menu }}</p>
             <div class="rating-wrapper d-flex flex-row align-items-center">
                 <img src="assets/icon_star.png" alt="" style="width: 20px; height: 20px; margin-right: 5px;">
                 <p><span class="rating">{{ $rating }}</span>/5</p>

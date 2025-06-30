@@ -47,11 +47,14 @@
                     </a>
                 </div>
             </form>
-
+            
             <div class="container d-flex justify-content-center mt-3">
+                <p class="oswald m-0" style="font-weight: 400"><a href="{{ route('password.request') }}">Forgot password?</a></p>
+            </div>
+
+            <div class="container d-flex justify-content-center">
                 <p class="oswald m-0" style="font-weight: 400">Don't have an account? <a href="{{ route('show.register') }}">Register</a></p>
             </div>
         </div>
-    
     </div>
 @endsection
