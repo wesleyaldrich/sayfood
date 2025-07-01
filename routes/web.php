@@ -5,7 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\GoogleAuthController;
 use Symfony\Component\Routing\Loader\Configurator\Traits\LocalizedRouteTrait;
-
 use App\Http\Controllers\HomeDishesController;
 
 // numpang sini gais -kalis
@@ -45,7 +44,6 @@ Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
 
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
-
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
 
