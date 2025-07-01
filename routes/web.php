@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FoodController;
 use App\Http\Controllers\GoogleAuthController;
 use Symfony\Component\Routing\Loader\Configurator\Traits\LocalizedRouteTrait;
 use App\Http\Controllers\HomeDishesController;
@@ -33,9 +34,7 @@ Route::get('/activity', function(){
 
 Route::get('/cart', [CartController::class,'show'])->name('show.cart');
 
-Route::get('/foods', function () {
-    return view('foods');
-})->name('foods');
+Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 
 Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
 
@@ -65,7 +64,7 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
     Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
 
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
-    
+
 });
 
 Route::middleware('auth')->group(function () {
