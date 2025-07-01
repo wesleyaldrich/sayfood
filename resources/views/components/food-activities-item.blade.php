@@ -47,7 +47,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                        <div class="col-12 col-md-8 col-lg-6 mb-2 mb-md-0">
                             <div class="order-status-timeline-container d-flex justify-content-between align-items-center">
                                 @php
                                     $statuses = [
@@ -86,7 +86,7 @@
                             </div>
                         </div>
 
-                         <div class="col-12 col-md-2 align-items-end">
+                         <div class="col-12 col-xl-2  align-items-end">
                             <button type="button" class="btn review-order-btn px-5 py-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#reviewModal{{ $index }}">
                                 {{ $orderData['reviewButtonText'] ?? 'Review Order' }}
                             </button>
@@ -107,15 +107,15 @@
                     </div>
 
                     <div class="modal-body text-center">
-                        <h5 class="mb-3">How Was Your Food?</h5>
+                        <h5 class="mb-3" style="font-family: 'Lato'">How Was Your Food?</h5>
 
                         <div class="star-rating mb-3">
                             @for ($i = 5; $i >= 1; $i--)
-                                <i class="fa fa-star star" data-rating="{{ $i }}"></i>
+                                <i class="fa fa-star star star-icon" data-rating="{{ $i }}"></i>
                             @endfor
                         </div>
 
-                        <textarea class="form-control comment-box mb-3" rows="3" placeholder="Write your comments here..."></textarea>
+                        <textarea class="form-control comment-box mb-3" rows="3" placeholder="Write your comments here..." style="font-family: 'Lato'"></textarea>
 
                         <button type="button" class="btn submit px-4 rounded-pill">Submit</button>
                     </div>

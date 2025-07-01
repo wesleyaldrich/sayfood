@@ -252,6 +252,10 @@ h1 {
     color: black;
 }
 
+.collapse{
+    visibility: visible;
+}
+
 /* Status Timeline */
 .order-status-timeline-container {
     position: relative;
@@ -780,12 +784,19 @@ p{
 }
 
 .star-rating {
-    font-size: 28px;
     color: #ccc;
     cursor: pointer;
-    direction: rtl; /* <-- Tambahan ini */
+    direction: rtl; 
     display: inline-flex;
-    gap: 5px;
+    gap: 15px;
+    justify-content: center;
+}
+
+.star-icon{
+    font-size: 28px !important;
+    height: fit-content;
+    width: fit-content;
+    line-height: normal;
 }
 
 .star-rating .star:hover,
