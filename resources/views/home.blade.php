@@ -11,7 +11,8 @@
             'date' => 'April 2025',
             'participants' => '1,350',
             'image' => 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-            'badge' => 'Popular'
+            'badge_color' => 'Popular',
+            'badge' => 'Newest Event'
         ],
         [
             'title' => 'Flavor & Favor2',
@@ -20,7 +21,8 @@
             'date' => 'April 2025',
             'participants' => '2,480',
             'image' => 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-            'badge' => 'Trending'
+            'badge_color' => 'Trending',
+            'badge' => 'Most Popular'
         ],
         [
             'title' => 'Flavor & Favor3',
@@ -29,7 +31,8 @@
             'date' => 'April 2025',
             'participants' => '980',
             'image' => 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-            'badge' => 'New'
+            'badge_color' => 'New',
+            'badge' => 'Seasonal Specials'
         ]
     ];
     $slides = [
@@ -228,7 +231,7 @@
              data-event-host="{{ $event['host'] }}"
              data-event-location="{{ $event['location'] }}">
             <?php if (isset($event['badge'])): ?>
-                <div class="event-badge badge-<?php echo strtolower($event['badge']); ?>">
+                <div class="event-badge badge-<?php echo strtolower($event['badge_color']); ?>">
                     <?= $event['badge'] ?>
                 </div>
             <?php endif; ?>
@@ -246,16 +249,22 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="title_font">
-                                        <p class="oswald "><?= $event['title'] ?></p>
+                                        <p class="oswald title_font_os"><?= $event['title'] ?></p>
                                     </div>
                                     <div class="host_font">
-                                        <p class="lato-light-italic"><?= $event['host'] ?></p>
+                                        <p class="lato-light-italic host_font_os"><?= $event['host'] ?></p>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="loc_date-group">
-                                        <p class="location_font lato-regular"><i class="fas fa-map-marker-alt icon"></i><?= $event['location'] ?></p>
-                                        <p class="date_font lato-regular font-weight-bold"><i class="far fa-calendar-alt icon"></i><?= $event['date'] ?></p>
+                                        <div class="row-group">
+                                            <i class="fas fa-map-marker-alt icon"></i>
+                                            <p class="location_font lato-regular font-weight-bold"><?= $event['location'] ?></p>
+                                        </div>
+                                        <div class="row-group">
+                                            <i class="far fa-calendar-alt icon"></i>
+                                            <p class="date_font lato-regular font-weight-bold"><?= $event['date'] ?></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -266,7 +275,9 @@
         </div>
             @endforeach
             </div>
-            <a href="#" class="underline underline-class hover:text-white-600 hover:underline lato-regular ">SEE MORE</a>
+            <div class="py-5">
+                <a href="#" class="underline text-2xl underline-class hover:text-white-600 hover:underline lato-regular">SEE MORE</a>
+            </div>
         </div>
         <div class="modal container-fluid" id="joinFormModal">
             <div class="modal-content">
@@ -280,30 +291,30 @@
                     <div class="form-row text-start">
                         <div class="form-group">
                             <label class="text-[#234C4C]" for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" required>
+                            <input class="input-fn" type="text" id="firstName" name="firstName" required>
                         </div>
                         <div class="form-group">
                             <label class="text-[#234C4C]" for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" required>
+                            <input class="input-fn" type="text" id="lastName" name="lastName" required>
                         </div>
                     </div>
                     <div class="form-row text-start">
                             <div class="form-group">
                                 <label class="text-[#234C4C]" for="phoneNumber">Phone Number</label>
-                                <input type="tel" id="phoneNumber" name="phoneNumber" required
+                                <input class="input-fn" type="tel" id="phoneNumber" name="phoneNumber" required
                                     pattern="[0-9]{10,15}" 
                                     title="Please enter only numbers (10-15 digits)">
                                 <div id="phoneError" class="error-message">Please enter a valid phone number (only numbers, 10-15 digits)</div>
                             </div>
                             <div class="form-group">
                                 <label class="text-[#234C4C]" for="age">Age</label>
-                                <input type="number" id="age" name="age" required min="12" max="120">
+                                <input class="input-fn" type="number" id="age" name="age" required min="12" max="120">
                             </div>
                     </div>
                         
                     <div class="form-group text-start">
                         <label class="text-[#234C4C]" wfor="address">Address</label>
-                        <input type="text" id="address" name="address" required>
+                        <input class="input-fn" type="text" id="address" name="address" required>
                     </div>
                     <button type="submit" class="submit-btn">Submit Form</button>
                 </form>
@@ -391,4 +402,5 @@
 
 @push('scripts')
     <script src="{{ asset('js/home.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Clamp.js/0.5.1/clamp.min.js"></script>
 @endpush
