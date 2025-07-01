@@ -48,11 +48,12 @@ Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']
 
 
 
+// Restaurant - Manage Food
+Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
 
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
-    // Restaurant - Manage Food
-        Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
+    
 
     // DELETE SOON!
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
