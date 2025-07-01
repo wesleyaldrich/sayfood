@@ -208,7 +208,7 @@ class AuthController extends Controller
         if (Auth::attempt($validatedData)) {
             if (Auth::user()->role === 'restaurant') {
                 $request->session()->regenerate();
-                return redirect()->route('home.restaurant');
+                return redirect()->route('restaurant-home');
             }
 
             Auth::logout();
@@ -233,7 +233,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('selection.login');
+        return redirect()->route('home');
     }
 
     public function profile()
@@ -336,6 +336,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        return redirect()->route('selection.login');
+        return redirect()->route('home');
     }
 }

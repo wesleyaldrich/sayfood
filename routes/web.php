@@ -65,7 +65,7 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
     Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
 
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
-    
+
 });
 
 Route::middleware('auth')->group(function () {
