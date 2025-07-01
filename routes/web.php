@@ -13,6 +13,8 @@ Route::get('/restaurant-home', function () {
 })->name('restaurant-home');
 
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\RestaurantController;
+use App\Models\Restaurant;
 
 Route::get('/', function () {
     return view('home');
@@ -30,7 +32,6 @@ Route::get('/activity', function(){
 })->name('activity');
 
 // CART
-
 Route::get('/cart', [CartController::class,'show'])->name('show.cart');
 
 Route::get('/foods', function () {
@@ -45,7 +46,13 @@ Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetFor
 
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
+
+
+
+
 Route::middleware(['auth', 'twofactor'])->group(function () {
+    // Restaurant - Manage Food
+        Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
 
     // DELETE SOON!
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -112,7 +119,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login-restaurant', [AuthController::class, 'loginRestaurant'])->name('login.restaurant');
     Route::post('/register-restaurant', [AuthController::class, 'registerRestaurant'])->name('register.restaurant');
 
-    
+
     // ADMIN
     Route::get('/approve-registration/{id}', [AuthController::class, 'approveRegistration'])->name('approve.registration');
 
