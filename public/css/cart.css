@@ -1,0 +1,377 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+.breadcrumb-nav {
+    border-bottom: 1.5px solid #8b7b77;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: "Lato";
+    font-size: 25px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+.breadcrumb-link {
+    text-decoration: none;
+    color: #8b7b77; /* Warna awal */
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+    color: #c55b39; /* Warna saat hover */
+}
+
+.pickup-location-tab{
+    font-family: "Oswald";
+    font-size: 25px;
+    
+    margin-bottom: 20px;
+}
+
+.pickup-location-icon{
+    width: 30px;
+    height: 30px;
+    margin-left: 24px;
+}
+
+.pickup-address-tab{
+    font-family: "Lato";
+    font-size: 18px;
+    margin: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: antiquewhite;
+    border-radius: 20px;
+}
+
+.restaurant-name{
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.transaction-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 24px;
+    gap: 30px;
+    /* background-color: aqua; */
+}
+
+.added-to-cart-container{
+    background-color: #FFDD88;
+    border-radius: 20px;
+    padding-bottom: 15px;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    min-height: screen;
+    flex-direction: column;
+}
+
+.title{
+    background-color: #234C4C;
+    padding: 15px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: "Oswald";
+}
+
+.added-to-cart-products{
+    padding: 15px;
+}
+
+.item-image{
+    object-fit: contain;
+}
+
+.button-section{
+    text-align: center;
+    justify-content: start;
+}
+
+.add-more-btn{
+    background-color: #234C4C;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    border-color: #c55b39;
+    border-width: 3px;
+}
+
+.payment-contents-right-side{
+    flex: 0.75;
+}
+
+.payment-container{
+    background-color: #FFDD88;
+    border-radius: 20px;
+    padding-bottom: 0px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    font-size: 18px;
+}
+
+.payment-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+.cancel-order-btn{
+   background-color: #c55b39;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    border-width: 0;
+    padding-right: 20px;
+    font-size: 18px;
+}
+
+.checkout-btn{
+    background-color: #234C4C;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    border-color: #c55b39;
+    border-width: 3px;
+}
+
+.cart-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    border-width: 0;
+    margin: 24px;
+    padding: 15px;
+}
+
+.cart-item-details{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.item-image{
+    width: 200px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.item-description{
+    font-size: 18px;
+}
+
+.item-title{
+    font-size: 25px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.notes-and-qty-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+}
+
+.add-notes-btn{
+    background-color: #234C4C;
+    border-radius: 20px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.add-notes-icon{
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+.manage-quantity{
+    background-color: #234C4C;
+    font-size: 20px;
+    font-weight: bold;
+    height: 0px;
+    flex: 1;
+    justify-content: end;
+    align-items: center;
+}
+
+.qty-text{
+    font-size: 25px;
+}
+
+.qty-button{
+    border: 0;
+    background-color: transparent;
+    margin: 0;
+}
+.qty-button-img{
+    width: 30px;
+    height: 30px;
+}
+
+
+.product-details{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.total-price-section{
+    font-weight: bold;
+}
+
+.popupmodal{
+    border-radius: 1.5rem;
+    border: 3px solid #234C4C; 
+    overflow: hidden;
+}
+
+.popupmodal .modal-header{
+    background-color: #234C4C; 
+    color: white; 
+    border-bottom: none;
+}
+
+.popupmodal .modal-header .close {
+    color: white;
+    opacity: 0.8;
+    text-shadow: none; 
+}
+
+.popupmodal .modal-header .close:hover {
+    opacity: 1;
+}
+
+.popupmodal .modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.payment-logo {
+        height: 25px; 
+        width: auto;   
+        object-fit: contain; 
+    }
+
+@media (max-width: 768px) {
+
+    /* 1. Atur Layout Utama: Cart di atas, Payment di bawah */
+    .transaction-section {
+        flex-direction: column; /* Ini akan menumpuk item secara vertikal */
+        margin: 10px; /* Kurangi margin di layar kecil */
+        gap: 20px; /* Kurangi jarak antar kontainer */
+    }
+
+    /* 2. Sesuaikan Ukuran Font & Jarak Global */
+    .breadcrumb-nav {
+        font-size: 18px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .pickup-location-tab {
+        font-size: 22px;
+    }
+    .pickup-address-tab {
+        margin: 10px;
+        font-size: 16px;
+    }
+    .title {
+        font-size: 20px;
+    }
+
+    /* 3. Atur Kontainer Item (Bagian Kiri) */
+    .cart-item {
+        flex-direction: column; /* Tumpuk gambar dan detail produk */
+        margin: 10px;
+        padding: 10px;
+    }
+    .item-image {
+        width: 150px; /* Ukuran gambar dibuat tetap tapi lebih kecil */
+        height: 120px;
+        margin-bottom: 15px;
+    }
+    .cart-item-details {
+        margin-left: 0; /* Hapus margin agar center */
+        text-align: center; /* Pusatkan teks detail */
+    }
+    .notes-and-qty-section {
+        justify-content: center; /* Pusatkan tombol notes dan qty */
+    }
+    .add-more-btn, .cancel-order-btn, .checkout-btn {
+        font-size: 16px; /* Kecilkan font di tombol */
+    }
+
+    /* 4. ATASI MASALAH TABEL PEMBAYARAN (Paling Penting) */
+    .product-details {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Sembunyikan header tabel asli */
+    .payment-container table thead {
+        display: none;
+    }
+    
+    /* Ubah setiap baris (tr) dan sel (td) menjadi block agar bisa ditumpuk */
+    .payment-container table,
+    .payment-container table tbody,
+    .payment-container table tfoot,
+    .payment-container table tr,
+    .payment-container table td {
+        display: block;
+        width: 100%;
+    }
+    
+    /* Beri jarak antar baris "virtual" */
+    .payment-container table tr {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #c55b39;
+    }
+    .payment-container table tfoot tr {
+        border-bottom: none; /* Hilangkan garis untuk total */
+    }
+
+    /* Atur posisi teks di dalam sel */
+    .payment-container table td {
+        text-align: right; /* Pindahkan nilai ke kanan */
+        position: relative;
+        padding-left: 50%; /* Beri ruang untuk label */
+    }
+    
+    /* Buat label (dari header) menggunakan pseudo-element ::before */
+    .payment-container table td::before {
+        content: attr(data-label); /* Ambil teks label dari atribut data-label */
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    /* Atur ulang baris Total Price */
+    .total-price-section td {
+        padding-left: 0; /* Tidak perlu indentasi untuk total */
+        text-align: left;
+    }
+    .total-price-section td:last-child {
+        text-align: right; /* Harga total tetap di kanan */
+    }
+}

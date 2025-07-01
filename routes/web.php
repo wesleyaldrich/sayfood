@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\GoogleAuthController;
+use Symfony\Component\Routing\Loader\Configurator\Traits\LocalizedRouteTrait;
+
 use App\Http\Controllers\HomeDishesController;
 
 // numpang sini gais -kalis
@@ -26,6 +29,10 @@ Route::get('/events', function () {
 Route::get('/activity', function(){
     return view('activity');
 })->name('activity');
+
+// CART
+
+Route::get('/cart', [CartController::class,'show'])->name('show.cart');
 
 Route::get('/foods', function () {
     return view('foods');
