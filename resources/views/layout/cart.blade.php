@@ -16,8 +16,8 @@
 </div>
 
 <div class="pickup-address-tab pb-3">
-    <p class="restaurant-name">{{$item->restaurant->name}}</p>
-    <p class="restaurant-address">{{$item->restaurant->address}}</p>
+    <p class="restaurant-name">{{$restaurant->name}}</p>
+    <p class="restaurant-address">{{$restaurant->address}}</p>
 </div>
 
 <div class="transaction-section">
@@ -25,7 +25,9 @@
         <div class="title">
             <p style="color:white" class="my-0">ADDED TO CART</p>
         </div>
-        <x-cart-item :item="$item" />
+        @foreach ($foodItem as $item)
+            <x-cart-item :item="$item" />
+        @endforeach
         
         <div class="button-section">
             <a href="foods">
@@ -50,20 +52,22 @@
                         <th scope="col">Price</th>
                         </tr>
                     </thead>
-                    <tbody class="table-group-divider">
-                        <tr>
-                        <th scope="row">1</th>
-                        <td>{{$item->name}}</td>
-                        <td>x{{$item->stock}} </td>
-                        <td>IDR {{ number_format($item->price, 0, ',', '.') }},00</td>
-                        </tr>
-                    </tbody>
+                    @foreach ($foodItem as $item)
+                        <tbody class="table-group-divider">
+                            <tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{$item->name}}</td>
+                            <td>x{{$item->stock}} </td>
+                            <td>IDR {{ number_format($item->price, 0, ',', '.') }},00</td>
+                            </tr>
+                        </tbody>
+                    @endforeach
                     <tfoot class="total-price-section">
                         <tr>
                         <th scope="row"></th>
                         <td>Total Price</td>
                         <td></td>
-                        <td>IDR {{ number_format($item->price, 0, ',', '.') }},00</td>
+                        {{-- <td>IDR {{ number_format($item->price, 0, ',', '.') }},00</td> --}}
                         </tr>
                     </tfoot>
                 </table>

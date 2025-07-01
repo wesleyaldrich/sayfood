@@ -12,7 +12,7 @@ use App\Http\Controllers\HomeDishesController;
 Route::get('/restaurant-home', function () {
     return view('restaurant-home');
 })->name('restaurant-home');
-// numpang sini gais -kalis
+
 use App\Http\Controllers\PasswordResetController;
 
 Route::get('/', function () {
@@ -38,6 +38,7 @@ Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
 
+<<<<<<< Updated upstream
 Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
 
 Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
@@ -45,6 +46,10 @@ Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
 
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
+=======
+Route::get('/cart', [CartController::class,'index']);
+
+>>>>>>> Stashed changes
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
 
