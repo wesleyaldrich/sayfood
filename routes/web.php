@@ -38,7 +38,6 @@ Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
 
-<<<<<<< Updated upstream
 Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
 
 Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
@@ -46,10 +45,8 @@ Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
 
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
-=======
-Route::get('/cart', [CartController::class,'index']);
 
->>>>>>> Stashed changes
+Route::get('/cart', [CartController::class,'index']);
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
 
