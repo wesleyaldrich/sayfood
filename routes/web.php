@@ -46,7 +46,6 @@ Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetFor
 
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
-Route::get('/cart', [CartController::class,'index']);
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
 
