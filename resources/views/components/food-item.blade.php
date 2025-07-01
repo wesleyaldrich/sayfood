@@ -14,7 +14,7 @@
     <div class="ekor"></div>
     <img src="{{ $image }}" alt="{{ $title }}" class="food-image">
     <div class="container-fooddetail px-3">
-        <h5>{{ $title }}</h5>
+        <h5 class="food-title">{{ $title }}</h5>
         <p class="food-description mb-2">{{ $description }}</p>
 
         <div class="exp-stock d-flex justify-content-between mb-2">
