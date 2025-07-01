@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\GoogleAuthController;
 use Symfony\Component\Routing\Loader\Configurator\Traits\LocalizedRouteTrait;
+<<<<<<< Updated upstream
 use App\Http\Controllers\HomeDishesController;
 
 // numpang sini gais -kalis
@@ -13,6 +14,8 @@ Route::get('/restaurant-home', function () {
 })->name('restaurant-home');
 
 use App\Http\Controllers\PasswordResetController;
+=======
+>>>>>>> Stashed changes
 
 Route::get('/', function () {
     return view('home');
