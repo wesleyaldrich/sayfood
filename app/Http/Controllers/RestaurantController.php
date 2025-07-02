@@ -23,13 +23,13 @@ class RestaurantController extends Controller
    public function store(Request $request){
       dd($request->all());
       $validatedData = $request->validate([
-         'name'=> 'required|string|max:255',
-         'category_id' => 'requires|exist:categories,id',
-         'description' => 'required|string',
-         'exp_date' => 'required|date',
-         'exp_time' => 'required|time',
-         'stock' => 'required|integer|min:0'
-      ]);
+        'name' => 'required|string|max:255',
+        'category_id' => 'required|exists:categories,id', 
+        'description' => 'required|string',
+        'exp_date' => 'required|date',
+        'exp_time' => 'required|date_format:H:i', 
+        'stock' => 'required|integer|min:0'
+    ]);
 
       $restaurantId = Auth::user()->restaurant->id;
 

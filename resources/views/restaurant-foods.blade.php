@@ -3,6 +3,8 @@
     Restaurant Manage Food Page
 @endsection
 
+<script src="{{ asset('js/resto-food-filter.js') }}" defer></script>
+
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/resto-food.css') }}">
 
@@ -10,25 +12,24 @@
     <div class="title">
         <h1>LET'S MANAGE YOUR FOOD!</h1>
     </div>
-    <div class="search-bar">
-        <form class="d-flex" role="search">
-            <button class="btn btn-warning" type="submit">
+    <div class="search-bar d-flex">
+        {{-- <form class="d-flex" role="search"> --}}
+            <button class="btn btn-warning" type="button">
                 <img src="assets/icon_search.png" alt="search" class="w-5">
             </button>
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
-        </form>
+            <input class="form-control" id="searchInput" type="search" placeholder="Search food name..." aria-label="Search"/>
+        {{-- </form> --}}
     </div>
 </div>
 
 <p class="subtitle ml-4">
     {{$restaurant->name}}'s food list
 </p>
-<div class="d-flex mx-4 my-2">
-    <button class="filter-btn mr-1" type="submit">All</button>
-    <button class="filter-btn mx-1" type="submit">Main Course</button>
-    <button class="filter-btn mx-1" type="submit">Dessert</button>
-    <button class="filter-btn mx-1" type="submit">Snack</button>
-    <button class="filter-btn mx-1" type="submit">Drink</button>
+<div class="tab-control d-flex mx-4 my-2">
+    <button class="filter-btn mr-1 active" type="button" data-category="all">All</button>
+    @foreach ($categories as $category)
+        <button class="filter-btn mx-1" type="button" data-category="{{ $category->name }}">{{ $category->name }}</button>
+    @endforeach
 </div>
 <table class="table">
   <thead class="thead">
@@ -47,7 +48,7 @@
 </thead>
 <tbody class="tbody">
     @foreach ($foods as $food)
-        <tr>
+        <tr data-category="{{$food->category->name}}">
         <th scope="row">{{$loop->iteration}}</th>
         <td>{{$food->name}}</td>
         <td>{{$food->description}}</td>
@@ -107,7 +108,7 @@
         
         <x-slot name="footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" form="addFoodModal">Submit</button>
         </x-slot>
     </form>
 </x-popup-modal>

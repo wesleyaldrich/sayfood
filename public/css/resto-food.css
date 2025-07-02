@@ -52,6 +52,13 @@
     border-color: #c55b39;
     border-width: 3px;
     color: white;
+    font-weight: normal;
+    opacity: 70%;
+}
+
+.filter-btn.active{
+    opacity: 100%;
+    font-weight: bold;
 }
 
 .add-btn{
