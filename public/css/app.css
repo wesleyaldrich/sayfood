@@ -287,6 +287,24 @@ h4 {
     color: gray;
 }
 
+.modal-content.popupmodal{
+    background-color: white;
+}
+
+.modal-title{
+    font-family: "Oswald";
+    font-size: 20px;
+    font-weight: bold;
+    color: #234C4C;
+}
+
+.modal-body{
+    font-family: "Lato";
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
 /* RESPONSIVE DESIGN */
 
 @media(max-width: 1024px) {

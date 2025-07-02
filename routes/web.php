@@ -49,7 +49,9 @@ Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']
 
 // Restaurant - Manage Food
 Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
-
+Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
+Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
+Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
     
