@@ -529,12 +529,23 @@
 .rectangle .title_font p{
   font-size: 16px;
 }
+
+
 .rectangle .host_font p{
   margin-top: 8px;
   font-size: 9px;
 }
-.loc_date-group{
-  margin-top: 4px;
+
+.loc_date-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.row-group {
+    display: flex;
+    align-items: center;
+    gap: 3px; 
 }
 .underline-class{
   color: white;
@@ -849,24 +860,11 @@
         padding: 0 15px;
         gap: 15px;
     }
-    /*
-    .share_moment-slide-image {
-        width: 90%;
-        height: 160px;
-        margin: 0 auto;
-    }
 
-    .share_moment-slide-title {
-        font-size: 24px;
-    }
+}
 
-    .share_moment-slide-description {
-        font-size: 14px;
-    }
-
-    .share_moment-checklist-container {
-        flex-direction: column;
-    } */
+.input-fn{
+    padding-left: 5px;
 }
 
 .fa-clock{

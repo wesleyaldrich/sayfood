@@ -116,6 +116,7 @@ body {
     top: 10px;
     z-index: 1;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .container-fooddetail {

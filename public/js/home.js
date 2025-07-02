@@ -528,3 +528,64 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.remove('modal-open');
             joinForm.reset();
         });
+
+            function truncateResponsively(selector, breakpoints) {
+            const elements = document.querySelectorAll(selector);
+            const isMobile = window.matchMedia("(max-width: 390px)").matches;
+            const { max, cut } = isMobile ? breakpoints.mobile : breakpoints.default;
+
+            elements.forEach((element) => {
+                if (!element.textContent) return;
+                const text = element.textContent.trim();
+                if (text.length > max) {
+                    const truncated = text.substring(0, cut) + "...";
+                    element.innerHTML = truncated; // Preserves HTML if present
+                }
+            });
+            }
+
+            // Run on page load and resize
+            document.addEventListener("DOMContentLoaded", () => {
+            truncateResponsively(".title_font_os", {
+                default: { max: 13, cut: 12 },  // Desktop/larger screens
+                mobile: { max: 10, cut: 9 }     // Screens ≤390px
+            });
+
+            truncateResponsively(".host_font_os", {
+                default: { max: 19, cut: 18 },
+                mobile: { max: 15, cut: 14 }
+            });
+
+            truncateResponsively(".location_font", {
+                default: { max: 10, cut: 7 },
+                mobile: { max: 9, cut: 6 }
+            });
+
+            truncateResponsively(".date_font", {
+                default: { max: 10, cut: 7 },
+                mobile: { max: 9, cut: 7 }
+            });
+            });
+
+            // Re-check on window resize
+            window.addEventListener("resize", () => {
+            truncateResponsively(".title_font_os", {
+                default: { max: 13, cut: 12 },
+                mobile: { max: 10, cut: 9 }
+            });
+
+            truncateResponsively(".host_font_os", {
+                default: { max: 19, cut: 18 },
+                mobile: { max: 15, cut: 14 }
+            });
+
+            truncateResponsively(".location_font", {
+                default: { max: 10, cut: 7 },
+                mobile: { max: 9, cut: 6 }
+            });
+
+            truncateResponsively(".date_font", {
+                default: { max: 10, cut: 7 },
+                mobile: { max: 9, cut: 6 }
+            });
+            });
