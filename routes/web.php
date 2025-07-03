@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Loader\Configurator\Traits\LocalizedRouteTrait;
 
 use App\Http\Controllers\HomeDishesController;
 
-// numpang sini gais -kalis
+
 Route::get('/restaurant-home', function () {
     return view('restaurant-home');
 })->name('restaurant-home');
-// numpang sini gais -kalis
+
 use App\Http\Controllers\PasswordResetController;
 
 Route::get('/', function () {
