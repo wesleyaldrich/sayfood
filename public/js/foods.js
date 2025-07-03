@@ -1,29 +1,32 @@
 const slider = document.querySelector('.foreach-today');
-let isDown = false;
-let startX;
-let scrollLeft;
 
-slider.addEventListener('mousedown', (e) => {
-    isDown = true;
-    slider.classList.add('active');
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-});
-slider.addEventListener('mouseleave', () => {
-    isDown = false;
-    slider.classList.remove('active');
-});
-slider.addEventListener('mouseup', () => {
-    isDown = false;
-    slider.classList.remove('active');
-});
-slider.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 2; // scroll-fast multiplier
-    slider.scrollLeft = scrollLeft - walk;
-});
+if(slider) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // scroll-fast multiplier
+        slider.scrollLeft = scrollLeft - walk;
+    });
+}
 
 function showCartPopup(cartIcon) {
     const parent = cartIcon.closest('.container-food');
@@ -112,16 +115,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-const btnNearby = document.getElementById('btnNearby');
+document.addEventListener('DOMContentLoaded', () => {
+    const sortForm = document.getElementById('sortForm');
+    const sortInput = document.getElementById('sortInput');
+    const btnNearby = document.getElementById('btnNearby');
+    const btnPopular = document.getElementById('btnMostPopular');
 
-btnNearby.addEventListener('click', () => {
-    btnNearby.classList.toggle('active');
-});
+    btnNearby.addEventListener('click', () => {
+        if (sortInput.value === 'nearby') {
+            sortInput.value = '';
+        } else {
+            sortInput.value = 'nearby';
+        }
+        sortForm.submit();
+    });
 
-const btnMostPopular = document.getElementById('btnMostPopular');
-
-btnMostPopular.addEventListener('click', () => {
-    btnMostPopular.classList.toggle('active');
+    btnPopular.addEventListener('click', () => {
+        if (sortInput.value === 'popular') {
+            sortInput.value = '';
+        } else {
+            sortInput.value = 'popular';
+        }
+        sortForm.submit();
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -146,3 +162,10 @@ document.addEventListener('DOMContentLoaded', function () {
         titleElement.textContent = category.replace(/([A-Z])/g, ' $1').toUpperCase();
     });
 });
+
+// window.addEventListener('load', function () {
+//     if (window.location.search.includes('q=')) {
+//         // Remove query params from URL without reloading
+//         window.history.replaceState({}, document.title, window.location.pathname);
+//     }
+// });
