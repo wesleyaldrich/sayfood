@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'username' => 'admin',
             'email' => 'email_admin@gmail.com',
-            'password' => Hash::make('admin'), // Always hash passwords
+            'password' => Hash::make('adminnnn'), // Always hash passwords
             'two_factor_verified' => 1,
         ]);
 

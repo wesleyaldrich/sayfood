@@ -207,7 +207,7 @@ h1 {
     font-weight: bold;
 }
 
-.dropdown-toggle{
+.food-item-dropdown-toggle{
     background-color: #FFF2CE;
     border: #007771 2px solid !important;
     border-radius: 12px;
@@ -226,7 +226,7 @@ h1 {
     font-weight: bold;
 }
 
-.dropdown-toggle:hover{
+.food-item-dropdown-toggle:hover{
     background-color: #FFF2CE;
     border: #007771 2px solid !important;
     border-radius: 12px;

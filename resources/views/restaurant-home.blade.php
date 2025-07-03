@@ -89,7 +89,6 @@
                     :name="$r['name']"
                     :menu="$r['menu']"
                     :rating="$r['rating']"
-                    :review="$r['review']"
                     :date="$r['date']"
                     :profile="$r['profile']"
                 />

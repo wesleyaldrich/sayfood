@@ -8,11 +8,6 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
 use App\Http\Controllers\PasswordResetController;
 
-
-Route::get('/restaurant-home', function () {
-    return view('restaurant-home');
-})->name('restaurant-home');
-
 // UNPROTECTED ROUTES
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
 

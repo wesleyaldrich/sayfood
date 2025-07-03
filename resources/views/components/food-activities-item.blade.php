@@ -23,7 +23,7 @@
                 </div>
                 <div class="d-flex align-items-center activity-item-actions">
                     <div class="btn btn-sm px-3 btn-ready-pickup">{{ $orderData['readyPickupText'] ?? 'Ready to Pick Up' }}</div>
-                    <button class="btn btn-sm px-3 dropdown-toggle" type="button"
+                    <button class="btn btn-sm px-3 food-item-dropdown-toggle" type="button"
                             data-bs-toggle="collapse" data-bs-target="#detailsCollapseFood{{ $index }}"
                             aria-expanded="false" aria-controls="detailsCollapseFood{{ $index }}">
                         See Details

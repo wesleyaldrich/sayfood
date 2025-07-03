@@ -25,7 +25,6 @@
     </div>
 
     <div class="buttons d-flex mt-2">
-        <button class="btn-decline">Decline</button>
         <button class="btn-accept">Accept</button>
     </div>
 </div>

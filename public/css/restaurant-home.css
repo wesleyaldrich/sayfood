@@ -139,12 +139,17 @@ body {
     padding: 5px;
 }
 
+.restaurant-order-item .btn-accept:hover {
+    background: #4b9e5d;
+}
+
 .restaurant-order-item .btn-decline {
     background: #E04C4F;
 }
 
 .restaurant-order-item .btn-accept {
     background: #5CC071;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 
