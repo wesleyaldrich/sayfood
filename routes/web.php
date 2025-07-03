@@ -45,6 +45,10 @@ Route::get('/restaurant-transactions', function() {
     return view('restaurant-transactions');
 })->name('restaurant-transactions');
 
+Route::get('/restaurant-orders', function() {
+    return view('restaurant-orders');
+})->name('restaurant-orders');
+
 Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
 Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
 Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
