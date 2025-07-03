@@ -8,6 +8,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\TransactionController;
 
 // UNPROTECTED ROUTES
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
@@ -41,9 +42,7 @@ Route::get('/restaurant-home', function () {
     return view('restaurant-home');
 })->name('restaurant-home');
 
-Route::get('/restaurant-transactions', function() {
-    return view('restaurant-transactions');
-})->name('restaurant-transactions');
+Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
 
 Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
 Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');

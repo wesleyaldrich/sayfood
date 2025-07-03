@@ -20,16 +20,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>1</td>
-                    <td>01/01/2001</td>
-                    <td>Naufal Dimas Azizan</td>
-                    <td>Nasi Telur Tahu Tempe</td>
-                    <td>2</td>
-                    <td>Rp10.000,00</td>
-                    <td>Rp20.000,00</td>
-                </tr>
+                @foreach ($transactions as $i)
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{ $i->order_id }}</td>
+                        <td>{{ $i->created_at }}</td>
+                        <td>{{ $i->order->customer->username }}</td>
+                        <td>{{ $i->food->name }}</td>
+                        <td>{{ $i->qty }}</td>
+                        <td>{{ 'Rp' . $i->food->price . ',00'}}</td>
+                        <td>{{ 'Rp' . $i->qty * $i->food->price . ',00'}}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

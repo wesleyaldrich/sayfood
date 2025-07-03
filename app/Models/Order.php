@@ -9,4 +9,15 @@ class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
