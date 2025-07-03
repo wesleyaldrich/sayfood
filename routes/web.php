@@ -5,13 +5,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\GoogleAuthController;
+use Symfony\Component\Routing\Loader\Configurator\Traits\LocalizedRouteTrait;
 use App\Http\Controllers\HomeDishesController;
 use App\Http\Controllers\PasswordResetController;
-
-
-Route::get('/restaurant-home', function () {
-    return view('restaurant-home');
-})->name('restaurant-home');
+use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\RestaurantController;
+use App\Models\Restaurant;
 
 // UNPROTECTED ROUTES
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
@@ -25,6 +24,12 @@ Route::get('/activity', function(){
     return view('activity');
 })->name('activity');
 
+// CART
+Route::get('/cart', [CartController::class,'show'])->name('show.cart');
+Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart');
+
+Route::get('/foods', [FoodController::class, 'index'])->name('foods');
+
 // ADMIN APPROVE RESTAURANT REGISTRATION (DELETE SOON)!
 Route::get('/approve-registration/{id}', [AuthController::class, 'approveRegistration'])->name('approve.registration');
 
@@ -33,6 +38,17 @@ Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])-
 Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
+
+// RESTAURANT
+Route::get('/restaurant-home', function () {
+    return view('restaurant-home');
+})->name('restaurant-home');
+
+Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
+Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
+Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
+Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
+
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
 
@@ -46,15 +62,6 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
     Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
     Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
-
-    // CUSTOMER
-    Route::get('/cart', [CartController::class,'show'])->name('show.cart');
-    Route::get('/foods', [FoodController::class, 'index'])->name('foods');
-
-    // RESTAURANT
-    Route::get('/restaurant-home', function () {
-        return view('restaurant-home');
-    })->name('restaurant-home');
 
 });
 

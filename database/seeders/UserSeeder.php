@@ -40,5 +40,15 @@ class UserSeeder extends Seeder
             'password' => Hash::make('restaurant'),
             'two_factor_verified' => 1,
         ]);
+
+        for ($i = 1; $i <= 19; $i++) {
+            User::create([
+                'role' => 'restaurant',
+                'username' => 'restaurant' . $i,
+                'email' => 'restaurant' . $i . '@gmail.com',
+                'password' => Hash::make('restaurant' . $i),
+                'two_factor_verified' => 1,
+            ]);
+        }
     }
 }

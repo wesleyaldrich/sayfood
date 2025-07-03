@@ -111,6 +111,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         <div class="foreach-today d-flex overflow-auto flex-nowrap">
             @foreach ($popular as $food)
                 <x-food-item
+                    :id="$food->id"
                     :image="$food->image_url"
                     :title="$food->name"
                     :description="$food->description"
@@ -132,6 +133,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
             @foreach ($mainCourses->take(4) as $food)
                 <x-food-item
+                    :id="$food->id"
                     :image="$food->image_url"
                     :title="$food->name"
                     :description="$food->description"
@@ -162,6 +164,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
             @foreach ($desserts->take(4) as $food)
                 <x-food-item
+                    :id="$food->id"
                     :image="$food->image_url"
                     :title="$food->name"
                     :description="$food->description"
@@ -192,6 +195,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
             @foreach ($snacks->take(4) as $food)
                 <x-food-item
+                    :id="$food->id"
                     :image="$food->image_url"
                     :title="$food->name"
                     :description="$food->description"
@@ -203,7 +207,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                 />
             @endforeach
-
+            
             @if ($snacks->count() > 4)
                 <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">
                     <h3 class="viewmore-text">VIEW<br>MORE</h3>
@@ -222,6 +226,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
             @foreach ($drinks->take(4) as $food)
                 <x-food-item
+                    :id="$food->id"
                     :image="$food->image_url"
                     :title="$food->name"
                     :description="$food->description"
@@ -263,6 +268,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($mainCourses as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
+                                    :id ="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
@@ -282,6 +288,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($desserts as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
+                                    :id ="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
@@ -301,6 +308,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($snacks as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
+                                    :id ="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
@@ -320,6 +328,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($drinks as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
+                                    :id ="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
