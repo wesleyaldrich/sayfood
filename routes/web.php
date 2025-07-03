@@ -12,6 +12,10 @@ Route::get('/foods', function () {
     return view('foods');
 })->name('foods');
 
+Route::get('/events', function () {
+    return view('events');
+})->name('events');
+
 Route::middleware(['auth', 'twofactor'])->group(function () {
  
     // DELETE SOON!

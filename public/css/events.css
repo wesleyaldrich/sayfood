@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+.jumbotron-custom {
+    background-color: #333333;
+}
+
+.btn-cookingworkshop,
+.btn-fooddonation,
+.btn-education {
+    background-color: #234C4C;
+}
+
+.card-upcoming {
+    background-color: #234C4C;
+}
+
+.card-upcoming1,
+.card-upcoming2,
+.card-upcoming3 {
+    background-color: #EFD0A4;
+    width: 300px;
+}
+
+/* CSS File */
+.event-section {
+  background-color: #fdf7ef;
+  font-family: 'Poppins', sans-serif;
+}
+
+.event-category {
+  font-size: 1.1rem;
+}
+
+.category-card {
+  width: 110px;
+  background-color: #005147;
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+.recommended-section {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.recommended-card {
+  width: 200px;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.coming-soon {
+  width: 200px;
+}
+
+.bg-dark-green {
+  background-color: #005147;
+}
+
+.bg-orange {
+  background-color: #f9a826;
+}
+
+.text-orange {
+  color: #f9a826;
+}
+
+.date-box {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+}
+
+.coming-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-teal {
+  background-color: #005147;
+  color: white;
+  border-radius: 5px;
+}
+
+.event-card {
+  background-color: #f2c27c;
+  border: none;
+  border-radius: 12px;
+}
+
+.volunteer-card {
+  background-color: #003b35;
+  color: white;
+  border-radius: 12px;
+}
+
+.volunteer-card.orange {
+  background-color: #f9a826;
+  color: white;
+}
+
+.bg-cream {
+  background-color: #f5f1e9; /* warna krem lembut */
+  color: #333; /* teks jadi agak gelap supaya kontras */
+}
+
+.containercs {
+  width: 800px !important;
+  height: 500px !important;
+}

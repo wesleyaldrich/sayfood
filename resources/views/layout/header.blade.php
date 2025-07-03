@@ -9,7 +9,7 @@
             <ul>
                 <li><a href="{{ url('/') }}" class="oswald nav-button nav-active">HOME</a></li>
                 <li><a href="{{ url('/foods') }}" class="oswald nav-button">FOODS</a></li>
-                <li><a href="{{ url('/charity') }}" class="oswald nav-button">CHARITY</a></li>
+                <li><a href="{{ url('/events') }}" class="oswald nav-button">EVENTS</a></li>
                 <li><a href="{{ url('/activity') }}" class="oswald nav-button">ACTIVITY</a></li>
             </ul>
         </nav>
