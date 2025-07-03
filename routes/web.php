@@ -34,6 +34,7 @@ Route::get('/activity', function(){
 
 // CART
 Route::get('/cart', [CartController::class,'show'])->name('show.cart');
+Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart');
 
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 
@@ -47,7 +48,7 @@ Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']
 
 
 
-// Restaurant - Manage Food
+// RESTAURANT - Manage Food
 Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
 Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
 Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
