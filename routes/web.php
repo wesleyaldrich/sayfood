@@ -5,21 +5,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\GoogleAuthController;
-use Symfony\Component\Routing\Loader\Configurator\Traits\LocalizedRouteTrait;
-
 use App\Http\Controllers\HomeDishesController;
+use App\Http\Controllers\PasswordResetController;
 
 
 Route::get('/restaurant-home', function () {
     return view('restaurant-home');
 })->name('restaurant-home');
 
-use App\Http\Controllers\PasswordResetController;
-
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
+// UNPROTECTED ROUTES
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
 
 Route::get('/events', function () {
@@ -31,40 +25,36 @@ Route::get('/activity', function(){
     return view('activity');
 })->name('activity');
 
-// CART
+// ADMIN APPROVE RESTAURANT REGISTRATION (DELETE SOON)!
+Route::get('/approve-registration/{id}', [AuthController::class, 'approveRegistration'])->name('approve.registration');
 
-Route::get('/cart', [CartController::class,'show'])->name('show.cart');
-
-Route::get('/foods', [FoodController::class, 'index'])->name('foods');
-
+// FORGOT PASSWORD
 Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
-
 Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
-
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
-
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
 
-    // DELETE SOON!
+    // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
-    Route::get('/test', function () {
-        return "You are currently authenticated!";
-    });
-
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    // PROFILE
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
-
     Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
-
     Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
-
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
+
+    // CUSTOMER
+    Route::get('/cart', [CartController::class,'show'])->name('show.cart');
+    Route::get('/foods', [FoodController::class, 'index'])->name('foods');
+
+    // RESTAURANT
+    Route::get('/restaurant-home', function () {
+        return view('restaurant-home');
+    })->name('restaurant-home');
 
 });
 
@@ -79,41 +69,41 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('guest')->group(function () {
 
-    // LOCAL AUTH
+    // LOGIN SELECTION
     Route::get('/login', function () {
         return view('login');
     })->name('selection.login');
 
+    // CUSTOMER LOCAL LOGIN
     Route::get('/login-customer', function () {
         return view('login-customer');
     })->name('show.login');
 
+    // CUSTOMER LOCAL REGISTER
     Route::get('/register-customer', function () {
         return view('register-customer');
     })->name('show.register');
     
+    // CUSTOMER LOCAL AUTH POST ROUTES
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-    // GOOGLE AUTH
+    // GOOGLE AUTH (CUSTOMER ONLY)
     Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
     Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
-
-    // RESTAURANTS
+    // RESTAURANT LOCAL LOGIN
     Route::get('/login-restaurant', function () {
         return view('login-restaurant');
     })->name('show.login.restaurant');
 
+    // RESTAURANT LOCAL REGISTER
     Route::get('/register-restaurant', function () {
         return view('register-restaurant');
     })->name('show.register.restaurant');
 
+    // RESTAURANT LOCAL AUTH POST ROUTES 
     Route::post('/login-restaurant', [AuthController::class, 'loginRestaurant'])->name('login.restaurant');
     Route::post('/register-restaurant', [AuthController::class, 'registerRestaurant'])->name('register.restaurant');
-
-    
-    // ADMIN
-    Route::get('/approve-registration/{id}', [AuthController::class, 'approveRegistration'])->name('approve.registration');
 
 });
