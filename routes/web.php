@@ -48,27 +48,34 @@ Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])
 Route::post('/restaurant-orders/{id}/accept', [TransactionController::class, 'acceptOrder'])->name('restaurant-orders.accept');
 Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
 
-
 Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
 Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
 Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
 Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
 
 
-Route::middleware(['auth', 'twofactor'])->group(function () {
+Route::middleware('twofactor')->group(function () {
 
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // PROFILE
+    // PROFILE OPTIONS
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-    Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
-    Route::post('/profile-restaurant', [AuthController::class, 'updateProfileRestaurant'])->name('update.profile.restaurant');
-    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
-    Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
-    Route::post('/login-as-customer', [AuthController::class, 'redirectToCustomerLogin'])->name('login.as.customer');
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
+    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
+    
+    // CUSTOMER & ADMIN ROUTES
+    Route::middleware('role:customer')->group(function(){
+        Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
+        Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
+    });
+
+    // RESTAURANT ROUTES
+    Route::middleware('role:restaurant')->group(function(){
+        Route::post('/profile-restaurant', [AuthController::class, 'updateProfileRestaurant'])->name('update.profile.restaurant');
+        Route::post('/login-as-customer', [AuthController::class, 'redirectToCustomerLogin'])->name('login.as.customer');
+    });
 
 });
 
