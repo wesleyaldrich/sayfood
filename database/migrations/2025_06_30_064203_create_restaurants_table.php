@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('description')->nullable();
             $table->boolean('is_open')->nullable();
-            $table->float('avg_stars')->nullable();
+            $table->float('avg_rating')->nullable();
             $table->float('distance')->nullable();
             $table->timestamps();
         });
