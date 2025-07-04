@@ -33,7 +33,8 @@ class RestaurantSeeder extends Seeder
                 'is_open' => 1,
                 'avg_rating' => 0,
                 'user_id'=> 12,
-                'distance' => 1.2
+                'distance' => 1.2,
+                'image_url_resto' => 'assets/resto_images/western-station.jpg'
             ],
             [
                 'id' => 3,

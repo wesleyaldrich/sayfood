@@ -103,47 +103,6 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
     <img class="mycart" src="assets/icon_mycart.png" alt="mycart">
 </a>
 
-<<<<<<< HEAD
-<div class="container-today container-fluid my-4 px-4 py-4 d-flex">
-    <h2 class="category-title">TODAY'S BEST FOOD</h2>
-    <div class="foreach-today d-flex overflow-auto flex-nowrap">
-        @foreach ($popular as $food)
-            <x-food-item
-                :image="$food->image_url"
-                :title="$food->name"
-                :description="$food->description"
-                :expiry="$food->exp_datetime->format('d/m h:i A')"
-                :stock="$food->stock"
-                :restoName="$food->restaurant->name"
-                :rating="$food->restaurant->avg_stars"
-                :distance="number_format($food->restaurant->distance, 1)"
-                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
-                :resto_id="$food->restaurant->id"
-            />
-        @endforeach
-    </div>
-</div>
-
-<div class="container-foodcategories container-maincourses container-fluid my-4 px-4 py-4 d-flex">
-    <h2 class="category-title">MAIN COURSES</h2>
-    <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
-        @foreach ($mainCourses->take(4) as $food)
-            <x-food-item
-                :image="$food->image_url"
-                :title="$food->name"
-                :description="$food->description"
-                :expiry="$food->exp_datetime->format('d/m h:i A')"
-                :stock="$food->stock"
-                :restoName="$food->restaurant->name"
-                :rating="$food->restaurant->avg_stars"
-                :distance="number_format($food->restaurant->distance, 1)"
-                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
-                :resto_id="$food->restaurant->id"
-            />
-        @endforeach
-        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">
-            <h3 class="viewmore-text">VIEW<br>MORE</h3>
-=======
 @if (!request()->has('q') && !request()->has('price') && !request()->has('rating') && !request()->has('sort'))
     <div class="container-today container-fluid my-4 px-4 py-4 d-flex">
         <h2 class="category-title">RECOMMENDED FOR YOU</h2>
@@ -157,61 +116,16 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
->>>>>>> 78b7a26a86e6e2c916b32150f6be852f3984d2a6
         </div>
     </div>
 @endif
 
-<<<<<<< HEAD
-<div class="container-foodcategories container-desserts container-fluid my-4 px-4 py-4 d-flex">
-    <h2 class="category-title">DESSERTS</h2>
-    <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
-        @foreach ($desserts->take(4) as $food)
-            <x-food-item
-                :image="$food->image_url"
-                :title="$food->name"
-                :description="$food->description"
-                :expiry="$food->exp_datetime->format('d/m h:i A')"
-                :stock="$food->stock"
-                :restoName="$food->restaurant->name"
-                :rating="$food->restaurant->avg_stars"
-                :distance="number_format($food->restaurant->distance, 1)"
-                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
-                :resto_id="$food->restaurant->id"
-            />
-        @endforeach
-        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">
-            <h3 class="viewmore-text">VIEW<br>MORE</h3>
-        </div>
-    </div>
-    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">VIEW MORE</h4>
-</div>
-
-<div class="container-foodcategories container-snacks container-fluid my-4 px-4 py-4 d-flex">
-    <h2 class="category-title">SNACKS</h2>
-    <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
-        @foreach ($snacks->take(4) as $food)
-            <x-food-item
-                :image="$food->image_url"
-                :title="$food->name"
-                :description="$food->description"
-                :expiry="$food->exp_datetime->format('d/m h:i A')"
-                :stock="$food->stock"
-                :restoName="$food->restaurant->name"
-                :rating="$food->restaurant->avg_stars"
-                :distance="number_format($food->restaurant->distance, 1)"
-                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
-                :resto_id="$food->restaurant->id"
-            />
-        @endforeach
-        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">
-            <h3 class="viewmore-text">VIEW<br>MORE</h3>
-=======
 @if ($mainCourses->count() > 0)
     <div class="container-foodcategories container-maincourses container-fluid my-4 px-4 py-4 d-flex">
         <h2 class="category-title">MAIN COURSES</h2>
@@ -225,9 +139,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
 
@@ -236,7 +151,6 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     <h3 class="viewmore-text">VIEW<br>MORE</h3>
                 </div>
             @endif
->>>>>>> 78b7a26a86e6e2c916b32150f6be852f3984d2a6
         </div>
         @if ($mainCourses->count() > 4)
             <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">VIEW MORE</h4>
@@ -244,27 +158,6 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
     </div>
 @endif
 
-<<<<<<< HEAD
-<div class="container-foodcategories container-drinks container-fluid my-4 px-4 py-4 d-flex">
-    <h2 class="category-title">DRINKS</h2>
-    <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
-        @foreach ($drinks->take(4) as $food)
-            <x-food-item
-                :image="$food->image_url"
-                :title="$food->name"
-                :description="$food->description"
-                :expiry="$food->exp_datetime->format('d/m h:i A')"
-                :stock="$food->stock"
-                :restoName="$food->restaurant->name"
-                :rating="$food->restaurant->avg_stars"
-                :distance="number_format($food->restaurant->distance, 1)"
-                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
-                :resto_id="$food->restaurant->id"
-            />
-        @endforeach
-        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">
-            <h3 class="viewmore-text">VIEW<br>MORE</h3>
-=======
 @if ($desserts->count() > 0)
     <div class="container-foodcategories container-desserts container-fluid my-4 px-4 py-4 d-flex">
         <h2 class="category-title">DESSERTS</h2>
@@ -278,9 +171,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
 
@@ -289,7 +183,6 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     <h3 class="viewmore-text">VIEW<br>MORE</h3>
                 </div>
             @endif
->>>>>>> 78b7a26a86e6e2c916b32150f6be852f3984d2a6
         </div>
         @if ($desserts->count() > 4)
             <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">VIEW MORE</h4>
@@ -310,9 +203,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
             
@@ -341,9 +235,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
 
@@ -383,7 +278,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                                     :resto_id="$food->restaurant->id"
@@ -404,7 +299,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                                     :resto_id="$food->restaurant->id"
@@ -425,7 +320,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                                     :resto_id="$food->restaurant->id"
@@ -446,7 +341,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                                     :resto_id="$food->restaurant->id"

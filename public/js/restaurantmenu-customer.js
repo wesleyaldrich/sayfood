@@ -26,3 +26,24 @@ document.querySelectorAll('.menu-tab-bar .tab').forEach(tab => {
         }
     });
 });
+
+function showCartPopup(cartIcon) {
+    const parent = cartIcon.closest('.container-food');
+    const popover = parent.querySelector('.successfully-added');
+
+    if (popover) {
+        // Show the popover with fade-in
+        popover.style.display = 'flex'; // display it first
+        requestAnimationFrame(() => {
+            popover.classList.add('show'); // then fade it in
+        });
+
+        // Fade out after 3 seconds
+        setTimeout(() => {
+            popover.classList.remove('show'); // triggers opacity 0
+            setTimeout(() => {
+                popover.style.display = 'none'; // hide after fade-out
+            }, 500); // match transition duration
+        }, 800);
+    }
+}

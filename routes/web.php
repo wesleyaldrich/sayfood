@@ -8,25 +8,16 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\RestaurantController;
-<<<<<<< HEAD
+use App\Http\Controllers\TransactionController;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// UNPROTECTED ROUTES
+Route::get('/', [HomeDishesController::class, 'show'])->name('home');
 
 Route::get('/foods/resto', function () {
     return view('restaurantmenu-customer');
 })->name('restaurantmenu-customer');
 
 Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
-
-
-=======
-use App\Http\Controllers\TransactionController;
-
-// UNPROTECTED ROUTES
->>>>>>> 78b7a26a86e6e2c916b32150f6be852f3984d2a6
-Route::get('/', [HomeDishesController::class, 'show'])->name('home');
 
 Route::get('/events', function () {
     return "Coming soon";

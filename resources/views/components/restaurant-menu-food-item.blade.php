@@ -14,7 +14,7 @@
     <div class="ekor"></div>
     <img src="{{ asset($image) }}" alt="{{ $title }}" class="food-image">
     <div class="container-fooddetail px-3">
-        <h5 class="food-title">{{ $title }}</h5>
+        <h5 class="oswald food-title">{{ $title }}</h5>
         <p class="food-description mb-2">{{ $description }}</p>
 
         <div class="exp-stock d-flex justify-content-between mb-2">
@@ -22,7 +22,7 @@
             <p class="stock mb-1">Stock: {{ $stock }} left</p>
         </div>
     </div>
-    <h3 class="price py-2 mb-0">{{ $price }}</h3>
+    <h3 class="oswald price py-2 mb-0">{{ $price }}</h3>
     <img src="{{ asset('assets/icon_cart.png') }}" alt="cart" class="cart-icon" onclick="showCartPopup(this)">
     <div class="successfully-added align-items-center justify-content-center">
         <h6 class="mb-0">Successfully added!</h6>

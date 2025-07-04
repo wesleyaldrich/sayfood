@@ -125,20 +125,6 @@
     background-color: #FFA726;
 }
 
-.container-fooddetail{
-    height: 60%;
-}
-
-.food-image {
-    position: absolute;
-    width: 45%;
-    height: 32%;
-    left: 25%;
-    top: 70px;
-    z-index: 1;
-    border-radius: 50%;
-    object-fit: cover;
-}
 
 .category-title {
     font-weight: bold;
@@ -147,6 +133,143 @@
     color: #234848;
 }
 
+.container-food {
+    position: relative;
+    width: 260px;
+    height: 380px;
+    min-height: 380px;
+    min-width: 260px;
+    max-width: 260px;
+    scroll-snap-align: start;
+}
+
+.food-image {
+    position: absolute;
+    width: 45%;
+    height: 32%;
+    left: 25%;
+    top: 55px;
+    z-index: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    /* border: #FEA322;
+    border-width: 5px;
+    border-style: solid; */
+}
+
+.container-fooddetail {
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    background: #234C4C;
+    height: 65%;
+    padding-top: 23%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    left: 5%;
+}
+
+.food-description {
+    font-family: lato;
+    font-size: 0.75rem;
+    line-height: 1.25;
+}
+
+.exp-stock {
+    font-family: lato;
+    font-size: 0.75rem;
+    color: #FFDD88;
+}
+
+.resto-detail {
+    flex-direction: row;
+    position: relative;
+}
+
+
+.ekor {
+    width: 100%;
+    height: 8%;
+    bottom: 2%;
+    background: #234C4C;
+    position: absolute;
+}
+
+.food-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.food-description {
+    font-family: lato;
+    font-size: 0.75rem;
+    line-height: 1.25;
+}
+
+.exp-stock {
+    font-family: lato;
+    font-size: 0.75rem;
+    color: #FFDD88;
+}
+
+.price {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    color: black;
+    background: #FEA322;
+    font-size: 1.5rem;
+    left: 5%;
+    font-weight: 500;
+}
+
+.successfully-added {
+    position: absolute;
+    flex-direction: row;
+    background: #063434F0;
+    padding: 24px;
+    color: white;
+    font-family: lato;
+    border-radius: 16px;
+    bottom: 11%;
+    right: 0%;
+    z-index: 5;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.successfully-added.show {
+    display: flex;
+    opacity: 1;
+}
+
+.cart-icon {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 8%;
+    bottom: 5px;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.checkcircle {
+    width: 24px;
+    height: 24px;
+    margin-left: 8px
+}
 
 @media (max-width: 390px) {
     .hero-container {
