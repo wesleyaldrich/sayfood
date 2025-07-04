@@ -50,58 +50,10 @@
         <div class="tab-pane fade show active mb-5" id="food-content" role="tabpanel" aria-labelledby="food-tab">
 
             <div class="activity-list">
-                @php
-    $orderStatuses = [];
+    <x-food-activities-item :orderStatuses="$orderStatuses" />
+</div>
 
-    foreach ($orders as $order) {
-        $items = [];
-
-        foreach ($order->transactions as $transaction) {
-            $items[] = [
-                'name' => $transaction->food->name,
-                'qty' => $transaction->qty,
-                'price' => 'IDR ' . number_format($transaction->food->price * $transaction->qty, 2, ',', '.'),
-            ];
-        }
-
-        $total = $order->transactions->sum(function ($transaction) {
-            return $transaction->food->price * $transaction->qty;
-        });
-
-        $orderStatuses[] = [
-            'status' => match ($order->status) {
-                'Order Created' => 'order_created',
-                'Ready to Pickup' => 'ready_to_pickup',
-                'Order Completed' => 'order_completed',
-                'Order Reviewed' => 'review_order',
-                default => 'order_created',
-            },
-            'orderId' => $order->id,
-            'orderPlacedLabel' => 'ORDER PLACED',
-            'orderPlacedDate' => $order->created_at->format('d M Y'),
-            'total' => 'IDR ' . number_format($total, 2, ',', '.'),
-            'restoName' => $order->restaurant->name,
-            'restoLocation' => $order->restaurant->address ?? 'Unknown Location',
-            'readyPickupText' => match ($order->status) {
-                'Order Created' => 'Waiting for Confirmation',
-                'Ready to Pickup' => 'Ready to Pick Up',
-                'Order Completed' => 'Completed',
-                'Order Reviewed' => 'Reviewed',
-                default => '',
-            },
-            'items' => $items,
-            'reviewButtonText' => match ($order->status) {
-                'Order Reviewed' => 'Reviewed',
-                'Order Completed' => 'Review Order',
-                default => '',
-            },
-        ];
-    }
-@endphp
-
-<x-food-activities-item :orderStatuses="$orderStatuses" />
-
-            </div>
+            
         </div>
 
         <div class="tab-pane fade" id="charity-content" role="tabpanel" aria-labelledby="charity-tab">

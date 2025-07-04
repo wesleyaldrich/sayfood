@@ -20,7 +20,7 @@ Route::get('/events', function () {
 
 Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
 
-Route::post('/orders/{id}/rate', [TransactionController::class, 'rateOrder'])->name('orders.rate');
+Route::post('/orders/{id}/rate', [TransactionController::class, 'rate'])->name('orders.rate');
 
 // CART
 Route::get('/cart', [CartController::class,'show'])->name('show.cart');

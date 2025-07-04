@@ -95,6 +95,12 @@ class TransactionSeeder extends Seeder
                 'qty' => 3,
                 'created_at' => now()
             ],
+            [
+                'food_id' => 8,
+                'order_id' => 8,
+                'qty' => 10,
+                'created_at' => now()
+            ],
         ];
 
         Transaction::insert($data);
