@@ -1,4 +1,4 @@
-@props(['name', 'menu', 'rating', 'review', 'date', 'profile' => 'assets/icon_profile.png'])
+@props(['name', 'menu', 'rating', 'date', 'profile' => 'assets/icon_profile.png'])
 
 <div class="customer-review-item">
     <div class="customer-profile my-3 d-flex flex-row align-items-center">
@@ -11,6 +11,5 @@
             </div>
         </div>
     </div>
-    <p class="review">"<span class="review-text">{{ $review }}</span>"</p>
     <p class="date">{{ $date }}</p>
 </div>

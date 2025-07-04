@@ -1,8 +1,6 @@
 @extends('layout.app')
 @section('title', 'Foods Page')
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 @section('content')	
 
 {{-- container
@@ -268,7 +266,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($mainCourses as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
-                                    :id ="$food->id"
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
@@ -288,7 +286,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($desserts as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
-                                    :id ="$food->id"
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
@@ -308,7 +306,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($snacks as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
-                                    :id ="$food->id"
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
@@ -328,7 +326,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($drinks as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
-                                    :id ="$food->id"
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"

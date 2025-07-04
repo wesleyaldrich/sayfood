@@ -22,6 +22,7 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center activity-item-actions">
+
                     <div class="btn btn-sm px-3 btn-ready-pickup">{{ $orderData['readyPickupText'] }}</div>
                     <button class="btn btn-sm px-3 dropdown-toggle" type="button"
                             data-bs-toggle="collapse" data-bs-target="#detailsCollapseFood{{ $index }}"
