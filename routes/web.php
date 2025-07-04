@@ -44,6 +44,7 @@ Route::get('/restaurant-home', function () {
 
 Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
 Route::get('/restaurant-transactions/filter', [TransactionController::class, 'filter'])->name('restaurant-transactions.filter');
+Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
 
 Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
 Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');

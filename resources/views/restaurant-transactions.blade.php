@@ -76,7 +76,7 @@
                     </div>
                 </form>
                 <div class="d-flex ms-auto mt-auto">
-                    <a href="#" class="download-button btn btn-primary d-flex justify-content-center align-items-center">Download Report</a>
+                    <a href="{{ route('restaurant-transactions.download', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="download-button btn btn-primary d-flex justify-content-center align-items-center">Download Report</a>
                 </div>
             </div>
         </div>
