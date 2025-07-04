@@ -13,6 +13,12 @@ use App\Http\Controllers\TransactionController;
 // UNPROTECTED ROUTES
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
 
+Route::get('/foods/resto', function () {
+    return view('restaurantmenu-customer');
+})->name('restaurantmenu-customer');
+
+Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
+
 Route::get('/events', function () {
     return "Coming soon";
     // return view('charity');

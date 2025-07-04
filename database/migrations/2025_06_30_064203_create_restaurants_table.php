@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->float('avg_rating')->nullable();
             $table->float('distance')->nullable();
+            $table->string('image_url_resto')->nullable();
             $table->timestamps();
         });
     }
