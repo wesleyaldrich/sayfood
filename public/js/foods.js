@@ -66,7 +66,7 @@ function updateRangeLabel(inputId, labelId, unitSuffix = '', multiplier = 1, for
     const trackWidth = rangeInput.offsetWidth;
     const labelOffset = percent * trackWidth;
 
-    rangeLabel.style.left = ${labelOffset}px;
+    rangeLabel.style.left = `${labelOffset}px`;
 }
 
 function initRangeLabel(inputId, labelId, unitSuffix, multiplier, formatter) {

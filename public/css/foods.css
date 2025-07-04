@@ -363,6 +363,20 @@ body {
     z-index: 10;
 }
 
+.cart-badge {
+    padding: 5px 12px;
+    border-radius: 50%;
+    background-color: #D9534F;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border: 3px solid #063434F0;
+    position: fixed;
+    right: 35px;
+    bottom: 120px;
+    z-index: 10;
+}
+
 .successfully-added {
     position: absolute;
     flex-direction: row;
@@ -635,6 +649,20 @@ input[type="range"]::-moz-range-track {
         right: 24px;
         bottom: 24px;
     }
+
+    .cart-badge {
+    padding: 5px 12px;
+    border-radius: 50%;
+    background-color: #D9534F;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border: 3px solid #063434F0;
+    position: fixed;
+    right: 25px;
+    bottom: 95px;
+    z-index: 10;
+}
 }
 
 @media(max-width: 768px) {

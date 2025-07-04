@@ -47,6 +47,6 @@ class RestaurantController extends Controller
          'status'=>$status,
       ]);
 
-      return redirect()->back()->with('success', 'Food item has been added successfully!');
+      return redirect()->back()->with('status', 'Food item has been added successfully!');
    }
 }
