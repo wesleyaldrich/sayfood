@@ -15,28 +15,70 @@ class TransactionSeeder extends Seeder
     {
         $data = [
             [
-                'customer_id' => 2,
                 'food_id' => 8,
-                'payment_id' => 1,
-                'qty' => 10
+                'order_id' => 1,
+                'qty' => 10,
+                'created_at' => now()
             ],
             [
-                'customer_id' => 2,
                 'food_id' => 4,
-                'payment_id' => 1,
-                'qty' => 5
+                'order_id' => 1,
+                'qty' => 5,
+                'created_at' => now()
             ],
             [
-                'customer_id' => 1,
                 'food_id' => 12,
-                'payment_id' => 2,
-                'qty' => 4
+                'order_id' => 2,
+                'qty' => 4,
+                'created_at' => now()
             ],
             [
-                'customer_id' => 1,
                 'food_id' => 16,
-                'payment_id' => 2,
-                'qty' => 20
+                'order_id' => 2,
+                'qty' => 20,
+                'created_at' => now()
+            ],
+            [
+                'food_id' => 20,
+                'order_id' => 3,
+                'qty' => 10,
+                'created_at' => now()
+            ],
+            [
+                'food_id' => 21,
+                'order_id' => 3,
+                'qty' => 5,
+                'created_at' => now()
+            ],
+            [
+                'food_id' => 23,
+                'order_id' => 4,
+                'qty' => 4,
+                'created_at' => now()
+            ],
+            [
+                'food_id' => 24,
+                'order_id' => 4,
+                'qty' => 20,
+                'created_at' => now()
+            ],
+            [
+                'food_id' => 6,
+                'order_id' => 5,
+                'qty' => 5,
+                'created_at' => now()
+            ],
+            [
+                'food_id' => 7,
+                'order_id' => 5,
+                'qty' => 4,
+                'created_at' => now()
+            ],
+            [
+                'food_id' => 8,
+                'order_id' => 5,
+                'qty' => 20,
+                'created_at' => now()
             ],
         ];
 

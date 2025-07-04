@@ -10,6 +10,7 @@
 
 .sayfood-content-container {
     padding-top: 65px;
+    min-height: 90vh;
 }
 
 html, body {

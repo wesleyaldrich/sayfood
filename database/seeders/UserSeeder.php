@@ -14,35 +14,35 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Create the Admin User
+        // Create the Admin User
         User::create([
             'role' => 'admin',
             'username' => 'admin',
             'email' => 'email_admin@gmail.com',
+<<<<<<< HEAD
             'password' => Hash::make('adminnnn'), // Always hash passwords
+=======
+            'password' => Hash::make('admin'),
+>>>>>>> 6e15715c2302d2c74c3e8d8b1ec7eb2d904010d1
             'two_factor_verified' => 1,
         ]);
 
-        // 2. Create the Customer User
-        User::create([
-            'role' => 'customer',
-            'username' => 'customer',
-            'email' => 'email_customer@gmail.com',
-            'password' => Hash::make('customer'),
-            'two_factor_verified' => 1,
-        ]);
-
-        // 3. Create the Restaurant User
-        User::create([
-            'role' => 'restaurant',
-            'username' => 'restaurant',
-            'email' => 'email_restaurant@gmail.com',
-            'password' => Hash::make('restaurant'),
-            'two_factor_verified' => 1,
-        ]);
-
-        for ($i = 1; $i <= 19; $i++) {
+        // Create Customer Users
+        for ($i = 1; $i <= 9; $i++) {
             User::create([
+                'id' => $i + 1,
+                'role' => 'customer',
+                'username' => 'customer' . $i,
+                'email' => 'customer' . $i . '@gmail.com',
+                'password' => Hash::make('customer' . $i),
+                'two_factor_verified' => 1,
+            ]);
+        }
+
+        // Create Restaurant Users
+        for ($i = 1; $i <= 20; $i++) {
+            User::create([
+                'id' => $i + 10,
                 'role' => 'restaurant',
                 'username' => 'restaurant' . $i,
                 'email' => 'restaurant' . $i . '@gmail.com',
