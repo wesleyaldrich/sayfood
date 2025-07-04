@@ -41,6 +41,8 @@ Route::get('/restaurant-home', function () {
 })->name('restaurant-home');
 
 Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
+Route::get('/restaurant-transactions/filter', [TransactionController::class, 'filter'])->name('restaurant-transactions.filter');
+Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
 
 Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
 Route::post('/restaurant-orders/{id}/accept', [TransactionController::class, 'acceptOrder'])->name('restaurant-orders.accept');
