@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Sayfood | Customer Profile Page')
+@section('title', 'Sayfood | Restaurant Profile Page')
 @section('content')	
     {{-- {{$user}} --}}
 
@@ -19,9 +19,8 @@
                 @error('profile_image')
                     <div class="text-danger text-center">{{ $message }}</div>
                 @enderror
-                <form action=" {{ route('update.profile') }} " method="POST" class="d-flex flex-column justify-content-between align-items-center">
+                <form action=" {{ route('update.profile.restaurant') }} " method="POST" class="d-flex flex-column justify-content-between align-items-center">
                     @csrf   
-
                     <div class="form-group mb-3">
                         <label for="username" class="oswald">Username</label>
                         <input type="text" class="oswald form-control" id="username" name="username" autocomplete="on" required value="{{ $user->username }}">
@@ -31,16 +30,16 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="dob" class="oswald">Date of Birth</label>
-                        <input type="date" class="oswald form-control" id="dob" name="dob" autocomplete="on" value="{{ $user->customer->dob }}">
-                        @error('dob')
+                        <label for="restaurant_name" class="oswald">Restaurant Name</label>
+                        <input type="text" class="oswald form-control" id="restaurant_name" name="restaurant_name" autocomplete="on" required value="{{ $user->restaurant->name }}">
+                        @error('restaurant_name')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="address" class="oswald">Address</label>
-                        <input type="text" class="oswald form-control" id="address" name="address" autocomplete="on" value="{{ $user->customer->address }}">
+                        <input type="text" class="oswald form-control" id="address" name="address" autocomplete="on" value="{{ $user->restaurant->address }}">
                         @error('address')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -61,17 +60,17 @@
 
             <div class="container-fluid d-flex justify-content-center align-items-center">
                 <div class="profile-options justify-content-around row mt-5">
-                    <form id="login-as-restaurant-form" method="POST" action="{{ route('login.as.restaurant') }}" style="display: none;">@csrf</form>
+                    <form id="login-as-customer-form" method="POST" action="{{ route('login.as.customer') }}" style="display: none;">@csrf</form>
                     <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf</form>
                     <form id="delete-account-form" method="POST" action="{{ route('delete.account') }}" style="display: none;">@csrf</form>
 
-                    <a href="{{ route('login.as.restaurant') }}"
+                    <a href="{{ route('login.as.customer') }}"
                     onclick="
                         event.preventDefault();
-                        document.getElementById('login-as-restaurant-form').submit();"
+                        document.getElementById('login-as-customer-form').submit();"
                     class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
                         <img src="{{ asset('assets/profile_option_login_as_restaurant.png') }}" class="p-2" alt="icon">
-                        <p class="oswald">LOG IN AS RESTAURANT</p>
+                        <p class="oswald">LOG IN AS CUSTOMER</p>
                     </a>
                     <a href="{{ route('logout') }}"
                     onclick="

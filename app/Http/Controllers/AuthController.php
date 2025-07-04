@@ -277,9 +277,33 @@ class AuthController extends Controller
             $currentUser = User::find($currentUser->id);
 
             $currentUser->username = $validatedData['username'];
-            $currentUser->dob = $validatedData['dob'];
-            $currentUser->address = $validatedData['address'];
+            $currentUser->customer->dob = $validatedData['dob'];
+            $currentUser->customer->address = $validatedData['address'];
             $currentUser->save();
+            $currentUser->customer->save();
+        }
+
+        return redirect()->back()->with('status', 'Profile successfully updated!');
+    }
+
+    public function updateProfileRestaurant(Request $request)
+    {
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:64',
+            'restaurant_name' => 'required|string|max:64',
+            'address' => 'nullable|string|max:200'
+        ]);
+
+        $currentUser = Auth::user();
+
+        if ($currentUser) {
+            $currentUser = User::find($currentUser->id);
+
+            $currentUser->username = $validatedData['username'];
+            $currentUser->restaurant->name = $validatedData['restaurant_name'];
+            $currentUser->restaurant->address = $validatedData['address'];
+            $currentUser->save();
+            $currentUser->restaurant->save();
         }
 
         return redirect()->back()->with('status', 'Profile successfully updated!');
@@ -323,6 +347,16 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('show.login.restaurant');
+    }
+
+    public function redirectToCustomerLogin(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('show.login');
     }
 
     public function deleteAccount(Request $request)

@@ -64,8 +64,10 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
     // PROFILE
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
+    Route::post('/profile-restaurant', [AuthController::class, 'updateProfileRestaurant'])->name('update.profile.restaurant');
     Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
     Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
+    Route::post('/login-as-customer', [AuthController::class, 'redirectToCustomerLogin'])->name('login.as.customer');
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
 
 });
