@@ -18,7 +18,7 @@
                     <a class="nav-link active food-tab" id="food-tab" data-bs-toggle="pill" data-bs-target="#food-content" type="button" role="tab" aria-controls="food-content" aria-selected="true" href="#">FOOD ACTIVITIES</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link charity-tab" id="charity-tab" data-bs-toggle="pill" data-bs-target="#charity-content" type="button" role="tab" aria-controls="charity-content" aria-selected="false" href="#">CHARITY ACTIVITIES</a>
+                    <a class="nav-link charity-tab" id="charity-tab" data-bs-toggle="pill" data-bs-target="#charity-content" type="button" role="tab" aria-controls="charity-content" aria-selected="false" href="#">EVENT ACTIVITIES</a>
                 </li>
             </ul>
         </div>
