@@ -14,12 +14,14 @@ class TransactionController extends Controller
         $currentUser = User::find($currentUser->id);
 
         if ($currentUser->role === 'restaurant'){
-            $transactions = $currentUser->transactions()->get();
+            $transactions = $currentUser->restaurant->orders->flatMap->transactions;
+
+            // dd($transactions);
 
             return view('restaurant-transactions', compact('transactions'));
         }
         else {
-            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+            return redirect()->back()->withErrors('error', 'You do not have permission to access this page.');
         }
     }
 }

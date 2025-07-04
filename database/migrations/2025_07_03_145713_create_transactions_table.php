@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            $table->enum('status', ['Pending', 'Canceled', 'Completed']);
+            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('food_id')->constrained('foods');
+            $table->integer('qty');
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('transactions');
     }
 };

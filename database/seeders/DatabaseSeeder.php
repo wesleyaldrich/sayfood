@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
             CustomerSeeder::class,
             EventCategorySeeder::class,
             EventSeeder::class,
-            PaymentSeeder::class,
-            TransactionSeeder::class
+            OrderSeeder::class,
+            TransactionSeeder::class,
         ]);
     }
 }

@@ -21,7 +21,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Menu kreatif dengan cita rasa modern dan perpaduan unik bahan berkualitas. Pilihan ideal buat yang suka eksplorasi rasa dengan sentuhan kontemporer.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>3,
+                'user_id'=> 11,
                 'distance' => 2.3
             ],
             [
@@ -31,7 +31,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Pilihan buffet lengkap dari masakan Jepang, Cina, Barat, dan Nusantara. Variasi rasa yang kaya cocok untuk kamu yang ingin mencicipi berbagai hidangan dalam satu paket.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>4,
+                'user_id'=> 12,
                 'distance' => 1.2
             ],
             [
@@ -41,7 +41,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Indonesia autentik dengan bumbu kuat dan bahan segar. Hidangan khas dari berbagai daerah yang menghadirkan rasa tradisional dengan kualitas tinggi.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>5,
+                'user_id'=> 13,
                 'distance' => 2.4
             ],
             [
@@ -51,7 +51,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Klasik masakan Tionghoa dengan dimsum dan hidangan Cantonese yang kaya cita rasa. Pilihan menu yang cocok bagi pecinta masakan otentik dan premium.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>6,
+                'user_id'=> 14,
                 'distance' => 1.7
             ],
             [
@@ -61,7 +61,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Fusion unik antara masakan Jepang dan Peru dengan rasa inovatif dan berani. Menu yang memberikan pengalaman kuliner berbeda dan menarik.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>7,
+                'user_id'=> 15,
                 'distance' => 2.0
             ],
             [
@@ -71,7 +71,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Beragam pilihan masakan internasional dan lokal yang segar dan variatif, cocok untuk berbagai selera dan suasana makan.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>8,
+                'user_id'=> 16,
                 'distance' => 1.0
             ],
             [
@@ -81,7 +81,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Prancis klasik dengan sentuhan modern dan bahan berkualitas tinggi. Pilihan menu yang elegan dan memanjakan lidah.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>9,
+                'user_id'=> 17,
                 'distance' => 1.1
             ],
             [
@@ -91,7 +91,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Menu internasional dengan perpaduan rasa yang kaya dan bahan segar. Cocok untuk santapan praktis dengan cita rasa otentik.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>10,
+                'user_id'=> 18,
                 'distance' => 2.9
             ],
             [
@@ -101,7 +101,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Hidangan Indonesia dengan sentuhan seni dan sejarah yang kuat. Menawarkan berbagai menu tradisional yang kaya akan rempah dan cita rasa.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>11,
+                'user_id'=> 19,
                 'distance' => 0.7
             ],
             [
@@ -111,7 +111,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Latin Amerika dengan pilihan daging panggang dan hidangan segar. Menu penuh rasa dengan sentuhan khas yang memikat.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>12,
+                'user_id'=> 20,
                 'distance' => 0.6
             ],
             [
@@ -121,7 +121,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Jepang otentik dengan bahan segar dan penyajian yang detail. Menu lengkap mulai dari sushi, sashimi hingga hidangan hangat.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>13,
+                'user_id'=> 21,
                 'distance' => 3.0
             ],
             [
@@ -131,7 +131,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Pilihan kopi spesialti dari biji kopi terbaik dengan cita rasa yang kaya dan aroma khas. Tempat ideal untuk penikmat kopi sejati.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>14,
+                'user_id'=> 22,
                 'distance' => 2.5
             ],
             [
@@ -141,7 +141,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Menu internasional dengan cita rasa berkelas dan variasi hidangan yang elegan. Pilihan cocok untuk santapan berkualitas.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>15,
+                'user_id'=> 23,
                 'distance' => 2.2
             ],
             [
@@ -151,7 +151,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Indonesia tradisional dengan bahan segar dan resep turun-temurun. Hidangan yang kaya rasa dan penuh kehangatan.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>16,
+                'user_id'=> 24,
                 'distance' => 1.5
             ],
             [
@@ -161,7 +161,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Menu ringan dan minuman kreatif yang menyegarkan, cocok untuk bersantai dengan pemandangan kota yang indah.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>17,
+                'user_id'=> 25,
                 'distance' => 1.5
             ],
             [
@@ -171,7 +171,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Burger dengan cita rasa unik dan bahan berkualitas. Pilihan tepat bagi pecinta makanan cepat saji dengan sentuhan modern.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>18,
+                'user_id'=> 26,
                 'distance' => 1.6
             ],
             [
@@ -181,7 +181,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan fusion dengan inovasi tinggi dan penyajian artistik. Menu yang menarik bagi penikmat kuliner kreatif.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>19,
+                'user_id'=> 27,
                 'distance' => 3.1
             ],
             [
@@ -191,7 +191,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Seafood segar dengan cita rasa khas Indonesia. Pilihan berbagai hidangan laut yang menggugah selera.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>20,
+                'user_id'=> 28,
                 'distance' => 0.9
             ],
             [
@@ -201,7 +201,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan India otentik dengan rempah kaya dan rasa kuat. Menu yang memanjakan pecinta kuliner India sejati.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>21,
+                'user_id'=> 29,
                 'distance' => 0.7
             ],
             [
@@ -211,7 +211,7 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Indonesia dengan sentuhan modern dan keaslian rasa yang tetap terjaga. Pilihan hidangan kaya rempah dan autentik.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'user_id'=>22,
+                'user_id'=> 30,
                 'distance' => 3.2
             ],
         ]);
