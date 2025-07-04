@@ -83,42 +83,7 @@ class EventSeeder extends Seeder
                 'description' => 'Ascott Takes Part Ramadan 2025 merupakan wujud kepedulian The Ascott Limited terhadap masyarakat sekitar dengan berbagi takjil gratis.',
                 'image_url' => 'assets/event_images/ev10.jpg', 'date' => '2025-03-13', 'location' => 'Oakwood Hotel & Apartments Grand Batam', 'status' => 'Closed',
                 'created_at' => now(), 'updated_at' => now()
-            ],
-            [
-                'id' => 11, 'creator_id' => 11, 'event_category_id' => 2, // Cooking Workshop
-                'name' => 'DapurRos Cooking Charity',
-                'description' => 'DapurRos Cooking Charity adalah kegiatan amal yang menggabungkan workshop memasak dengan donasi makanan untuk kaum dhuafa.',
-                'image_url' => 'assets/event_images/ev11.jpg', 'date' => '2025-06-21', 'location' => 'Lapangan Terbuka Taman Menteng, Jakarta Pusat', 'status' => 'Ongoing',
-                'created_at' => now(), 'updated_at' => now()
-            ],
-            [
-                'id' => 12, 'creator_id' => 12, 'event_category_id' => 1, // Food Donation
-                'name' => 'BeraMal',
-                'description' => 'Program BeraMaL, yang sempat terhenti akibat pandemi, kembali hadir untuk menyediakan makanan gratis bagi siapa saja yang membutuhkan.',
-                'image_url' => 'assets/event_images/ev12.jpg', 'date' => '2025-05-12', 'location' => 'Pelataran Masjid Raya Al-Azhar, Kebayoran Baru, Jakarta Selatan', 'status' => 'Closed',
-                'created_at' => now(), 'updated_at' => now()
-            ],
-            [
-                'id' => 13, 'creator_id' => 13, 'event_category_id' => 1, // Food Donation
-                'name' => 'Dapur Makan by Chef Sarah',
-                'description' => 'Nikmati sajian istimewa dari Chef Sarah, sambil berdonasi untuk mendukung program pangan bagi anak-anak jalanan di ibukota.',
-                'image_url' => 'assets/event_images/ev13.png', 'date' => '2025-07-02', 'location' => 'Halaman Balaikota Jakarta, Gambir', 'status' => 'Ongoing',
-                'created_at' => now(), 'updated_at' => now()
-            ],
-            [
-                'id' => 14, 'creator_id' => 14, 'event_category_id' => 2, // Cooking Workshop
-                'name' => 'Cooking Workshop by Chef Nindy',
-                'description' => 'Bergabunglah dalam sesi eksklusif memasak bersama Chef Nindy, di mana seluruh keuntungan akan didonasikan untuk panti werdha.',
-                'image_url' => 'assets/event_images/ev14.jpg', 'date' => '2025-09-10', 'location' => 'Taman Lapangan Banteng, Jakarta Pusat', 'status' => 'Ongoing',
-                'created_at' => now(), 'updated_at' => now()
-            ],
-            [
-                'id' => 15, 'creator_id' => 15, 'event_category_id' => 1, // Food Donation
-                'name' => 'IkatanHati Charity',
-                'description' => 'IkatanHati Charity adalah acara amal penuh keharmonisan yang bertujuan untuk menyalurkan bantuan makanan pokok kepada keluarga prasejahtera.',
-                'image_url' => 'assets/event_images/ev15.jpg', 'date' => '2025-08-27', 'location' => 'Taman Kota 2 BSD, Tangerang Selatan', 'status' => 'Ongoing',
-                'created_at' => now(), 'updated_at' => now()
-            ],
+            ]
         ]);
     }
 }
