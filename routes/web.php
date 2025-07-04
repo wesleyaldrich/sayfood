@@ -44,9 +44,10 @@ Route::get('/restaurant-home', function () {
 
 Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
 
-Route::get('/restaurant-orders', function() {
-    return view('restaurant-orders');
-})->name('restaurant-orders');
+Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
+Route::post('/restaurant-orders/{id}/accept', [TransactionController::class, 'acceptOrder'])->name('restaurant-orders.accept');
+Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
+
 
 Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
 Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');

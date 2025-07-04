@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,4 +25,49 @@ class TransactionController extends Controller
             return redirect()->back()->withErrors('error', 'You do not have permission to access this page.');
         }
     }
+
+    public function manageOrders()
+    {
+        $user = Auth::user();
+
+        if (!$user || $user->role !== 'restaurant') {
+            return redirect('/')->withErrors(['error' => 'Unauthorized access']);
+        }
+
+        $orders = $user->restaurant->orders()
+            ->with(['customer', 'transactions.food'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('restaurant-orders', compact('orders'));
+    }
+
+    public function acceptOrder($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order->status === 'Order Created') {
+            $order->status = 'Ready to Pickup';
+            $order->save();
+        }
+
+        return redirect()->back();
+    }
+
+    public function updateStatus($id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order->status === 'Order Created') {
+            $order->status = 'Ready to Pickup'; 
+        } elseif ($order->status === 'Ready to Pickup') {
+            $order->status = 'Order Completed';
+        }
+
+        $order->save();
+
+        return redirect()->back();
+    }
+
+
 }
