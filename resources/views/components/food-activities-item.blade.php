@@ -21,10 +21,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex align-items-center activity-item-actions">
+                <div class="d-flex align-items-center activity-item-actions gap-2">
 
                     <div class="btn btn-sm px-3 btn-ready-pickup">{{ $orderData['readyPickupText'] }}</div>
-                    <button class="btn btn-sm px-3 dropdown-toggle" type="button"
+                    <button class="btn btn-sm px-3 dropdown-toggle" type="button" 
+                            style="background-color: #FFF2CE; border: 1px solid #063434; border-radius: 12px;"
                             data-bs-toggle="collapse" data-bs-target="#detailsCollapseFood{{ $index }}"
                             aria-expanded="false" aria-controls="detailsCollapseFood{{ $index }}">
                         See Details
