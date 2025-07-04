@@ -13,10 +13,10 @@ class CustomerSeeder extends Seeder
         $customers = [];
 
         // User dengan role customer biasanya dimulai dari ID 2
-        for ($i = 1; $i <= 15; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $customers[] = [
                 'id' => $i, // ID customer diset manual
-                'user_id' => $i + 1, // Diasumsikan user_id 2-16 adalah customer1-15
+                'user_id' => $i, // Diasumsikan user_id 2-16 adalah customer1-15
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
