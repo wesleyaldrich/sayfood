@@ -82,14 +82,13 @@
     </div>
     
     <div class="customer-review-container container-fluid my-5 py-5 px-5 d-flex flex-column justify-content-center">
-        <h1 style="color: white; font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 20px;">NEW CUSTOMER REVIEW</h1>
+        <h1 style="color: white; font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 20px;">NEW CUSTOMER RATINGS</h1>
         <div class="customer-review-wrapper d-flex flex-row">
             @foreach ($reviews as $r)
                 <x-customer-review-item 
                     :name="$r['name']"
                     :menu="$r['menu']"
                     :rating="$r['rating']"
-                    :review="$r['review']"
                     :date="$r['date']"
                     :profile="$r['profile']"
                 />
@@ -121,7 +120,7 @@
                 <img src="assets/Drinks.png" alt="">
             </div>
         </div>
-        <button class="btn-transaction-report">Transaction Report</button>
+        <a href="{{ route('restaurant-transactions') }}"><button class="btn-transaction-report">Transaction Report</button></a>
     </div>
 @endsection
 

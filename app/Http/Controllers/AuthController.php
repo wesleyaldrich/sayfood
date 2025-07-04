@@ -177,7 +177,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($validatedData)) {
-            if (Auth::user()->role === 'customer') {
+            if (Auth::user()->role === 'customer' || Auth::user()->role === 'admin') {
                 $request->session()->regenerate();
                 return redirect()->route('home');
             }
@@ -245,7 +245,7 @@ class AuthController extends Controller
             return redirect()->route('selection-login');
         }
 
-        if ($currentUser->role === 'customer' || $currentUser === 'admin'){
+        if ($currentUser->role === 'customer' || $currentUser->role === 'admin'){
             return view('profile-customer', ['user' => $currentUser]);
         }
         else if ($currentUser->role === 'restaurant'){

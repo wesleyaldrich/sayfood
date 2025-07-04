@@ -1,4 +1,5 @@
 @props([
+    'id',
     'image',
     'title',
     'description',
@@ -43,7 +44,17 @@
         </div>
     </div>
     <h3 class="price py-2 mb-0">{{ $price }}</h3>
+
+    {{-- test functionality add to cart --}}
     <img src="{{ asset('assets/icon_cart.png') }}" alt="cart" class="cart-icon" onclick="showCartPopup(this)">
+    {{-- <form action="{{ route('add.cart', $id) }}" method="POST">
+    @csrf
+    
+    <input type="number" name="quantity" value="1" min="1" required>
+
+    <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form> --}}
+
     <div class="successfully-added align-items-center justify-content-center">
         <h6 class="mb-0">Successfully added!</h6>
         <img class="checkcircle" src="{{ asset('assets/icon_checkcircle.png')   }}" alt="checkcircle">

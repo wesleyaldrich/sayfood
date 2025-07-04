@@ -10,13 +10,63 @@ class FoodController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $popular     = Food::with('restaurant')->inRandomOrder()->take(10)->get();
         $mainCourses = Food::with('restaurant')->where('category_id', 1)->get();
         $desserts    = Food::with('restaurant')->where('category_id', 2)->get();
         $drinks      = Food::with('restaurant')->where('category_id', 3)->get();
         $snacks      = Food::with('restaurant')->where('category_id', 4)->get();
+
+        $searchQuery = $request->query('q');
+        $priceMax    = $request->query('price');
+        $ratingMin   = $request->query('rating');
+        $sort        = $request->query('sort');
+
+        $popular = Food::with('restaurant')->inRandomOrder()->take(10)->get();
+
+        $filters = function ($query) use ($searchQuery, $priceMax, $ratingMin) {
+            if ($searchQuery) {
+                $query->where('foods.name', 'like', '%' . $searchQuery . '%');
+            }
+
+            if ($priceMax) {
+                $query->where('foods.price', '<=', (int)$priceMax);
+            }
+
+            if ($ratingMin) {
+                $query->whereHas('restaurant', function ($q) use ($ratingMin) {
+                    $q->where('avg_stars', '>=', (float) $ratingMin);
+                });
+            }
+        };
+
+
+        $applySorting = function ($query) use ($sort) {
+            if ($sort === 'nearby') {
+                $query->join('restaurants', 'foods.restaurant_id', '=', 'restaurants.id')
+                    ->orderBy('restaurants.distance', 'asc')
+                    ->select('foods.*');
+            } elseif ($sort === 'popular') {
+                $query->join('restaurants', 'foods.restaurant_id', '=', 'restaurants.id')
+                    ->orderBy('restaurants.avg_stars', 'desc')
+                    ->select('foods.*');
+            }
+        };
+
+        $mainCourses = Food::with('restaurant')->where('category_id', 1)
+            ->where($filters)->tap($applySorting)->get();
+
+        $desserts = Food::with('restaurant')->where('category_id', 2)
+            ->where($filters)->tap($applySorting)->get();
+
+        $snacks = Food::with('restaurant')->where('category_id', 4)
+            ->where($filters)->tap($applySorting)->get();
+
+        $drinks = Food::with('restaurant')->where('category_id', 3)
+            ->where($filters)->tap($applySorting)->get();
+
 
         return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks'));
     }

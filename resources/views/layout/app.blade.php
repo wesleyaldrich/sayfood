@@ -9,16 +9,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('css/foods.css') }}">
-    <script src="{{ asset('js/foods.js') }}" defer></script>
-    <script src="{{ asset('js/header.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/header.js') }}" defer></script>
 
     @stack('styles')
 </head>
 <body>
-    @include('layout.header')
+    @if (Auth::check() && Auth::user()->role === 'restaurant')
+        @include('layout.header-restaurant')
+    @else
+        @include('layout.header')
+    @endif
 
     <div class="sayfood-content-container">
         @if ($errors->has('error'))

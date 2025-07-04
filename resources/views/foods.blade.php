@@ -1,8 +1,6 @@
 @extends('layout.app')
 @section('title', 'Foods Page')
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 @section('content')	
 
 {{-- container
@@ -11,34 +9,46 @@ m (mb, mt, ml, mr, mx, my)
 p (pb, pt, pl, pr, px, py)
 d-flex (justify-content, align-items, flex-{row|column}) --}}
 
-<div class="container-fluid my-2 px-4">
-    <div class="badge-location badge rounded-pill">
-        <img class="location-icon" src="assets/icon_location.png" alt="Search">
-        Home
-    </div>
+<div class="container-fluid my-2 px-4 d-flex flex-row justify-content-between">
+    @if(Auth::check())
+        <div class="badge-location badge rounded-pill">
+            <img class="location-icon" src="assets/icon_location.png" alt="Location">
+            {{ Auth::user()->address ?? '[Not Set]' }}
+        </div>
+    @else
+        <div class="badge-location badge rounded-pill">
+            <img class="location-icon" src="assets/icon_location.png" alt="Location">
+            [Not Logged In]
+        </div>
+    @endif
+    <a href="{{ route('foods') }}" class="btn-clear-all">CLEAR ALL FILTERS</a>
 </div>
 
 <div class="container-fluid my-2 px-4">
     <div class="search-flex d-flex align-items-center">
-        <div class="search-bar input-group rounded-pill border flex-grow-1" style="overflow: hidden;">
+        <form action="{{ route('foods') }}" method="GET" class="search-bar input-group rounded-pill border flex-grow-1" style="overflow: hidden;">
             <span class="input-group-text rounded-0 bg-white border-0 px-4">
                 <img class="search-icon" src="assets/icon_search.png" alt="Search">
             </span>
-            <input type="text" class="search-input form-control rounded-0 border-0 pl-0" placeholder="Search">
-        </div>
+            <input name="q" type="text" class="search-input form-control rounded-0 border-0 pl-0" placeholder="Search" value="{{ request('q') }}">
+            
+            <input type="hidden" name="price" value="{{ request('price') }}">
+            <input type="hidden" name="rating" value="{{ request('rating') }}">
+            <input type="hidden" name="sort" value="{{ request('sort') }}">
+        </form>
 
         <div class="position-relative">
             <img class="filter-icon" id="filterBtn" src="assets/icon_filter.png" alt="Filter">
 
-            <div class="dropdown-filter position-absolute" id="filterDropdown">
-                <h4 class="filter-by">Filter by:</h4>
+            <form action="{{ route('foods') }}" method="GET" class="dropdown-filter position-absolute" id="filterDropdown">
+                <h4 class="filter-by pb-2" style="font-weight: bold;">Filter by:</h4>
 
                 <div class="container-pricefilter w-100 d-flex flex-column mb-2">
-                    <label for="priceRange" class="form-label mb-1">Price</label>
+                    <label for="priceRange" class="form-label mb-1">Max Price</label>
                     <div class="range-container d-flex align-items-center flex-row w-100 justify-content-between">
                         <p class="mb-0">IDR 5K</p>
                         <div class="range-wrapper position-relative">
-                            <input type="range" class="custom-range form-range" id="priceRange" min="5000" max="100000" step="5000" value="25000">
+                            <input type="range" name="price" class="custom-range form-range" id="priceRange" min="5000" max="100000" step="5000" value="{{ request('price', 100000) }}">
                             <div id="priceLabel" class="range-label">IDR 25K</div>
                         </div>
                         <p class="mb-0">IDR 100K</p>
@@ -46,12 +56,12 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                 </div>
 
                 <div class="container-pricefilter w-100 d-flex flex-column mb-3">
-                    <label for="ratingRange" class="form-label mb-1">Ratings</label>
+                    <label for="ratingRange" class="form-label mb-1">Min Rating</label>
                     <div class="range-container d-flex align-items-center flex-row w-100 justify-content-between">
                         <img src="assets/icon_star.png" alt="star" class="star-icon-filter">
-                        <p class="mb-0">1.0</p>
+                        <p class="mb-0">0.0</p>
                         <div class="range-wrapper position-relative">
-                            <input type="range" class="custom-range form-range" id="ratingRange" min="1" max="5" step="0.5" value="4">
+                            <input type="range" name="rating" class="custom-range form-range" id="ratingRange" min="0" max="5" step="0.5" value="{{ request('rating', 0) }}">
                             <div id="ratingLabel" class="range-label">5</div>
                         </div>
                         <img src="assets/icon_star.png" alt="star" class="star-icon-filter">
@@ -59,25 +69,41 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     </div>
                 </div>
 
-                <button id="applyFilter" class="btn btn-apply btn-primary w-100">APPLY</button>
-            </div>
+                <input type="hidden" name="q" value="{{ request('q') }}">
+                <input type="hidden" name="sort" value="{{ request('sort') }}">
+
+                <div class="button-filter-wrapper d-flex flex-row">
+                    <a href="{{ route('foods', array_filter(request()->except(['price', 'rating']))) }}" id="resetFilter" class="btn btn-reset btn-primary w-100">RESET</a>
+                    <button id="applyFilter" class="btn btn-apply btn-primary w-100">APPLY</button>
+                </div>
+            </form>
         </div>
-        
-        <div>
-            <img class="history-icon" src="assets/icon_history.png" alt="History">
-        </div>
+
+        <a href="{{ route('activity') }}"><img class="history-icon" src="assets/icon_history.png" alt="History"></a>
     </div>
 </div>
 
-<div class="filter-flex container-fluid d-flex my-2 px-4 gap-5">
-    <button class="btn-filter btn btn-primary rounded-pill d-flex align-items-center" id="btnNearby">Nearby</button>
-    <button class="btn-filter btn btn-primary rounded-pill d-flex align-items-center" id="btnMostPopular">Most Popular</button>
-</div>
+<form id="sortForm" action="{{ route('foods') }}" method="GET" class="filter-flex container-fluid d-flex my-2 px-4 gap-5">
+    <input type="hidden" name="sort" id="sortInput" value="{{ request('sort') }}">
+
+    <input type="hidden" name="q" value="{{ request('q') }}">
+    <input type="hidden" name="price" value="{{ request('price') }}">
+    <input type="hidden" name="rating" value="{{ request('rating') }}">
+
+    <button type="button"
+        class="btn-filter btn btn-primary rounded-pill d-flex align-items-center {{ request('sort') === 'nearby' ? 'active' : '' }}"
+        id="btnNearby">Nearby</button>
+
+    <button type="button"
+        class="btn-filter btn btn-primary rounded-pill d-flex align-items-center {{ request('sort') === 'popular' ? 'active' : '' }}"
+        id="btnMostPopular">Most Popular</button>
+</form>
 
 <a href="/cart">
     <img class="mycart" src="assets/icon_mycart.png" alt="mycart">
 </a>
 
+<<<<<<< HEAD
 <div class="container-today container-fluid my-4 px-4 py-4 d-flex">
     <h2 class="category-title">TODAY'S BEST FOOD</h2>
     <div class="foreach-today d-flex overflow-auto flex-nowrap">
@@ -117,11 +143,31 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         @endforeach
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">
             <h3 class="viewmore-text">VIEW<br>MORE</h3>
+=======
+@if (!request()->has('q') && !request()->has('price') && !request()->has('rating') && !request()->has('sort'))
+    <div class="container-today container-fluid my-4 px-4 py-4 d-flex">
+        <h2 class="category-title">RECOMMENDED FOR YOU</h2>
+        <div class="foreach-today d-flex overflow-auto flex-nowrap">
+            @foreach ($popular as $food)
+                <x-food-item
+                    :id="$food->id"
+                    :image="$food->image_url"
+                    :title="$food->name"
+                    :description="$food->description"
+                    :expiry="$food->exp_datetime->format('d/m h:i A')"
+                    :stock="$food->stock"
+                    :restoName="$food->restaurant->name"
+                    :rating="$food->restaurant->avg_stars"
+                    :distance="number_format($food->restaurant->distance, 1)"
+                    :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                />
+            @endforeach
+>>>>>>> 78b7a26a86e6e2c916b32150f6be852f3984d2a6
         </div>
     </div>
-    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">VIEW MORE</h4>
-</div>
+@endif
 
+<<<<<<< HEAD
 <div class="container-foodcategories container-desserts container-fluid my-4 px-4 py-4 d-flex">
     <h2 class="category-title">DESSERTS</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
@@ -165,11 +211,40 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         @endforeach
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">
             <h3 class="viewmore-text">VIEW<br>MORE</h3>
-        </div>
-    </div>
-    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">VIEW MORE</h4>
-</div>
+=======
+@if ($mainCourses->count() > 0)
+    <div class="container-foodcategories container-maincourses container-fluid my-4 px-4 py-4 d-flex">
+        <h2 class="category-title">MAIN COURSES</h2>
+        <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
+            @foreach ($mainCourses->take(4) as $food)
+                <x-food-item
+                    :id="$food->id"
+                    :image="$food->image_url"
+                    :title="$food->name"
+                    :description="$food->description"
+                    :expiry="$food->exp_datetime->format('d/m h:i A')"
+                    :stock="$food->stock"
+                    :restoName="$food->restaurant->name"
+                    :rating="$food->restaurant->avg_stars"
+                    :distance="number_format($food->restaurant->distance, 1)"
+                    :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                />
+            @endforeach
 
+            @if ($mainCourses->count() > 4)
+                <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">
+                    <h3 class="viewmore-text">VIEW<br>MORE</h3>
+                </div>
+            @endif
+>>>>>>> 78b7a26a86e6e2c916b32150f6be852f3984d2a6
+        </div>
+        @if ($mainCourses->count() > 4)
+            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">VIEW MORE</h4>
+        @endif
+    </div>
+@endif
+
+<<<<<<< HEAD
 <div class="container-foodcategories container-drinks container-fluid my-4 px-4 py-4 d-flex">
     <h2 class="category-title">DRINKS</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
@@ -189,10 +264,100 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         @endforeach
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">
             <h3 class="viewmore-text">VIEW<br>MORE</h3>
+=======
+@if ($desserts->count() > 0)
+    <div class="container-foodcategories container-desserts container-fluid my-4 px-4 py-4 d-flex">
+        <h2 class="category-title">DESSERTS</h2>
+        <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
+            @foreach ($desserts->take(4) as $food)
+                <x-food-item
+                    :id="$food->id"
+                    :image="$food->image_url"
+                    :title="$food->name"
+                    :description="$food->description"
+                    :expiry="$food->exp_datetime->format('d/m h:i A')"
+                    :stock="$food->stock"
+                    :restoName="$food->restaurant->name"
+                    :rating="$food->restaurant->avg_stars"
+                    :distance="number_format($food->restaurant->distance, 1)"
+                    :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                />
+            @endforeach
+
+            @if ($desserts->count() > 4)
+                <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">
+                    <h3 class="viewmore-text">VIEW<br>MORE</h3>
+                </div>
+            @endif
+>>>>>>> 78b7a26a86e6e2c916b32150f6be852f3984d2a6
         </div>
+        @if ($desserts->count() > 4)
+            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">VIEW MORE</h4>
+        @endif
     </div>
-    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">VIEW MORE</h4>
-</div>
+@endif
+
+@if ($snacks->count() > 0)
+    <div class="container-foodcategories container-snacks container-fluid my-4 px-4 py-4 d-flex">
+        <h2 class="category-title">SNACKS</h2>
+        <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
+            @foreach ($snacks->take(4) as $food)
+                <x-food-item
+                    :id="$food->id"
+                    :image="$food->image_url"
+                    :title="$food->name"
+                    :description="$food->description"
+                    :expiry="$food->exp_datetime->format('d/m h:i A')"
+                    :stock="$food->stock"
+                    :restoName="$food->restaurant->name"
+                    :rating="$food->restaurant->avg_stars"
+                    :distance="number_format($food->restaurant->distance, 1)"
+                    :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                />
+            @endforeach
+            
+            @if ($snacks->count() > 4)
+                <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">
+                    <h3 class="viewmore-text">VIEW<br>MORE</h3>
+                </div>
+            @endif
+        </div>
+        @if ($snacks->count() > 4)
+            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">VIEW MORE</h4>
+        @endif
+    </div>
+@endif
+
+@if ($drinks->count() > 0)
+    <div class="container-foodcategories container-drinks container-fluid my-4 px-4 py-4 d-flex">
+        <h2 class="category-title">DRINKS</h2>
+        <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
+            @foreach ($drinks->take(4) as $food)
+                <x-food-item
+                    :id="$food->id"
+                    :image="$food->image_url"
+                    :title="$food->name"
+                    :description="$food->description"
+                    :expiry="$food->exp_datetime->format('d/m h:i A')"
+                    :stock="$food->stock"
+                    :restoName="$food->restaurant->name"
+                    :rating="$food->restaurant->avg_stars"
+                    :distance="number_format($food->restaurant->distance, 1)"
+                    :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                />
+            @endforeach
+
+            @if ($drinks->count() > 4)
+                <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">
+                    <h3 class="viewmore-text">VIEW<br>MORE</h3>
+                </div>
+            @endif
+        </div>
+        @if ($drinks->count() > 4)
+            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">VIEW MORE</h4>
+        @endif
+    </div>
+@endif
 
 <div class="modal fade" id="moreModal" tabindex="-1" aria-labelledby="moreDrinksLabel" aria-hidden="true">
     <div class="popup modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
@@ -211,6 +376,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($mainCourses as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
@@ -231,6 +397,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($desserts as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
@@ -251,6 +418,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($snacks as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
@@ -271,6 +439,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($drinks as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"

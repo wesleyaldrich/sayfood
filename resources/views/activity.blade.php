@@ -6,8 +6,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 @section('content')
 
 <div class="container-fluid my-2 px-4">
@@ -33,7 +31,7 @@
                         <h5 class="card-title mb-0 me-2">YOU'VE BEEN DONATING</h5>
 
                         <div class="d-flex-fluid card-text mb-0 fs-4 fw-bold">
-                            <span id="donationAmountValue">IDR 472.300,00</span>
+                            <span id="donationAmountValue">IDR {{ number_format($totalDonated, 2, ',', '.') }}</span>
                             <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none" id="toggleDonationVisibility">
                                 <i class="bi bi-eye-slash-fill" id="visibilityIcon"></i> {{-- Icon default: mata dicoret (sembunyi) --}}
                             </button>
@@ -53,81 +51,55 @@
 
             <div class="activity-list">
                 @php
-                    $orderStatuses = [
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                    ];
-                @endphp
+    $orderStatuses = [];
 
-                <x-food-activities-item :orderStatuses="$orderStatuses" />
+    foreach ($orders as $order) {
+        $items = [];
+
+        foreach ($order->transactions as $transaction) {
+            $items[] = [
+                'name' => $transaction->food->name,
+                'qty' => $transaction->qty,
+                'price' => 'IDR ' . number_format($transaction->food->price * $transaction->qty, 2, ',', '.'),
+            ];
+        }
+
+        $total = $order->transactions->sum(function ($transaction) {
+            return $transaction->food->price * $transaction->qty;
+        });
+
+        $orderStatuses[] = [
+            'status' => match ($order->status) {
+                'Order Created' => 'order_created',
+                'Ready to Pickup' => 'ready_to_pickup',
+                'Order Completed' => 'order_completed',
+                'Order Reviewed' => 'review_order',
+                default => 'order_created',
+            },
+            'orderPlacedLabel' => 'ORDER PLACED',
+            'orderPlacedDate' => $order->created_at->format('d M Y'),
+            'total' => 'IDR ' . number_format($total, 2, ',', '.'),
+            'restoName' => $order->restaurant->name,
+            'restoLocation' => $order->restaurant->address ?? 'Unknown Location',
+            'readyPickupText' => match ($order->status) {
+                'Order Created' => 'Waiting for Confirmation',
+                'Ready to Pickup' => 'Ready to Pick Up',
+                'Order Completed' => 'Completed',
+                'Order Reviewed' => 'Reviewed',
+                default => '',
+            },
+            'items' => $items,
+            'reviewButtonText' => match ($order->status) {
+                'Order Reviewed' => 'Reviewed',
+                'Order Completed' => 'Review Order',
+                default => '',
+            },
+        ];
+    }
+@endphp
+
+<x-food-activities-item :orderStatuses="$orderStatuses" />
+
             </div>
         </div>
 

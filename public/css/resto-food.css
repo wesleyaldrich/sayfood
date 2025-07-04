@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+.upper-section{
+    justify-content: space-between;
+    margin-top: 24px;
+    align-items: center;
+}
+.title{
+    font-size: 30px;
+    font-weight: bold;
+    color: #234C4C;
+    margin-left: 24px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    flex: 1;
+}
+
+.search-bar{
+    margin-right: 24px;
+    flex: 0.75;
+    font-family: "Lato";
+}
+
+
+.subtitle{
+    font-family: "Lato";
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.thead{
+    font-size: 15px;
+}
+
+.tbody{
+    font-family: "Lato";
+    font-size: 12px;
+}
+
+.manage-button{
+    justify-content: center;
+}
+
+.filter-btn{
+    background-color: #234C4C;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 15px;
+    border-color: #c55b39;
+    border-width: 3px;
+    color: white;
+    font-weight: normal;
+    opacity: 70%;
+}
+
+.filter-btn.active{
+    opacity: 100%;
+    font-weight: bold;
+}
+
+.add-btn{
+    background-color: #298206;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 15px;
+    border-width: 3px;
+    color: white;
+    margin: 0;
+    justify-content: center;
+}
+
+.edit-btn{
+    background-color: #fcc603;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 12px;
+    border-width: 3px;
+    color: black;
+}
+
+.delete-btn{
+    background-color: #fc0303;
+    border-radius: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 12px;
+    border-width: 3px;
+    color: white;
+}
+
+.table{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
