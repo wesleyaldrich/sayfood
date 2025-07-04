@@ -289,4 +289,27 @@ public function rate(Request $request, $id)
         ]);
     }
 
+    public function restaurantActivity(Request $request)
+{
+    $user = Auth::user();
+
+    if (!$user || $user->role !== 'restaurant') {
+        return redirect('/')->withErrors(['error' => 'Unauthorized access']);
+    }
+
+    $query = $user->restaurant->orders()
+        ->with(['customer'])
+        ->whereNotNull('rating');
+
+    if ($request->has('rating')) {
+        $query->where('rating', $request->rating);
+    }
+
+    $orders = $query->orderBy('created_at', 'desc')->get();
+
+
+    return view('restaurant-activity', compact('orders'));
 }
+
+}
+
