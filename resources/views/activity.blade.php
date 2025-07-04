@@ -76,6 +76,7 @@
                 'Order Reviewed' => 'review_order',
                 default => 'order_created',
             },
+            'orderId' => $order->id,
             'orderPlacedLabel' => 'ORDER PLACED',
             'orderPlacedDate' => $order->created_at->format('d M Y'),
             'total' => 'IDR ' . number_format($total, 2, ',', '.'),

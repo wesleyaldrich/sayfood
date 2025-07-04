@@ -113,15 +113,17 @@
                         </div>
 
                         <div class="modal-body text-center d-flex flex-column gap-5">
-                            <h5 class="mb-3" style="font-family: 'Lato'">How Was Your Food?</h5>
-
-                            <div class="star-rating mb-3">
-                                @for ($i = 5; $i >= 1; $i--)
-                                    <i class="fa fa-star star star-icon" data-rating="{{ $i }}"></i>
-                                @endfor
-                            </div>
-
-                            <button type="button" class="btn submit px-4 rounded-pill">Submit</button>
+                            <h5 class="mb-3" style="font-family: 'Lato'">How Was Your Food?</h5>    
+                            <form method="POST" action="{{ route('orders.rate', ['id' => $orderData['orderId']]) }}">
+                                @csrf
+                                <input type="hidden" name="rating" class="rating-input" value="0">
+                                <div class="star-rating mb-3">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <i class="fa fa-star star-icon" data-rating="{{ $i }}"></i>
+                                    @endfor
+                                </div>
+                                <button type="submit" class="btn submit px-4 rounded-pill">Submit</button>
+                            </form>
                         </div>
                     </div>
                 </div>

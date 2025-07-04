@@ -213,4 +213,18 @@ class TransactionController extends Controller
             'Content-Type' => 'text/csv',
         ]);
     }
+
+    public function rateOrder(Request $request, $id)
+    {
+        $request->validate([
+            'rating' => 'required|numeric|min:1|max:5',
+        ]);
+
+        $order = Order::findOrFail($id);
+        $order->rating = $request->rating;
+        $order->status = 'Order Reviewed';
+        $order->save();
+
+        return redirect()->back()->with('success', 'Thank you for your review!');
+    }
 }

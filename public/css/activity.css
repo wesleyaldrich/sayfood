@@ -781,7 +781,7 @@ p{
     font-weight: bold;
 }
 
-.star-rating {
+/* .star-rating {
     color: #ccc;
     cursor: pointer;
     direction: rtl; 
@@ -789,6 +789,29 @@ p{
     gap: 15px;
     justify-content: center;
 }
+
+.star-rating .star {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star-rating .star.active {
+    color: #FFD700; /* Gold
+} */
+
+
+.star-icon {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star-icon.hovered,
+.star-icon.selected {
+    color: #f4c150;
+}
+
 
 .star-icon{
     font-size: 28px !important;
