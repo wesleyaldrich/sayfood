@@ -20,12 +20,12 @@ return new class extends Migration
 
             $table->enum('status', [
                 'Order Created',
-                'Order Accepted',
-                'In Progress',
                 'Ready to Pickup',
                 'Order Completed',
                 'Order Reviewed'
             ]);
+
+            $table->float('rating')->nullable();
         });
     }
 
