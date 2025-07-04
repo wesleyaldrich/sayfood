@@ -60,7 +60,7 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function food(){
+    public function foods(){
         return $this->hasMany(Food::class);
     }
 }

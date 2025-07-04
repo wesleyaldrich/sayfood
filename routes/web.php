@@ -15,10 +15,18 @@ Route::get('/restaurant-home', function () {
 })->name('restaurant-home');
 // numpang sini gais -kalis
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\RestaurantController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+Route::get('/foods/resto', function () {
+    return view('restaurantmenu-customer');
+})->name('restaurantmenu-customer');
+
+Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
+
 
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
 

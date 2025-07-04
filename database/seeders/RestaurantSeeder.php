@@ -21,7 +21,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Menu kreatif dengan cita rasa modern dan perpaduan unik bahan berkualitas. Pilihan ideal buat yang suka eksplorasi rasa dengan sentuhan kontemporer.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 2.3
+                'distance' => 2.3,
+                'image_url_resto' => 'assets/resto_images/bart.jpg'
             ],
             [
                 'id' => 2,
@@ -30,7 +31,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Pilihan buffet lengkap dari masakan Jepang, Cina, Barat, dan Nusantara. Variasi rasa yang kaya cocok untuk kamu yang ingin mencicipi berbagai hidangan dalam satu paket.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 1.2
+                'distance' => 1.2,
+                'image_url_resto' => 'assets/resto_images/western-station.jpg'
             ],
             [
                 'id' => 3,
@@ -39,7 +41,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Indonesia autentik dengan bumbu kuat dan bahan segar. Hidangan khas dari berbagai daerah yang menghadirkan rasa tradisional dengan kualitas tinggi.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 2.4
+                'distance' => 2.4,
+                'image_url_resto' => 'assets/resto_images/Kaum-Jakarta-00-web.jpg'
             ],
             [
                 'id' => 4,
@@ -48,7 +51,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Klasik masakan Tionghoa dengan dimsum dan hidangan Cantonese yang kaya cita rasa. Pilihan menu yang cocok bagi pecinta masakan otentik dan premium.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 1.7
+                'distance' => 1.7,
+                'image_url_resto' => 'assets/resto_images/main-dining-room.jpg'
             ],
             [
                 'id' => 5,
@@ -57,7 +61,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Fusion unik antara masakan Jepang dan Peru dengan rasa inovatif dan berani. Menu yang memberikan pengalaman kuliner berbeda dan menarik.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 2.0
+                'distance' => 2.0,
+                'image_url_resto' => 'assets/resto_images/henshin-jakarta.jpg'
             ],
             [
                 'id' => 6,
@@ -66,7 +71,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Beragam pilihan masakan internasional dan lokal yang segar dan variatif, cocok untuk berbagai selera dan suasana makan.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 1.0
+                'distance' => 1.0,
+                'image_url_resto' => 'assets/resto_images/seasonal-tastes.jpg'
             ],
             [
                 'id' => 7,
@@ -75,7 +81,9 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Prancis klasik dengan sentuhan modern dan bahan berkualitas tinggi. Pilihan menu yang elegan dan memanjakan lidah.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 1.1
+                'distance' => 1.1,
+                'image_url_resto' => 'assets/resto_images/lyon-glass-room.jpg'
+
             ],
             [
                 'id' => 8,
@@ -84,7 +92,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Menu internasional dengan perpaduan rasa yang kaya dan bahan segar. Cocok untuk santapan praktis dengan cita rasa otentik.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 2.9
+                'distance' => 2.9,
+                'image_url_resto' => 'assets/resto_images/with-its-modern-ambiance.jpg'
             ],
             [
                 'id' => 9,
@@ -93,7 +102,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Hidangan Indonesia dengan sentuhan seni dan sejarah yang kuat. Menawarkan berbagai menu tradisional yang kaya akan rempah dan cita rasa.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 0.7
+                'distance' => 0.7,
+                'image_url_resto' => 'assets/resto_images/tugu-kunstkring-paleis.jpg'
             ],
             [
                 'id' => 10,
@@ -102,7 +112,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Latin Amerika dengan pilihan daging panggang dan hidangan segar. Menu penuh rasa dengan sentuhan khas yang memikat.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 0.6
+                'distance' => 0.6,
+                'image_url_resto' => 'assets/resto_images/Sudestada-Outdoor--1024x683.jpg'
             ],
             [
                 'id' => 11,
@@ -111,7 +122,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Jepang otentik dengan bahan segar dan penyajian yang detail. Menu lengkap mulai dari sushi, sashimi hingga hidangan hangat.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 3.0
+                'distance' => 3.0,
+                'image_url_resto' => 'assets/resto_images/the-japanese-sari-pacific.jpg'
             ],
             [
                 'id' => 12,
@@ -120,7 +132,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Pilihan kopi spesialti dari biji kopi terbaik dengan cita rasa yang kaya dan aroma khas. Tempat ideal untuk penikmat kopi sejati.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 2.5
+                'distance' => 2.5,
+                'image_url_resto' => 'assets/resto_images/lantai-atas.jpg'
             ],
             [
                 'id' => 13,
@@ -129,7 +142,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Menu internasional dengan cita rasa berkelas dan variasi hidangan yang elegan. Pilihan cocok untuk santapan berkualitas.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 2.2
+                'distance' => 2.2,
+                'image_url_resto' => 'assets/resto_images/buffet-area.jpg'
             ],
             [
                 'id' => 14,
@@ -138,7 +152,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Indonesia tradisional dengan bahan segar dan resep turun-temurun. Hidangan yang kaya rasa dan penuh kehangatan.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 1.5
+                'distance' => 1.5,
+                'image_url_resto' => 'assets/resto_images/plataran-menteng.jpg'
             ],
             [
                 'id' => 15,
@@ -147,7 +162,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Menu ringan dan minuman kreatif yang menyegarkan, cocok untuk bersantai dengan pemandangan kota yang indah.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 1.5
+                'distance' => 1.5,
+                'image_url_resto' => 'assets/resto_images/getlstd-property-photo.jpg'
             ],
             [
                 'id' => 16,
@@ -156,7 +172,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Burger dengan cita rasa unik dan bahan berkualitas. Pilihan tepat bagi pecinta makanan cepat saji dengan sentuhan modern.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 1.6
+                'distance' => 1.6,
+                'image_url_resto' => 'assets/resto_images/aurava-architect-dope-burger-co-renovation1608521487-m.jpeg'
             ],
             [
                 'id' => 17,
@@ -165,7 +182,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan fusion dengan inovasi tinggi dan penyajian artistik. Menu yang menarik bagi penikmat kuliner kreatif.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 3.1
+                'distance' => 3.1,
+                'image_url_resto' => 'assets/resto_images/paradigma-kafe-rsz.jpg'
             ],
             [
                 'id' => 18,
@@ -174,7 +192,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Seafood segar dengan cita rasa khas Indonesia. Pilihan berbagai hidangan laut yang menggugah selera.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 0.9
+                'distance' => 0.9,
+                'image_url_resto' => 'assets/resto_images/2024071509544572296079.png'
             ],
             [
                 'id' => 19,
@@ -183,7 +202,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan India otentik dengan rempah kaya dan rasa kuat. Menu yang memanjakan pecinta kuliner India sejati.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 0.7
+                'distance' => 0.7,
+                'image_url_resto' => 'assets/resto_images/St.-Cinnamons-resized.jpg'
             ],
             [
                 'id' => 20,
@@ -192,7 +212,8 @@ class RestaurantSeeder extends Seeder
                 'description' => 'Masakan Indonesia dengan sentuhan modern dan keaslian rasa yang tetap terjaga. Pilihan hidangan kaya rempah dan autentik.',
                 'is_open' => 1,
                 'avg_stars' => 0,
-                'distance' => 3.2
+                'distance' => 3.2,
+                'image_url_resto' => 'assets/resto_images/VENUE 13 copy.jpg'
             ],
         ]);
     }

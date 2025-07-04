@@ -389,11 +389,6 @@
             </div>
         </div>
     </div>
-<script>
-        const laravelData = {
-            originalItemCount: {{ $originalProductsCount }}
-        };
-</script>
 @endsection
 
 @push('styles')

@@ -92,6 +92,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                 :rating="$food->restaurant->avg_stars"
                 :distance="number_format($food->restaurant->distance, 1)"
                 :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                :resto_id="$food->restaurant->id"
             />
         @endforeach
     </div>
@@ -111,6 +112,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                 :rating="$food->restaurant->avg_stars"
                 :distance="number_format($food->restaurant->distance, 1)"
                 :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                :resto_id="$food->restaurant->id"
             />
         @endforeach
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">
@@ -134,6 +136,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                 :rating="$food->restaurant->avg_stars"
                 :distance="number_format($food->restaurant->distance, 1)"
                 :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                :resto_id="$food->restaurant->id"
             />
         @endforeach
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">
@@ -157,6 +160,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                 :rating="$food->restaurant->avg_stars"
                 :distance="number_format($food->restaurant->distance, 1)"
                 :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                :resto_id="$food->restaurant->id"
             />
         @endforeach
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">
@@ -180,6 +184,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                 :rating="$food->restaurant->avg_stars"
                 :distance="number_format($food->restaurant->distance, 1)"
                 :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                :resto_id="$food->restaurant->id"
             />
         @endforeach
         <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">
@@ -215,6 +220,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                    :resto_id="$food->restaurant->id"
                                 />
                             </div>
                         @endforeach
@@ -234,6 +240,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                    :resto_id="$food->restaurant->id"
                                 />
                             </div>
                         @endforeach
@@ -253,6 +260,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                    :resto_id="$food->restaurant->id"
                                 />
                             </div>
                         @endforeach
@@ -272,6 +280,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                    :resto_id="$food->restaurant->id"
                                 />
                             </div>
                         @endforeach

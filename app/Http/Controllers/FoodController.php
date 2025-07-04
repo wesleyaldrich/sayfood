@@ -15,8 +15,8 @@ class FoodController extends Controller
         $popular     = Food::with('restaurant')->inRandomOrder()->take(10)->get();
         $mainCourses = Food::with('restaurant')->where('category_id', 1)->get();
         $desserts    = Food::with('restaurant')->where('category_id', 2)->get();
-        $snacks      = Food::with('restaurant')->where('category_id', 3)->get();
-        $drinks      = Food::with('restaurant')->where('category_id', 4)->get();
+        $drinks      = Food::with('restaurant')->where('category_id', 3)->get();
+        $snacks      = Food::with('restaurant')->where('category_id', 4)->get();
 
         return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks'));
     }
