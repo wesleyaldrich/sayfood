@@ -110,7 +110,7 @@
                             </button>
                         </div>
 
-                        <div class="modal-body text-center">
+                        <div class="modal-body text-center d-flex flex-column gap-5">
                             <h5 class="mb-3" style="font-family: 'Lato'">How Was Your Food?</h5>
 
                             <div class="star-rating mb-3">
@@ -118,8 +118,6 @@
                                     <i class="fa fa-star star star-icon" data-rating="{{ $i }}"></i>
                                 @endfor
                             </div>
-
-                            <textarea class="form-control comment-box mb-3" rows="3" placeholder="Write your comments here..." style="font-family: 'Lato'"></textarea>
 
                             <button type="button" class="btn submit px-4 rounded-pill">Submit</button>
                         </div>
