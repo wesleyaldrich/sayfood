@@ -104,6 +104,7 @@ body {
     position: relative;
     width: 260px;
     height: 380px;
+    min-height: 380px;
     min-width: 260px;
     max-width: 260px;
     scroll-snap-align: start;

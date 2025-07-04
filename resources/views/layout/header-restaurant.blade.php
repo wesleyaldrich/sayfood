@@ -11,7 +11,7 @@
         <nav>
             <ul class="oswald">
                 <li><a href="{{ route('restaurant-home') }}" class="oswald nav-button {{ request()->routeIs('restaurant-home') ? 'nav-active' : '' }}">HOME</a></li>
-                <li><a href="{{ route('foods') }}" class="oswald nav-button {{ request()->routeIs('foods') ? 'nav-active' : '' }}">FOODS</a></li>
+                <li><a href="{{ route('manage.food.restaurant') }}" class="oswald nav-button {{ request()->routeIs('manage.food.restaurant') ? 'nav-active' : '' }}">FOODS</a></li>
                 <li><a href="{{ route('foods') }}" class="oswald nav-button {{ request()->routeIs('foods') ? 'nav-active' : '' }}">ORDERS</a></li>
                 <li><a href="{{ route('events') }}" class="oswald nav-button {{ request()->routeIs('events') ? 'nav-active' : '' }}">EVENTS</a></li>
                 <li><a href="{{ route('activity') }}" class="oswald nav-button {{ request()->routeIs('activity') ? 'nav-active' : '' }}">ACTIVITY</a></li>
@@ -40,8 +40,8 @@
             <li class="{{ request()->routeIs('restaurant-home') ? 'nav-active' : '' }}">
                 <a href="{{ route('restaurant-home') }}" class="oswald nav-button">HOME</a>
             </li>
-            <li class="{{ request()->routeIs('foods') ? 'nav-active' : '' }}">
-                <a href="{{ route('foods') }}" class="oswald nav-button">FOODS</a>
+            <li class="{{ request()->routeIs('manage.food.restaurant') ? 'nav-active' : '' }}">
+                <a href="{{ route('manage.food.restaurant') }}" class="oswald nav-button">FOODS</a>
             </li>
             <li class="{{ request()->routeIs('foods') ? 'nav-active' : '' }}">
                 <a href="{{ route('foods') }}" class="oswald nav-button">ORDERS</a>
