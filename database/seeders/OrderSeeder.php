@@ -63,6 +63,13 @@ class OrderSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            [
+                'customer_id' => 3,
+                'restaurant_id' => 1,
+                'status' => 'Order Completed',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ];
 
         Order::insert($data);

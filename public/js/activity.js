@@ -33,24 +33,63 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function agreeAndReturnToForm() {
-        const termsModalEl = document.getElementById('termsAndConditionsModal');
-        const proposeModalEl = document.getElementById('proposeEventModal');
+  const termsModalEl = document.getElementById('termsAndConditionsModal');
+  const proposeModalEl = document.getElementById('proposeEventModal');
 
-        const termsModal = bootstrap.Modal.getInstance(termsModalEl);
-        const proposeModal = bootstrap.Modal.getOrCreateInstance(proposeModalEl);
+  const termsModal = bootstrap.Modal.getInstance(termsModalEl);
+  const proposeModal = bootstrap.Modal.getOrCreateInstance(proposeModalEl);
 
-        // Step 1: Close terms modal
-        termsModal.hide();
+  // Step 1: Close terms modal
+  termsModal.hide();
 
-        // Step 2: Tunggu animasi modal hide selesai, baru show modal form
-        termsModalEl.addEventListener('hidden.bs.modal', function handler() {
-            // Step 3: Buka kembali modal form
-            proposeModal.show();
+  // Step 2: Tunggu animasi modal hide selesai, baru show modal form
+  termsModalEl.addEventListener('hidden.bs.modal', function handler() {
+      // Step 3: Buka kembali modal form
+      proposeModal.show();
 
-            // Step 4: Tambahkan class modal-open ke body agar scroll aktif
-            document.body.classList.add('modal-open');
+      // Step 4: Tambahkan class modal-open ke body agar scroll aktif
+      document.body.classList.add('modal-open');
 
-            // Step 5: Unbind event listener agar tidak dipanggil berulang
-            termsModalEl.removeEventListener('hidden.bs.modal', handler);
+      // Step 5: Unbind event listener agar tidak dipanggil berulang
+      termsModalEl.removeEventListener('hidden.bs.modal', handler);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const modals = document.querySelectorAll('.modal');
+
+    modals.forEach(function (modal) {
+        const stars = modal.querySelectorAll('.star-icon');
+        const input = modal.querySelector('.rating-input');
+
+        // Reset state saat modal dibuka
+        modal.addEventListener('show.bs.modal', function () {
+            stars.forEach(star => {
+                star.classList.remove('selected', 'hovered');
+            });
+            input.value = 0;
         });
-    }
+
+        stars.forEach((star, index) => {
+            // Saat klik bintang
+            star.addEventListener('click', function () {
+                const rating = index + 1;
+                input.value = rating;
+                stars.forEach((s, i) => {
+                    s.classList.toggle('selected', i < rating);
+                });
+            });
+
+            // Hover efek
+            star.addEventListener('mouseover', function () {
+                stars.forEach((s, i) => {
+                    s.classList.toggle('hovered', i <= index);
+                });
+            });
+
+            star.addEventListener('mouseout', function () {
+                stars.forEach(s => s.classList.remove('hovered'));
+            });
+        });
+    });
+});

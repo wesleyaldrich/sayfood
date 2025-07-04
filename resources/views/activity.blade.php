@@ -18,7 +18,7 @@
                     <a class="nav-link active food-tab" id="food-tab" data-bs-toggle="pill" data-bs-target="#food-content" type="button" role="tab" aria-controls="food-content" aria-selected="true" href="#">FOOD ACTIVITIES</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link charity-tab" id="charity-tab" data-bs-toggle="pill" data-bs-target="#charity-content" type="button" role="tab" aria-controls="charity-content" aria-selected="false" href="#">CHARITY ACTIVITIES</a>
+                    <a class="nav-link charity-tab" id="charity-tab" data-bs-toggle="pill" data-bs-target="#charity-content" type="button" role="tab" aria-controls="charity-content" aria-selected="false" href="#">EVENT ACTIVITIES</a>
                 </li>
             </ul>
         </div>
@@ -50,57 +50,10 @@
         <div class="tab-pane fade show active mb-5" id="food-content" role="tabpanel" aria-labelledby="food-tab">
 
             <div class="activity-list">
-                @php
-    $orderStatuses = [];
+    <x-food-activities-item :orderStatuses="$orderStatuses" />
+</div>
 
-    foreach ($orders as $order) {
-        $items = [];
-
-        foreach ($order->transactions as $transaction) {
-            $items[] = [
-                'name' => $transaction->food->name,
-                'qty' => $transaction->qty,
-                'price' => 'IDR ' . number_format($transaction->food->price * $transaction->qty, 2, ',', '.'),
-            ];
-        }
-
-        $total = $order->transactions->sum(function ($transaction) {
-            return $transaction->food->price * $transaction->qty;
-        });
-
-        $orderStatuses[] = [
-            'status' => match ($order->status) {
-                'Order Created' => 'order_created',
-                'Ready to Pickup' => 'ready_to_pickup',
-                'Order Completed' => 'order_completed',
-                'Order Reviewed' => 'review_order',
-                default => 'order_created',
-            },
-            'orderPlacedLabel' => 'ORDER PLACED',
-            'orderPlacedDate' => $order->created_at->format('d M Y'),
-            'total' => 'IDR ' . number_format($total, 2, ',', '.'),
-            'restoName' => $order->restaurant->name,
-            'restoLocation' => $order->restaurant->address ?? 'Unknown Location',
-            'readyPickupText' => match ($order->status) {
-                'Order Created' => 'Waiting for Confirmation',
-                'Ready to Pickup' => 'Ready to Pick Up',
-                'Order Completed' => 'Completed',
-                'Order Reviewed' => 'Reviewed',
-                default => '',
-            },
-            'items' => $items,
-            'reviewButtonText' => match ($order->status) {
-                'Order Reviewed' => 'Reviewed',
-                'Order Completed' => 'Review Order',
-                default => '',
-            },
-        ];
-    }
-@endphp
-
-<x-food-activities-item :orderStatuses="$orderStatuses" />
-
-            </div>
+            
         </div>
 
         <div class="tab-pane fade" id="charity-content" role="tabpanel" aria-labelledby="charity-tab">
