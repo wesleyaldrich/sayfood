@@ -24,6 +24,8 @@ return new class extends Migration
                 'Order Completed',
                 'Order Reviewed'
             ]);
+
+            $table->float('rating')->nullable();
         });
     }
 
