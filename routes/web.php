@@ -18,9 +18,7 @@ Route::get('/events', function () {
     // return view('charity');
 })->name('events');
 
-Route::get('/activity', function(){
-    return view('activity');
-})->name('activity');
+Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
 
 // CART
 Route::get('/cart', [CartController::class,'show'])->name('show.cart');

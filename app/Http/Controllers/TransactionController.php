@@ -69,5 +69,31 @@ class TransactionController extends Controller
         return redirect()->back();
     }
 
+    public function customerActivities()
+        {
+            $user = Auth::user();
+
+            if (!$user || !$user->customer) {
+                return redirect('/')->withErrors(['error' => 'Unauthorized access']);
+            }
+
+            $orders = $user->customer->orders()
+                ->with(['restaurant', 'transactions.food'])
+                ->orderByDesc('created_at')
+                ->get();
+
+            $totalDonated = 0;
+
+            foreach ($orders as $order) {
+                foreach ($order->transactions as $transaction) {
+                    $totalDonated += $transaction->food->price * $transaction->qty;
+                }
+            }
+
+
+
+            return view('activity', compact('orders', 'totalDonated'));
+        }
+
 
 }
