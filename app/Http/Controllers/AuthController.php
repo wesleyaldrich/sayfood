@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\RestaurantRegistration;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -80,12 +82,11 @@ class AuthController extends Controller
         if ($currentUser && $currentUser->two_factor_code === $validatedData['otp']) {
             // Remove the two-factor code from the database
             $currentUser->two_factor_code = null;
+            $currentUser->two_factor_verified = true; // Set the verification timestamp
             $currentUser->save();
 
             // Log the user in (if not already)
             Auth::login($currentUser);
-
-            session(['two_factor_verified' => true]);
 
             return redirect()->route('home')->with('success', 'Two-factor authentication successful.');
         } else {
@@ -125,20 +126,16 @@ class AuthController extends Controller
 
     public function registerRestaurant(Request $request)
     {
-        try {
-            // Validate the request data
-            $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'address' => 'required|string|max:255',
-                'email' => 'required|email|max:320|unique:users,email',
-            ]);
+        // Validate the request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'email' => 'required|email|max:320|unique:users,email',
+        ]);
 
-            RestaurantRegistration::create($validatedData);
+        RestaurantRegistration::create($validatedData);
 
-            return redirect()->route('home')->with('success', 'Restaurant registration successful. We will contact you soon.');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        return redirect()->route('home')->with('success', 'Restaurant registration successful. We will contact you soon.');
     }
 
     public function approveRegistration($id)
@@ -211,7 +208,7 @@ class AuthController extends Controller
         if (Auth::attempt($validatedData)) {
             if (Auth::user()->role === 'restaurant') {
                 $request->session()->regenerate();
-                return redirect()->route('home.restaurant');
+                return redirect()->route('restaurant-home');
             }
 
             Auth::logout();
@@ -231,12 +228,114 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Invalidate the user's session
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('show.login');
+        return redirect()->route('home');
+    }
+
+    public function profile()
+    {
+        // get the user of the current session
+        $currentUser = Auth::user();
+
+        if (!$currentUser){
+            return redirect()->route('selection-login');
+        }
+
+        if ($currentUser->role === 'customer' || $currentUser === 'admin'){
+            return view('profile-customer', ['user' => $currentUser]);
+        }
+        else if ($currentUser->role === 'restaurant'){
+            return view('profile-restaurant', ['user' => $currentUser]);
+        }
+
+        // Unexpected role - throw an error
+        return redirect()->back()->withErrors(
+            ['error' => 'Error: unexpected user role.']
+        );
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:64',
+            'dob' => [
+                'nullable',
+                'date',
+                'before_or_equal:' . Carbon::now()->subYears(18)->toDateString(), // at least 18
+                'after_or_equal:' . Carbon::now()->subYears(125)->toDateString(), // at most 125
+            ],
+            'address' => 'nullable|string|max:200'
+        ]);
+
+        $currentUser = Auth::user();
+
+        if ($currentUser) {
+            $currentUser = User::find($currentUser->id);
+
+            $currentUser->username = $validatedData['username'];
+            $currentUser->dob = $validatedData['dob'];
+            $currentUser->address = $validatedData['address'];
+            $currentUser->save();
+        }
+
+        return redirect()->back()->with('status', 'Profile successfully updated!');
+    }
+
+    public function updateProfileImage(Request $request)
+    {
+        $request->validate([
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $currentUser = Auth::user();
+
+        if ($currentUser) {
+            $currentUser = User::find($currentUser->id);
+
+            $image = $request->file('profile_image');
+            $imageName = 'profile_' . $currentUser->id . '_' . time() . '.' . $image->getClientOriginalExtension();
+            // $imagePath = $image->storeAs('public/profile_images', $imageName);
+            $imagePath = $image->storeAs('profile_images', $imageName, 'public');
+
+            // Save the image path to the user (assuming a 'profile_image' column exists)
+            $currentUser->profile_image = 'profile_images/' . $imageName;
+            $currentUser->save();
+
+            return redirect()->route('profile')->with(
+                'status', 'Successfully updated profile image!'
+            );
+        }
+
+        return redirect()->route('profile')->withErrors([
+            ['error' => 'Error: failed to change profile image.']
+        ]);
+    }
+    
+    public function redirectToRestaurantLogin(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('show.login.restaurant');
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        $currentUser = Auth::user();
+        $currentUser = User::find($currentUser->id);
+        $currentUser->delete();
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('home');
     }
 }

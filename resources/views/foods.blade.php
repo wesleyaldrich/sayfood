@@ -51,7 +51,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         <img src="assets/icon_star.png" alt="star" class="star-icon-filter">
                         <p class="mb-0">1.0</p>
                         <div class="range-wrapper position-relative">
-                            <input type="range" class="custom-range form-range" id="ratingRange" min="1" max="5" step="1" value="4">
+                            <input type="range" class="custom-range form-range" id="ratingRange" min="1" max="5" step="0.5" value="4">
                             <div id="ratingLabel" class="range-label">5</div>
                         </div>
                         <img src="assets/icon_star.png" alt="star" class="star-icon-filter">
@@ -65,7 +65,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         
         <div>
             <img class="history-icon" src="assets/icon_history.png" alt="History">
-        </div>    
+        </div>
     </div>
 </div>
 
@@ -74,144 +74,209 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
     <button class="btn-filter btn btn-primary rounded-pill d-flex align-items-center" id="btnMostPopular">Most Popular</button>
 </div>
 
-<img class="mycart" src="assets/icon_mycart.png" alt="mycart">
+<a href="/cart">
+    <img class="mycart" src="assets/icon_mycart.png" alt="mycart">
+</a>
 
 <div class="container-today container-fluid my-4 px-4 py-4 d-flex">
-    <h2>TODAY'S BEST FOOD</h2>
+    <h2 class="category-title">TODAY'S BEST FOOD</h2>
     <div class="foreach-today d-flex overflow-auto flex-nowrap">
-        @for ($i = 0; $i < 10; $i++)
+        @foreach ($popular as $food)
             <x-food-item
-                image="assets/food_chickenricebowl.png"
-                title="Chicken Ricebowl"
-                description="A chicken rice bowl is a tasty mix of juicy chicken, steamed rice, and savory sauce, all in one bowl."
-                expiry="10.00 PM"
-                stock="5"
-                restoName="Restoran Nyonya Suan"
-                rating="4,9"
-                distance="2,3"
-                price="20.000"
+                :image="$food->image_url"
+                :title="$food->name"
+                :description="$food->description"
+                :expiry="$food->exp_datetime->format('d/m h:i A')"
+                :stock="$food->stock"
+                :restoName="$food->restaurant->name"
+                :rating="$food->restaurant->avg_stars"
+                :distance="number_format($food->restaurant->distance, 1)"
+                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
             />
-        @endfor
+        @endforeach
     </div>
-
 </div>
 
 <div class="container-foodcategories container-maincourses container-fluid my-4 px-4 py-4 d-flex">
-    <h2>MAIN COURSES</h2>
+    <h2 class="category-title">MAIN COURSES</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
-        @for ($i = 0; $i < 4; $i++)
+        @foreach ($mainCourses->take(4) as $food)
             <x-food-item
-                image="assets/food_chickenricebowl.png"
-                title="Chicken Ricebowl"
-                description="A chicken rice bowl is a tasty mix of juicy chicken, steamed rice, and savory sauce, all in one bowl."
-                expiry="10.00 PM"
-                stock="5"
-                restoName="Restoran Nyonya Suan"
-                rating="4,9"
-                distance="2,3"
-                price="20.000"
+                :image="$food->image_url"
+                :title="$food->name"
+                :description="$food->description"
+                :expiry="$food->exp_datetime->format('d/m h:i A')"
+                :stock="$food->stock"
+                :restoName="$food->restaurant->name"
+                :rating="$food->restaurant->avg_stars"
+                :distance="number_format($food->restaurant->distance, 1)"
+                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
             />
-        @endfor
-        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">
-            <h3>VIEW<br>MORE</h3>
+        @endforeach
+        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">
+            <h3 class="viewmore-text">VIEW<br>MORE</h3>
         </div>
     </div>
+    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">VIEW MORE</h4>
 </div>
 
 <div class="container-foodcategories container-desserts container-fluid my-4 px-4 py-4 d-flex">
-    <h2>DESSERTS</h2>
+    <h2 class="category-title">DESSERTS</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
-        @for ($i = 0; $i < 4; $i++)
+        @foreach ($desserts->take(4) as $food)
             <x-food-item
-                image="assets/food_chickenricebowl.png"
-                title="Chicken Ricebowl"
-                description="A chicken rice bowl is a tasty mix of juicy chicken, steamed rice, and savory sauce, all in one bowl."
-                expiry="10.00 PM"
-                stock="5"
-                restoName="Restoran Nyonya Suan"
-                rating="4,9"
-                distance="2,3"
-                price="20.000"
+                :image="$food->image_url"
+                :title="$food->name"
+                :description="$food->description"
+                :expiry="$food->exp_datetime->format('d/m h:i A')"
+                :stock="$food->stock"
+                :restoName="$food->restaurant->name"
+                :rating="$food->restaurant->avg_stars"
+                :distance="number_format($food->restaurant->distance, 1)"
+                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
             />
-        @endfor
-        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">
-            <h3>VIEW<br>MORE</h3>
+        @endforeach
+        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">
+            <h3 class="viewmore-text">VIEW<br>MORE</h3>
         </div>
     </div>
+    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">VIEW MORE</h4>
 </div>
 
 <div class="container-foodcategories container-snacks container-fluid my-4 px-4 py-4 d-flex">
-    <h2>SNACKS</h2>
+    <h2 class="category-title">SNACKS</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
-        @for ($i = 0; $i < 4; $i++)
+        @foreach ($snacks->take(4) as $food)
             <x-food-item
-                image="assets/food_chickenricebowl.png"
-                title="Chicken Ricebowl"
-                description="A chicken rice bowl is a tasty mix of juicy chicken, steamed rice, and savory sauce, all in one bowl."
-                expiry="10.00 PM"
-                stock="5"
-                restoName="Restoran Nyonya Suan"
-                rating="4,9"
-                distance="2,3"
-                price="20.000"
+                :image="$food->image_url"
+                :title="$food->name"
+                :description="$food->description"
+                :expiry="$food->exp_datetime->format('d/m h:i A')"
+                :stock="$food->stock"
+                :restoName="$food->restaurant->name"
+                :rating="$food->restaurant->avg_stars"
+                :distance="number_format($food->restaurant->distance, 1)"
+                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
             />
-        @endfor
-        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">
-            <h3>VIEW<br>MORE</h3>
+        @endforeach
+        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">
+            <h3 class="viewmore-text">VIEW<br>MORE</h3>
         </div>
     </div>
+    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">VIEW MORE</h4>
 </div>
 
 <div class="container-foodcategories container-drinks container-fluid my-4 px-4 py-4 d-flex">
-    <h2>DRINKS</h2>
+    <h2 class="category-title">DRINKS</h2>
     <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
-        @for ($i = 0; $i < 4; $i++)
+        @foreach ($drinks->take(4) as $food)
             <x-food-item
-                image="assets/food_chickenricebowl.png"
-                title="Chicken Ricebowl"
-                description="A chicken rice bowl is a tasty mix of juicy chicken, steamed rice, and savory sauce, all in one bowl."
-                expiry="10.00 PM"
-                stock="5"
-                restoName="Restoran Nyonya Suan"
-                rating="4,9"
-                distance="2,3"
-                price="20.000"
+                :image="$food->image_url"
+                :title="$food->name"
+                :description="$food->description"
+                :expiry="$food->exp_datetime->format('d/m h:i A')"
+                :stock="$food->stock"
+                :restoName="$food->restaurant->name"
+                :rating="$food->restaurant->avg_stars"
+                :distance="number_format($food->restaurant->distance, 1)"
+                :price="'IDR ' . number_format($food->price, 0, ',', '.')"
             />
-        @endfor
-        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreDrinksModal">
-            <h3>VIEW<br>MORE</h3>
+        @endforeach
+        <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">
+            <h3 class="viewmore-text">VIEW<br>MORE</h3>
         </div>
     </div>
+    <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">VIEW MORE</h4>
 </div>
 
-<div class="modal fade" id="moreDrinksModal" tabindex="-1" aria-labelledby="moreDrinksLabel" aria-hidden="true">
-    <div class="popup modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+<div class="modal fade" id="moreModal" tabindex="-1" aria-labelledby="moreDrinksLabel" aria-hidden="true">
+    <div class="popup modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title" id="moreDrinksLabel">
-                    <h2 class="popup-title badge rounded-pill">MAIN COURSES</h2>
+                    <h2 class="popup-title badge rounded-pill" id="moreModalLabel">MAIN COURSES</h2>
                 </div>
                 <img src="assets/btn_exit.png" alt="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </div>
             <div class="modal-body pt-0">
-                <div class="container">
-                    <div class="row g-4">
-                        @for ($i = 0; $i < 12; $i++)
-                            <div class="col-12 col-sm-6 col-md-3 mb-2">
+                <div class="container-fluid px-4">
+
+                    {{-- MAIN COURSES --}}
+                    <div class="row g-4 category-section" id="mainCoursesSection">
+                        @foreach ($mainCourses as $food)
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
-                                    image="assets/food_chickenricebowl.png"
-                                    title="Chicken Ricebowl"
-                                    description="A chicken rice bowl is a tasty mix of juicy chicken, steamed rice, and savory sauce, all in one bowl."
-                                    expiry="10.00 PM"
-                                    stock="5"
-                                    restoName="Restoran Nyonya Suan"
-                                    rating="4,9"
-                                    distance="2,3"
-                                    price="20.000"
+                                    :image="$food->image_url"
+                                    :title="$food->name"
+                                    :description="$food->description"
+                                    :expiry="$food->exp_datetime->format('d/m h:i A')"
+                                    :stock="$food->stock"
+                                    :restoName="optional($food->restaurant)->name"
+                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
+                                    :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                                 />
                             </div>
-                        @endfor
+                        @endforeach
                     </div>
+
+                    {{-- DESSERTS --}}
+                    <div class="row g-4 category-section d-none" id="dessertsSection">
+                        @foreach ($desserts as $food)
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
+                                <x-food-item
+                                    :image="$food->image_url"
+                                    :title="$food->name"
+                                    :description="$food->description"
+                                    :expiry="$food->exp_datetime->format('d/m h:i A')"
+                                    :stock="$food->stock"
+                                    :restoName="optional($food->restaurant)->name"
+                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
+                                    :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                />
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{-- SNACKS --}}
+                    <div class="row g-4 category-section d-none" id="snacksSection">
+                        @foreach ($snacks as $food)
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
+                                <x-food-item
+                                    :image="$food->image_url"
+                                    :title="$food->name"
+                                    :description="$food->description"
+                                    :expiry="$food->exp_datetime->format('d/m h:i A')"
+                                    :stock="$food->stock"
+                                    :restoName="optional($food->restaurant)->name"
+                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
+                                    :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                />
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{-- DRINKS --}}
+                    <div class="row g-4 category-section d-none" id="drinksSection">
+                        @foreach ($drinks as $food)
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
+                                <x-food-item
+                                    :image="$food->image_url"
+                                    :title="$food->name"
+                                    :description="$food->description"
+                                    :expiry="$food->exp_datetime->format('d/m h:i A')"
+                                    :stock="$food->stock"
+                                    :restoName="optional($food->restaurant)->name"
+                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
+                                    :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                />
+                            </div>
+                        @endforeach
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -219,3 +284,11 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 </div>
 
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/foods.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/foods.js') }}" defer></script>
+@endpush

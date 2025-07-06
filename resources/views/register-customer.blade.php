@@ -14,17 +14,26 @@
 
                 <div class="form-group mb-2">
                     <label for="name" class="oswald">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required>
+                    @error('username')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group mb-2">
                     <label for="email" class="oswald">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                    @error('email')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group mb-2">
                     <label for="password" class="oswald">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
+                    @error('password')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="form-group mb-2">

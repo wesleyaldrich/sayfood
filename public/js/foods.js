@@ -124,3 +124,25 @@ btnMostPopular.addEventListener('click', () => {
     btnMostPopular.classList.toggle('active');
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('moreModal');
+    const allSections = document.querySelectorAll('.category-section');
+    const titleElement = document.getElementById('moreModalLabel');
+
+    modal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const category = button.getAttribute('data-category');
+
+        // Hide all
+        allSections.forEach(section => section.classList.add('d-none'));
+
+        // Show selected
+        const selectedSection = document.getElementById(category + 'Section');
+        if (selectedSection) {
+            selectedSection.classList.remove('d-none');
+        }
+
+        // Update modal title
+        titleElement.textContent = category.replace(/([A-Z])/g, ' $1').toUpperCase();
+    });
+});
