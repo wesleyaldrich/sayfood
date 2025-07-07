@@ -35,6 +35,7 @@
         </thead>
         <tbody>
             @php $no = 1; @endphp
+            @php /** @var \App\Models\Order $order */ @endphp {{-- biar tidak warning aja --}}
             @foreach ($orders as $order)
                 @if ($order->rating !== null && (request('rating') === null || $order->rating == request('rating')))
                     <tr>

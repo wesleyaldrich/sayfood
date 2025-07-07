@@ -22,7 +22,14 @@
                 </tr>
             </thead>
             <tbody>
-                @php $no = 1; @endphp
+                @php
+                    $no = 1;
+
+                    /** @var \App\Models\Order[] $orders */ // biar tidak warning aja
+                    /** @var \App\Models\Order $order */ // biar tidak warning aja
+                    /** @var \App\Models\Transaction $item */ // biar tidak warning aja
+
+                @endphp
                 @foreach ($orders as $order)
                     @php $rowspan = $order->transactions->count(); @endphp
                     @foreach ($order->transactions as $index => $item)
