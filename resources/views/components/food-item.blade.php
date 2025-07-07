@@ -50,12 +50,15 @@
         @csrf
         {{-- asumsi default kuantitas adalah 1 saat pertama kali klik --}}
         <input type="hidden" name="quantity" value="1">
-        
-        {{-- <button type="submit" class="cart-icon-button" onclick="showCartPopup(this)">
-            <img src="{{ asset('assets/icon_cart.png') }}" alt="cart" class="cart-icon">
-        </button> --}}
 
-    <img src="{{ asset('assets/icon_cart.png') }}" alt="cart" class="cart-icon" onclick="showCartPopup(this)">
+        <button type="submit" class="cart-icon-button">
+            <img src="{{ asset('assets/icon_cart.png') }}" alt="cart" class="cart-icon">
+        </button>
     </form>
+
+    <div class="successfully-added align-items-center justify-content-center">
+        <h6 class="mb-0">Successfully added!</h6>
+        <img class="checkcircle" src="assets/icon_checkcircle.png" alt="checkcircle">
+    </div>
 
 </div>
