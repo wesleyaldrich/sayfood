@@ -80,4 +80,10 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
+    }
+
+
 }

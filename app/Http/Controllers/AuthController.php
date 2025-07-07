@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\User;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Models\RestaurantRegistration;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -27,6 +29,10 @@ class AuthController extends Controller
         $validatedData['two_factor_code'] = $twofactorCode;
 
         $currentUser = User::create($validatedData);
+
+        Customer::create([
+            'user_id' => $currentUser->id
+        ]);
 
         Auth::login($currentUser);
 
@@ -135,7 +141,7 @@ class AuthController extends Controller
 
         RestaurantRegistration::create($validatedData);
 
-        return redirect()->route('home')->with('status', 'Restaurant registration successful. We will contact you soon.');
+        return redirect()->route('home')->with('status', 'Restaurant registration successful. We will contact your email soon.');
     }
 
     public function approveRegistration($id)
@@ -144,12 +150,16 @@ class AuthController extends Controller
         $registration = RestaurantRegistration::findOrFail($id);
 
         // Create a new user for the restaurant with random username
+        $randomStr = Str::uuid();
         $user = User::create([
-            'username' => 'restaurant_' . $registration->id,
+            'username' => 'restaurant_' . $randomStr,
             'email' => $registration->email,
-            'password' => bcrypt('restaurant_' . $registration->id),
+            'password' => bcrypt('restaurant_' . $randomStr),
             'role' => 'restaurant',
         ]);
+
+        $user->two_factor_verified = 1;
+        $user->save();
 
         // Create a new restaurant record
         Restaurant::create([
@@ -158,12 +168,25 @@ class AuthController extends Controller
             'address' => $registration->address,
         ]);
 
-
         // Update the status to be 'approved'
         $registration->status = 'approved';
         $registration->save();
 
-        // TO DO: send the restaurant an email with the login credentials
+        // Notify the user via email message
+        Mail::send([], [], function ($message) use ($user) {
+            $message->to($user->email)
+                ->subject('Sayfood | Your Restaurant Account Credentials')
+                ->html("
+                <h2>Welcome to Sayfood!</h2>
+
+                <p>Your credentials are:</p>
+                <ul>
+                    <li>Username: <strong>{$user->username}</strong></li>
+                    <li>Password: <strong>{$user->username}</strong></li>
+                </ul>
+                <p><a href='" . url('/login-restaurant') . "'>Click here to log in</a></p>
+            ");
+        });
 
         return;
     }
@@ -177,7 +200,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($validatedData)) {
-            if (Auth::user()->role === 'customer') {
+            if (Auth::user()->role === 'customer' || Auth::user()->role === 'admin') {
                 $request->session()->regenerate();
                 return redirect()->route('home');
             }
@@ -245,7 +268,7 @@ class AuthController extends Controller
             return redirect()->route('selection-login');
         }
 
-        if ($currentUser->role === 'customer' || $currentUser === 'admin'){
+        if ($currentUser->role === 'customer' || $currentUser->role === 'admin'){
             return view('profile-customer', ['user' => $currentUser]);
         }
         else if ($currentUser->role === 'restaurant'){
@@ -277,9 +300,33 @@ class AuthController extends Controller
             $currentUser = User::find($currentUser->id);
 
             $currentUser->username = $validatedData['username'];
-            $currentUser->dob = $validatedData['dob'];
-            $currentUser->address = $validatedData['address'];
+            $currentUser->customer->dob = $validatedData['dob'];
+            $currentUser->customer->address = $validatedData['address'];
             $currentUser->save();
+            $currentUser->customer->save();
+        }
+
+        return redirect()->back()->with('status', 'Profile successfully updated!');
+    }
+
+    public function updateProfileRestaurant(Request $request)
+    {
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:64',
+            'restaurant_name' => 'required|string|max:64',
+            'address' => 'nullable|string|max:200'
+        ]);
+
+        $currentUser = Auth::user();
+
+        if ($currentUser) {
+            $currentUser = User::find($currentUser->id);
+
+            $currentUser->username = $validatedData['username'];
+            $currentUser->restaurant->name = $validatedData['restaurant_name'];
+            $currentUser->restaurant->address = $validatedData['address'];
+            $currentUser->save();
+            $currentUser->restaurant->save();
         }
 
         return redirect()->back()->with('status', 'Profile successfully updated!');
@@ -323,6 +370,16 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('show.login.restaurant');
+    }
+
+    public function redirectToCustomerLogin(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('show.login');
     }
 
     public function deleteAccount(Request $request)

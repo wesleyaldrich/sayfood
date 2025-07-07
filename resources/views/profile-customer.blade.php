@@ -32,7 +32,7 @@
 
                     <div class="form-group mb-3">
                         <label for="dob" class="oswald">Date of Birth</label>
-                        <input type="date" class="oswald form-control" id="dob" name="dob" autocomplete="on" value="{{ $user->dob }}">
+                        <input type="date" class="oswald form-control" id="dob" name="dob" autocomplete="on" value="{{ $user->customer->dob }}">
                         @error('dob')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -40,7 +40,7 @@
 
                     <div class="form-group mb-3">
                         <label for="address" class="oswald">Address</label>
-                        <input type="text" class="oswald form-control" id="address" name="address" autocomplete="on" value="{{ $user->address }}">
+                        <input type="text" class="oswald form-control" id="address" name="address" autocomplete="on" value="{{ $user->customer->address }}">
                         @error('address')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror

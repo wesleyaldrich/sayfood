@@ -13,14 +13,20 @@ use App\Http\Controllers\TransactionController;
 // UNPROTECTED ROUTES
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
 
+Route::get('/foods/resto', function () {
+    return view('restaurantmenu-customer');
+})->name('restaurantmenu-customer');
+
+Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
+
 Route::get('/events', function () {
     return "Coming soon";
     // return view('charity');
 })->name('events');
 
-Route::get('/activity', function(){
-    return view('activity');
-})->name('activity');
+Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
+
+Route::post('/orders/{id}/rate', [TransactionController::class, 'rate'])->name('orders.rate');
 
 // CART
 Route::get('/cart', [CartController::class,'show'])->name('show.cart')->middleware('auth');
@@ -46,7 +52,15 @@ Route::get('/restaurant-home', function () {
     return view('restaurant-home');
 })->name('restaurant-home');
 
+Route::get('/restaurant-activity', [TransactionController::class, 'restaurantActivity'])->name('restaurant-activity');
+
 Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
+Route::get('/restaurant-transactions/filter', [TransactionController::class, 'filter'])->name('restaurant-transactions.filter');
+Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
+
+Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
+Route::post('/restaurant-orders/{id}/accept', [TransactionController::class, 'acceptOrder'])->name('restaurant-orders.accept');
+Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
 
 Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
 Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
@@ -54,18 +68,28 @@ Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'upd
 Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
 
 
-Route::middleware(['auth', 'twofactor'])->group(function () {
+Route::middleware('twofactor')->group(function () {
 
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // PROFILE
+    // PROFILE OPTIONS
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-    Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
-    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
-    Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
+    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
+    
+    // CUSTOMER & ADMIN ROUTES
+    Route::middleware('role:customer')->group(function(){
+        Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
+        Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
+    });
+
+    // RESTAURANT ROUTES
+    Route::middleware('role:restaurant')->group(function(){
+        Route::post('/profile-restaurant', [AuthController::class, 'updateProfileRestaurant'])->name('update.profile.restaurant');
+        Route::post('/login-as-customer', [AuthController::class, 'redirectToCustomerLogin'])->name('login.as.customer');
+    });
 
 });
 

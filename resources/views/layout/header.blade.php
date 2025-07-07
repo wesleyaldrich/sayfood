@@ -9,12 +9,23 @@
     </div>
     <div class="right">
         <nav>
-            <ul>
+            <ul class="oswald">
+                @if (Auth::check() && Auth::user()->role === 'admin')
+                    <li class="nav-item dropdown admin-nav-item">
+                        <a class="admin-nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            ADMIN
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#2">REVIEW REPORT</a></li>
+                            <li><a class="dropdown-item" href="#3">MANAGE RESTAURANT</a></li>
+                            <li><a class="dropdown-item" href="#4">MANAGE EVENT</a></li>
+                        </ul>
+                    </li>
+                @endif
                 <li><a href="{{ route('home') }}" class="oswald nav-button {{ request()->routeIs('home') ? 'nav-active' : '' }}">HOME</a></li>
                 <li><a href="{{ route('foods') }}" class="oswald nav-button {{ request()->routeIs('foods') ? 'nav-active' : '' }}">FOODS</a></li>
                 <li><a href="{{ route('events') }}" class="oswald nav-button {{ request()->routeIs('events') ? 'nav-active' : '' }}">EVENTS</a></li>
                 <li><a href="{{ route('activity') }}" class="oswald nav-button {{ request()->routeIs('activity') ? 'nav-active' : '' }}">ACTIVITY</a></li>
-                <li><a href="{{ route('profile') }}" class="oswald nav-button nav-hide">PROFILE</a></li>
                 <li class="nav-hide"><a href="{{ route('profile') }}" class="oswald nav-button {{ request()->routeIs('profile') ? 'nav-active' : '' }}">PROFILE</a></li>
             </ul>
         </nav>
@@ -27,7 +38,10 @@
             </div>
             <a href="{{ route('profile') }}">
                 @if (Auth::check() && Auth::user()->two_factor_verified)
-                    <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="Profile Icon" class="profile-icon-img" style="width: 40px; border-radius: 50%; border: 2px solid #234c4c; object-fit: cover;">
+                    <img src="{{ Auth::user()->profile_image
+                        ? asset('storage/' . Auth::user()->profile_image)
+                        : asset('assets/example/profile.jpg') }}"
+                        alt="Profile Icon" class="profile-icon-img" style="width: 40px; border-radius: 50%; border: 2px solid #234c4c; object-fit: cover;">
                 @else
                     <img src="{{ asset('assets/icon_profile.png') }}" alt="Profile Icon" class="profile-icon-img">
                 @endif
@@ -52,6 +66,20 @@
             <li class="{{ request()->routeIs('profile') ? 'nav-active' : '' }}">
                 <a href="{{ route('profile') }}" class="oswald nav-button">PROFILE</a>
             </li>
+
+            
+            @if (Auth::check() && Auth::user()->role === 'admin')
+                <li class="p-0"><hr class="dropdown-divider"></li>
+                <li class="">
+                    <a href="#" class="oswald nav-button">REVIEW REPORT</a>
+                </li>
+                <li class="">
+                    <a href="#" class="oswald nav-button">MANAGE RESTAURANT</a>
+                </li>
+                <li class="">
+                    <a href="#" class="oswald nav-button">MANAGE EVENT</a>
+                </li>
+            @endif
         </ul>
     </nav>
 

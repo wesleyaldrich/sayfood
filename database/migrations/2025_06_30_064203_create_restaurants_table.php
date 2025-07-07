@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->nullable()->default(null)->onDelete('cascade')->onUpdate('cascade');
             $table->string('address')->nullable();
             $table->string('description')->nullable();
-            $table->boolean('is_open')->nullable();
-            $table->float('avg_stars')->nullable();
+            $table->float('avg_rating')->nullable();
             $table->float('distance')->nullable();
+            $table->string('image_url_resto')->nullable();
             $table->timestamps();
         });
     }

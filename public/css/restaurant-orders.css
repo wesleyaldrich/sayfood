@@ -1,0 +1,24 @@
+h1{
+    font-family: 'Oswald';
+    font-size: 2.5rem !important;
+    font-weight: 500 !important;
+    color: #063434;
+}
+
+.custom-table td[rowspan], .custom-table th[rowspan] {
+    vertical-align: middle !important;
+}
+
+.border-top-thick td, .border-top-thick th {
+    border-top: 1.5px solid #000;
+}
+
+.btn-sm{
+    width: 90px; 
+    color: white; 
+    border-radius: 10px;
+}
+
+.body{
+    overflow-x: auto;
+}

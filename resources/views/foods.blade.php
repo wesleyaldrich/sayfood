@@ -1,8 +1,6 @@
 @extends('layout.app')
 @section('title', 'Foods Page')
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 @section('content')	
 
 {{-- container
@@ -131,9 +129,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
         </div>
@@ -153,9 +152,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
 
@@ -184,9 +184,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
 
@@ -215,9 +216,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
             
@@ -246,9 +248,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                    :resto_id="$food->restaurant->id"
                 />
             @endforeach
 
@@ -281,16 +284,17 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($mainCourses as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
-                                    :id ="$food->id"
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                    :resto_id="$food->restaurant->id"
                                 />
                             </div>
                         @endforeach
@@ -301,16 +305,17 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($desserts as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
-                                    :id ="$food->id"
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                    :resto_id="$food->restaurant->id"
                                 />
                             </div>
                         @endforeach
@@ -321,16 +326,17 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($snacks as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
-                                    :id ="$food->id"
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                    :resto_id="$food->restaurant->id"
                                 />
                             </div>
                         @endforeach
@@ -341,16 +347,17 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                         @foreach ($drinks as $food)
                             <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2 d-flex justify-content-center align-items-center">
                                 <x-food-item
-                                    :id ="$food->id"
+                                    :id="$food->id"
                                     :image="$food->image_url"
                                     :title="$food->name"
                                     :description="$food->description"
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
+                                    :resto_id="$food->restaurant->id"
                                 />
                             </div>
                         @endforeach
