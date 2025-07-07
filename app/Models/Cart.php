@@ -9,7 +9,8 @@ class Cart extends Model
     protected $fillable = [
         'user_id',
         'food_id',
-        'quantity'
+        'quantity',
+        'notes'
     ];
 
     public function user(){

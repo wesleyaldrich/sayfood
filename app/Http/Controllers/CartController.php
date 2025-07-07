@@ -60,7 +60,7 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('status', 'Item berhasil ditambahkan!');
+        return redirect()->back()->with('status', 'Item successfully added!');
     }
 
 
@@ -84,16 +84,16 @@ class CartController extends Controller
     {
         // Validasi: Pastikan user hanya bisa mengubah keranjangnya sendiri
         if ($cart->user_id !== Auth::id()) {
-            return redirect()->back()->withErrors(['error' => 'Aksi tidak diizinkan!']);
+            return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
         }
 
         // Validasi: Cek stok makanan
         if ($cart->quantity < $cart->food->stock) {
             $cart->quantity++;
             $cart->save();
-            return redirect()->back()->with('status', 'Kuantitas berhasil ditambah!');
+            return redirect()->back()->with('status', 'Quantity increased successfully!');
         } else {
-            return redirect()->back()->withErrors(['error' => 'Stok tidak mencukupi!']);
+            return redirect()->back()->withErrors(['error' => 'Not enough stock!']);
         }
     }
 
@@ -104,18 +104,18 @@ class CartController extends Controller
     {
         // Validasi: Pastikan user hanya bisa mengubah keranjangnya sendiri
         if ($cart->user_id !== Auth::id()) {
-            return redirect()->back()->withErrors(['error' => 'Aksi tidak diizinkan!']);
+            return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
         }
 
         // Jika kuantitas lebih dari 1, kurangi
         if ($cart->quantity > 1) {
             $cart->quantity--;
             $cart->save();
-            return redirect()->back()->with('status', 'Kuantitas berhasil dikurangi!');
+            return redirect()->back()->with('status', 'Quantity decreased successfully!');
         } else {
             // Jika kuantitas adalah 1, hapus item dari keranjang
             $cart->delete();
-            return redirect()->back()->with('status', 'Item berhasil dihapus dari keranjang!');
+            return redirect()->back()->with('status', 'Item deleted from cart');
         }
     }
 
@@ -141,5 +141,27 @@ class CartController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function updateNote(Request $request, Cart $cart){
+        if ($cart->user_id !== Auth::id()) {
+            return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
+        }
+
+        $request->validate([
+            'notes' => 'nullable|string|max:255'
+        ]);
+
+        $cart->notes = $request->input('notes');
+        $cart->save();
+
+        return redirect()->route('show.cart')->with('status', 'Notes successfully updated!');
+    }
+
+    public function clearCart(){
+        $userId = Auth::id();
+
+        Cart::where('user_id', $userId)->delete(); 
+        return redirect('/foods')->with('status', 'Your cart is empty');
     }
 }

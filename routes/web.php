@@ -27,6 +27,8 @@ Route::get('/cart', [CartController::class,'show'])->name('show.cart')->middlewa
 Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart')->middleware('auth');
 Route::post('/cart/increase/{cart}', [CartController::class, 'increase'])->name('increase.cart')->middleware('auth');
 Route::post('/cart/decrease/{cart}', [CartController::class, 'decrease'])->name('decrease.cart')->middleware('auth');
+Route::post('/cart/note/{cart}', [CartController::class, 'updateNote'])->name('note.cart')->middleware('auth');
+Route::post('/cart/clear', [CartController::class, 'clearCart']);
 
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 

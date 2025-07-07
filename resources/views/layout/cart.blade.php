@@ -1,6 +1,8 @@
 @extends('layout.app')
 @section('title', 'Cart')
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
 
@@ -85,25 +87,27 @@
                 <button class="cancel-order-btn">
                     <p style="color: white" class="my-0">CANCEL</p>
                 </button>
-                <button class="checkout-btn" data-toggle="modal" data-target="#checkoutModal">
+                <button class="checkout-btn" data-bs-toggle="modal" data-bs-target="#checkoutModal">
                     <p style="color: white" class="my-0">CHECKOUT</p>
                 </button>
             </div>
         </div>
     </div>
 
-    <x-popup-modal id="addNoteModal" title="Add Notes">
-            <p class="text-muted">Write your special requests below.</p>
-            <textarea class="form-control" rows="4" placeholder="Example: Separate the sauce, not spicy..."></textarea>
-            
-            <x-slot name="footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save Changes</button>
-            </x-slot>
-    </x-popup-modal>
+    <form id="addNoteForm" method="POST" action="">
+        @csrf
+        <x-popup-modal id="addNoteModal" title="Add Notes">
+                <p class="text-muted">Write your special requests below.</p>
+                <textarea id="noteTextarea" name="notes" class="form-control" rows="4" placeholder="Example: Separate the sauce, not spicy..."></textarea>
+                
+                <x-slot name="footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </x-slot>
+        </x-popup-modal>
+    </form>
 
     <x-popup-modal id="checkoutModal" title="Select Payment Method">
-        
         <h6>Bank Transfer</h6>
         <p class="text-muted small">Select a bank to view the virtual account number.</p>
         <div class="list-group">
@@ -150,3 +154,35 @@
     </x-popup-modal>
 
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Tangkap elemen modal
+    var addNoteModal = document.getElementById('addNoteModal');
+
+    // Tambahkan event listener yang dijalankan SEBELUM modal ditampilkan
+    addNoteModal.addEventListener('show.bs.modal', function (event) {
+        // Dapatkan tombol yang memicu modal
+        var button = event.relatedTarget;
+
+        // Ekstrak informasi dari data-* attributes
+        var cartId = button.getAttribute('data-cart-id');
+        var currentNote = button.getAttribute('data-note');
+
+        // Dapatkan elemen form dan textarea di dalam modal
+        var noteForm = document.getElementById('addNoteForm');
+        var noteTextarea = document.getElementById('noteTextarea');
+
+        // Buat URL action untuk form
+        var actionUrl = `/cart/note/${cartId}`;
+
+        // Update action dari form
+        noteForm.setAttribute('action', actionUrl);
+
+        // Isi textarea dengan catatan yang sudah ada
+        noteTextarea.value = currentNote;
+    });
+});
+</script>
+@endpush

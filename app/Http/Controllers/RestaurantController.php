@@ -21,7 +21,7 @@ class RestaurantController extends Controller
    }
 
    public function store(Request $request){
-      dd($request->all());
+      // dd($request->all());
       $validatedData = $request->validate([
         'name' => 'required|string|max:255',
         'category_id' => 'required|exists:categories,id', 
@@ -48,5 +48,22 @@ class RestaurantController extends Controller
       ]);
 
       return redirect()->back()->with('status', 'Food item has been added successfully!');
+   }
+
+   public function update(Request $request){
+      $validatedData = $request->validate([
+         'name' => 'required|string|max:255',
+         'category_id' => 'required|exists:categories,id', 
+         'description' => 'required|string',
+         'exp_date' => 'required|date',
+         'exp_time' => 'required|date_format:H:i', 
+         'stock' => 'required|integer|min:0'
+      ]);
+
+      $expDatetime = Carbon::parse($validatedData['exp_date'].''.$validatedData['exp_time']);
+      
+      $status = $request->has('status')?'available':'unavailable';
+
+      
    }
 }

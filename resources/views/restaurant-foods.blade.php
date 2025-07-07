@@ -3,6 +3,8 @@
     Restaurant Manage Food Page
 @endsection
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="{{ asset('js/resto-food-filter.js') }}" defer></script>
 
 @section('content')
@@ -42,7 +44,7 @@
         <th scope="col">Stock</th>
         <th scope="col">Status</th>
         <th scope="col">
-            <button type="button" class="add-btn btn-success w-75" data-toggle="modal" data-target="#addFoodModal">+ Add Food</button>
+            <button type="button" class="add-btn btn-success w-75" data-bs-toggle="modal" data-bs-target="#addFoodModal">+ Add Food</button>
         </th>
     </tr>
 </thead>
@@ -58,8 +60,8 @@
         <td>{{$food->status}}</td>
         <td>
             <div class="manage-button d-flex">
-                <button type="button" class="edit-btn btn-warning mx-1" data-toggle="modal" data-target="#editFoodModal">Edit</button>
-                <button type="button" class="delete-btn btn-danger mx-1" data-toggle="modal" data-target="#deleteFoodModal">Delete</button>
+                <button type="button" class="edit-btn btn-warning mx-1" data-bs-toggle="modal" data-bs-target="#editFoodModal">Edit</button>
+                <button type="button" class="delete-btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#deleteFoodModal">Delete</button>
             </div>
         </td>
         </tr>
@@ -67,51 +69,51 @@
 </tbody>
 </table>
 
-<x-popup-modal id="addFoodModal" title="Add Food">
-    <form action="{{route('create.food.restaurant')}}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="addName">Food Name</label>
-            <input type="text" class="form-control" id="addName" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="addCategory">Category</label>
-            <select class="form-control" id="addCategory" name="category_id" required>
-                <option selected disabled value="">Choose category...</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="addDescription">Food Description</label>
-            <textarea class="form-control" id="addDescription" name="description" rows="3" required></textarea>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="addExpDate">Expiration Date</label>
-                <input type="date" class="form-control" id="addExpDate" name="exp_date" required>
+<form action="{{route('create.food.restaurant')}}" method="POST">
+    @csrf
+    <x-popup-modal id="addFoodModal" title="AddFood">
+            <div class="form-group">
+                <label for="addName">Food Name</label>
+                <input type="text" class="form-control" id="addName" name="name" required>
             </div>
-            <div class="form-group col-md-6">
-                <label for="addExpTime">Expiration Time</label>
-                <input type="time" class="form-control" id="addExpTime" name="exp_time" required>
+            <div class="form-group">
+                <label for="addCategory">Category</label>
+                <select class="form-control" id="addCategory" name="category_id" required>
+                    <option selected disabled value="">Choose category...</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
             </div>
-        </div>
-         <div class="form-group">
-            <label for="addStock">Stock</label>
-            <input type="number" class="form-control" id="addStock" name="stock" required min="0">
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="addStatus" name="status" value="available" checked>
-            <label class="form-check-label" for="addStatus">Available</label>
-        </div>
-        
-        <x-slot name="footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" form="addFoodModal">Submit</button>
-        </x-slot>
-    </form>
-</x-popup-modal>
+            <div class="form-group">
+                <label for="addDescription">Food Description</label>
+                <textarea class="form-control" id="addDescription" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="addExpDate">Expiration Date</label>
+                    <input type="date" class="form-control" id="addExpDate" name="exp_date" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="addExpTime">Expiration Time</label>
+                    <input type="time" class="form-control" id="addExpTime" name="exp_time" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="addStock">Stock</label>
+                <input type="number" class="form-control" id="addStock" name="stock" required min="0">
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="addStatus" name="status" value="available" checked>
+                <label class="form-check-label" for="addStatus">Available</label>
+            </div>
+            
+            <x-slot name="footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </x-slot>
+        </x-popup-modal>
+</form>
 
 <x-popup-modal id="editFoodModal" title="Edit Food">
     <form id="editFoodForm" method="POST">
