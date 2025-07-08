@@ -27,7 +27,10 @@
             </div>
             <a href="{{ route('profile') }}">
                 @if (Auth::check() && Auth::user()->two_factor_verified)
-                    <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="Profile Icon" class="profile-icon-img" style="width: 40px; border-radius: 50%; border: 2px solid #234c4c; object-fit: cover;">
+                    <img src="{{ Auth::user()->profile_image
+                        ? asset('storage/' . Auth::user()->profile_image)
+                        : asset('assets/example/profile.jpg') }}"
+                        alt="Profile Icon" class="profile-icon-img" style="width: 40px; border-radius: 50%; border: 2px solid #234c4c; object-fit: cover;">
                 @else
                     <img src="{{ asset('assets/icon_profile.png') }}" alt="Profile Icon" class="profile-icon-img">
                 @endif

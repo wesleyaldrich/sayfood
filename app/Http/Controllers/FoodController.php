@@ -12,6 +12,13 @@ class FoodController extends Controller
      */
     public function index(Request $request)
     {
+
+        $popular     = Food::with('restaurant')->inRandomOrder()->take(10)->get();
+        $mainCourses = Food::with('restaurant')->where('category_id', 1)->get();
+        $desserts    = Food::with('restaurant')->where('category_id', 2)->get();
+        $drinks      = Food::with('restaurant')->where('category_id', 3)->get();
+        $snacks      = Food::with('restaurant')->where('category_id', 4)->get();
+
         $searchQuery = $request->query('q');
         $priceMax    = $request->query('price');
         $ratingMin   = $request->query('rating');
@@ -59,6 +66,7 @@ class FoodController extends Controller
 
         $drinks = Food::with('restaurant')->where('category_id', 3)
             ->where($filters)->tap($applySorting)->get();
+
 
         return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks'));
     }
