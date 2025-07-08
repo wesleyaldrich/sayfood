@@ -95,18 +95,6 @@ class TransactionController extends Controller
         return view('restaurant-orders', compact('orders'));
     }
 
-    public function acceptOrder($id)
-    {
-        $order = Order::findOrFail($id);
-
-        if ($order->status === 'Order Created') {
-            $order->status = 'Ready to Pickup';
-            $order->save();
-        }
-
-        return redirect()->back();
-    }
-
     public function updateStatus($id)
     {
         $order = Order::findOrFail($id);

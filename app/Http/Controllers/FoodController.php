@@ -28,7 +28,12 @@ class FoodController extends Controller
 
         $filters = function ($query) use ($searchQuery, $priceMax, $ratingMin) {
             if ($searchQuery) {
-                $query->where('foods.name', 'like', '%' . $searchQuery . '%');
+                $query->where(function ($q) use ($searchQuery) {
+                    $q->where('foods.name', 'like', '%' . $searchQuery . '%')
+                    ->orWhereHas('restaurant', function ($q2) use ($searchQuery) {
+                        $q2->where('name', 'like', '%' . $searchQuery . '%');
+                    });
+                });
             }
 
             if ($priceMax) {
