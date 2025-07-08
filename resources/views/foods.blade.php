@@ -116,7 +116,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                 />
@@ -138,7 +138,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                 />
@@ -169,7 +169,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                 />
@@ -200,7 +200,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                 />
@@ -231,7 +231,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                     :stock="$food->stock"
                     :restoName="$food->restaurant->name"
-                    :rating="$food->restaurant->avg_stars"
+                    :rating="$food->restaurant->avg_rating"
                     :distance="number_format($food->restaurant->distance, 1)"
                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                 />
@@ -273,7 +273,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                                 />
@@ -293,7 +293,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                                 />
@@ -313,7 +313,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                                 />
@@ -333,7 +333,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                                     :expiry="$food->exp_datetime->format('d/m h:i A')"
                                     :stock="$food->stock"
                                     :restoName="optional($food->restaurant)->name"
-                                    :rating="number_format(optional($food->restaurant)->avg_stars ?? 0, 1)"
+                                    :rating="number_format(optional($food->restaurant)->avg_rating ?? 0, 1)"
                                     :distance="number_format(optional($food->restaurant)->distance ?? 0, 1)"
                                     :price="'IDR ' . number_format($food->price, 0, ',', '.')"
                                 />
