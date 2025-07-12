@@ -28,7 +28,12 @@ class FoodController extends Controller
 
         $filters = function ($query) use ($searchQuery, $priceMax, $ratingMin) {
             if ($searchQuery) {
-                $query->where('foods.name', 'like', '%' . $searchQuery . '%');
+                $query->where(function ($q) use ($searchQuery) {
+                    $q->where('foods.name', 'like', '%' . $searchQuery . '%')
+                    ->orWhereHas('restaurant', function ($q2) use ($searchQuery) {
+                        $q2->where('name', 'like', '%' . $searchQuery . '%');
+                    });
+                });
             }
 
             if ($priceMax) {
@@ -37,7 +42,7 @@ class FoodController extends Controller
 
             if ($ratingMin) {
                 $query->whereHas('restaurant', function ($q) use ($ratingMin) {
-                    $q->where('avg_stars', '>=', (float) $ratingMin);
+                    $q->where('avg_rating', '>=', (float) $ratingMin);
                 });
             }
         };
@@ -50,7 +55,7 @@ class FoodController extends Controller
                     ->select('foods.*');
             } elseif ($sort === 'popular') {
                 $query->join('restaurants', 'foods.restaurant_id', '=', 'restaurants.id')
-                    ->orderBy('restaurants.avg_stars', 'desc')
+                    ->orderBy('restaurants.avg_rating', 'desc')
                     ->select('foods.*');
             }
         };

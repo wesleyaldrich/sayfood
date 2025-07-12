@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
+use App\Http\Controllers\HomeRestaurantController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\TransactionController;
@@ -44,9 +45,7 @@ Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetFor
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
 // RESTAURANT
-Route::get('/restaurant-home', function () {
-    return view('restaurant-home');
-})->name('restaurant-home');
+Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
 
 Route::get('/restaurant-activity', [TransactionController::class, 'restaurantActivity'])->name('restaurant-activity');
 
@@ -55,7 +54,6 @@ Route::get('/restaurant-transactions/filter', [TransactionController::class, 'fi
 Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
 
 Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
-Route::post('/restaurant-orders/{id}/accept', [TransactionController::class, 'acceptOrder'])->name('restaurant-orders.accept');
 Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
 
 Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');

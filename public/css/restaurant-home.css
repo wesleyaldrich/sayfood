@@ -91,6 +91,7 @@ body {
     justify-content: center;
     align-items: center;
     scroll-snap-align: start;
+    height: fit-content;
 }
 
 .restaurant-order-item .date {
