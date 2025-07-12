@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedCategory = activeCategoryButton ? activeCategoryButton.getAttribute('data-category') : 'all';
 
         foodRows.forEach(row => {
-            const foodName = row.querySelector('td:first-of-type').textContent.toLowerCase();
+            const foodName = row.querySelectorAll('td')[1].textContent.toLowerCase();
             const rowCategory = row.getAttribute('data-category');
 
             // cek kondisi kategori

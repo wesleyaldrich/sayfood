@@ -94,7 +94,7 @@ class AuthController extends Controller
             // Log the user in (if not already)
             Auth::login($currentUser);
 
-            return redirect()->route('home')->with('success', 'Two-factor authentication successful.');
+            return redirect()->route('home')->with('status', 'Two-factor authentication successful.');
         } else {
             throw ValidationException::withMessages([
                 'otp' => 'The provided two-factor code is incorrect.',
@@ -127,7 +127,7 @@ class AuthController extends Controller
                     ->subject('Sayfood | Two-Factor Authentication Code');
         });
 
-        return redirect()->route('twofactor.verif')->with('success', 'A new two-factor authentication code has been sent to your email.');
+        return redirect()->route('twofactor.verif')->with('status', 'A new two-factor authentication code has been sent to your email.');
     }
 
     public function registerRestaurant(Request $request)
@@ -141,7 +141,7 @@ class AuthController extends Controller
 
         RestaurantRegistration::create($validatedData);
 
-        return redirect()->route('home')->with('success', 'Restaurant registration successful. We will contact your email soon.');
+        return redirect()->route('home')->with('status', 'Restaurant registration successful. We will contact your email soon.');
     }
 
     public function approveRegistration($id)

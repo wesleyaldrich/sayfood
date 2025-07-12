@@ -319,13 +319,20 @@ h4 {
 
 .modal-content.popupmodal{
     background-color: white;
+    border-radius: 1.5rem;
 }
 
 .modal-title{
     font-family: "Oswald";
     font-size: 20px;
     font-weight: bold;
-    color: #234C4C;
+    color:white;
+}
+
+.modal-header{
+    background-color: #234C4C;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
 }
 
 .modal-body{
@@ -391,4 +398,30 @@ h4 {
         left: 8px;
         width: calc(100% - 16px);
     }
+}
+
+/* Ganti/tambahkan gaya .alert yang sudah ada dengan ini */
+.alert {
+    /* Atur keadaan awal (tersembunyi) */
+    overflow: hidden;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    opacity: 0;
+    border-width: 0px;
+
+    /* Atur animasi transisi agar mulus */
+    transition: all 0.5s ease-in-out;
+}
+
+/* Tambahkan class baru untuk keadaan "terlihat" */
+.alert.show {
+    max-height: 100px; /* Atur ketinggian maksimal yang cukup besar */
+    padding-top: 1rem;   /* Atur padding atas sesuai selera */
+    padding-bottom: 1rem;/* Atur padding bawah sesuai selera */
+    margin-bottom: 1rem; /* Beri jarak dengan konten di bawahnya */
+    border-width: 1px;
+    opacity: 1;
 }

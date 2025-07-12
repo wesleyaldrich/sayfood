@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeDishesController;
 use App\Http\Controllers\HomeRestaurantController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\Transaction2Controller;
 use App\Http\Controllers\TransactionController;
 
 // UNPROTECTED ROUTES
@@ -30,8 +31,14 @@ Route::get('/activity', [TransactionController::class, 'customerActivities'])->n
 Route::post('/orders/{id}/rate', [TransactionController::class, 'rate'])->name('orders.rate');
 
 // CART
-Route::get('/cart', [CartController::class,'show'])->name('show.cart');
-Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart');
+Route::get('/cart', [CartController::class,'show'])->name('show.cart')->middleware('auth');
+Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart')->middleware('auth');
+Route::post('/cart/increase/{cart}', [CartController::class, 'increase'])->name('increase.cart')->middleware('auth');
+Route::post('/cart/decrease/{cart}', [CartController::class, 'decrease'])->name('decrease.cart')->middleware('auth');
+Route::post('/cart/note/{cart}', [CartController::class, 'updateNote'])->name('note.cart')->middleware('auth');
+Route::post('/cart/clear', [CartController::class, 'clearCart']);
+Route::post('/checkout/confirm', [Transaction2Controller::class, 'confirmPayment'])->name('checkout.confirm');
+
 
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 

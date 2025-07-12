@@ -10,6 +10,11 @@ class Order extends Model
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'customer_id',
+        'restaurant_id'
+    ];
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

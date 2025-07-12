@@ -8,8 +8,19 @@ class Food extends Model
 {
     protected $table = 'foods';
     protected $casts = [
-    'exp_datetime' => 'datetime',
-];
+    'exp_datetime' => 'datetime'
+    ];
+
+    protected $fillable = [
+        'restaurant_id',
+        'name',
+        'category_id',
+        'description',
+        'exp_datetime',
+        'stock',
+        'image_url',
+        'status',
+    ];
 
     public function restaurant(){
         return $this->belongsTo(Restaurant::class);

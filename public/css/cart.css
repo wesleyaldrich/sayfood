@@ -203,6 +203,11 @@
     margin-right: 5px;
 }
 
+.add-notes-btn.btn-note-active {
+    background-color: #c55b39; /* Warna berbeda jika ada catatan */
+    border: 2px solid #234C4C;
+}
+
 .manage-quantity{
     background-color: #234C4C;
     font-size: 20px;
@@ -234,6 +239,10 @@
 }
 .total-price-section{
     font-weight: bold;
+}
+
+.modal-content{
+    border-radius: 1.5rem;
 }
 
 .popupmodal{
