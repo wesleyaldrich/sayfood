@@ -3,7 +3,7 @@
 ])
 
 <div class="cart-item">
-    <img src="{{ asset($item->food->image_url ?? 'assets/food_images/arts_cafe/chocolate_fondant.jpg') }}" alt="{{ $item->food->name }}" class="item-image"/>
+    <img src="{{ asset($item->food->image_url ?? 'food_images/arts_cafe/chocolate_fondant.jpg') }}" alt="{{ $item->food->name }}" class="item-image"/>
     
     <div class="cart-item-details">
         <div class="item-description">

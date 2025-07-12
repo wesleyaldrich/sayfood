@@ -103,3 +103,81 @@
     align-items: center;
     text-align: center;
 }
+
+@media screen and (max-width: 768px) {
+
+    /* --- Bagian Atas (Judul & Search Bar) --- */
+    .upper-section {
+        flex-direction: column; /* Ubah jadi tumpukan vertikal */
+        align-items: stretch;   /* Buat elemen jadi selebar kontainer */
+        margin-top: 16px;
+    }
+
+    .title {
+        font-size: 24px; /* Kecilkan sedikit font judul */
+        margin-left: 16px;
+        margin-right: 16px;
+        text-align: center; /* Pusatkan judul di mobile */
+        margin-bottom: 16px;
+    }
+
+    .search-bar {
+        margin-left: 16px;
+        margin-right: 16px;
+        flex: 1; /* Buat search bar memenuhi lebar */
+    }
+
+    .subtitle {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    /* --- Tombol Filter Kategori --- */
+    .tab-control {
+        flex-wrap: wrap; /* Izinkan tombol untuk pindah ke baris baru */
+        justify-content: center;
+        gap: 8px; /* Beri jarak antar tombol */
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    /* --- Tombol Tambah, Edit, Delete --- */
+    .add-btn, .edit-btn, .delete-btn {
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: 14px;
+    }
+
+    .manage-button {
+        flex-direction: column; /* Tumpuk tombol edit & delete secara vertikal */
+        gap: 5px; /* Beri sedikit jarak */
+    }
+
+    /* --- Tabel Responsif (Bisa di-scroll ke samping) --- */
+    .table-responsive-wrapper {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* INI KUNCINYA: Membuat scroll horizontal muncul */
+        -webkit-overflow-scrolling: touch; /* Scroll lebih mulus di iOS */
+    }
+
+    .table {
+        min-width: 800px; /* Paksa tabel agar tetap lebar */
+    }
+
+    .thead {
+        font-size: 14px;
+    }
+    .tbody{
+        font-size: 11px;
+    }
+
+    /* --- Alert & Footer (Contoh Umum) --- */
+    /* Asumsi alert dan footer ada di dalam .sayfood-content-container atau body */
+    .alert, .footer-container { /* Ganti .footer-container dengan class footermu */
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 14px;
+    }
+}

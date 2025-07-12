@@ -28,7 +28,7 @@
             <a href="{{ route('profile') }}">
                 @if (Auth::check() && Auth::user()->two_factor_verified)
                     <img src="{{ Auth::user()->profile_image
-                        ? asset('storage/' . Auth::user()->profile_image)
+                        ? asset('' . Auth::user()->profile_image)
                         : asset('assets/example/profile.jpg') }}"
                         alt="Profile Icon" class="profile-icon-img" style="width: 40px; border-radius: 50%; border: 2px solid #234c4c; object-fit: cover;">
                 @else

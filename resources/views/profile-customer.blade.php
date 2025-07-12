@@ -10,7 +10,7 @@
                 <form action="{{ route('update.profile.image') }}" method="POST" enctype="multipart/form-data" id="profile-image-form">
                     @csrf
                     <label for="profile-image-input" style="cursor:pointer;">
-                        <img class="profile-image" src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : asset('assets/example/profile.jpg') }}" alt="profile image" id="profile-image-preview">
+                        <img class="profile-image" src="{{ $user->profile_image ? asset('' . $user->profile_image) : asset('assets/example/profile.jpg') }}" alt="profile image" id="profile-image-preview">
                         <input type="file" name="profile_image" id="profile-image-input" accept="image/*" style="display:none;" onchange="document.getElementById('profile-image-form').submit();">
                     </label>
                 </form>

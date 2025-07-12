@@ -1,3 +1,5 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 @extends('layout.app')
 @section('title')
     Restaurant Manage Food Page
@@ -13,68 +15,83 @@
 <div class="upper-section d-flex">
     <div class="title">
         <h1>LET'S MANAGE YOUR FOOD!</h1>
+        <p class="subtitle">
+            {{$restaurant->name}}'s food list
+        </p>
     </div>
     <div class="search-bar d-flex">
         {{-- <form class="d-flex" role="search"> --}}
+            <input class="form-control" id="searchInput" type="search" placeholder="Search food name..." aria-label="Search"/>
             <button class="btn btn-warning" type="button">
                 <img src="assets/icon_search.png" alt="search" class="w-5">
             </button>
-            <input class="form-control" id="searchInput" type="search" placeholder="Search food name..." aria-label="Search"/>
         {{-- </form> --}}
     </div>
 </div>
 
-<p class="subtitle ml-4">
-    {{$restaurant->name}}'s food list
-</p>
 <div class="tab-control d-flex mx-4 my-2">
     <button class="filter-btn mr-1 active" type="button" data-category="all">All</button>
     @foreach ($categories as $category)
         <button class="filter-btn mx-1" type="button" data-category="{{ $category->name }}">{{ $category->name }}</button>
     @endforeach
 </div>
-<table class="table">
-  <thead class="thead">
-    <tr>
-        <th scope="col">No</th>
-        <th scope="col">Food Name</th>
-        <th scope="col">Food Description</th>
-        <th scope="col">Expiration Time</th>
-        <th scope="col">Category</th>
-        <th scope="col">Stock</th>
-        <th scope="col">Status</th>
-        <th scope="col">
-            <button type="button" class="add-btn btn-success w-75" data-bs-toggle="modal" data-bs-target="#addFoodModal">+ Add Food</button>
-        </th>
-    </tr>
-</thead>
-<tbody class="tbody">
-    @foreach ($foods as $food)
-        <tr data-category="{{$food->category->name}}">
-        <th scope="row">{{$loop->iteration}}</th>
-        <td>{{$food->name}}</td>
-        <td>{{$food->description}}</td>
-        <td>{{$food->exp_datetime}}</td>
-        <td>{{$food->category->name}}</td>
-        <td>{{$food->stock}}</td>
-        <td>{{$food->status}}</td>
-        <td>
-            <div class="manage-button d-flex">
-                <button type="button" class="edit-btn btn-warning mx-1" data-bs-toggle="modal" data-bs-target="#editFoodModal">Edit</button>
-                <button type="button" class="delete-btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#deleteFoodModal">Delete</button>
-            </div>
-        </td>
+<div class="table-responsive-wrapper">
+    <table class="table">
+      <thead class="thead">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Image</th>
+            <th scope="col">Food Name</th>
+            <th scope="col">Food Description</th>
+            <th scope="col">Expiration Time</th>
+            <th scope="col">Category</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Status</th>
+            <th scope="col">
+                <button type="button" class="add-btn btn-success w-75" data-bs-toggle="modal" data-bs-target="#addFoodModal">+ Add Food</button>
+            </th>
         </tr>
-    @endforeach
-</tbody>
-</table>
+    </thead>
+    <tbody class="tbody">
+        @foreach ($foods as $food)
+            <tr data-category="{{$food->category->name}}" data-food='@json($food)'> {{-- Menyimpan data food sebagai JSON --}}>
+            <th scope="row">{{$loop->iteration}}</th>
+            <td>
+                {{-- Tampilkan Gambar --}}
+                @if($food->image_url)
+                    <img src="{{ asset('storage/' . $food->image_url) }}" alt="{{ $food->name }}" width="100" style="border-radius: 8px;">
+                @else
+                    <span>No Image</span>
+                @endif
+            </td>
+            <td>{{$food->name}}</td>
+            <td>{{$food->description}}</td>
+            <td>{{$food->exp_datetime}}</td>
+            <td>{{$food->category->name}}</td>
+            <td>{{$food->stock}}</td>
+            <td>{{$food->status}}</td>
+            <td>
+                <div class="manage-button d-flex">
+                    <button type="button" class="edit-btn btn-warning mx-1" data-bs-toggle="modal" data-bs-target="#editFoodModal">Edit</button>
+                    <button type="button" class="delete-btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#deleteFoodModal" data-food-id="{{ $food->id }}" data-food-name="{{ $food->name }}">Delete</button>
+                </div>
+            </td>
+            </tr>
+        @endforeach
+    </tbody>
+    </table>
+</div>
 
-<form action="{{route('create.food.restaurant')}}" method="POST">
+<form action="{{route('create.food.restaurant')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <x-popup-modal id="addFoodModal" title="AddFood">
             <div class="form-group">
                 <label for="addName">Food Name</label>
                 <input type="text" class="form-control" id="addName" name="name" required>
+            </div>
+            <div class="form-group mt-2">
+                <label for="addPhoto">Food Image</label>
+                <input type="file" class="form-control" id="addPhoto" name="image_url">
             </div>
             <div class="form-group">
                 <label for="addCategory">Category</label>
@@ -115,13 +132,18 @@
         </x-popup-modal>
 </form>
 
-<x-popup-modal id="editFoodModal" title="Edit Food">
-    <form id="editFoodForm" method="POST">
-        @csrf
-        @method('PATCH')
+<form id="editFoodForm" method="POST" enctype="multipart/form-data">
+    @csrf
+    @method('PATCH')
+    <x-popup-modal id="editFoodModal" title="Edit Food">
         <div class="mb-3">
             <label for="editName" class="form-label">Food Name</label>
             <input type="text" class="form-control" id="editName" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="editPhoto" class="form-label">New Food Image (Optional)</label>
+            <input type="file" class="form-control" id="editPhoto" name="image_url">
+            <small class="form-text text-muted">Leave blank if you don't want to change the image.</small>
         </div>
         <div class="mb-3">
             <label for="editCategory" class="form-label">Category</label>
@@ -159,19 +181,70 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </x-slot>
-    </form>
-</x-popup-modal>
+    </x-popup-modal>
+</form>
 
-<x-popup-modal id="deleteFoodModal" title="Delete Confirmation">
-    <p>Are you sure you want to delete this food item: <strong id="deleteFoodName"></strong>?</p>
-    <p class="text-danger">This action cannot be undone.</p>
-    
-    <form id="deleteFoodForm" method="">
-        @csrf
+<form id="deleteFoodForm" method="POST" action="">
+@csrf
+@method('DELETE')
+    <x-popup-modal id="deleteFoodModal" title="Delete Confirmation">
+        <p>Are you sure you want to delete this food item: <strong id="deleteFoodName"></strong>?</p>
+        <p class="text-danger">This action cannot be undone.</p>
         <x-slot name="footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-danger">Yes, Delete</button>
         </x-slot>
-    </form>
-</x-popup-modal>
+    </x-popup-modal>
+</form>
+
+</form> 
+
+<script>
+$(document).ready(function() {
+    // Handle Edit Modal
+    $('.edit-btn').on('click', function() {
+        // Ambil data food dari attribute `data-food` di <tr>
+        var food = $(this).closest('tr').data('food');
+        
+        // Buat URL untuk action form
+        var actionUrl = "{{ url('restaurant-foods/update') }}/" + food.id;
+        $('#editFoodForm').attr('action', actionUrl);
+        
+        // Isi semua field di form edit
+        $('#editName').val(food.name);
+        $('#editCategory').val(food.category_id);
+        $('#editDescription').val(food.description);
+        $('#editStock').val(food.stock);
+        
+        // Pisahkan tanggal dan waktu
+        var expDatetime = new Date(food.exp_datetime);
+        var date = expDatetime.toISOString().split('T')[0];
+        var time = expDatetime.toTimeString().split(' ')[0].substring(0, 5);
+        
+        $('#editExpDate').val(date);
+        $('#editExpTime').val(time);
+
+        // Atur status checkbox
+        if (food.status.toLowerCase() === 'available') {
+            $('#editStatus').prop('checked', true);
+        } else {
+            $('#editStatus').prop('checked', false);
+        }
+    });
+
+    // Handle Delete Modal
+    $('.delete-btn').on('click', function() {
+        var foodId = $(this).data('food-id');
+        var foodName = $(this).data('food-name');
+        
+        // Buat URL untuk action form
+        var actionUrl = "{{ url('restaurant-foods/delete') }}/" + foodId;
+        $('#deleteFoodForm').attr('action', actionUrl);
+        
+        // Tampilkan nama makanan yang akan dihapus
+        $('#deleteFoodName').text(foodName);
+    });
+});
+</script>
+
 @endsection

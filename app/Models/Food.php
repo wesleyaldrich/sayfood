@@ -18,7 +18,8 @@ class Food extends Model
         'description',
         'exp_datetime',
         'stock',
-        'status'
+        'image_url',
+        'status',
     ];
 
     public function restaurant(){
