@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Food;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FoodController extends Controller
 {
@@ -72,8 +74,12 @@ class FoodController extends Controller
         $drinks = Food::with('restaurant')->where('category_id', 3)
             ->where($filters)->tap($applySorting)->get();
 
-
-        return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks'));
+        $cartItemCount = 0;
+        if (Auth::check()) {
+            $cartItemCount = Cart::where('user_id', Auth::id())->sum('quantity');
+        }
+        
+        return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks', 'cartItemCount'));
     }
 
     /**

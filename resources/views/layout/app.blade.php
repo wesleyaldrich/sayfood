@@ -32,12 +32,45 @@
         @endif
         @yield('content')
     </div>
-     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+
     @include('layout.footer')
     @stack('scripts')
+    {{-- script untuk membuat notifikasi sukses dan error menghilang dalam 1 detik --}}
+     <script>
+        // Script ini tidak butuh jQuery
+        window.addEventListener('load', function() {
+            // 1. Cari semua elemen alert
+            const alerts = document.querySelectorAll('.alert');
+
+            if (alerts.length > 0) {
+                alerts.forEach(function(alert) {
+                    // 2. Langsung tampilkan dengan efek "slide down"
+                    //    Kita beri sedikit delay agar transisi CSS berjalan
+                    setTimeout(function() {
+                        alert.classList.add('show');
+                    },);
+
+                    // 3. Set timer untuk menyembunyikan kembali (misal: 3 detik)
+                    setTimeout(function() {
+                        // Hapus class 'show' untuk memicu animasi "slide up"
+                        alert.classList.remove('show');
+
+                        // 4. Hapus elemen dari DOM setelah animasi slide up selesai
+                        setTimeout(function() {
+                           if(alert.parentNode) {
+                               alert.parentNode.removeChild(alert);
+                           }
+                        }, 600); // 500ms untuk animasi + 100ms buffer
+
+                    }, 1000); // Alert akan mulai menghilang setelah 1 detik
+                });
+            }
+        });
+    </script>    
 
 </body>
 </html>
