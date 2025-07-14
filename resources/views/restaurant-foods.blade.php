@@ -54,7 +54,7 @@
     </thead>
     <tbody class="tbody">
         @foreach ($foods as $food)
-            <tr data-category="{{$food->category->name}}" data-food='@json($food)'> {{-- Menyimpan data food sebagai JSON --}}>
+            <tr data-category="{{$food->category->name}}" data-food='@json($food)'> {{-- Menyimpan data food sebagai JSON --}}
             <th scope="row">{{$loop->iteration}}</th>
             <td>
                 {{-- Tampilkan Gambar --}}
@@ -196,8 +196,6 @@
         </x-slot>
     </x-popup-modal>
 </form>
-
-</form> 
 
 <script>
 $(document).ready(function() {
