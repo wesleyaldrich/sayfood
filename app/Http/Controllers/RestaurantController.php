@@ -54,7 +54,7 @@ class RestaurantController extends Controller
       if ($request->hasFile('image_url')) {
          $restaurantName = Auth::user()->restaurant->name;
          $folderName = Str::slug($restaurantName, '_');
-         $path = 'food_images/' . $folderName;
+         $path = 'storage/food_images/' . $folderName;
 
          $photoPath = $request->file('image_url')->store($path, 'public');
       }
@@ -99,7 +99,7 @@ class RestaurantController extends Controller
 
          $restaurantName = $food->restaurant->name;
          $folderName = Str::slug($restaurantName, '_');
-         $path = 'food_images/' . $folderName;
+         $path = 'storage/food_images/' . $folderName;
 
          $photoPath = $request->file('image_url')->store($path, 'public');
       }

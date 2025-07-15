@@ -17,6 +17,7 @@
                     <th>Customer Name</th>
                     <th>Food Name</th>
                     <th>Qty</th>
+                    <th>Notes</th>
                     <th>Order Date</th>
                     <th>Action</th>
                 </tr>
@@ -41,6 +42,7 @@
                             @endif
                             <td>{{ $item->food->name }}</td>
                             <td>{{ $item->qty }}</td>
+                            <td>{{ $item->notes }}</td>
                             @if ($index === 0)
                                 <td rowspan="{{ $rowspan }}">{{ $order->created_at->format('d/m/y') }}</td>
                                 <td rowspan="{{ $rowspan }}">

@@ -37,7 +37,7 @@ Route::post('/cart/increase/{cart}', [CartController::class, 'increase'])->name(
 Route::post('/cart/decrease/{cart}', [CartController::class, 'decrease'])->name('decrease.cart')->middleware('auth');
 Route::post('/cart/note/{cart}', [CartController::class, 'updateNote'])->name('note.cart')->middleware('auth');
 Route::post('/cart/clear', [CartController::class, 'clearCart']);
-Route::post('/checkout/confirm', [Transaction2Controller::class, 'confirmPayment'])->name('checkout.confirm');
+Route::post('/checkout/confirm', [TransactionController::class, 'confirmPayment'])->name('checkout.confirm');
 
 
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');

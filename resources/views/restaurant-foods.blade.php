@@ -59,7 +59,7 @@
             <td>
                 {{-- Tampilkan Gambar --}}
                 @if($food->image_url)
-                    <img src="{{ asset('storage/' . $food->image_url) }}" alt="{{ $food->name }}" width="100" style="border-radius: 8px;">
+                    <img src="{{ asset($food->image_url) }}" alt="{{ $food->name }}" width="100" style="border-radius: 8px;">
                 @else
                     <span>No Image</span>
                 @endif
