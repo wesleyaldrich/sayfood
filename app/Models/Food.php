@@ -8,10 +8,36 @@ class Food extends Model
 {
     protected $table = 'foods';
     protected $casts = [
-    'exp_datetime' => 'datetime',
-];
+    'exp_datetime' => 'datetime'
+    ];
+
+    protected $fillable = [
+        'restaurant_id',
+        'name',
+        'category_id',
+        'description',
+        'exp_datetime',
+        'stock',
+        'image_url',
+        'status',
+    ];
 
     public function restaurant(){
         return $this->belongsTo(Restaurant::class);
     }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
+    public function cart(){
+        return $this->hasMany(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
+
+

@@ -8,14 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-         $customers = [];
-        for ($i = 1; $i <= 15; $i++) {
-            $customers[] = ['id' => $i, 'created_at' => now(), 'updated_at' => now()];
+        $customers = [];
+
+        // User dengan role customer biasanya dimulai dari ID 2
+        for ($i = 1; $i <= 10; $i++) {
+            $customers[] = [
+                'id' => $i, // ID customer diset manual
+                'user_id' => $i, // Diasumsikan user_id 2-16 adalah customer1-15
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
         }
 
         DB::table('customers')->insert($customers);

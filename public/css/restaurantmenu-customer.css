@@ -1,0 +1,327 @@
+.hero-container {
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* The black overlay */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Adjust transparency */
+    z-index: 1;
+}
+
+/* Text on top of overlay */
+.overlay-content {
+    position: absolute;
+    z-index: 2;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    text-align: center;
+    color: white;
+}
+
+.restaurant-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.7); /* Make it stand out more */
+}
+
+.location-badge {
+    background-color: #f4a261;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    margin-top: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.back-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+    width: 44px; /* Pastikan width dan height sama */
+    height: 44px;
+    background-color: white;
+    color: black;
+    border-radius: 50%; /* Bikin bulat */
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.back-icon:hover {
+    background-color: #e0e0e0;
+}
+
+.back-button-img{
+    background-color: #FFF2CE;
+    color: #333333;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.menu-tab-bar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #234848; /* Dark green background */
+    padding: 8px;
+    border-radius: 40px;
+    width: 1000px;
+    margin: 20px auto; /* Center horizontally */
+    overflow: hidden;
+    
+}
+
+.menu-tab-bar p{
+    font-size: 18px;
+}
+
+.menu-tab-bar .tab {
+    padding: 12px 20px;
+    border-radius: 999px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-tab-bar .active-tab {
+    background-color: #FFA726; /* Orange for active */
+    color: white;
+}
+
+.menu-tab-bar .tab:hover {
+    background-color: #FFA726;
+}
+
+
+.category-title {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #234848;
+}
+
+.container-food {
+    position: relative;
+    width: 260px;
+    height: 380px;
+    min-height: 380px;
+    min-width: 260px;
+    max-width: 260px;
+    scroll-snap-align: start;
+}
+
+.food-image {
+    position: absolute;
+    width: 45%;
+    height: 32%;
+    left: 25%;
+    top: 55px;
+    z-index: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    /* border: #FEA322;
+    border-width: 5px;
+    border-style: solid; */
+}
+
+.container-fooddetail {
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    background: #234C4C;
+    height: 65%;
+    padding-top: 23%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    left: 5%;
+}
+
+.food-description {
+    font-family: lato;
+    font-size: 0.75rem;
+    line-height: 1.25;
+}
+
+.exp-stock {
+    font-family: lato;
+    font-size: 0.75rem;
+    color: #FFDD88;
+}
+
+.resto-detail {
+    flex-direction: row;
+    position: relative;
+}
+
+
+.ekor {
+    width: 100%;
+    height: 8%;
+    bottom: 2%;
+    background: #234C4C;
+    position: absolute;
+}
+
+.food-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.food-description {
+    font-family: lato;
+    font-size: 0.75rem;
+    line-height: 1.25;
+}
+
+.exp-stock {
+    font-family: lato;
+    font-size: 0.75rem;
+    color: #FFDD88;
+}
+
+.price {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    color: black;
+    background: #FEA322;
+    font-size: 1.5rem;
+    left: 5%;
+    font-weight: 500;
+}
+
+.successfully-added {
+    position: absolute;
+    flex-direction: row;
+    background: #063434F0;
+    padding: 24px;
+    color: white;
+    font-family: lato;
+    border-radius: 16px;
+    bottom: 11%;
+    right: 0%;
+    z-index: 5;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.successfully-added.show {
+    display: flex;
+    opacity: 1;
+}
+
+.cart-icon {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 8%;
+    bottom: 5px;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.checkcircle {
+    width: 24px;
+    height: 24px;
+    margin-left: 8px
+}
+
+@media (max-width: 390px) {
+    .hero-container {
+        height: 300px;
+    }
+
+    .overlay-content {
+        top: 35%;
+        transform: translate(-50%, -35%);
+        padding: 0 10px;
+    }
+
+    .restaurant-title {
+        font-size: 2.8rem;
+    }
+
+    .location-badge {
+        font-size: 0.65rem;
+        padding: 4px 10px;
+        gap: 5px;
+    }
+
+    .menu-tab-bar {
+        width: 85%;
+        padding: 6px 8px;
+        justify-content: space-between;
+        gap: 0;
+        border-radius: 20px;
+    }
+
+    .menu-tab-bar .tab {
+        flex: 1;
+        font-size: 13px;
+        padding: 8px 4px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .menu-tab-bar p {
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .foreach-today {
+        padding: 0 12px;
+    }
+
+    .back-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+        top: 15px;
+        left: 15px;
+    }
+}

@@ -1,4 +1,4 @@
-@props(['date', 'profile', 'name', 'order'])
+@props(['id', 'date', 'profile', 'name', 'order', 'status'])
 
 <div class="restaurant-order-item d-flex flex-column">
     <p class="date">{{ $date }}</p>
@@ -24,8 +24,14 @@
         @endforeach
     </div>
 
-    <div class="buttons d-flex mt-2">
-        <button class="btn-decline">Decline</button>
-        <button class="btn-accept">Accept</button>
-    </div>
+    <form class="buttons d-flex mt-2" action="{{ route('restaurant-orders.update-status', $id) }}" method="POST">
+        @csrf
+        @if ($status === 'Order Created')
+            <button class="btn-accept" style="background-color: #007771;">Accept</button>
+        @elseif ($status === 'Ready to Pickup')
+            <button class="btn-accept" style="background-color: #FEA322;">Accepted</button>
+        @elseif ($status === 'Order Completed' || $order->status === 'Order Reviewed')
+            <button class="btn-accept" style="background-color: #4D4D4C;">Completed</button>
+        @endif
+    </form>
 </div>

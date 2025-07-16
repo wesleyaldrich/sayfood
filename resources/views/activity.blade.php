@@ -6,8 +6,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 @section('content')
 
 <div class="container-fluid my-2 px-4">
@@ -20,7 +18,7 @@
                     <a class="nav-link active food-tab" id="food-tab" data-bs-toggle="pill" data-bs-target="#food-content" type="button" role="tab" aria-controls="food-content" aria-selected="true" href="#">FOOD ACTIVITIES</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link charity-tab" id="charity-tab" data-bs-toggle="pill" data-bs-target="#charity-content" type="button" role="tab" aria-controls="charity-content" aria-selected="false" href="#">CHARITY ACTIVITIES</a>
+                    <a class="nav-link charity-tab" id="charity-tab" data-bs-toggle="pill" data-bs-target="#charity-content" type="button" role="tab" aria-controls="charity-content" aria-selected="false" href="#">EVENT ACTIVITIES</a>
                 </li>
             </ul>
         </div>
@@ -33,7 +31,7 @@
                         <h5 class="card-title mb-0 me-2">YOU'VE BEEN DONATING</h5>
 
                         <div class="d-flex-fluid card-text mb-0 fs-4 fw-bold">
-                            <span id="donationAmountValue">IDR 472.300,00</span>
+                            <span id="donationAmountValue">IDR {{ number_format($totalDonated, 2, ',', '.') }}</span>
                             <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none" id="toggleDonationVisibility">
                                 <i class="bi bi-eye-slash-fill" id="visibilityIcon"></i> {{-- Icon default: mata dicoret (sembunyi) --}}
                             </button>
@@ -52,83 +50,10 @@
         <div class="tab-pane fade show active mb-5" id="food-content" role="tabpanel" aria-labelledby="food-tab">
 
             <div class="activity-list">
-                @php
-                    $orderStatuses = [
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                        [
-                            'status' => 'order_created',
-                            'orderPlacedLabel' => 'ORDER PLACED',
-                            'orderPlacedDate' => '25 May 2025',
-                            'total' => 'IDR 50.000,00',
-                            'restoName' => 'Restoran Ny. Nita',
-                            'restoLocation' => 'Jl. Pakuan No.3, Sumur Batu, Babakan Madang, Bogor',
-                            'readyPickupText' => 'Ready to Pick Up',
-                            'items' => [
-                                ['name' => 'Bubur Sukabumi', 'qty' => 1, 'price' => 'IDR 6.000,00'],
-                                ['name' => 'Lemongrass Tea', 'qty' => 1, 'price' => 'IDR 1.000,00'],
-                            ],
-                            'reviewButtonText' => 'Review Order',
-                        ],
-                    ];
-                @endphp
+    <x-food-activities-item :orderStatuses="$orderStatuses" />
+</div>
 
-                <x-food-activities-item :orderStatuses="$orderStatuses" />
-            </div>
+            
         </div>
 
         <div class="tab-pane fade" id="charity-content" role="tabpanel" aria-labelledby="charity-tab">

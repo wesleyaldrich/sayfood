@@ -104,8 +104,10 @@ body {
     position: relative;
     width: 260px;
     height: 380px;
+    min-height: 380px;
     min-width: 260px;
     max-width: 260px;
+    scroll-snap-align: start;
 }
 
 .food-image {
@@ -117,6 +119,9 @@ body {
     z-index: 1;
     border-radius: 50%;
     object-fit: cover;
+    /* border: #FEA322;
+    border-width: 5px;
+    border-style: solid; */
 }
 
 .container-fooddetail {
@@ -256,6 +261,7 @@ body {
 .foreach-today {
     flex-direction: row;
     gap: 16px;
+    scroll-snap-type: x mandatory;
 }
 
 .foreach-today::-webkit-scrollbar {
@@ -308,7 +314,7 @@ body {
 .foreach-foodcategories {
     flex-direction: row;
     gap: 16px;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
 }
 
@@ -355,6 +361,20 @@ body {
     right: 32px;
     bottom: 32px;
     cursor: pointer;
+    z-index: 10;
+}
+
+.cart-badge {
+    padding: 5px 12px;
+    border-radius: 50%;
+    background-color: #D9534F;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border: 3px solid #063434F0;
+    position: fixed;
+    right: 35px;
+    bottom: 120px;
     z-index: 10;
 }
 
@@ -444,10 +464,53 @@ body {
     background: #007771;
     color: white;
     border-radius: 8px;
+    outline: none;
+    border: none;
+}
+
+.btn-reset {
+    background: #E04C4F;
+    color: white;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+}
+
+.button-filter-wrapper {
+    gap: 5px;
+}
+
+.btn-clear-all {
+    color: white;
+    background: #E04C4F;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    border-radius: 30px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-clear-all:hover {
+    color: white;
+    background: #c62f31;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    border-radius: 30px;
+    text-decoration: none;
 }
 
 .btn-apply:hover, .btn-apply:active {
     background-color: #234C4C !important;
+    color: #FFFFFF !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.btn-reset:hover, .btn-reset:active {
+    background-color: #c62f31 !important;
     color: #FFFFFF !important;
     outline: none !important;
     box-shadow: none !important;
@@ -512,6 +575,10 @@ input[type="range"]::-moz-range-track {
     font-weight: bold;
     margin-bottom: 5px;
     font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 /* RESPONSIVE DESIGN */
@@ -563,6 +630,10 @@ input[type="range"]::-moz-range-track {
     .badge-location {
         font-size: 1rem;
     }
+    
+    .btn-clear-all {
+        font-size: 1rem;
+    }
 
     .location-icon {
         width: 16px;
@@ -579,6 +650,20 @@ input[type="range"]::-moz-range-track {
         right: 24px;
         bottom: 24px;
     }
+
+    .cart-badge {
+    padding: 5px 12px;
+    border-radius: 50%;
+    background-color: #D9534F;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border: 3px solid #063434F0;
+    position: fixed;
+    right: 25px;
+    bottom: 95px;
+    z-index: 10;
+}
 }
 
 @media(max-width: 768px) {

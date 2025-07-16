@@ -3,48 +3,23 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-@php
-    $orders = collect(range(1, 10))->map(function ($i) {
-        return [
-            'date' => 'Monday, 20/05/2025 12:30 PM',
-            'profile' => 'assets/icon_profile.png',
-            'name' => "Customer $i",
-            'order' => [
-                'Main Courses' => [['name' => 'Bubur Ayam', 'qty' => 2], ['name' => 'Nasi Goreng Sapi', 'qty' => 1]],
-                'Snacks' => [['name' => 'Kentang Goreng', 'qty' => 2]],
-            ],
-        ];
-    });
-
-    $reviews = collect(range(1, 5))->map(function () {
-        return [
-            'name' => 'Naufal Dimas Azizan',
-            'menu' => 'Bubur Ayam',
-            'rating' => '4.9',
-            'review' => 'Enak pokoknya. Saya sih tim makan bubur diaduk. Tapi either way tetep enak lah ya.',
-            'date' => 'Monday, 20/05/2025 12:30 PM',
-            'profile' => 'assets/icon_profile.png',
-        ];
-    });
-@endphp
-
 @section('content')
 
     <div class="container-fluid-today-summary container-fluid my-4 px-5 d-flex flex-row justify-content-center">
         <div class="today-summary-container d-flex flex-row">
             <div class="total-orders-today text-center">
                 <h5 class="today-summary-title">Total Orders Today</h5>
-                <h2 class="today-summary-content">120 Orders</h2>
+                <h2 class="today-summary-content">{{ $totalOrdersToday }} Orders</h2>
             </div>
             <div class="today-summary-divider"></div>
             <div class="total-orders-today text-center">
                 <h5 class="today-summary-title">Today's Income</h5>
-                <h2 class="today-summary-content">1.030.000 IDR</h2>
+                <h2 class="today-summary-content">IDR {{ number_format($todaysIncome, 0, ',', '.') }}</h2>
             </div>
             <div class="today-summary-divider"></div>
             <div class="total-orders-today text-center">
                 <h5 class="today-summary-title">Today's Most Purchased</h5>
-                <h2 class="today-summary-content">Bubur Ayam</h2>
+                <h2 class="today-summary-content">{{ $mostPurchased }}</h2>
             </div>
         </div>
         <img class="mascot_peganghati" src="assets/mascot_peganghati.png" alt="">
@@ -55,46 +30,74 @@
             <h1
                 style="display:flex; width: fit-content; color: white; background: #EE8D4A; padding: 16px 40px; font-size: 2rem; font-weight: bold; border-radius: 32px; margin-bottom: 16px;">
                 ORDER LIST</h1>
-            <div class="restaurant-order-scroll-wrapper position-relative w-100 d-flex flex-row">
-                <button class="scroll-btn left" onclick="scrollLeftt()">
-                     < 
-                </button>
+            @if ($orders->count() > 0)
+                <div class="restaurant-order-scroll-wrapper position-relative w-100 d-flex flex-row">
+                    @if ($orders->count() > 4)
+                        <button class="scroll-btn left" onclick="scrollLeftt()">
+                            < 
+                        </button>
+                    @endif
 
-                <!-- Scrollable Order List -->
-                <div id="scrollContainer" class="restaurant-order-list-container d-flex flex-row overflow-auto">
-                    @foreach ($orders as $order)
-                        <x-restaurant-order-item 
-                            :date="$order['date']" 
-                            :profile="$order['profile']" 
-                            :name="$order['name']" 
-                            :order="$order['order']" 
-                        />
-                    @endforeach
+                    <div id="scrollContainer" class="restaurant-order-list-container d-flex flex-row overflow-auto">
+                        @foreach ($orders as $order)
+                            @php
+                                $date = $order->created_at->format('d M Y');
+                                $profile = $order->customer?->profile_picture ?? asset('assets/default-profile.png');
+                                $name = $order->customer?->username ?? 'Unknown';
+
+                                $groupedItems = [];
+
+                                foreach ($order->transactions as $transaction) {
+                                    $category = $transaction->food->category->name ?? 'Other';
+                                    $groupedItems[$category][] = [
+                                        'name' => $transaction->food->name,
+                                        'qty'  => $transaction->qty,
+                                    ];
+                                }
+                            @endphp
+
+                            <x-restaurant-order-item 
+                                :id="$order->id"
+                                :date="$date" 
+                                :profile="$profile" 
+                                :name="$name" 
+                                :order="$groupedItems" 
+                                :status="$order->status"
+                            />
+                        @endforeach
+                    </div>
+                    @if ($orders->count() > 4)
+                        <button class="scroll-btn right" onclick="scrollRightt()">
+                            > 
+                        </button>
+                    @endif
                 </div>
-
-                <button class="scroll-btn right" onclick="scrollRightt()">
-                     > 
-                </button>
-            </div>
-
+            @else
+                <h2 style="font-size: 1.5rem; font-weight: bold;">You're all caught up! No pending orders!</h2>
+            @endif
         </div>
 
     </div>
-    
+
     <div class="customer-review-container container-fluid my-5 py-5 px-5 d-flex flex-column justify-content-center">
-        <h1 style="color: white; font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 20px;">NEW CUSTOMER REVIEW</h1>
-        <div class="customer-review-wrapper d-flex flex-row">
-            @foreach ($reviews as $r)
-                <x-customer-review-item 
-                    :name="$r['name']"
-                    :menu="$r['menu']"
-                    :rating="$r['rating']"
-                    :review="$r['review']"
-                    :date="$r['date']"
-                    :profile="$r['profile']"
-                />
-            @endforeach
-        </div>
+        <h1 style="color: white; font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 20px;">NEW CUSTOMER RATINGS</h1>
+        @if ($reviewedOrders->count() === 0)
+            <div class="text-center text-white" style="font-size: 1.5rem; font-weight: bold;">
+                <h3>No customer ratings yet.</h3>
+            </div>
+        @else
+            <div class="customer-review-wrapper d-flex flex-row">
+                @foreach ($reviewedOrders as $order)
+                    <x-customer-review-item 
+                        :id="$order->id"
+                        :name="$order->customer->username"
+                        :rating="$order->rating"
+                        :date="$order->updated_at"
+                        :profile="$order->customer->profile_image"
+                    />
+                @endforeach
+            </div>
+        @endif
     </div>
 
     <div class="total-orders-container container-fluid my-5 py-5 px-5 d-flex flex-column justify-content-center align-items-center">
@@ -102,26 +105,26 @@
         <div class="total-orders-category-container d-flex flex-row justify-content-center">
             <div class="total-orders-category-wrapper">
                 <p class="total-orders-category">Main Courses</p>
-                <h1 class="total-orders-num total-orders-maincourse">200</h1>
+                <h1 class="total-orders-num total-orders-maincourse">{{ $categoryCounts['Main Course'] }}</h1>
                 <img src="assets/Main_Courses.png" alt="">
             </div>
             <div class="total-orders-category-wrapper">
                 <p class="total-orders-category">Desserts</p>
-                <h1 class="total-orders-num total-orders-dessert">50</h1>
+                <h1 class="total-orders-num total-orders-dessert">{{ $categoryCounts['Dessert'] }}</h1>
                 <img src="assets/Desserts.png" alt="">
             </div>
             <div class="total-orders-category-wrapper">
                 <p class="total-orders-category">Snacks</p>
-                <h1 class="total-orders-num total-orders-snack">75</h1>
+                <h1 class="total-orders-num total-orders-snack">{{ $categoryCounts['Snacks'] }}</h1>
                 <img src="assets/Snacks.png" alt="">
             </div>
             <div class="total-orders-category-wrapper">
                 <p class="total-orders-category">Drinks</p>
-                <h1 class="total-orders-num total-orders-drink">89</h1>
+                <h1 class="total-orders-num total-orders-drink">{{ $categoryCounts['Drinks'] }}</h1>
                 <img src="assets/Drinks.png" alt="">
             </div>
         </div>
-        <button class="btn-transaction-report">Transaction Report</button>
+        <a href="{{ route('restaurant-transactions') }}"><button class="btn-transaction-report">Transaction Report</button></a>
     </div>
 @endsection
 

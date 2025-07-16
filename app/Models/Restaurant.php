@@ -19,7 +19,6 @@ class Restaurant extends Model
         'name',
         'description',
         'address',
-        'is_open',
         'user_id'
     ];
     /**
@@ -34,21 +33,11 @@ class Restaurant extends Model
     ];
 
     /**
-     * The model's default values for attributes.
-     *
-     * @var array<string, mixed>
-     */
-    protected $attributes = [
-        'is_open' => true,
-    ];
-
-    /**
      * The attributes that should be cast.
      *
      * @return array<string, string>
      */
     protected $casts = [
-        'is_open' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -60,7 +49,12 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function food(){
+    public function foods(){
         return $this->hasMany(Food::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

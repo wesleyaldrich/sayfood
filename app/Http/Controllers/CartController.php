@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Food;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -26,29 +29,94 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+     public function store(Request $request, Food $food)
     {
-        //
+        $request->validate([
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        $userId = Auth::id();
+        
+        $existingCartItems = Cart::where('user_id', $userId)->with('food')->get();
+
+        if ($existingCartItems->isNotEmpty()) {
+            $currentRestaurantId = $existingCartItems->first()->food->restaurant_id;
+
+            if ($food->restaurant_id !== $currentRestaurantId) {
+                return redirect()->back()->withErrors(['error'=> 'Anda hanya bisa memesan dari satu restoran dalam satu waktu. Silakan kosongkan keranjang Anda terlebih dahulu.']);
+            }
+        }
+        
+        $cartItem = Cart::where('user_id', $userId)->where('food_id', $food->id)->first();
+        
+        if($cartItem){
+            $cartItem->quantity += $request->quantity;
+            $cartItem->save();
+        } else {
+            Cart::create([
+                'user_id' => $userId,
+                'food_id'=> $food->id,
+                'quantity'=> $request->quantity,
+            ]);
+        }
+
+        return redirect()->back()->with('status', 'Item successfully added!');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show()
     {
-        $foodItem = Food::first(); 
+        $cartItems = Cart::where('user_id', Auth::id())->with('food.restaurant')->get();
+        
+        $restaurant = null;
 
-        // // kalau tidak ada makanan sama sekali di database, buat objek dummy
-        // if (!$foodItem) {
-        //     $foodItem = (object)[
-        //         'id' => 0,
-        //         'image_url' => 'assets/default.png',
-        //         'name' => 'No Food Found',
-        //         'price' => 0,
-        //         'exp_datetime' => now()
-        //     ];
-        // }
-        return view('layout.cart', ['item'=>$foodItem]);
+        if ($cartItems->isNotEmpty()) {
+        $restaurant = $cartItems->first()->food->restaurant;
+        }
+
+        return view('layout.cart', compact('cartItems', 'restaurant'));
+    }
+
+    public function increase(Cart $cart)
+    {
+        // Validasi: Pastikan user hanya bisa mengubah keranjangnya sendiri
+        if ($cart->user_id !== Auth::id()) {
+            return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
+        }
+
+        // Validasi: Cek stok makanan
+        if ($cart->quantity < $cart->food->stock) {
+            $cart->quantity++;
+            $cart->save();
+            return redirect()->back()->with('status', 'Quantity increased successfully!');
+        } else {
+            return redirect()->back()->withErrors(['error' => 'Not enough stock!']);
+        }
+    }
+
+    /**
+     * Mengurangi kuantitas item di keranjang.
+     */
+    public function decrease(Cart $cart)
+    {
+        // Validasi: Pastikan user hanya bisa mengubah keranjangnya sendiri
+        if ($cart->user_id !== Auth::id()) {
+            return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
+        }
+
+        // Jika kuantitas lebih dari 1, kurangi
+        if ($cart->quantity > 1) {
+            $cart->quantity--;
+            $cart->save();
+            return redirect()->back()->with('status', 'Quantity decreased successfully!');
+        } else {
+            // Jika kuantitas adalah 1, hapus item dari keranjang
+            $cart->delete();
+            return redirect()->back()->with('status', 'Item deleted from cart');
+        }
     }
 
     /**
@@ -73,5 +141,27 @@ class CartController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function updateNote(Request $request, Cart $cart){
+        if ($cart->user_id !== Auth::id()) {
+            return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
+        }
+
+        $request->validate([
+            'notes' => 'nullable|string|max:255'
+        ]);
+
+        $cart->notes = $request->input('notes');
+        $cart->save();
+
+        return redirect()->route('show.cart')->with('status', 'Notes successfully updated!');
+    }
+
+    public function clearCart(){
+        $userId = Auth::id();
+
+        Cart::where('user_id', $userId)->delete(); 
+        return redirect('/foods')->with('status', 'Your cart is empty');
     }
 }

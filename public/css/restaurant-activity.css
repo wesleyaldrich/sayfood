@@ -1,0 +1,38 @@
+h1{
+    font-family: 'Oswald';
+    font-size: 2.5rem !important;
+    font-weight: 500 !important;
+    color: #063434;
+}
+
+.btn-tab {
+    background-color: #234C4C;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-tab:hover {
+    background-color: #007771;
+    color: white;
+}
+
+.btn-active {
+    background-color: #FEA322;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-family: 'Oswald';
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
