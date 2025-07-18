@@ -149,19 +149,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const button = event.relatedTarget;
         const category = button.getAttribute('data-category');
 
-        // Hide all
+        // Hide all category sections
         allSections.forEach(section => section.classList.add('d-none'));
 
-        // Show selected
+        // Show selected category section
         const selectedSection = document.getElementById(category + 'Section');
         if (selectedSection) {
             selectedSection.classList.remove('d-none');
         }
 
-        // Update modal title
-        titleElement.textContent = category.replace(/([A-Z])/g, ' $1').toUpperCase();
+        // Set translated title using the categoryTranslations object
+        titleElement.textContent = categoryTranslations[category] || categoryTranslations['more'];
     });
 });
+
+
 
 // window.addEventListener('load', function () {
 //     if (window.location.search.includes('q=')) {

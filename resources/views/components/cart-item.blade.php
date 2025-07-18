@@ -9,16 +9,16 @@
         <div class="item-description">
             <div>
                 <p class="item-title" style="color: #234C4C">{{ $item->food->name }}</p>
-                <p class="item-price my-2" style="color: #234C4C">Price : <strong>IDR {{ number_format($item->food->price, 0, ',', '.') }}</strong></p>
+                <p class="item-price my-2" style="color: #234C4C">{{ __('foods.cart_price') }}: <strong>IDR {{ number_format($item->food->price, 0, ',', '.') }}</strong></p>
                 <p class="item-expiry my-2" style="color: #234C4C">
-                    Best Before : <strong>{{ $item->food->exp_datetime ? \Carbon\Carbon::parse($item->food->exp_datetime)->format('d M Y h:m') : 'N/A' }}</strong>
+                    {{ __('foods.cart_best_before') }}: <strong>{{ $item->food->exp_datetime ? \Carbon\Carbon::parse($item->food->exp_datetime)->format('d M Y h:m') : __('foods.cart_na') }}</strong>
                 </p>
             </div>
         </div>
         {{-- show notes jika ada --}}
         @if($item->notes)
             <p class="item-note my-2" style="color: #c55b39; font-style: italic;">
-                <strong>Note:</strong> {{ $item->notes }}
+                <strong>{{ __('foods.cart_note_label') }}:</strong> {{ $item->notes }}
             </p>
         @endif
 
@@ -30,7 +30,7 @@
                     data-cart-id="{{ $item->id }}" 
                     data-note="{{ $item->notes }}">
                 <img src="{{ asset('assets/add_notes.png') }}" alt="Add" class="add-notes-icon">
-                <p style="color:white" class="my-0">Notes</p>
+                <p style="color:white" class="my-0">{{ __('foods.cart_notes') }}</p>
             </button>
             
             <div class="manage-quantity d-flex">

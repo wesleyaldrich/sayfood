@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'twofactor' => TwofactorMiddleware::class,
             'role' => UserRoleMiddleware::class
         ]);
+
+        $middleware->web(append: [
+            \Illuminate\Session\Middleware\StartSession::class,
+            \App\Http\Middleware\SetLocale::class,
+        ]);
         // $middleware->appendToGroup('twofactor', [
         //     TwofactorMiddleware::class,
         // ]); 

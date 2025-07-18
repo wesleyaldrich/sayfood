@@ -13,20 +13,20 @@
                 @if (Auth::check() && Auth::user()->role === 'admin')
                     <li class="nav-item dropdown admin-nav-item">
                         <a class="admin-nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ADMIN
+                            {{ __('navigation.admin') }}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#2">REVIEW REPORT</a></li>
-                            <li><a class="dropdown-item" href="#3">MANAGE RESTAURANT</a></li>
-                            <li><a class="dropdown-item" href="#4">MANAGE EVENT</a></li>
+                            <li><a class="dropdown-item" href="#2">{{ __('navigation.review_report') }}</a></li>
+                            <li><a class="dropdown-item" href="#3">{{ __('navigation.manage_restaurant') }}</a></li>
+                            <li><a class="dropdown-item" href="#4">{{ __('navigation.manage_event') }}</a></li>
                         </ul>
                     </li>
                 @endif
-                <li><a href="{{ route('home') }}" class="oswald nav-button {{ request()->routeIs('home') ? 'nav-active' : '' }}">HOME</a></li>
-                <li><a href="{{ route('foods') }}" class="oswald nav-button {{ request()->routeIs('foods') ? 'nav-active' : '' }}">FOODS</a></li>
-                <li><a href="{{ route('events') }}" class="oswald nav-button {{ request()->routeIs('events') ? 'nav-active' : '' }}">EVENTS</a></li>
-                <li><a href="{{ route('activity') }}" class="oswald nav-button {{ request()->routeIs('activity') ? 'nav-active' : '' }}">ACTIVITY</a></li>
-                <li class="nav-hide"><a href="{{ route('profile') }}" class="oswald nav-button {{ request()->routeIs('profile') ? 'nav-active' : '' }}">PROFILE</a></li>
+                <li><a href="{{ route('home') }}" class="oswald nav-button {{ request()->routeIs('home') ? 'nav-active' : '' }}">{{ __('navigation.home') }}</a></li>
+                <li><a href="{{ route('foods') }}" class="oswald nav-button {{ request()->routeIs('foods') ? 'nav-active' : '' }}">{{ __('navigation.foods') }}</a></li>
+                <li><a href="{{ route('events') }}" class="oswald nav-button {{ request()->routeIs('events') ? 'nav-active' : '' }}">{{ __('navigation.events') }}</a></li>
+                <li><a href="{{ route('activity') }}" class="oswald nav-button {{ request()->routeIs('activity') ? 'nav-active' : '' }}">{{ __('navigation.activity') }}</a></li>
+                <li class="nav-hide"><a href="{{ route('profile') }}" class="oswald nav-button {{ request()->routeIs('profile') ? 'nav-active' : '' }}">{{ __('navigation.profile') }}</a></li>
             </ul>
         </nav>
         <div class="icons">
@@ -52,32 +52,32 @@
     <nav class="dropdown-nav">
         <ul>
             <li class="{{ request()->routeIs('home') ? 'nav-active' : '' }}">
-                <a href="{{ route('home') }}" class="oswald nav-button">HOME</a>
+                <a href="{{ route('home') }}" class="oswald nav-button">{{ __('navigation.home') }}</a>
             </li>
             <li class="{{ request()->routeIs('foods') ? 'nav-active' : '' }}">
-                <a href="{{ route('foods') }}" class="oswald nav-button">FOODS</a>
+                <a href="{{ route('foods') }}" class="oswald nav-button">{{ __('navigation.foods') }}</a>
             </li>
             <li class="{{ request()->routeIs('events') ? 'nav-active' : '' }}">
-                <a href="{{ route('events') }}" class="oswald nav-button">EVENTS</a>
+                <a href="{{ route('events') }}" class="oswald nav-button">{{ __('navigation.events') }}</a>
             </li>
             <li class="{{ request()->routeIs('activity') ? 'nav-active' : '' }}">
-                <a href="{{ route('activity') }}" class="oswald nav-button">ACTIVITY</a>
+                <a href="{{ route('activity') }}" class="oswald nav-button">{{ __('navigation.activity') }}</a>
             </li>
             <li class="{{ request()->routeIs('profile') ? 'nav-active' : '' }}">
-                <a href="{{ route('profile') }}" class="oswald nav-button">PROFILE</a>
+                <a href="{{ route('profile') }}" class="oswald nav-button">{{ __('navigation.profile') }}</a>
             </li>
 
             
             @if (Auth::check() && Auth::user()->role === 'admin')
                 <li class="p-0"><hr class="dropdown-divider"></li>
                 <li class="">
-                    <a href="#" class="oswald nav-button">REVIEW REPORT</a>
+                    <a href="#" class="oswald nav-button">{{ __('navigation.review_report') }}</a>
                 </li>
                 <li class="">
-                    <a href="#" class="oswald nav-button">MANAGE RESTAURANT</a>
+                    <a href="#" class="oswald nav-button">{{ __('navigation.manage_restaurant') }}</a>
                 </li>
                 <li class="">
-                    <a href="#" class="oswald nav-button">MANAGE EVENT</a>
+                    <a href="#" class="oswald nav-button">{{ __('navigation.manage_event') }}</a>
                 </li>
             @endif
         </ul>
@@ -86,15 +86,19 @@
 
     <div class="dropdown-language">
         <ul>
-            <li class="language-active"><a href="#" class="oswald">English</a></li>
-            <li><a href="#" class="oswald">Indonesian</a></li>
+            <li class="{{ app()->getLocale() == 'en' ? 'language-active' : '' }}">
+                <a href="{{ url('lang/en') }}" class="oswald">English</a>
+            </li>
+            <li class="{{ app()->getLocale() == 'id' ? 'language-active' : '' }}">
+                <a href="{{ url('lang/id') }}" class="oswald">Bahasa Indonesia</a>
+            </li>
         </ul>
     </div>
 </header>
 
 <div id="notifOffcanvas" class="offcanvas-notif">
     <div class="offcanvas-header">
-        <h4>Notifications</h4>
+        <h4>{{ __('navigation.notification') }}</h4>
         <button id="closeOffcanvas" class="close-btn">&times;</button>
     </div>
     <div class="offcanvas-body">

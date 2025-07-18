@@ -19,7 +19,7 @@
 
         <div class="exp-stock d-flex justify-content-between mb-2">
             <p class="exp mb-1">Exp: {{ $expiry }}</p>
-            <p class="stock mb-1">Stock: {{ $stock }} left</p>
+            <p class="stock mb-1">{{ __('foods.stock') }}: {{ $stock }} {{ __('foods.left') }}</p>
         </div>
     </div>
     <h3 class="oswald price py-2 mb-0">{{ $price }}</h3>
