@@ -52,6 +52,13 @@ Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
+<<<<<<< HEAD
+Route::get('/events', function () {
+    return view('events');
+})->name('events');
+
+Route::middleware(['auth', 'twofactor'])->group(function () {
+=======
 // RESTAURANT
 Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
 
@@ -71,6 +78,7 @@ Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'de
 
 
 Route::middleware('twofactor')->group(function () {
+>>>>>>> e7763dff1b26d5f0e6287c44f77ba9c9accf9a58
 
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
