@@ -10,12 +10,12 @@
     <div class="right">
         <nav>
             <ul class="oswald">
-                <li><a href="{{ route('restaurant-home') }}" class="oswald nav-button {{ request()->routeIs('restaurant-home') ? 'nav-active' : '' }}">HOME</a></li>
-                <li><a href="{{ route('manage.food.restaurant') }}" class="oswald nav-button {{ request()->routeIs('manage.food.restaurant') ? 'nav-active' : '' }}">FOODS</a></li>
-                <li><a href="{{ route('foods') }}" class="oswald nav-button {{ request()->routeIs('foods') ? 'nav-active' : '' }}">ORDERS</a></li>
-                <li><a href="{{ route('events') }}" class="oswald nav-button {{ request()->routeIs('events') ? 'nav-active' : '' }}">EVENTS</a></li>
-                <li><a href="{{ route('activity') }}" class="oswald nav-button {{ request()->routeIs('activity') ? 'nav-active' : '' }}">ACTIVITY</a></li>
-                <li class="nav-hide"><a href="{{ route('profile') }}" class="oswald nav-button {{ request()->routeIs('profile') ? 'nav-active' : '' }}">PROFILE</a></li>
+                <li><a href="{{ route('restaurant-home') }}" class="oswald nav-button {{ request()->routeIs('restaurant-home') ? 'nav-active' : '' }}">{{ __('navigation.home') }}</a></li>
+                <li><a href="{{ route('manage.food.restaurant') }}" class="oswald nav-button {{ request()->routeIs('manage.food.restaurant') ? 'nav-active' : '' }}">{{ __('navigation.foods') }}</a></li>
+                <li><a href="{{ route('foods') }}" class="oswald nav-button {{ request()->routeIs('foods') ? 'nav-active' : '' }}">{{ __('navigation.orders') }}</a></li>
+                <li><a href="{{ route('events') }}" class="oswald nav-button {{ request()->routeIs('events') ? 'nav-active' : '' }}">{{ __('navigation.events') }}</a></li>
+                <li><a href="{{ route('activity') }}" class="oswald nav-button {{ request()->routeIs('activity') ? 'nav-active' : '' }}">{{ __('navigation.activity') }}</a></li>
+                <li class="nav-hide"><a href="{{ route('profile') }}" class="oswald nav-button {{ request()->routeIs('profile') ? 'nav-active' : '' }}">{{ __('navigation.profile') }}</a></li>
             </ul>
         </nav>
         <div class="icons">
@@ -64,8 +64,12 @@
 
     <div class="dropdown-language">
         <ul>
-            <li class="language-active"><a href="#" class="oswald">English</a></li>
-            <li><a href="#" class="oswald">Indonesian</a></li>
+            <li class="{{ app()->getLocale() == 'en' ? 'language-active' : '' }}">
+                <a href="{{ url('lang/en') }}" class="oswald">English</a>
+            </li>
+            <li class="{{ app()->getLocale() == 'id' ? 'language-active' : '' }}">
+                <a href="{{ url('lang/id') }}" class="oswald">Bahasa Indonesia</a>
+            </li>
         </ul>
     </div>
 </header>

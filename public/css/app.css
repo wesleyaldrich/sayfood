@@ -83,7 +83,7 @@ header .right nav {
 header .right nav > ul {
     list-style: none;
     display: flex;
-    gap: 32px;
+    gap: 24px;
     align-items: center;
     margin: 0;
     padding: 0;
@@ -350,7 +350,7 @@ h4 {
     }
 
     header .logo a img {
-        height: 55%;
+        height: 40%;
     }
     
     header .right .icons a .notif-icon-img {

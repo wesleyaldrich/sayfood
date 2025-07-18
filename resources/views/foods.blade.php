@@ -9,19 +9,23 @@ m (mb, mt, ml, mr, mx, my)
 p (pb, pt, pl, pr, px, py)
 d-flex (justify-content, align-items, flex-{row|column}) --}}
 
+<script>
+    const categoryTranslations = @json(__('foods'));
+</script>
+
 <div class="container-fluid my-2 px-4 d-flex flex-row justify-content-between">
     @if(Auth::check())
         <div class="badge-location badge rounded-pill">
             <img class="location-icon" src="assets/icon_location.png" alt="Location">
-            {{ Auth::user()->address ?? '[Not Set]' }}
+            {{ Auth::user()->customer->address ?? __('foods.not_set') }}
         </div>
     @else
         <div class="badge-location badge rounded-pill">
             <img class="location-icon" src="assets/icon_location.png" alt="Location">
-            [Not Logged In]
+            {{ __('foods.not_logged_in') }}
         </div>
     @endif
-    <a href="{{ route('foods') }}" class="btn-clear-all">CLEAR ALL FILTERS</a>
+    <a href="{{ route('foods') }}" class="btn-clear-all">{{ __('foods.clear_filters') }}</a>
 </div>
 
 <div class="container-fluid my-2 px-4">
@@ -30,7 +34,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             <span class="input-group-text rounded-0 bg-white border-0 px-4">
                 <img class="search-icon" src="assets/icon_search.png" alt="Search">
             </span>
-            <input name="q" type="text" class="search-input form-control rounded-0 border-0 pl-0" placeholder="Search" value="{{ request('q') }}">
+            <input name="q" type="text" class="search-input form-control rounded-0 border-0 pl-0" placeholder="{{ __('foods.search') }}" value="{{ request('q') }}">
             
             <input type="hidden" name="price" value="{{ request('price') }}">
             <input type="hidden" name="rating" value="{{ request('rating') }}">
@@ -41,10 +45,10 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             <img class="filter-icon" id="filterBtn" src="assets/icon_filter.png" alt="Filter">
 
             <form action="{{ route('foods') }}" method="GET" class="dropdown-filter position-absolute" id="filterDropdown">
-                <h4 class="filter-by pb-2" style="font-weight: bold;">Filter by:</h4>
+                <h4 class="filter-by pb-2" style="font-weight: bold;">{{ __('foods.filter_by') }}</h4>
 
                 <div class="container-pricefilter w-100 d-flex flex-column mb-2">
-                    <label for="priceRange" class="form-label mb-1">Max Price</label>
+                    <label for="priceRange" class="form-label mb-1">{{ __('foods.max_price') }}</label>
                     <div class="range-container d-flex align-items-center flex-row w-100 justify-content-between">
                         <p class="mb-0">IDR 5K</p>
                         <div class="range-wrapper position-relative">
@@ -56,7 +60,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                 </div>
 
                 <div class="container-pricefilter w-100 d-flex flex-column mb-3">
-                    <label for="ratingRange" class="form-label mb-1">Min Rating</label>
+                    <label for="ratingRange" class="form-label mb-1">{{ __('foods.min_rating') }}</label>
                     <div class="range-container d-flex align-items-center flex-row w-100 justify-content-between">
                         <img src="assets/icon_star.png" alt="star" class="star-icon-filter">
                         <p class="mb-0">0.0</p>
@@ -73,8 +77,8 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
                 <input type="hidden" name="sort" value="{{ request('sort') }}">
 
                 <div class="button-filter-wrapper d-flex flex-row">
-                    <a href="{{ route('foods', array_filter(request()->except(['price', 'rating']))) }}" id="resetFilter" class="btn btn-reset btn-primary w-100">RESET</a>
-                    <button id="applyFilter" class="btn btn-apply btn-primary w-100">APPLY</button>
+                    <a href="{{ route('foods', array_filter(request()->except(['price', 'rating']))) }}" id="resetFilter" class="btn btn-reset btn-primary w-100">{{ __('foods.reset') }}</a>
+                    <button id="applyFilter" class="btn btn-apply btn-primary w-100">{{ __('foods.apply') }}</button>
                 </div>
             </form>
         </div>
@@ -92,11 +96,11 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 
     <button type="button"
         class="btn-filter btn btn-primary rounded-pill d-flex align-items-center {{ request('sort') === 'nearby' ? 'active' : '' }}"
-        id="btnNearby">Nearby</button>
+        id="btnNearby">{{ __('foods.nearby') }}</button>
 
     <button type="button"
         class="btn-filter btn btn-primary rounded-pill d-flex align-items-center {{ request('sort') === 'popular' ? 'active' : '' }}"
-        id="btnMostPopular">Most Popular</button>
+        id="btnMostPopular">{{ __('foods.most_popular') }}</button>
 </form>
 
 {{-- <a href="/cart">
@@ -118,7 +122,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 
 @if (!request()->has('q') && !request()->has('price') && !request()->has('rating') && !request()->has('sort'))
     <div class="container-today container-fluid my-4 px-4 py-4 d-flex">
-        <h2 class="category-title">RECOMMENDED FOR YOU</h2>
+        <h2 class="category-title">{{ __('foods.recommended_for_you') }}</h2>
         <div class="foreach-today d-flex overflow-auto flex-nowrap">
             @foreach ($popular as $food)
                 <x-food-item
@@ -141,7 +145,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 
 @if ($mainCourses->count() > 0)
     <div class="container-foodcategories container-maincourses container-fluid my-4 px-4 py-4 d-flex">
-        <h2 class="category-title">MAIN COURSES</h2>
+        <h2 class="category-title">{{ __('foods.main_courses') }}</h2>
         <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
             @foreach ($mainCourses->take(4) as $food)
                 <x-food-item
@@ -161,19 +165,19 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 
             @if ($mainCourses->count() > 4)
                 <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">
-                    <h3 class="viewmore-text">VIEW<br>MORE</h3>
+                    <h3 class="viewmore-text">{{ __('foods.view') }}<br>{{ __('foods.more') }}</h3>
                 </div>
             @endif
         </div>
         @if ($mainCourses->count() > 4)
-            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">VIEW MORE</h4>
+            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">{{ __('foods.view_more') }}</h4>
         @endif
     </div>
 @endif
 
 @if ($desserts->count() > 0)
     <div class="container-foodcategories container-desserts container-fluid my-4 px-4 py-4 d-flex">
-        <h2 class="category-title">DESSERTS</h2>
+        <h2 class="category-title">{{ __('foods.desserts') }}</h2>
         <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
             @foreach ($desserts->take(4) as $food)
                 <x-food-item
@@ -193,19 +197,19 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 
             @if ($desserts->count() > 4)
                 <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">
-                    <h3 class="viewmore-text">VIEW<br>MORE</h3>
+                    <h3 class="viewmore-text">{{ __('foods.view') }}<br>{{ __('foods.more') }}</h3>
                 </div>
             @endif
         </div>
         @if ($desserts->count() > 4)
-            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">VIEW MORE</h4>
+            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="desserts">{{ __('foods.view_more') }}</h4>
         @endif
     </div>
 @endif
 
 @if ($snacks->count() > 0)
     <div class="container-foodcategories container-snacks container-fluid my-4 px-4 py-4 d-flex">
-        <h2 class="category-title">SNACKS</h2>
+        <h2 class="category-title">{{ __('foods.snacks') }}</h2>
         <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
             @foreach ($snacks->take(4) as $food)
                 <x-food-item
@@ -225,19 +229,19 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             
             @if ($snacks->count() > 4)
                 <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">
-                    <h3 class="viewmore-text">VIEW<br>MORE</h3>
+                    <h3 class="viewmore-text">{{ __('foods.view') }}<br>{{ __('foods.more') }}</h3>
                 </div>
             @endif
         </div>
         @if ($snacks->count() > 4)
-            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">VIEW MORE</h4>
+            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="snacks">{{ __('foods.view_more') }}</h4>
         @endif
     </div>
 @endif
 
 @if ($drinks->count() > 0)
     <div class="container-foodcategories container-drinks container-fluid my-4 px-4 py-4 d-flex">
-        <h2 class="category-title">DRINKS</h2>
+        <h2 class="category-title">{{ __('foods.drinks') }}</h2>
         <div class="foreach-foodcategories d-flex overflow-auto flex-nowrap">
             @foreach ($drinks->take(4) as $food)
                 <x-food-item
@@ -257,12 +261,12 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 
             @if ($drinks->count() > 4)
                 <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">
-                    <h3 class="viewmore-text">VIEW<br>MORE</h3>
+                    <h3 class="viewmore-text">{{ __('foods.view') }}<br>{{ __('foods.more') }}</h3>
                 </div>
             @endif
         </div>
         @if ($drinks->count() > 4)
-            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">VIEW MORE</h4>
+            <h4 class="viewmore2 mt-4 text-end viewmore-text" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="drinks">{{ __('foods.view_more') }}</h4>
         @endif
     </div>
 @endif
