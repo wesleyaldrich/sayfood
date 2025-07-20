@@ -20,4 +20,8 @@ class Event extends Model
     {
         return $this->belongsTo(EventCategory::class, 'event_category_id');
     }
+
+    public function participants(){
+        return $this->belongsToMany(User::class,'event_user');
+    }
 }

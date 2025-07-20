@@ -16,15 +16,33 @@
         font-size: 14px;    
     }
 
-    .filter-btn{
+    /* .filter-btn{
         font-family: oswald;
         border-radius: 20px;
         color: white;
         background-color: #234C4C;
-    }
+    } */
 
     .status-badge{
         font-size: 17px;
+    }
+
+    .tab-control .nav-tabs .nav-link {
+        font-family: oswald;
+        color: white;
+        background-color: #234C4C;  
+        border-radius: 1rem;
+    }
+
+    .tab-control .nav-tabs .nav-link.active {
+        background-color: orange;
+        color: black;
+        font-weight: bold;
+        border-radius: 1rem;
+    }
+    .table-hover tbody tr:hover {
+        cursor: pointer;
+        background-color: #f8f9fa; /* Warna latar saat hover */
     }
 </style>
 
@@ -45,10 +63,23 @@
             </div>
         </div>
         <div class="tab-control m-3">
-            <button class="filter-btn px-3 py-1">All</button>
-            @foreach ($statuses as $status)
-                <button class="filter-btn px-3 py-1">{{$status}}</button>
-            @endforeach
+           <ul class="nav nav-tabs">
+                <li class="nav-item m-1">
+                    <a class="nav-link {{ !request('status') || request('status') == 'All' ? 'active' : '' }}" 
+                       href="{{ route('show.manage.events', ['status' => 'All']) }}">
+                       All
+                    </a>
+                </li>
+
+                @foreach ($statuses as $status)
+                <li class="nav-item m-1">
+                    <a class="nav-link {{ request('status') == $status ? 'active' : '' }}" 
+                       href="{{ route('show.manage.events', ['status' => $status]) }}">
+                       {{ $status }}
+                    </a>
+                </li>
+                @endforeach
+            </ul>
         </div>
     </div>
 
@@ -56,6 +87,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th scope="col">No.</th>
                     <th scope="col">ID</th>
                     <th scope="col">Event Name</th>
                     <th scope="col">Description</th>
@@ -68,26 +100,24 @@
             </thead>
             <tbody>
                 @forelse ($events as $event)
-                    <tr>
+                    <tr onclick="window.location='{{ route('show.manage.events.detail', $event->id) }}';">
                         <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $event->id }}</td>
                         <td>{{ $event->name }}</td>
-                        <td>{{ $event->description }}</td>
+                        <td>{{ Str::limit($event->description, 90) }}</td>
                         <td>{{ $event->creator->user->username ?? 'N/A' }}</td>
                         <td>{{ \Carbon\Carbon::parse($event->date)->format('d F Y') }}</td>
                         <td>{{ $event->location ?? 'N/A' }}</td>
                         <td>{{ $event->category->name ?? 'N/A' }}</td>
                         <td class="status-badge">
-                            @if($event->status == 'Pending')
-                                <span class="badge bg-warning">{{ $event->status }}</span>
-                            @elseif($event->status == 'Coming Soon')
-                                <span class="badge bg-info text-light">{{ $event->status }}</span>
-                            @elseif ($event->status == 'On Going')
-                                <span class="badge bg-primary text-light">{{ $event->status }}</span>
-                            @elseif($event->status == 'Completed')
-                                <span class="badge bg-success text-light">{{ $event->status }}</span>
-                            @else
-                                <span class="badge bg-secondary text-light">{{ $event->status }}</span>
-                            @endif
+                            @php
+                                    $statusClass = 'bg-secondary'; // Default color
+                                    if($event->status == 'Pending') $statusClass = 'bg-warning text-dark';
+                                    if($event->status == 'Coming Soon') $statusClass = 'bg-info text-light';
+                                    if($event->status == 'On Going') $statusClass = 'bg-primary text-light';
+                                    if($event->status == 'Completed') $statusClass = 'bg-success text-light';
+                                @endphp
+                                <span class="badge {{ $statusClass }}">{{ $event->status }}</span>
                         </td>
                     </tr>
                 @empty

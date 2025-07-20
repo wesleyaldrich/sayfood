@@ -47,9 +47,13 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Event $event)
     {
-        //
+        // Load relasi untuk ditampilkan di view detail
+        $event->load('creator.user', 'category');
+
+        // Arahkan ke view baru dan kirim data event
+        return view('manage-events-detail', compact('event'));
     }
 
     /**

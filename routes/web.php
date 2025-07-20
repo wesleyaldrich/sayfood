@@ -156,3 +156,4 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');
+Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
