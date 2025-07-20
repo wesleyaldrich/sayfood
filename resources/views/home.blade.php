@@ -311,7 +311,6 @@
                                 <input class="input-fn" type="number" id="age" name="age" required min="12" max="120">
                             </div>
                     </div>
-                        
                     <div class="form-group text-start">
                         <label class="text-[#234C4C]" wfor="address">Address</label>
                         <input class="input-fn" type="text" id="address" name="address" required>
