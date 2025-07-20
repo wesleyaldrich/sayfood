@@ -29,11 +29,18 @@
     </div>
 </div>
 
-<div class="tab-control d-flex mx-4 my-2">
-    <button class="filter-btn mr-1 active" type="button" data-category="all">All</button>
-    @foreach ($categories as $category)
-        <button class="filter-btn mx-1" type="button" data-category="{{ $category->name }}">{{ $category->name }}</button>
-    @endforeach
+<div class="middle-section d-flex">
+    <div class="tab-control d-flex mx-4 my-2">
+        <button class="filter-btn mr-1 active" type="button" data-category="all">All</button>
+        @foreach ($categories as $category)
+            <button class="filter-btn mx-1" type="button" data-category="{{ $category->name }}">{{ $category->name }}</button>
+        @endforeach
+    </div>
+    <div class="upload-csv d-flex">
+        <p class="csv-instruction">You can also upload in a csv format file! Click here</p>
+        <img class="arrow" src="assets/arrow.svg" alt="">
+        <button class="csv-btn btn m-0" data-bs-target="#uploadCsv" data-bs-toggle="modal">Import</button>
+    </div>
 </div>
 <div class="table-responsive-wrapper">
     <table class="table">
@@ -59,7 +66,7 @@
             <td>
                 {{-- Tampilkan Gambar --}}
                 @if($food->image_url)
-                    <img src="{{ asset($food->image_url) }}" alt="{{ $food->name }}" width="100" style="border-radius: 8px;">
+                <img src="{{ asset('storage/' . $food->image_url) }}" alt="{{ $food->name }}" width="100" style="border-radius: 8px;">
                 @else
                     <span>No Image</span>
                 @endif
@@ -193,6 +200,38 @@
         <x-slot name="footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        </x-slot>
+    </x-popup-modal>
+</form>
+
+<form action="{{ route('foods.upload.process') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <x-popup-modal id="uploadCsv" title="Upload CSV File">
+        <div class="popup_instructions container alert-info">
+            <strong>Instructions:</strong>
+            <ol class="mt-2">
+                <li>1. Download the provided CSV template.</li>
+                <li>2. Fill in your food data according to the example, then save the file.</li>
+                <li>3. Place the saved CSV file and all corresponding image files into a single folder.</li>
+                <li>4. Make sure the image file names in the folder exactly match the names in the `image_url` column of your CSV.</li>
+                <li>5. The `category_name` must be one of the following: <strong>Main Course, Dessert, Drinks, Snacks</strong>.</li>
+                <li>6. The `exp_datetime` must follow the format: <strong>YYYY-MM-DD HH:MM:SS</strong> (e.g., 2025-12-31 23:59:00).</li>
+                <li>7. Compress the entire folder into a single <strong>.zip</strong> file.</li>
+                <li>8. Upload the .zip file below.</li>
+            </ol>
+            <a href="{{ route('foods.template.download') }}" class="btn btn-secondary mt-2">
+                📥 Download CSV Template
+            </a>
+        </div>
+
+        <div class="container mb-3 mt-4">
+            <label for="zip_file" class="form-label">Choose .zip file</label>
+            <input type="file" class="form-control" id="zip_file" name="zip_file" required accept=".zip">
+        </div>
+
+        <x-slot name="footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Upload and Proceed</button>
         </x-slot>
     </x-popup-modal>
 </form>

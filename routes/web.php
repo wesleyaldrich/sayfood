@@ -38,6 +38,7 @@ Route::post('/cart/decrease/{cart}', [CartController::class, 'decrease'])->name(
 Route::post('/cart/note/{cart}', [CartController::class, 'updateNote'])->name('note.cart')->middleware('auth');
 Route::post('/cart/clear', [CartController::class, 'clearCart']);
 Route::post('/checkout/confirm', [TransactionController::class, 'confirmPayment'])->name('checkout.confirm');
+Route::post('/cart/cancel', [CartController::class, 'cancelCart'])->name('cart.cancel');
 
 
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
@@ -67,6 +68,9 @@ Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->
 Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
 Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
 Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
+
+Route::post('/foods/upload', [FoodController::class, 'processZipUpload'])->name('foods.upload.process');
+Route::get('/foods/template/download', [FoodController::class, 'downloadTemplate'])->name('foods.template.download');
 
 
 Route::middleware('twofactor')->group(function () {

@@ -84,9 +84,12 @@
                 </div>
             </div>
             <div class="payment-buttons">
-                <button class="cancel-order-btn">
-                    <p style="color: white" class="my-0">CANCEL</p>
-                </button>
+                <form action="{{ route('cart.cancel') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="cancel-order-btn" onclick="return confirm('Are you sure you want to clear your entire cart?');">
+                        <p style="color: white" class="my-0">CANCEL</p>
+                    </button>
+                </form>
                 <button class="checkout-btn" data-bs-toggle="modal" data-bs-target="#checkoutModal">
                     <p style="color: white" class="my-0">CHECKOUT</p>
                 </button>
