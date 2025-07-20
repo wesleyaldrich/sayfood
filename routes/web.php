@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
@@ -52,6 +53,11 @@ Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
+Route::get('/events', function () {
+    return view('events');
+})->name('events');
+
+Route::middleware(['auth', 'twofactor'])->group(function () {
 // RESTAURANT
 Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
 
@@ -71,6 +77,7 @@ Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'de
 
 Route::post('/foods/upload', [FoodController::class, 'processZipUpload'])->name('foods.upload.process');
 Route::get('/foods/template/download', [FoodController::class, 'downloadTemplate'])->name('foods.template.download');
+});
 
 
 Route::middleware('twofactor')->group(function () {
@@ -147,3 +154,5 @@ Route::middleware('guest')->group(function () {
     Route::post('/register-restaurant', [AuthController::class, 'registerRestaurant'])->name('register.restaurant');
 
 });
+
+Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');

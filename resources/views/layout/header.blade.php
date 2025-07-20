@@ -18,7 +18,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#2">REVIEW REPORT</a></li>
                             <li><a class="dropdown-item" href="#3">MANAGE RESTAURANT</a></li>
-                            <li><a class="dropdown-item" href="#4">MANAGE EVENT</a></li>
+                            <li><a class="dropdown-item" href="{{route('show.manage.events')}}">MANAGE EVENT</a></li>
                         </ul>
                     </li>
                 @endif
