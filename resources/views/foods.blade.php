@@ -13,7 +13,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
     @if(Auth::check())
         <div class="badge-location badge rounded-pill">
             <img class="location-icon" src="assets/icon_location.png" alt="Location">
-            {{ Auth::user()->address ?? '[Not Set]' }}
+            {{ Auth::user()->customer->address ?? '[Not Set]' }}
         </div>
     @else
         <div class="badge-location badge rounded-pill">
