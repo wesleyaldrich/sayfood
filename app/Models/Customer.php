@@ -17,12 +17,12 @@ class Customer extends Model
 
     public function events()
     {
-        return $this->belongsToMany(Event::class, 'customer_event');
+        return $this->belongsToMany(Event::class, 'event_user');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
                             
 }

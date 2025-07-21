@@ -20,7 +20,7 @@ class HomeDishesController extends Controller
             ['label' => 'Seasonal Specials', 'color' => 'Trending'],
         ];
 
-        $events = Event::with('customers')
+        $events = Event::with(['creator.user', 'customers'])
             ->latest()
             ->take(3)
             ->get()
@@ -28,11 +28,11 @@ class HomeDishesController extends Controller
             ->map(function ($event, $index) use ($badges) {
                 // Ambil badge sesuai urutan (jika index > 2, ulang dari awal)
                 $badge = $badges[$index % count($badges)];
-
+                $author = $event->creator?->user?->username ?? 'Unknown';
                 return [
                     'id' => $event->id,
                     'name' => $event->name,
-                    'host' => $event->customers->first()?->name ?? 'Unknown',
+                    'host' => $author,
                     'location' => $event->location,
                     'badge' => $badge['label'],
                     'badge_color' => $badge['color'],
@@ -41,20 +41,23 @@ class HomeDishesController extends Controller
                     'date' => $event->date,
                 ];
             });
-        $slides = Event::with('customers')
-            ->where('status', 'Closed')   // hanya event yang statusnya Closed
-            ->latest()                    // urut berdasarkan created_at terbaru
-            ->take(3)                     // ambil hanya 3 event
+        $slides = Event::with(['creator.user', 'customers']) // eager load relasi
+            ->where('status', 'Closed')
+            ->latest()
+            ->take(3)
             ->get()
             ->map(function ($event) {
                 $formattedDate = Carbon::parse($event->date)
                     ->locale('id')
-                    ->translatedFormat('l, j F Y'); // format hari, tanggal bulan tahun
+                    ->translatedFormat('l, j F Y');
+
+                // Ambil nama user dari creator_id (melalui relasi customer -> user)
+                $author = $event->creator?->user?->username ?? 'Unknown';
 
                 return [
                     'id' => $event->id,
                     'title' => $event->name,
-                    'author' => $event->customers->first()?->name ?? 'Unknown',
+                    'author' => $author,
                     'location' => $event->location,
                     'image' => $event->image_url,
                     'people' => $event->customers->count(),

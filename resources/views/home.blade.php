@@ -7,17 +7,16 @@
             {{-- disini coding sebelah kiri --}}
             <div class="col-8">
                 <div class="home-header">
-                    <h1 class="oswald">WELCOME TO</h1>
+                    <h1 class="oswald">{{ __('home.welcome_to') }}</h1>
                     <h1 class="oswald">
                         <span style="color: #FEA322;">SAY</span>FOOD
                     </h1>
-                    <p class="lato-bold-italic">Good food, better cause.</p>
-                    <p class="lato-regular">Get affordable rescued meals and fight food waste!</p>
-                    <p class="lato-regular">Join us as a volunteer to share meals and share kindness.</p>
+                    <p class="lato-bold-italic">{{ __('home.welcome1') }}</p>
+                    <p class="lato-regular">{{ __('home.welcome2') }}</p>
+                    <p class="lato-regular">{{ __('home.welcome3') }}</p>
                     <div class="link-button-home">
-                        <a href="{{ route('foods') }}" class="oswald btn btn-custom-menu rounded-pill btn-lg">SEE MENUS</a>
-                        <a href="{{ route('events') }}" class="oswald btn btn-custom-join rounded-pill btn-lg">JOIN
-                            EVENT</a>
+                        <a href="{{ route('foods') }}" class="oswald btn btn-custom-menu rounded-pill btn-lg">{{ __('home.see_menus') }}</a>
+                        <a href="{{ route('events') }}" class="oswald btn btn-custom-join rounded-pill btn-lg">{{ __('home.join_event') }}</a>
                     </div>
                 </div>
             </div>
@@ -31,7 +30,7 @@
                 <img src="{{ asset('assets/Dibawah_Hero.png') }}" style="width: 50px; height: auto; margin-right: 20px;">
                 <div>
                     {{-- <h3>Judul Tulisan</h3> --}}
-                    <p class="oswald tulisan_tengah text-4xl font-bold">DISCOVER TOP PICKS AND TASTY BITES!</p>
+                    <p class="oswald tulisan_tengah text-4xl font-bold">{{ __('home.discover') }}</p>
                 </div>
             </div>
         </div>
@@ -42,7 +41,7 @@
         </path>
     </svg>
     <div class="carousel-container">
-        <p class="text-5xl font-medium text-white mb-[75px] text-center oswald antialiased">BEST RESTAURANT</p>
+        <p class="text-5xl font-medium text-white mb-[75px] text-center oswald antialiased">{{ __('home.best_restaurant') }}</p>
 
         <div class="carousel-track-container">
             <div class="carousel-track" id="carouselTrack">
@@ -84,7 +83,7 @@
         </div>
     </div>
     <div class="food-categories-container">
-        <p class="text-5xl font-medium text-white mb-[75px] text-center oswald antialiased">FOOD CATEGORIES</p>
+        <p class="text-5xl font-medium text-white mb-[75px] text-center oswald antialiased">{{ __('home.food_categories') }}</p>
         <div class="container mx-auto px-2">
             <div class="flex flex-wrap justify-center -mx-1">
 
@@ -98,7 +97,7 @@
                                     class="max-h-full max-w-full object-contain">
                             </div>
                             <div class="w-full flex-shrink-0 p-1 text-center mb-3">
-                                <h3 class="text-base font-medium text-[#234C4C] oswald">Main Courses</h3>
+                                <h3 class="text-base font-medium text-[#234C4C] oswald">{{ __('home.main_courses') }}</h3>
                             </div>
                         </div>
                         <div
@@ -116,7 +115,7 @@
                                 <img src="{{ asset('assets/Desserts.png') }}" class="max-h-full max-w-full object-contain">
                             </div>
                             <div class="w-full flex-shrink-0 p-1 text-center mb-3">
-                                <h3 class="text-base font-medium text-[#234C4C] oswald">Desserts</h3>
+                                <h3 class="text-base font-medium text-[#234C4C] oswald">{{ __('home.desserts') }}</h3>
                             </div>
                         </div>
                         <div
@@ -134,7 +133,7 @@
                                 <img src="{{ asset('assets/Snacks.png') }}" class="max-h-full max-w-full object-contain">
                             </div>
                             <div class="w-full flex-shrink-0 p-1 text-center mb-3">
-                                <h3 class="text-base font-medium text-[#234C4C] oswald">Snacks</h3>
+                                <h3 class="text-base font-medium text-[#234C4C] oswald">{{ __('home.snacks') }}</h3>
                             </div>
                         </div>
                         <div
@@ -152,7 +151,7 @@
                                 <img src="{{ asset('assets/Drinks.png') }}" class="max-h-full max-w-full object-contain">
                             </div>
                             <div class="w-full flex-shrink-0 p-1 text-center mb-3">
-                                <h3 class="text-base font-medium text-[#234C4C] oswald">Drinks</h3>
+                                <h3 class="text-base font-medium text-[#234C4C] oswald">{{ __('home.drinks') }}</h3>
                             </div>
                         </div>
                         <div
@@ -169,7 +168,7 @@
         </path>
     </svg>
     <div class="container flex items-center">
-        <p class="oswald text-4xl font-bold mr-4">TOP ON GOING EVENTS!</p>
+        <p class="oswald text-4xl font-bold mr-4">{{ __('home.top_events') }}</p>
         <img src="{{ asset('assets/on_going.png') }}" class="w-32 h-auto">
     </div>
     <div class="on_going_event text-center container-fluid">
@@ -227,47 +226,46 @@
         </div>
         <div class="py-5">
             <a href="{{ route('events') }}"
-                class="underline text-2xl underline-class hover:text-white-600 hover:underline lato-regular">SEE MORE</a>
+                class="underline text-2xl underline-class hover:text-white-600 hover:underline lato-regular">{{ __('home.see_more') }}</a>
         </div>
     </div>
     <div class="modal container-fluid" id="joinFormModal">
         <div class="modal-content">
             <button class="close-btn" id="closeModal" aria-label="Close"></button>
             <div class="modal-header-home">
-                <h2>Join Event - <span id="modalEventTitle"></span></h2>
+                <h2>{{ __('home.join_event2') }}<span id="modalEventTitle"></span></h2>
                 <p class="lato-light-italic" id="modalEventHost"></p>
                 <p class="lato-regular" id="modalEventLocation"></p>
             </div>
             <form id="joinForm">
                 <div class="form-row text-start">
                     <div class="form-group">
-                        <label class="text-[#234C4C]" for="firstName">First Name</label>
+                        <label class="text-[#234C4C]" for="firstName">{{ __('home.first_name') }}</label>
                         <input class="input-fn" type="text" id="firstName" name="firstName" required>
                     </div>
                     <div class="form-group">
-                        <label class="text-[#234C4C]" for="lastName">Last Name</label>
+                        <label class="text-[#234C4C]" for="lastName">{{ __('home.last_name') }}</label>
                         <input class="input-fn" type="text" id="lastName" name="lastName" required>
                     </div>
                 </div>
                 <div class="form-row text-start">
                     <div class="form-group">
-                        <label class="text-[#234C4C]" for="phoneNumber">Phone Number</label>
+                        <label class="text-[#234C4C]" for="phoneNumber">{{ __('home.phone_number') }}</label>
                         <input class="input-fn" type="tel" id="phoneNumber" name="phoneNumber" required
                             pattern="[0-9]{10,15}" title="Please enter only numbers (10-15 digits)">
-                        <div id="phoneError" class="error-message">Please enter a valid phone number (only numbers, 10-15
-                            digits)</div>
+                        <div id="phoneError" class="error-message">{{ __('home.only_number') }}</div>
                     </div>
                     <div class="form-group">
-                        <label class="text-[#234C4C]" for="age">Age</label>
+                        <label class="text-[#234C4C]" for="age">{{ __('home.age') }}</label>
                         <input class="input-fn" type="number" id="age" name="age" required min="12"
                             max="120">
                     </div>
                 </div>
                 <div class="form-group text-start">
-                    <label class="text-[#234C4C]" wfor="address">Address</label>
+                    <label class="text-[#234C4C]" wfor="address">{{ __('home.address') }}</label>
                     <input class="input-fn" type="text" id="address" name="address" required>
                 </div>
-                <button type="submit" class="submit-btn">Submit Form</button>
+                <button type="submit" class="submit-btn">{{ __('home.submit_form') }}</button>
             </form>
         </div>
     </div>
