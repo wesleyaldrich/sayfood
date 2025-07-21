@@ -12,6 +12,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\TransactionController;
+use Spatie\Activitylog\Models\Activity;
 
 // UNPROTECTED ROUTES
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
@@ -97,6 +98,9 @@ Route::middleware('twofactor')->group(function () {
         Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');
         Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
 
+        Route::get('/admin/logs', function(){
+            return Activity::all();
+        });
     });
 
 });
