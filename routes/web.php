@@ -8,6 +8,7 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
 use App\Http\Controllers\HomeRestaurantController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\Transaction2Controller;
@@ -41,7 +42,6 @@ Route::post('/cart/clear', [CartController::class, 'clearCart']);
 Route::post('/checkout/confirm', [TransactionController::class, 'confirmPayment'])->name('checkout.confirm');
 Route::post('/cart/cancel', [CartController::class, 'cancelCart'])->name('cart.cancel');
 
-
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 
 // ADMIN APPROVE RESTAURANT REGISTRATION (DELETE SOON)!
@@ -58,27 +58,27 @@ Route::get('/events', function () {
 })->name('events');
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
-// RESTAURANT
-Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
 
-Route::get('/restaurant-activity', [TransactionController::class, 'restaurantActivity'])->name('restaurant-activity');
+    // RESTAURANT
+    Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
 
-Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
-Route::get('/restaurant-transactions/filter', [TransactionController::class, 'filter'])->name('restaurant-transactions.filter');
-Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
+    Route::get('/restaurant-activity', [TransactionController::class, 'restaurantActivity'])->name('restaurant-activity');
 
-Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
-Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
+    Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
+    Route::get('/restaurant-transactions/filter', [TransactionController::class, 'filter'])->name('restaurant-transactions.filter');
+    Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
 
-Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
-Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
-Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
-Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
+    Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
+    Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
 
-Route::post('/foods/upload', [FoodController::class, 'processZipUpload'])->name('foods.upload.process');
-Route::get('/foods/template/download', [FoodController::class, 'downloadTemplate'])->name('foods.template.download');
+    Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
+    Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
+    Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
+    Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
+
+    Route::post('/foods/upload', [FoodController::class, 'processZipUpload'])->name('foods.upload.process');
+    Route::get('/foods/template/download', [FoodController::class, 'downloadTemplate'])->name('foods.template.download');
 });
-
 
 Route::middleware('twofactor')->group(function () {
 
@@ -157,3 +157,12 @@ Route::middleware('guest')->group(function () {
 
 Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');
 Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
+
+// LANGUAGE
+Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
+
+Route::get('/test-session', function () {
+    session(['locale' => 'id']);
+    return 'Session set: ' . session('locale');
+});
+
