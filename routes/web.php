@@ -20,8 +20,6 @@ Route::get('/events', function () {
     return view('events');
 })->name('events');
 
-Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
-
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
 
@@ -47,6 +45,8 @@ Route::middleware('twofactor')->group(function () {
 
         Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
         Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
+
+        Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
 
         Route::get('/cart', [CartController::class,'show'])->name('show.cart')->middleware('auth');
         Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart')->middleware('auth');
