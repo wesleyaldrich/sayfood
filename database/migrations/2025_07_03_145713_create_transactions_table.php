@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('order_id')->constrained('orders');
             $table->foreignId('food_id')->constrained('foods');
             $table->integer('qty');
+            $table->string('notes')->nullable();
         });
     }
 

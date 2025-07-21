@@ -3,7 +3,7 @@
         <div class="flex flex-col md:flex-row justify-between items-center">
             <!-- Contact section with icons -->
             <div class="mb-6 md:mb-0 text-center md:text-left w-full md:w-auto">
-                <h3 class="text-xl font-bold mb-4 text-[#FFD18F] lato-regular">Contact Us</h3>
+                <h3 class="text-xl font-bold mb-4 text-[#FFD18F] lato-regular">{{ __('navigation.contact_us') }}</h3>
                 <div class="flex flex-col space-y-3">
                     <a href="tel:+6281234567890" class="text-white hover:text-gray-900 transition flex items-center justify-center md:justify-start lato-light">
                         <i class="fas fa-phone-alt mr-2 text-lg text-[#FFD18F]"></i>

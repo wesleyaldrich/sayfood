@@ -21,10 +21,10 @@
         </div>
     </div>
     <div class="menu-tab-bar">  
-        <div class="tab" data-category="maincourse"><p class="oswald">MAIN COURSE</p></div>
-        <div class="tab" data-category="drinks"><p class="oswald">BEVERAGES</p></div>
-        <div class="tab" data-category="desserts"><p class="oswald">DESSERTS</p></div>
-        <div class="tab" data-category="snacks"><p class="oswald">SNACKS</p></div>
+        <div class="tab" data-category="maincourse"><p class="oswald">{{ __('foods.main_courses') }}</p></div>
+        <div class="tab" data-category="drinks"><p class="oswald">{{ __('foods.drinks') }}</p></div>
+        <div class="tab" data-category="desserts"><p class="oswald">{{ __('foods.desserts') }}</p></div>
+        <div class="tab" data-category="snacks"><p class="oswald">{{ __('foods.snacks') }}</p></div>
     </div>
 
     

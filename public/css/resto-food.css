@@ -1,11 +1,78 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+.modal-content.popupmodal{
+    background-color: white;
+    border-radius: 1.5rem;
+}
+
+.modal-title{
+    font-family: "Oswald";
+    font-size: 20px;
+    font-weight: bold;
+    color:white;
+}
+
+.modal-header{
+    background-color: #234C4C;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+}
+
+.modal-body{
+    font-family: "Lato";
+    font-size: 15px;
+    font-weight: bold;
+}
+
 .upper-section{
     justify-content: space-between;
     margin-top: 24px;
     align-items: center;
 }
+
+.middle-section{
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 24px;
+}
+
+.tab-control{
+    flex:1;
+}
+
+.arrow{
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 20px;
+    height: 30px;
+}
+
+.upload-csv{
+    flex: 0.75;
+    justify-content: center;
+    /* margin-right: 24px; */
+}
+
+.csv-instruction{
+    font-weight: bold;
+    color: #234C4C;
+}
+
+.csv-btn{
+    background-color: #ee6335;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    border-width: 3px;
+    border-color: #234C4C;
+}
+
+.popup_instructions{
+    border-radius: 20px;
+    padding: 20px;
+}
+
 .title{
     font-size: 30px;
     font-weight: bold;
@@ -174,7 +241,7 @@
 
     /* --- Alert & Footer (Contoh Umum) --- */
     /* Asumsi alert dan footer ada di dalam .sayfood-content-container atau body */
-    .alert, .footer-container { /* Ganti .footer-container dengan class footermu */
+    .alert, .footer-container {
         width: 90%;
         margin-left: auto;
         margin-right: auto;

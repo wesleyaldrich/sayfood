@@ -100,7 +100,7 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $i->order_id }}</td>
                         <td>{{ $i->created_at }}</td>
-                        <td>{{ $i->order->customer->username }}</td>
+                        <td>{{ $i->order->customer->user->username }}</td>
                         <td>{{ $i->food->name }}</td>
                         <td>{{ $i->qty }}</td>
                         <td>{{ 'Rp' . $i->food->price . ',00'}}</td>

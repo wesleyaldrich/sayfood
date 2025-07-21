@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Food;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use ZipArchive;
+use Illuminate\Http\File as IlluminateFile;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class FoodController extends Controller
 {
@@ -26,15 +35,17 @@ class FoodController extends Controller
         $ratingMin   = $request->query('rating');
         $sort        = $request->query('sort');
 
-        $popular = Food::with('restaurant')->inRandomOrder()->take(10)->get();
+        $popular = Cache::remember('popular_foods', now()->addHours(1), function () {
+            return Food::with('restaurant')->inRandomOrder()->take(10)->get();
+        });
 
         $filters = function ($query) use ($searchQuery, $priceMax, $ratingMin) {
             if ($searchQuery) {
                 $query->where(function ($q) use ($searchQuery) {
                     $q->where('foods.name', 'like', '%' . $searchQuery . '%')
-                    ->orWhereHas('restaurant', function ($q2) use ($searchQuery) {
-                        $q2->where('name', 'like', '%' . $searchQuery . '%');
-                    });
+                        ->orWhereHas('restaurant', function ($q2) use ($searchQuery) {
+                            $q2->where('name', 'like', '%' . $searchQuery . '%');
+                        });
                 });
             }
 
@@ -78,9 +89,161 @@ class FoodController extends Controller
         if (Auth::check()) {
             $cartItemCount = Cart::where('user_id', Auth::id())->sum('quantity');
         }
-        
+
         return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks', 'cartItemCount'));
     }
+
+
+    public function downloadTemplate()
+{
+    $headers = [
+        'Content-Type'        => 'text/csv',
+        'Content-Disposition' => 'attachment; filename="food_upload_template.csv"',
+    ];
+
+    // Sesuaikan kolom dengan migrasi dan kebutuhan
+    $columns = ['name', 'description', 'price', 'stock', 'exp_datetime', 'category_name', 'status', 'image_url'];
+    
+    // Sesuaikan data contoh
+    $exampleData = [
+        'Pizza Margherita', 
+        'Pizza klasik Italia', 
+        '55000', 
+        '20', 
+        '2025-12-31 23:59:00',
+        'Main Course',
+        'Available',
+        'pizza.jpg'
+    ];
+
+    $callback = function() use ($columns, $exampleData) {
+        $file = fopen('php://output', 'w');
+        fputcsv($file, $columns);
+        fputcsv($file, $exampleData);
+        fclose($file);
+    };
+
+    return new StreamedResponse($callback, 200, $headers);
+}
+
+public function processZipUpload(Request $request)
+{
+    $request->validate([
+        'zip_file' => 'required|file|mimes:zip|max:20480',
+    ]);
+
+    // Ambil data restoran dari user yang login
+    $restaurant = Auth::user()->restaurant;
+    if (!$restaurant) {
+        return back()->with('error', 'Restaurant data not found for this user.');
+    }
+
+    $zipFile = $request->file('zip_file');
+    $zip = new ZipArchive;
+
+    $tempDir = 'temp/' . Str::uuid();
+    Storage::disk('local')->makeDirectory($tempDir);
+    $tempPath = Storage::disk('local')->path($tempDir);
+
+    if ($zip->open($zipFile->getRealPath()) === TRUE) {
+        $zip->extractTo($tempPath);
+        $zip->close();
+
+        $csvFile = null;
+        foreach (File::files($tempPath) as $file) {
+            if (strtolower($file->getExtension()) === 'csv') {
+                $csvFile = $file;
+                break;
+            }
+        }
+
+        if (!$csvFile) {
+            File::deleteDirectory($tempPath);
+            return back()->with('error', 'CSV file not found in ZIP.');
+        }
+        
+        // Kirim model restoran ke proses CSV
+        $this->processCsv($csvFile, $tempPath, $restaurant);
+
+    } else {
+        return back()->with('error', 'Failed to open ZIP file.');
+    }
+
+    File::deleteDirectory($tempPath);
+
+    return redirect()->back()->with('success', 'Food data imported successfully!');
+}
+
+private function processCsv($csvFile, $tempPath, $restaurant)
+{
+    // Gunakan titik koma (;) sebagai pemisah
+    $delimiter = ';'; 
+
+    $fileHandle = fopen($csvFile->getRealPath(), 'r');
+    $header = array_map('strtolower', fgetcsv($fileHandle, 0, $delimiter));
+
+    // Hapus BOM jika ada
+    if (isset($header[0]) && strpos($header[0], "\xef\xbb\xbf") === 0) {
+        $header[0] = substr($header[0], 3);
+    }
+
+    while (($row = fgetcsv($fileHandle, 0, $delimiter)) !== FALSE) {
+        if (!array_filter($row) || count($header) !== count($row)) {
+            continue;
+        }
+        
+        $data = array_combine($header, $row);
+        $foodName = $data['name'] ?? null;
+
+        if (!$foodName) {
+            continue;
+        }
+
+        $categoryName = $data['category_name'] ?? null;
+        $category = $categoryName ? Category::where('name', trim($categoryName))->first() : null;
+
+        $imageName = $data['image_url'] ?? null;
+        $finalImagePath = null;
+        if ($imageName && File::exists($tempPath . '/' . $imageName)) {
+            $restaurantSlug = Str::slug($restaurant->name,'_');
+            $foodSlug = Str::slug($foodName);
+            $extension = pathinfo($imageName, PATHINFO_EXTENSION);
+            
+            $targetDirectory = "food_images/{$restaurantSlug}";
+            $newImageName = "{$foodSlug}-" . Str::random(5) . ".{$extension}";
+
+            $finalImagePath = Storage::disk('public')->putFileAs(
+                $targetDirectory, new IlluminateFile($tempPath . '/' . $imageName), $newImageName
+            );
+        }
+
+        // Ubah format tanggal dari DD/MM/YYYY ke YYYY-MM-DD
+        $expDateTime = null;
+        if (!empty($data['exp_datetime'])) {
+            try {
+                // Carbon akan mem-parsing format 'd/m/Y H:i'
+                $expDateTime = Carbon::createFromFormat('d/m/Y H:i', $data['exp_datetime'])->format('Y-m-d H:i:s');
+            } catch (\Exception $e) {
+                // Jika format salah, biarkan null agar tidak error
+                $expDateTime = null;
+            }
+        }
+
+        Food::create([
+            'restaurant_id' => $restaurant->id,
+            'category_id'   => $category ? $category->id : null,
+            'name'          => $foodName,
+            'description'   => $data['description'] ?? null,
+            'price'         => $data['price'] ?? 0,
+            'stock'         => $data['stock'] ?? 0,
+            'exp_datetime'  => $expDateTime,
+            'status'        => $data['status'] ?? 'Available',
+            'image_url'     => $finalImagePath,
+        ]);
+    }
+
+    fclose($fileHandle);
+}
 
     /**
      * Show the form for creating a new resource.

@@ -158,6 +158,13 @@ class CartController extends Controller
         return redirect()->route('show.cart')->with('status', 'Notes successfully updated!');
     }
 
+    public function cancelCart()
+    {
+        Cart::where('user_id', Auth::id())->delete();
+
+        return redirect()->route('foods')->with('status', 'Your cart has been cleared.');
+    }
+
     public function clearCart(){
         $userId = Auth::id();
 

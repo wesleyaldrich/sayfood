@@ -42,8 +42,8 @@
                         @foreach ($orders as $order)
                             @php
                                 $date = $order->created_at->format('d M Y');
-                                $profile = $order->customer?->profile_picture ?? asset('assets/default-profile.png');
-                                $name = $order->customer?->username ?? 'Unknown';
+                                $profile = $order->customer->user->profile_image ?? asset('assets/example/profile.jpg');
+                                $name = $order->customer->user->username ?? 'Unknown';
 
                                 $groupedItems = [];
 

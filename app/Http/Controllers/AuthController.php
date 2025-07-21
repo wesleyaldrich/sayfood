@@ -349,7 +349,7 @@ class AuthController extends Controller
             $imagePath = $image->storeAs('profile_images', $imageName, 'public');
 
             // Save the image path to the user (assuming a 'profile_image' column exists)
-            $currentUser->profile_image = 'profile_images/' . $imageName;
+            $currentUser->profile_image = 'storage/profile_images/' . $imageName;
             $currentUser->save();
 
             return redirect()->route('profile')->with(

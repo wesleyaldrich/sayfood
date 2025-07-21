@@ -83,7 +83,7 @@ header .right nav {
 header .right nav > ul {
     list-style: none;
     display: flex;
-    gap: 32px;
+    gap: 24px;
     align-items: center;
     margin: 0;
     padding: 0;
@@ -317,31 +317,6 @@ h4 {
 }
 
 
-.modal-content.popupmodal{
-    background-color: white;
-    border-radius: 1.5rem;
-}
-
-.modal-title{
-    font-family: "Oswald";
-    font-size: 20px;
-    font-weight: bold;
-    color:white;
-}
-
-.modal-header{
-    background-color: #234C4C;
-    border-top-left-radius: 1.5rem;
-    border-top-right-radius: 1.5rem;
-}
-
-.modal-body{
-    font-family: "Lato";
-    font-size: 15px;
-    font-weight: bold;
-}
-
-
 /* RESPONSIVE DESIGN */
 
 @media(max-width: 1024px) {
@@ -350,7 +325,7 @@ h4 {
     }
 
     header .logo a img {
-        height: 55%;
+        height: 40%;
     }
     
     header .right .icons a .notif-icon-img {
