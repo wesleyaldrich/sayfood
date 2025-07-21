@@ -23,8 +23,9 @@ class Customer extends Model
         return $this->belongsToMany(Event::class, 'customer_event','event_id','customer_id');
     }
 
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id');
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
-    
+                            
 }

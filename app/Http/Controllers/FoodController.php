@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use ZipArchive;
 use Illuminate\Http\File as IlluminateFile;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class FoodController extends Controller
 {
@@ -34,15 +35,17 @@ class FoodController extends Controller
         $ratingMin   = $request->query('rating');
         $sort        = $request->query('sort');
 
-        $popular = Food::with('restaurant')->inRandomOrder()->take(10)->get();
+        $popular = Cache::remember('popular_foods', now()->addHours(1), function () {
+            return Food::with('restaurant')->inRandomOrder()->take(10)->get();
+        });
 
         $filters = function ($query) use ($searchQuery, $priceMax, $ratingMin) {
             if ($searchQuery) {
                 $query->where(function ($q) use ($searchQuery) {
                     $q->where('foods.name', 'like', '%' . $searchQuery . '%')
-                    ->orWhereHas('restaurant', function ($q2) use ($searchQuery) {
-                        $q2->where('name', 'like', '%' . $searchQuery . '%');
-                    });
+                        ->orWhereHas('restaurant', function ($q2) use ($searchQuery) {
+                            $q2->where('name', 'like', '%' . $searchQuery . '%');
+                        });
                 });
             }
 
@@ -86,7 +89,7 @@ class FoodController extends Controller
         if (Auth::check()) {
             $cartItemCount = Cart::where('user_id', Auth::id())->sum('quantity');
         }
-        
+
         return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks', 'cartItemCount'));
     }
 
