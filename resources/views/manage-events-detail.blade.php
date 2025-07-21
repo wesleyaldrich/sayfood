@@ -190,7 +190,7 @@
                             @forelse($event->participants as $participant)
                             <tr>
                                 <td>{{ $participant->id }}</td>
-                                <td>{{ $participant->name }}</td> {{-- Sesuaikan dengan nama kolom di tabel user --}}
+                                <td>{{ $participant->user->username }}</td> {{-- Sesuaikan dengan nama kolom di tabel user --}}
                             </tr>
                             @empty
                             <tr>

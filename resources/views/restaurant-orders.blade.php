@@ -38,7 +38,7 @@
                             @if ($index === 0)
                                 <td rowspan="{{ $rowspan }}">{{ $no++ }}</td>
                                 <td rowspan="{{ $rowspan }}">ORD{{ str_pad($order->id, 3, '0', STR_PAD_LEFT) }}</td>
-                                <td rowspan="{{ $rowspan }}">{{ $order->customer->username }}</td>
+                                <td rowspan="{{ $rowspan }}">{{ $order->customer->user->username }}</td>
                             @endif
                             <td>{{ $item->food->name }}</td>
                             <td>{{ $item->qty }}</td>

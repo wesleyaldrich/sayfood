@@ -40,7 +40,7 @@
                 @if ($order->rating !== null && (request('rating') === null || $order->rating == request('rating')))
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ optional($order->customer)->username ?? 'Unknown' }}</td>
+                        <td>{{ optional($order->customer)->user->username ?? 'Unknown' }}</td>
                         <td>
                             @for ($i = 1; $i <= 5; $i++)
                                 @if ($i <= $order->rating)
