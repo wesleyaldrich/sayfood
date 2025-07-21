@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
@@ -38,7 +39,8 @@ Route::post('/cart/increase/{cart}', [CartController::class, 'increase'])->name(
 Route::post('/cart/decrease/{cart}', [CartController::class, 'decrease'])->name('decrease.cart')->middleware('auth');
 Route::post('/cart/note/{cart}', [CartController::class, 'updateNote'])->name('note.cart')->middleware('auth');
 Route::post('/cart/clear', [CartController::class, 'clearCart']);
-Route::post('/checkout/confirm', [Transaction2Controller::class, 'confirmPayment'])->name('checkout.confirm');
+Route::post('/checkout/confirm', [TransactionController::class, 'confirmPayment'])->name('checkout.confirm');
+Route::post('/cart/cancel', [CartController::class, 'cancelCart'])->name('cart.cancel');
 
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 
@@ -74,6 +76,8 @@ Route::middleware(['auth', 'twofactor'])->group(function () {
     Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
     Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
 
+    Route::post('/foods/upload', [FoodController::class, 'processZipUpload'])->name('foods.upload.process');
+    Route::get('/foods/template/download', [FoodController::class, 'downloadTemplate'])->name('foods.template.download');
 });
 
 Route::middleware('twofactor')->group(function () {
@@ -151,6 +155,9 @@ Route::middleware('guest')->group(function () {
 
 });
 
+Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');
+Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
+
 // LANGUAGE
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 
@@ -158,3 +165,4 @@ Route::get('/test-session', function () {
     session(['locale' => 'id']);
     return 'Session set: ' . session('locale');
 });
+
