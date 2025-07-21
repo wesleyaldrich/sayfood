@@ -2,3 +2,5 @@
 !private/
 !public/
 !.gitignore
+!public/food_images/
+!public/food_images/*
