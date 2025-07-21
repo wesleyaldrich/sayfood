@@ -40,7 +40,6 @@ Route::post('/cart/note/{cart}', [CartController::class, 'updateNote'])->name('n
 Route::post('/cart/clear', [CartController::class, 'clearCart']);
 Route::post('/checkout/confirm', [Transaction2Controller::class, 'confirmPayment'])->name('checkout.confirm');
 
-
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 
 // ADMIN APPROVE RESTAURANT REGISTRATION (DELETE SOON)!
@@ -51,7 +50,6 @@ Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])-
 Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
-
 
 Route::get('/events', function () {
     return view('events');
