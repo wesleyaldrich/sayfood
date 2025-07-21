@@ -7,6 +7,7 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
 use App\Http\Controllers\HomeRestaurantController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\Transaction2Controller;
@@ -39,7 +40,6 @@ Route::post('/cart/note/{cart}', [CartController::class, 'updateNote'])->name('n
 Route::post('/cart/clear', [CartController::class, 'clearCart']);
 Route::post('/checkout/confirm', [Transaction2Controller::class, 'confirmPayment'])->name('checkout.confirm');
 
-
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 
 // ADMIN APPROVE RESTAURANT REGISTRATION (DELETE SOON)!
@@ -56,6 +56,7 @@ Route::get('/events', function () {
 })->name('events');
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
+
     // RESTAURANT
     Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
 
@@ -148,4 +149,12 @@ Route::middleware('guest')->group(function () {
     Route::post('/login-restaurant', [AuthController::class, 'loginRestaurant'])->name('login.restaurant');
     Route::post('/register-restaurant', [AuthController::class, 'registerRestaurant'])->name('register.restaurant');
 
+});
+
+// LANGUAGE
+Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
+
+Route::get('/test-session', function () {
+    session(['locale' => 'id']);
+    return 'Session set: ' . session('locale');
 });

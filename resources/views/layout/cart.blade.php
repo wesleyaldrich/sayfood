@@ -3,19 +3,24 @@
 
 {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}
 
+
 @section('content')
+<script>
+    const paymentTranslations = @json(__('foods'));
+</script>
+
     <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
 
     <div class="breadcrumb-nav d-flex align-items-center mb-3">
-        <a href="/foods" class="breadcrumb-link">Foods</a>
+        <a href="/foods" class="breadcrumb-link">{{ __('foods.foods') }}</a>
         <span class="mx-2">></span>
-        <span class="text-muted">Cart</span>
+        <span class="text-muted">{{ __('foods.cart') }}</span>
     </div>
 
     @if($restaurant)
         <div class="pickup-location-tab d-flex align-items-center">
             <img class="pickup-location-icon" src="assets/icon_location.png" alt="Pickup Location">
-            <span class=mx-2>Pickup Location</span>
+            <span class=mx-2>{{ __('foods.pickup_location') }}</span>
         </div>
 
         <div class="pickup-address-tab pb-3">
@@ -27,7 +32,7 @@
     <div class="transaction-section">
         <div class="added-to-cart-container">
             <div class="title">
-                <p style="color:white" class="my-0">ADDED TO CART</p>
+                <p style="color:white" class="my-0">{{ __('foods.added_to_cart') }}</p>
             </div>
             @foreach ($cartItems as $item)
                 <x-cart-item :item="$item" />
@@ -36,7 +41,7 @@
             <div class="button-section">
                 <a href="foods">
                     <button class="add-more-btn">
-                        <p style="color:white" class="my-0">ADD MORE</p>
+                        <p style="color:white" class="my-0">{{ __('foods.add_more') }}</p>
                     </button>
                 </a>
             </div>
@@ -44,19 +49,19 @@
         <div class="payment-contents-right-side">
             <div class="payment-container">
                 <div class="title">
-                    <p style="color:white" class="my-0">PAYMENT SUMMARY</p>
+                    <p style="color:white" class="my-0">{{ __('foods.payment_summary') }}</p>
                 </div>
                 <div class="product-details">
                     @if ($cartItems->isEmpty())
-                    <p>Your cart is empty.</p>
+                    <p>{{ __('foods.your_cart_empty') }}</p>
                     @else
                     <table class="table">
                         <thead>
                             <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Food</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">{{ __('foods.food') }}</th>
+                            <th scope="col">{{ __('foods.qty') }}</th>
+                            <th scope="col">{{ __('foods.price') }}</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
@@ -74,7 +79,7 @@
                         <tfoot class="total-price-section">
                             <tr>
                             <th scope="row"></th>
-                            <td>Total Price</td>
+                            <td>{{ __('foods.total_price') }}</td>
                             <td></td>
                             <td>IDR {{ number_format($total, 0, ',', '.') }},00</td>
                             </tr>
@@ -85,10 +90,10 @@
             </div>
             <div class="payment-buttons">
                 <button class="cancel-order-btn">
-                    <p style="color: white" class="my-0">CANCEL</p>
+                    <p style="color: white" class="my-0">{{ __('foods.cancel') }}</p>
                 </button>
                 <button class="checkout-btn" data-bs-toggle="modal" data-bs-target="#checkoutModal">
-                    <p style="color: white" class="my-0">CHECKOUT</p>
+                    <p style="color: white" class="my-0">{{ __('foods.checkout') }}</p>
                 </button>
             </div>
         </div>
@@ -97,12 +102,12 @@
     <form id="addNoteForm" method="POST" action="">
         @csrf
         <x-popup-modal id="addNoteModal" title="Add Notes">
-                <p class="text-muted">Write your special requests below.</p>
-                <textarea id="noteTextarea" name="notes" class="form-control" rows="4" placeholder="Example: Separate the sauce, not spicy..."></textarea>
+                <p class="text-muted">{{ __('foods.write') }}</p>
+                <textarea id="noteTextarea" name="notes" class="form-control" rows="4" placeholder="{{ __('foods.example') }}"></textarea>
                 
                 <x-slot name="footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('foods.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('foods.save_changes') }}</button>
                 </x-slot>
         </x-popup-modal>
     </form>
@@ -112,11 +117,11 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="checkoutModalLabel">Select Payment Method</h5>
+                <h5 class="modal-title" id="checkoutModalLabel">{{ __('foods.select_payment') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h6>Please choose your desired payment method.</h6>
+                <h6>{{ __('foods.select_payment_clue') }}</h6>
                 <div class="list-group mt-3">
                     <label for="paymentBca" class="list-group-item list-group-item-action d-flex align-items-center">
                         <input class="form-check-input" type="radio" name="paymentMethod" id="paymentBca" value="bca_va" checked>
@@ -131,8 +136,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success" id="proceedToPaymentBtn" data-bs-dismiss="modal">Proceed to Payment</button>            </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('foods.cancel') }}</button>
+                <button type="button" class="btn btn-success" id="proceedToPaymentBtn" data-bs-dismiss="modal">{{ __('foods.proceed_payment') }}</button>            </div>
         </div>
     </div>
 </div>
@@ -143,16 +148,16 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="paymentDetailsModalLabel">Complete Payment</h5>
+                <h5 class="modal-title" id="paymentDetailsModalLabel">{{ __('foods.complete_payment') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
                 <div id="payment-instructions"></div>
-                <p class="mt-3 text-muted small">This is a payment simulation. Press the button below to confirm your order.</p>
+                <p class="mt-3 text-muted small">{{ __('foods.payment_simulation') }}</p>
                 <form action="{{ route('checkout.confirm') }}" method="POST" id="confirmPaymentForm" class="mt-4">
                     @csrf
                     <input type="hidden" name="payment_method_final" id="payment_method_final">
-                    <button type="submit" class="btn btn-primary w-100">Confirm Payment</button>
+                    <button type="submit" class="btn btn-primary w-100">{{ __('foods.confirm_payment') }}</button>
                 </form>
             </div>
         </div>
@@ -205,13 +210,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (selectedPayment === 'bca_va') {
                     const vaNumber = '88088' + Math.floor(1000000000 + Math.random() * 9000000000);
-                    instructionsHTML = `<h5>BCA Virtual Account</h5><p>Please complete the payment to the Virtual Account number below:</p><h3 class="font-weight-bold">${vaNumber}</h3><p>Beneficiary: PT SayFood Indonesia</p>`;
-                    finalPaymentMethodInput.value = 'BCA Virtual Account';
+                    instructionsHTML = `
+                        <h5>${paymentTranslations.bca_va_title}</h5>
+                        <p>${paymentTranslations.bca_va_instruction}</p>
+                        <h3 class="font-weight-bold">${vaNumber}</h3>
+                        <p>${paymentTranslations.bca_va_beneficiary}</p>
+                    `;
+                    finalPaymentMethodInput.value = paymentTranslations.bca_va_title;
                 } else if (selectedPayment === 'qris') {
-                    instructionsHTML = `<h5>QRIS Payment</h5>
-                                        <p>Please scan the QR code below using your e-wallet application.</p>
-                                        <img src="{{ asset('assets/payment_gateway_images/sample_qris.jpg') }}" alt="Sample QRIS" class="img-fluid" style="max-width: 250px; display: block; margin-left: auto; margin-right: auto;">`;
-                    finalPaymentMethodInput.value = 'QRIS';
+                    instructionsHTML = `
+                        <h5>${paymentTranslations.qris_title}</h5>
+                        <p>${paymentTranslations.qris_instruction}</p>
+                        <img src="{{ asset('assets/payment_gateway_images/sample_qris.jpg') }}" alt="Sample QRIS" class="img-fluid" style="max-width: 250px; display: block; margin-left: auto; margin-right: auto;">
+                    `;
+                    finalPaymentMethodInput.value = paymentTranslations.qris_title;
                 }
                 
                 paymentInstructionsDiv.innerHTML = instructionsHTML;
