@@ -52,10 +52,40 @@ return [
 
     'channels' => [
 
-        'stack' => [
+        'sayfood' => [
             'driver' => 'stack',
-            'channels' => explode(',', env('LOG_STACK', 'single')),
-            'ignore_exceptions' => false,
+            'channels' => ['info', 'warn', 'error', 'fatal'],
+            'ignore_exceptions' => true,
+        ],
+
+        'auth' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/auth/auth.log'),
+            'level' => 'info',
+        ],
+
+        'info' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/info.log'),
+            'level' => 'info',
+        ],
+
+        'warn' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/warn.log'),
+            'level' => 'warning',
+        ],
+
+        'error' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/error.log'),
+            'level' => 'error',
+        ],
+
+        'fatal' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/fatal.log'),
+            'level' => 'critical',
         ],
 
         'single' => [

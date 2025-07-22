@@ -20,6 +20,7 @@ class Food extends Model
         'stock',
         'image_url',
         'status',
+        'price'
     ];
 
     public function restaurant(){

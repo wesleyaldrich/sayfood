@@ -14,14 +14,14 @@
 
 <div class="container-food">
     <div class="ekor"></div>
-    <img src="{{ asset($image) }}" alt="{{ $title }}" class="food-image">
+    <img src="{{ asset('storage/' . $image) }}" alt="{{ $title }}" class="food-image">
     <div class="container-fooddetail px-3">
         <h5 class="food-title">{{ $title }}</h5>
         <p class="food-description mb-2">{{ $description }}</p>
 
         <div class="exp-stock d-flex justify-content-between mb-2">
             <p class="exp mb-1">Exp: {{ $expiry }}</p>
-            <p class="stock mb-1">Stock: {{ $stock }} left</p>
+            <p class="stock mb-1">{{ __('foods.stock') }}: {{ $stock }} {{ __('foods.left') }}</p>
         </div>
 
         <div class="resto-detail d-flex justify-content-between align-items-center py-2">
@@ -38,7 +38,7 @@
             </div>
             <div class="visit-resto">
                 <a href="{{ route('resto.show', $resto_id) }}">    
-                    <button class="btn-visit-resto btn btn-primary d-flex align-items-center">VISIT<br>RESTO</button>
+                    <button class="btn-visit-resto btn btn-primary d-flex align-items-center">{{ __('foods.visit') }}<br>RESTO</button>
                 </a>
             </div>
         </div>

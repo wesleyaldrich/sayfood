@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->date('date');
             $table->string('location');
-            $table->string('status', 100);
+            $table->enum('status',['Pending','Coming Soon','On Going','Completed','Canceled']);
             $table->timestamps();
         });
     }
