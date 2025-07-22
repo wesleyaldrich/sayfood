@@ -45,96 +45,103 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'date' => 'required',
-            'location' => 'required',
-            'event_category_id' => 'required',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
-            'estimated_participants' => 'required',
-            'organizer_name' => 'required',
-            'organizer_email' => 'required|email',
-            'organizer_phone' => 'required',
-            'wa_link' => 'required|url',
-
-            'start_hour' => 'required',
-            'start_minute' => 'required',
-            'start_ampm' => 'required',
-            'end_hour' => 'required',
-            'end_minute' => 'required',
-            'end_ampm' => 'required',
-
-            'files.*' => 'nullable|file|max:5120', // max 5MB each
-
-            'agree_terms' => 'accepted'
-        ]);
-
-        // Parse jam dari input
         try {
+
+            $request->validate([
+                'name' => 'required',
+                'description' => 'required',
+                'date' => 'required|after:today',
+                'location' => 'required',
+                'event_category_id' => 'required',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
+                'estimated_participants' => 'required',
+                'organizer_name' => 'required',
+                'organizer_email' => 'required|email',
+                'organizer_phone' => 'required',
+                'wa_link' => 'required|url',
+
+                'start_hour' => 'required',
+                'start_minute' => 'required',
+                'start_ampm' => 'required',
+                'end_hour' => 'required',
+                'end_minute' => 'required',
+                'end_ampm' => 'required',
+
+                'files.*' => 'nullable|file|max:5120', // max 5MB each
+
+                'agree_terms' => 'accepted'
+            ]);
+
+            // Parse jam dari input
+            try {
+                $start = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->start_hour, $request->start_minute, $request->start_ampm));
+                $end = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->end_hour, $request->end_minute, $request->end_ampm));
+            } catch (\Exception $e) {
+                return back()->withErrors(['start_hour' => 'Invalid time format.'])->withInput();
+            }
+
+            // Custom rule: end > start
+            if ($end <= $start) {
+                return back()->withErrors(['end_hour' => 'End time must be after start time.'])->withInput();
+            }
+
+            // Simpan gambar jika ada
+            if ($request->hasFile('image')) {
+                $originalName = $request->file('image')->getClientOriginalName();
+                $imagePath = $request->file('image')->storeAs('events', $originalName, 'public');
+            }
+
+            // Simpan file pendukung jika ada
+            $supportingFiles = [];
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $file) {
+                    $originalName = $file->getClientOriginalName();
+                    $path = $file->storeAs('supporting_files', $originalName, 'public');
+                    $supportingFiles[] = $path;
+                }
+            }
+
             $start = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->start_hour, $request->start_minute, $request->start_ampm));
             $end = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->end_hour, $request->end_minute, $request->end_ampm));
-        } catch (\Exception $e) {
-            return back()->withErrors(['start_hour' => 'Invalid time format.'])->withInput();
-        }
 
-        // Custom rule: end > start
-        if ($end <= $start) {
-            return back()->withErrors(['end_hour' => 'End time must be after start time.'])->withInput();
-        }
-
-        // Simpan gambar jika ada
-        if ($request->hasFile('image')) {
-            $originalName = $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('events', $originalName, 'public');
-        }
-
-        // Simpan file pendukung jika ada
-        $supportingFiles = [];
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
-                $originalName = $file->getClientOriginalName();
-                $path = $file->storeAs('supporting_files', $originalName, 'public');
-                $supportingFiles[] = $path;
+            if ($end <= $start) {
+                return back()->withErrors(['end_hour' => 'End time must be after start time.'])->withInput();
             }
+
+            $duration = $start->diffInMinutes($end); // yang benar: $start->diffInMinutes($end), bukan sebaliknya
+            $durationInHours = ceil($duration / 60);
+
+            // Simpan data ke DB
+            Event::create([
+                'creator_id' => Auth::user()->customer->id,
+                'event_category_id' => $request->event_category_id,
+                'name' => $request->name,
+                'description' => $request->description,
+                'date' => $request->date,
+                'location' => $request->location,
+                'status' => 'Pending',
+                'image_url' => $imagePath ?? 'assets/default_event.png',
+
+                'estimated_participants' => $request->estimated_participants,
+                'organizer_name' => $request->organizer_name,
+                'organizer_email' => $request->organizer_email,
+                'organizer_phone' => $request->organizer_phone,
+                'wa_link' => $request->wa_link,
+                'supporting_files' => json_encode($supportingFiles),
+                'duration' => $durationInHours,
+
+                'start_time' => $start->format('H:i:s'),
+                'end_time' => $end->format('H:i:s'),
+            ]);
+
+            return redirect()->route('activity')->with('success', 'Event proposal submitted!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Kalau validasi gagal: balik lagi + input lama + modal kebuka
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput()
+                ->with('show_modal', true);
         }
-
-        $start = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->start_hour, $request->start_minute, $request->start_ampm));
-        $end = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->end_hour, $request->end_minute, $request->end_ampm));
-
-        if ($end <= $start) {
-            return back()->withErrors(['end_hour' => 'End time must be after start time.'])->withInput();
-        }
-
-        $duration = $start->diffInMinutes($end); // yang benar: $start->diffInMinutes($end), bukan sebaliknya
-        $durationInHours = ceil($duration / 60);
-
-        // Simpan data ke DB
-        Event::create([
-            'creator_id' => Auth::user()->customer->id,
-            'event_category_id' => $request->event_category_id,
-            'name' => $request->name,
-            'description' => $request->description,
-            'date' => $request->date,
-            'location' => $request->location,
-            'status' => 'Pending',
-            'image_url' => $imagePath ?? 'assets/default_event.png',
-
-            'estimated_participants' => $request->estimated_participants,
-            'organizer_name' => $request->organizer_name,
-            'organizer_email' => $request->organizer_email,
-            'organizer_phone' => $request->organizer_phone,
-            'wa_link' => $request->wa_link,
-            'supporting_files' => json_encode($supportingFiles),
-            'duration' => $durationInHours,
-
-            'start_time' => $start->format('H:i:s'),
-            'end_time' => $end->format('H:i:s'),
-        ]);
-
-        return redirect()->route('activity')->with('success', 'Event proposal submitted!');
     }
 
     /**

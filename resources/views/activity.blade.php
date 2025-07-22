@@ -90,7 +90,7 @@
                             <h2 class="create-event-title">CREATE YOUR OWN EVENT!</h2>
                             <p class="create-event-quote">Don't Just Join-Lead!<br>Propose Your Own Sayfood Gathering</p>
                             <button class="btn btn-propose-event" data-bs-toggle="modal"
-                                data-bs-target="#proposeEventModal">
+                                data-bs-target="#proposeEventModal" id = "wantToPurposeEvent">
                                 PROPOSE EVENT
                             </button>
 
@@ -215,18 +215,21 @@
         </div>
     </div>
     
-    @if ($errors->any())
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                // 1. Trigger ke tab "EVENT ACTIVITIES"
-                document.querySelector('#charity-tab')?.click();
+        @php
+            $showModal = session()->pull('show_modal'); // hanya sekali baca dan langsung hilang
+        @endphp
 
-                // 2. Setelah tab terbuka, munculkan modal
-                const myModal = new bootstrap.Modal(document.getElementById('proposeEventModal'));
-                myModal.show();
-            });
-        </script>
-    @endif
+        @if ($showModal)
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    // 1. Trigger tab EVENT ACTIVITIES
+                    document.querySelector('#charity-tab')?.click();
+
+                    // 2. Tampilkan modal Propose Event
+                    document.querySelector('#wantToPurposeEvent')?.click();
+                });
+            </script>
+        @endif
 @endsection
 
 <!-- Modal Propose Event -->
@@ -423,7 +426,7 @@
                         <button type="button"
                             class="btn btn-terms d-flex justify-content-center align-items-center gap-2 mb-2 w-100 text-center"
                             data-bs-target="#termsAndConditionsModal" data-bs-toggle="modal">
-                            <i class="bi bi-check-circle-fill"></i>
+                            <i id="checkTC" class="bi bi-check-circle-fill d-none"></i>
                             <span class="text-center">Read Terms & Conditions</span>
                         </button>
 
@@ -450,7 +453,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content rounded-3" style="background-color: #234C4C; padding: 30px 40px;">
             <div class="modal-header border-0 d-flex justify-content-end">
-                <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close"
+                <button type="button" id="backProposeEventModal" class="btn p-0 ms-auto" data-bs-target="#proposeEventModal" data-bs-toggle="modal"
                     style="background: none; border: none;">
                     <i class="bi bi-x-lg text-white fs-4 p-2" style="background: red; border-radius: 50px;"></i>
                 </button>
@@ -472,13 +475,10 @@
 
                 <div class="d-flex align-items-center justify-content-center mt-4">
                     <input type="checkbox" id="agreeTermsCheckbox">
-                    <label onclick="agreeAndReturnToForm()" style="cursor: pointer; color: white;">
+                    <label for="agreeTermsCheckbox" style="cursor: pointer; color: white;">
                         I agree to the Terms & Conditions above.
                     </label>
                 </div>
-
-
-
 
             </div>
 

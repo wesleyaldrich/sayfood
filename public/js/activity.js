@@ -55,21 +55,32 @@ document.addEventListener('DOMContentLoaded', function () {
 //   });
 // }
 
-function agreeAndReturnToForm() {
-        // Centang checkbox yang tersembunyi
-        document.getElementById('hiddenAgreeCheckbox').checked = true;
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('agreeTermsCheckbox');
+    const hCheck = document.getElementById('hiddenAgreeCheckbox');
+    const checkTC = document.getElementById('checkTC');
+    const backbutton = document.getElementById('backProposeEventModal');
 
-        // Centang juga yang ada di modal Terms (opsional kalau kamu pakai dua)
-        document.getElementById('agreeTermsCheckbox').checked = true;
-
-        // Tutup modal Terms & Conditions saja
-        const termsModal = bootstrap.Modal.getInstance(document.getElementById('termsAndConditionsModal'));
-        if (termsModal) {
-            termsModal.hide();
-        }
-
-        // Tidak perlu buka modal utama karena masih terbuka
+    if (checkbox) {
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                if (hCheck) hCheck.checked = true;
+                if (checkTC) {
+                    checkTC.classList.remove("d-none");
+                    checkTC.classList.add("d-flex");
+                }
+                if (backbutton) backbutton.click();
+            } else{
+                hCheck.checked = false;
+                if (checkTC) {
+                    checkTC.classList.remove("d-flex");
+                    checkTC.classList.add("d-none");
+                }
+                if (backbutton) backbutton.click();
+            }
+        });
     }
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     const modals = document.querySelectorAll('.modal');
