@@ -40,4 +40,11 @@ class Order extends Model
         return $this->belongsTo(Restaurant::class);
     }
 
+    public function getTotalPriceAttribute()
+    {
+        return $this->transactions()
+            ->join('foods', 'transactions.food_id', '=', 'foods.id')
+            ->selectRaw('SUM(foods.price * transactions.qty) as total')
+            ->value('total');
+    }
 }

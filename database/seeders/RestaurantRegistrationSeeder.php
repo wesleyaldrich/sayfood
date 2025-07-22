@@ -60,7 +60,7 @@ class RestaurantRegistrationSeeder extends Seeder
                 'id' => 7,
                 'name' => 'Lyon',
                 'address' => 'Hotel Mandarin Oriental, Jakarta, Jl. M. H. Thamrin, Thamrin, Jakarta',
-                'email' => 'restauran7@gmail.com',
+                'email' => 'restaurant7@gmail.com',
                 'status' => 'operational'
             ],
             [

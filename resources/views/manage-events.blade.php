@@ -58,7 +58,10 @@
                     </button>
                 </form>
                 <div class="create-btn">
-                    <a href="#" class="btn btn-success text-light" style="font-weight: bold; background-color: darkgreen;">+ Create</a>
+                    <a href="#" class="btn btn-success text-light"
+                    style="font-weight: bold; background-color: darkgreen;"
+                    data-bs-target="#createEventModal"
+                     data-bs-toggle="modal">+ Create</a>
                 </div>
             </div>
         </div>
@@ -128,4 +131,77 @@
             </tbody>
         </table>
     </div>
+
+    
+<x-popup-modal id="createEventModal" title="Create Event">
+    <form action="" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="row">
+            {{-- Event Name --}}
+            <div class="col-12 mb-3">
+                <label for="name" class="form-label">Event Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            {{-- Description --}}
+            <div class="col-12 mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+
+            {{-- Date --}}
+            <div class="col-md-6 mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="datetime-local" class="form-control" id="date" name="date" required>
+            </div>
+
+            {{-- Location --}}
+            <div class="col-md-6 mb-3">
+                <label for="location" class="form-label">Location / Address</label>
+                <input type="text" class="form-control" id="location" name="location" required>
+            </div>
+
+            {{-- Category --}}
+            <div class="col-md-6 mb-3">
+                <label for="event_category_id" class="form-label">Category</label>
+                <select class="form-select" id="event_category_id" name="event_category_id" required>
+                    <option selected disabled value="">Choose...</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Status --}}
+            <div class="col-md-6 mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status" required>
+                    <option selected value="Coming Soon">Coming Soon</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending">Pending</option>
+                </select>
+            </div>
+            
+            {{-- Group Link --}}
+            <div class="col-12 mb-3">
+                <label for="group_link" class="form-label">Group Link (Optional)</label>
+                <input type="url" class="form-control" id="group_link" name="group_link" placeholder="https://chat.whatsapp.com/...">
+            </div>
+
+            {{-- Event Image --}}
+            <div class="col-md-6 mb-3">
+                <label for="image_url" class="form-label">Event Image</label>
+                <input class="form-control" type="file" id="image_url" name="image_url" accept="image/*">
+            </div>
+        </div>
+
+        {{-- Modal Footer --}}
+        <x-slot name="footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" style="background-color: darkgreen; border-color: darkgreen;">Create Event</button>
+        </x-slot>
+    </form>
+</x-popup-modal>
+
 @endsection

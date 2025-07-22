@@ -106,6 +106,8 @@ Route::middleware('twofactor')->group(function () {
         Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
 
         Route::get('/admin/manage-restaurants', [RestaurantAdminController::class, 'index'])->name('show.manage.restaurants');
+        Route::get('/admin/manage-restaurants/{id}', [RestaurantAdminController::class, 'show'])->name('show.manage.restaurants.detail');
+        Route::post('/admin/manage-restaurants/export/{id}', [RestaurantAdminController::class, 'export'])->name('show.manage.restaurants.detail.export');
 
         Route::get('/admin/logs', function(){
             return Activity::all();

@@ -57,4 +57,26 @@ class Restaurant extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function registration()
+    {
+        return $this->hasOne(RestaurantRegistration::class, 'id', 'id');
+    }
+
+    public function getTotalDonationAttribute()
+    {
+        return $this->orders()
+            ->join('transactions', 'transactions.order_id', '=', 'orders.id')
+            ->join('foods', 'transactions.food_id', '=', 'foods.id')
+            ->selectRaw('SUM(foods.price * transactions.qty) as total')
+            ->whereIn('orders.status', ['Order Completed', 'Order Reviewed'])
+            ->value('total');
+    }
+
+    public function getTotalOrdersAttribute()
+    {
+        return $this->orders()
+            ->whereIn('status', ['Order Completed', 'Order Reviewed'])
+            ->count();
+    }
 }
