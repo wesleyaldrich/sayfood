@@ -97,7 +97,6 @@ class CustomerEventSeeder extends Seeder
                 'customer_id'=>3,
                 'phone_number'=> $faker->phoneNumber()
             ],
-        ]);
-        
+        ]);   
     }
 }

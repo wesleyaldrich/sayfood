@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Restaurant;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +23,8 @@ class DatabaseSeeder extends Seeder
             EventSeeder::class,
             OrderSeeder::class,
             TransactionSeeder::class,
-            CustomerEventSeeder::class
+            CustomerEventSeeder::class,
+            RestaurantRegistrationSeeder::class,
         ]);
     }
 }

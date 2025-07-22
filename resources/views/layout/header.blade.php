@@ -17,8 +17,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#2">{{ __('navigation.review_report') }}</a></li>
-                            <li><a class="dropdown-item" href="#3">{{ __('navigation.manage_restaurant') }}</a></li>
-                            <li><a class="dropdown-item" href="{{route('show.manage.events')}}">{{ __('navigation.manage_event') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ route('show.manage.restaurants') }}">{{ __('navigation.manage_restaurant') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ route('show.manage.events') }}">{{ __('navigation.manage_event') }}</a></li>
                         </ul>
                     </li>
                 @endif

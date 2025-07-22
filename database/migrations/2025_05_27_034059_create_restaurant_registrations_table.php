@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('address', 255);
             $table->string('email', 320)->unique();
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'operational', 'rejected'])->default('pending');
 
             $table->timestamps();
         });
