@@ -69,7 +69,7 @@
                 <div class="d-flex flex-row upcoming-event-wrap">
                     <section class="upcoming-events col-12 col-md-8 d-flex flex-column gap-2">
                         <h2>YOUR UPCOMING EVENTS</h2>
-                        <div class="upcoming-content d-flex flex-row align-items-center">
+                        <div class="upcoming-content d-flex flex-row align-items-center" style="padding-left: 2vw; padding-right: 2vw;">
 
                             <div class="scroll-container d-flex mx-3" id="eventScroll">
                                 <div class="event-cards-wrapper">

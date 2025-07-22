@@ -46,7 +46,7 @@
                                 <div class="info-box">
                                     <img src="{{ asset('assets/icon_location.svg') }}" class="event-info-icon"
                                         alt="Location">
-                                    <span>{{ $event->location }}</span>
+                                    <span class="d-flex text-start">{{ $event->location }}</span>
                                 </div>
                                 <div class="info-box">
                                     <img src="{{ asset('assets/icon_calendar.svg') }}" class="event-info-icon" alt="Date">
