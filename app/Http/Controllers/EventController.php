@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\Event;
-
+use App\Models\EventCategory;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -23,8 +23,10 @@ class EventController extends Controller
         // 4. Ambil data event yang sudah difilter dan urutkan dari yang terbaru
         $events = $query->latest()->get();
 
+        $categories = EventCategory::all();
+
         // 5. Kirim data events dan statuses ke view
-        return view('manage-events', compact('events', 'statuses'));
+        return view('manage-events', compact('events', 'statuses','categories'));
     }
 
 

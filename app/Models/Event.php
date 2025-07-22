@@ -22,6 +22,6 @@ class Event extends Model
     }
 
     public function participants(){
-        return $this->belongsToMany(Customer::class,'customer_event','customer_id','event_id');
+        return $this->belongsToMany(Customer::class,'customer_event','event_id','customer_id')->withPivot('phone_number');
     }
 }
