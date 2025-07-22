@@ -61,22 +61,60 @@
             </div>
 
             <div class="container-fluid d-flex justify-content-center align-items-center">
-                <div class="profile-options justify-content-around row mt-5">
-                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf</form>
-                    <a href="{{ route('logout') }}"
-                    onclick="
-                        event.preventDefault();
-                        document.getElementById('logout-form').submit();"
-                    class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
-                        <img src="{{ asset('assets/profile_option_logout.png') }}" class="p-2" alt="icon">
-                        <p class="oswald">LOG OUT</p>
-                    </a>
-                    <a href="{{ route('password.request') }}" 
-                    class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
-                        <img src="{{ asset('assets/profile_option_reset_password.png') }}" class="p-2" alt="icon">
-                        <p class="oswald">RESET PASSWORD</p>
-                    </a>
-                </div>
+                @if (Auth::user()->role === 'customer')
+                    <div class="profile-options justify-content-around row mt-5">
+                        <form id="login-as-restaurant-form" method="POST" action="{{ route('login.as.restaurant') }}" style="display: none;">@csrf</form>
+                        <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf</form>
+                        <form id="delete-account-form" method="POST" action="{{ route('delete.account') }}" style="display: none;">@csrf</form>
+
+                        <a href="{{ route('login.as.restaurant') }}"
+                        onclick="
+                            event.preventDefault();
+                            document.getElementById('login-as-restaurant-form').submit();"
+                        class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                            <img src="{{ asset('assets/profile_option_login_as_restaurant.png') }}" class="p-2" alt="icon">
+                            <p class="oswald">LOG IN AS RESTAURANT</p>
+                        </a>
+                        <a href="{{ route('logout') }}"
+                        onclick="
+                            event.preventDefault();
+                            document.getElementById('logout-form').submit();"
+                        class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                            <img src="{{ asset('assets/profile_option_logout.png') }}" class="p-2" alt="icon">
+                            <p class="oswald">LOG OUT</p>
+                        </a>
+                        <a href="{{ route('password.request') }}" 
+                        class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                            <img src="{{ asset('assets/profile_option_reset_password.png') }}" class="p-2" alt="icon">
+                            <p class="oswald">RESET PASSWORD</p>
+                        </a>
+                        <a href="{{ route('delete.account') }}"
+                        onclick="
+                            event.preventDefault();
+                            document.getElementById('delete-account-form').submit()"
+                        class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                            <img src="{{ asset('assets/profile_option_delete.png') }}" class="p-2" alt="icon">
+                            <p class="oswald">DELETE ACCOUNT</p>
+                        </a>
+                    </div>
+                @else
+                    <div class="profile-options justify-content-around row mt-5">
+                        <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf</form>
+                        <a href="{{ route('logout') }}"
+                        onclick="
+                            event.preventDefault();
+                            document.getElementById('logout-form').submit();"
+                        class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                            <img src="{{ asset('assets/profile_option_logout.png') }}" class="p-2" alt="icon">
+                            <p class="oswald">LOG OUT</p>
+                        </a>
+                        <a href="{{ route('password.request') }}" 
+                        class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                            <img src="{{ asset('assets/profile_option_reset_password.png') }}" class="p-2" alt="icon">
+                            <p class="oswald">RESET PASSWORD</p>
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
