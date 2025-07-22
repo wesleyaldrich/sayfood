@@ -1,31 +1,38 @@
 <?php
 
-namespace App\Models;
+    namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
-{
-    protected $fillable = [
-        'user_id'
-    ];
-    
-    public function orders()
+    class Customer extends Model
     {
-        return $this->hasMany(Order::class, 'customer_id');
-    }
+        protected $fillable = [
+            'user_id'
+        ];
 
-    public function createdEvents(){
-        return $this->hasMany(Event::class);
-    }
+        public function orders()
+        {
+            return $this->hasMany(Order::class, 'customer_id');
+        }
 
-    public function joinedEvents(){
-        return $this->belongsToMany(Event::class, 'customer_event','event_id','customer_id');
-    }
+        public function createdEvents()
+        {
+            return $this->hasMany(Event::class);
+        }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        public function joinedEvents()
+        {
+            // return $this->belongsToMany(Event::class, 'customer_event', 'event_id', 'customer_id');
+            return $this->belongsToMany(Event::class, 'customer_event', 'customer_id', 'event_id');
+        }
+
+        public function user()
+        {
+            return $this->belongsTo(User::class);
+        }
+
+        public function getNameAttribute()
+        {
+            return $this->user->name ?? 'Anonymous';
+        }
     }
-                            
-}

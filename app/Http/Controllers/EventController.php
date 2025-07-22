@@ -1,7 +1,9 @@
 <?php
-namespace App\Http\Controllers;
-use App\Models\Event;
 
+namespace App\Http\Controllers;
+
+use App\Models\Event;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -50,7 +52,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         // Load relasi untuk ditampilkan di view detail
-        $event->load('creator', 'category','participants');
+        $event->load('creator', 'category', 'participants');
         // dd($event);
 
         // Arahkan ke view baru dan kirim data event
@@ -80,4 +82,8 @@ class EventController extends Controller
     {
         //
     }
+
+    
+
+    
 }

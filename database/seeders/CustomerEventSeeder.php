@@ -31,6 +31,18 @@ class CustomerEventSeeder extends Seeder
                 'customer_id'=>3
             ],
             [
+                'event_id'=>5,
+                'customer_id'=>3
+            ],
+            [
+                'event_id'=>6,
+                'customer_id'=>3
+            ],
+            [
+                'event_id'=>7,
+                'customer_id'=>3
+            ],
+            [
                 'event_id'=>3,
                 'customer_id'=>4
             ],
