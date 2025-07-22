@@ -48,6 +48,7 @@ Route::middleware('twofactor')->group(function () {
         Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
 
         Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
+        Route::post('/events/propose', [EventController::class, 'store'])->name('events.store');
 
         Route::get('/cart', [CartController::class,'show'])->name('show.cart')->middleware('auth');
         Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart')->middleware('auth');
