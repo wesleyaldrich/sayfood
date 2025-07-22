@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customer_event', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('customer_id')->constrained('customers');
-            $table->foreignId('event_id')->constrained('events');
-            $table->string('phone_number');
-            $table->timestamps();
+        Schema::table('events', function (Blueprint $table) {
+            $table->string('group_link');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customer_event');
+        Schema::table('events', function (Blueprint $table) {
+            //
+        });
     }
 };
