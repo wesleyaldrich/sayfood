@@ -4,11 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('order')
+        ->logOnly(['customer_id', 'restaurant_id', 'status'])
+        ->logOnlyDirty();
+    }
 
     protected $fillable = [
         'customer_id',
@@ -29,6 +39,5 @@ class Order extends Model
     {
         return $this->belongsTo(Restaurant::class);
     }
-
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserRoleMiddleware
@@ -16,13 +17,18 @@ class UserRoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        $currentUserRole = Auth::user()->role;
+        $currentUser = Auth::user();
+        $currentUserRole = $currentUser->role;
 
         if ($role === 'customer'){
             if ($currentUserRole === 'customer' || $currentUserRole === 'admin') {
                 return $next($request);
             }
 
+            Log::channel('sayfood')->warning('User tried to access customer routes.', [
+                'id' => $currentUser->id,
+                'username' => $currentUser->username
+            ]);
             abort(403, 'Unauthorized access.');
         }
         if ($role === 'restaurant'){
@@ -30,6 +36,10 @@ class UserRoleMiddleware
                 return $next($request);
             }
 
+            Log::channel('sayfood')->warning('User tried to access restaurant routes.', [
+                'id' => $currentUser->id,
+                'username' => $currentUser->username
+            ]);
             abort(403, 'Unauthorized access.');    
         }
         if ($role === 'admin') {
@@ -37,10 +47,20 @@ class UserRoleMiddleware
                 return $next($request);
             }
 
+            Log::channel('sayfood')->warning('User tried to access admin routes.', [
+                'id' => $currentUser->id,
+                'username' => $currentUser->username
+            ]);
             abort(403, 'Unauthorized access.');
         }
         
         // Unexpected role (server side's fault)!
+        Log::channel('sayfood')->critical('Unexpected UserRoleMiddleware usage.', [
+            'route' => $request->path(),
+            'user_id' => $currentUser->id,
+            'expectedRole' => $role,
+            'userRole' => $currentUserRole
+        ]);
         abort(500, 'Invalid role middleware usage.');
     }
 }

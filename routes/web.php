@@ -12,39 +12,17 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\TransactionController;
+use Spatie\Activitylog\Models\Activity;
 
 // UNPROTECTED ROUTES
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
-
+Route::post('/', [HomeDishesController::class, 'store'])->name('event.join');;
 Route::get('/events', function () {
     return view('events');
 })->name('events');
 
-Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
-    // RESTAURANT
-    Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
-
-    Route::get('/restaurant-activity', [TransactionController::class, 'restaurantActivity'])->name('restaurant-activity');
-
-    Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
-    Route::get('/restaurant-transactions/filter', [TransactionController::class, 'filter'])->name('restaurant-transactions.filter');
-    Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
-
-    Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
-    Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
-
-    Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
-    Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
-    Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
-    Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
-
-    Route::post('/foods/upload', [FoodController::class, 'processZipUpload'])->name('foods.upload.process');
-    Route::get('/foods/template/download', [FoodController::class, 'downloadTemplate'])->name('foods.template.download');
-
-
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
-
 
 Route::middleware('twofactor')->group(function () {
 
@@ -68,6 +46,8 @@ Route::middleware('twofactor')->group(function () {
 
         Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
         Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
+
+        Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
 
         Route::get('/cart', [CartController::class,'show'])->name('show.cart')->middleware('auth');
         Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart')->middleware('auth');
@@ -118,6 +98,9 @@ Route::middleware('twofactor')->group(function () {
         Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');
         Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
 
+        Route::get('/admin/logs', function(){
+            return Activity::all();
+        });
     });
 
 });
