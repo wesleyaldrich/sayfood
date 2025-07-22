@@ -2,6 +2,19 @@
 @section('title', 'Home Page')
 @section('content')
     <div class="container-fluid">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('info'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('info') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         {{-- BAGIAN HERO SECTION --}}
         <div class="row gx-5">
             {{-- disini coding sebelah kiri --}}
@@ -15,8 +28,10 @@
                     <p class="lato-regular">{{ __('home.welcome2') }}</p>
                     <p class="lato-regular">{{ __('home.welcome3') }}</p>
                     <div class="link-button-home">
-                        <a href="{{ route('foods') }}" class="oswald btn btn-custom-menu rounded-pill btn-lg">{{ __('home.see_menus') }}</a>
-                        <a href="{{ route('events') }}" class="oswald btn btn-custom-join rounded-pill btn-lg">{{ __('home.join_event') }}</a>
+                        <a href="{{ route('foods') }}"
+                            class="oswald btn btn-custom-menu rounded-pill btn-lg">{{ __('home.see_menus') }}</a>
+                        <a href="{{ route('events') }}"
+                            class="oswald btn btn-custom-join rounded-pill btn-lg">{{ __('home.join_event') }}</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +56,8 @@
         </path>
     </svg>
     <div class="carousel-container">
-        <p class="text-5xl font-medium text-white mb-[75px] text-center oswald antialiased">{{ __('home.best_restaurant') }}</p>
+        <p class="text-5xl font-medium text-white mb-[75px] text-center oswald antialiased">
+            {{ __('home.best_restaurant') }}</p>
 
         <div class="carousel-track-container">
             <div class="carousel-track" id="carouselTrack">
@@ -83,7 +99,8 @@
         </div>
     </div>
     <div class="food-categories-container">
-        <p class="text-5xl font-medium text-white mb-[75px] text-center oswald antialiased">{{ __('home.food_categories') }}</p>
+        <p class="text-5xl font-medium text-white mb-[75px] text-center oswald antialiased">
+            {{ __('home.food_categories') }}</p>
         <div class="container mx-auto px-2">
             <div class="flex flex-wrap justify-center -mx-1">
 
@@ -174,32 +191,34 @@
     <div class="on_going_event text-center container-fluid">
         <div class="cards-container">
             @foreach ($events as $event)
-                <div class="event-card m-5" data-event-title="{{ $event['name'] }}"
+                <div class="event-card m-5" data-bs-toggle="modal" data-bs-target="#joinFormModal"
+                    data-event-id="{{ $event['id'] }}" data-event-title="{{ $event['name'] }}"
                     data-event-host="{{ $event['host'] }}" data-event-location="{{ $event['location'] }}">
-                    <?php if (isset($event['badge'])): ?>
-                    <div class="event-badge badge-<?php echo strtolower($event['badge_color']); ?>">
-                        <?= $event['badge'] ?>
-                    </div>
-                    <?php endif; ?>
+                    @if (isset($event['badge']))
+                        <div class="event-badge badge-{{ strtolower($event['badge_color']) }}">
+                            {{ $event['badge'] }}
+                        </div>
+                    @endif
                     <div class="image-container">
-                        <img src="<?= $event['image_url'] ?>" alt="<?= $event['name'] ?>" class="event-image">
+                        <img src="{{ $event['image_url'] }}" alt="{{ $event['name'] }}" class="event-image">
                         <div class="image-content">
                             <div class="shape-container">
                                 <div class="circle">
                                     <div class="circle-content">
                                         <img src="{{ asset('assets/participant_logo.png') }}" alt="Logo">
                                         <div class="circle-text-participants circle-text number oswald">
-                                            <?= $event['participants'] ?></div>
+                                            {{ $event['participants'] }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="rectangle">
                                     <div class="row">
                                         <div class="col">
                                             <div class="title_font">
-                                                <p class="oswald title_font_os"><?= $event['name'] ?></p>
+                                                <p class="oswald title_font_os">{{ $event['name'] }}</p>
                                             </div>
                                             <div class="host_font">
-                                                <p class="lato-light-italic host_font_os"><?= $event['host'] ?></p>
+                                                <p class="lato-light-italic host_font_os">{{ $event['host'] }}</p>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -207,12 +226,14 @@
                                                 <div class="row-group">
                                                     <i class="fas fa-map-marker-alt icon"></i>
                                                     <p class="location_font lato-regular font-weight-bold">
-                                                        <?= $event['location'] ?></p>
+                                                        {{ $event['location'] }}
+                                                    </p>
                                                 </div>
                                                 <div class="row-group">
                                                     <i class="far fa-calendar-alt icon"></i>
                                                     <p class="date_font lato-regular font-weight-bold">
-                                                        <?= $event['date'] ?></p>
+                                                        {{ $event['date'] }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -224,49 +245,51 @@
                 </div>
             @endforeach
         </div>
+
         <div class="py-5">
             <a href="{{ route('events') }}"
-                class="underline text-2xl underline-class hover:text-white-600 hover:underline lato-regular">{{ __('home.see_more') }}</a>
+                class="underline text-2xl underline-class hover:text-white-600 hover:underline lato-regular">
+                {{ __('home.see_more') }}
+            </a>
         </div>
     </div>
-    <div class="modal container-fluid" id="joinFormModal">
-        <div class="modal-content">
-            <button class="close-btn" id="closeModal" aria-label="Close"></button>
-            <div class="modal-header-home">
-                <h2>{{ __('home.join_event2') }}<span id="modalEventTitle"></span></h2>
-                <p class="lato-light-italic" id="modalEventHost"></p>
-                <p class="lato-regular" id="modalEventLocation"></p>
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="joinFormModal" tabindex="-1" aria-labelledby="joinEventLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <p class="modal-title text-xl text-[#234C4C] font-bold" id="joinEventLabel">
+                        {{ __('home.join_event2') }} <span id="modalEventTitle" class="text-xl"></span>
+                    </p>
+                </div>
+
+                <div class="modal-body">
+                    <label class="form-label text-[#234C4C] text-xl">Host</label>
+                    <p class="lato-light-italic" id="modalEventHost"></p>
+                    <label class="form-label text-[#234C4C] text-xl">Location</label>
+                    <p class="lato-regular" id="modalEventLocation"></p>
+                    <!-- Form Join -->
+                    <form method="POST" action="{{ route('event.join') }}">
+                        @csrf
+                        <input type="hidden" name="event_id" id="eventId">
+
+                        <div class="mb-3">
+                            <label for="phoneNumber"
+                                class="form-label text-[#234C4C] text-xl">{{ __('home.phone_number') }}</label>
+                            <input type="tel" class="form-control @error('phoneNumber') is-invalid @enderror"
+                                id="phoneNumber" name="phoneNumber" value="{{ old('phoneNumber') }}">
+                            @error('phoneNumber')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">
+                            {{ __('home.submit_form') }}
+                        </button>
+                    </form>
+                </div>
             </div>
-            <form id="joinForm">
-                <div class="form-row text-start">
-                    <div class="form-group">
-                        <label class="text-[#234C4C]" for="firstName">{{ __('home.first_name') }}</label>
-                        <input class="input-fn" type="text" id="firstName" name="firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="text-[#234C4C]" for="lastName">{{ __('home.last_name') }}</label>
-                        <input class="input-fn" type="text" id="lastName" name="lastName" required>
-                    </div>
-                </div>
-                <div class="form-row text-start">
-                    <div class="form-group">
-                        <label class="text-[#234C4C]" for="phoneNumber">{{ __('home.phone_number') }}</label>
-                        <input class="input-fn" type="tel" id="phoneNumber" name="phoneNumber" required
-                            pattern="[0-9]{10,15}" title="Please enter only numbers (10-15 digits)">
-                        <div id="phoneError" class="error-message">{{ __('home.only_number') }}</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="text-[#234C4C]" for="age">{{ __('home.age') }}</label>
-                        <input class="input-fn" type="number" id="age" name="age" required min="12"
-                            max="120">
-                    </div>
-                </div>
-                <div class="form-group text-start">
-                    <label class="text-[#234C4C]" wfor="address">{{ __('home.address') }}</label>
-                    <input class="input-fn" type="text" id="address" name="address" required>
-                </div>
-                <button type="submit" class="submit-btn">{{ __('home.submit_form') }}</button>
-            </form>
         </div>
     </div>
     <div class="container-fluid text-center">
@@ -279,8 +302,10 @@
                 {{-- ini diawal --}}
                 <div class="share_moments-wrapper my-5">
                     <!-- Navigation buttons -->
-                    <button class="carousel-nav left" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="carousel-nav right" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+                    <button class="carousel-nav left" onclick="prevSlide()"><i
+                            class="fa-solid fa-chevron-left"></i></button>
+                    <button class="carousel-nav right" onclick="nextSlide()"><i
+                            class="fa-solid fa-chevron-right"></i></button>
 
                     <!-- Slides -->
                     @foreach ($slides as $index => $slide)
@@ -292,7 +317,8 @@
                                 <div class="carousel-text" id="text-{{ $index }}">
                                     <div class="desc">{{ $slide['description'] }}</div>
                                     <div class="carousel-info">
-                                        <div class='loc'><i class="fa-solid fa-location-dot"></i> {{ Str::limit($slide['location'], 23, '...') }}</div>
+                                        <div class='loc'><i class="fa-solid fa-location-dot"></i>
+                                            {{ Str::limit($slide['location'], 23, '...') }}</div>
                                         <div><i class="fa-solid fa-user"></i> {{ $slide['people'] }}</div>
                                         <div><i class="fa-solid fa-calendar"></i> {{ $slide['date'] }}</div>
                                         <div><i class="fa-solid fa-clock"></i> {{ $slide['duration'] }} Hours</div>
@@ -318,6 +344,8 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 @endpush
 
 @push('scripts')

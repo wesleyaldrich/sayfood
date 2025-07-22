@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HomeStoreRequest;
+use App\Models\Customer;
 use App\Models\Event;
 use App\Models\Restaurant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class HomeDishesController extends Controller
@@ -42,7 +46,7 @@ class HomeDishesController extends Controller
                 ];
             });
         $slides = Event::with(['creator.user', 'customers']) // eager load relasi
-            ->where('status', 'Closed')
+            ->where('status', 'Completed')
             ->latest()
             ->take(3)
             ->get()
@@ -68,5 +72,53 @@ class HomeDishesController extends Controller
             });
 
         return view('home', compact('restaurant', 'events', 'slides'));
+    }
+
+    public function store(HomeStoreRequest $request)
+    {
+        // Ambil ID customer berdasarkan user login
+        $customerId = Auth::user()->customer->id ?? null;
+
+        if (!$customerId) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => ['general' => ['Customer tidak ditemukan untuk user ini.']]
+                ], 422);
+            }
+            return back()->withErrors('Customer tidak ditemukan untuk user ini.');
+        }
+
+        // Ambil event
+        $event = Event::findOrFail($request->event_id);
+
+        // Cek apakah sudah join
+        $alreadyJoined = DB::table('customer_event')
+            ->where('event_id', $event->id)
+            ->where('customer_id', $customerId)
+            ->exists();
+
+        if ($alreadyJoined) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => ['general' => ['Anda sudah bergabung di event ini.']]
+                ], 422);
+            }
+            return back()->with('info', 'Anda sudah bergabung di event ini.');
+        }
+
+        // Simpan ke pivot table
+        $event->customers()->attach($customerId);
+
+        // Balikan respon sesuai request
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil bergabung ke event!'
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Berhasil bergabung ke event!');
     }
 }

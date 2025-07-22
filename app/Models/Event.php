@@ -12,7 +12,7 @@ class Event extends Model
     
     public function customers()
     {
-        return $this->belongsToMany(Customer::class, 'event_user');
+        return $this->belongsToMany(Customer::class, 'customer_event','event_id','customer_id');
     }
 
     public function creator()
@@ -23,9 +23,5 @@ class Event extends Model
     public function category()
     {
         return $this->belongsTo(EventCategory::class, 'event_category_id');
-    }
-
-    public function participants(){
-        return $this->belongsToMany(Customer::class,'customer_event','customer_id','event_id');
     }
 }

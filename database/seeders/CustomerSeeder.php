@@ -15,7 +15,7 @@ class CustomerSeeder extends Seeder
         for ($i = 1; $i <= 10; $i++) {
             $customers[] = [
                 'id' => $i,
-                'user_id' => $i, 
+                'user_id' => $i+1, 
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

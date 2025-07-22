@@ -187,98 +187,68 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-const eventCards = document.querySelectorAll('.event-card');
-const joinFormModal = document.getElementById('joinFormModal');
-const closeModal = document.getElementById('closeModal');
-const joinForm = document.getElementById('joinForm');
-const phoneInput = document.getElementById('phoneNumber');
-const phoneError = document.getElementById('phoneError');
 
-// Modal Title Elements
-const modalEventTitle = document.getElementById('modalEventTitle');
-const modalEventHost = document.getElementById('modalEventHost');
-const modalEventLocation = document.getElementById('modalEventLocation');
+document.addEventListener('DOMContentLoaded', () => {
+    const joinModal = document.getElementById('joinFormModal');
+    const joinForm = document.getElementById('joinForm');
+    const phoneInput = document.getElementById('phoneNumber');
+    const phoneError = document.getElementById('phoneNumberError');
+    const formAlert = document.getElementById('formAlert');
 
-// Show modal with correct event data when card is clicked
-eventCards.forEach(card => {
-    card.addEventListener('click', () => {
-        // Get event data from data attributes
-        const title = card.dataset.eventTitle;
-        const host = card.dataset.eventHost;
-        const location = card.dataset.eventLocation;
+    // Isi data modal waktu dibuka
+    joinModal.addEventListener('show.bs.modal', event => {
+        const button = event.relatedTarget;
+        document.getElementById('eventId').value = button.getAttribute('data-event-id');
+        document.getElementById('modalEventTitle').textContent = button.getAttribute('data-event-title');
+        document.getElementById('modalEventHost').textContent = button.getAttribute('data-event-host');
+        document.getElementById('modalEventLocation').textContent = button.getAttribute('data-event-location');
+    });
 
-        // Update modal content
-        modalEventTitle.textContent = title;
-        // modalEventHost.textContent = host;
-        // modalEventLocation.textContent = `Location: ${location}`;
+    // Submit form AJAX
+    joinForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-        // Show modal
-        joinFormModal.style.display = 'flex';
+        // Reset state
+        phoneError.textContent = '';
+        phoneInput.classList.remove('is-invalid');
+        formAlert.innerHTML = '';
 
+        try {
+            const formData = new FormData(joinForm);
+            const response = await fetch(joinForm.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('input[name=_token]').value
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                formAlert.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+                joinForm.reset();
+
+                // Optional: tutup modal setelah 2 detik
+                setTimeout(() => {
+                    const modal = bootstrap.Modal.getInstance(joinModal);
+                    modal.hide();
+                }, 2000);
+            } else if (result.errors) {
+                if (result.errors.phoneNumber) {
+                    phoneError.textContent = result.errors.phoneNumber[0];
+                    phoneInput.classList.add('is-invalid');
+                }
+            }
+        } catch (err) {
+            formAlert.innerHTML = `<div class="alert alert-danger">Gagal mengirim data.</div>`;
+        }
     });
 });
 
-// Close modal when X is clicked
-closeModal.addEventListener('click', () => {
-    joinFormModal.style.display = 'none';
-    document.body.classList.remove('modal-open');
-});
 
-// Close modal when clicking outside
-joinFormModal.addEventListener('click', (e) => {
-    if (e.target === joinFormModal) {
-        joinFormModal.style.display = 'none';
-        document.body.classList.remove('modal-open');
-    }
-});
 
-// Phone number validation
-phoneInput.addEventListener('input', function (e) {
-    this.value = this.value.replace(/[^0-9]/g, '');
-    if (this.value.length < 10 || this.value.length > 15) {
-        phoneError.style.display = 'block';
-        this.classList.add('error');
-    } else {
-        phoneError.style.display = 'none';
-        this.classList.remove('error');
-    }
-});
-
-joinForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    // Validate phone number again on submit
-    const phoneNumber = phoneInput.value;
-    if (phoneNumber.length < 10 || phoneNumber.length > 15 || !/^[0-9]+$/.test(phoneNumber)) {
-        phoneError.style.display = 'block';
-        phoneInput.classList.add('error');
-        phoneInput.focus();
-        return;
-    }
-
-    // Get other form values
-    const firstName = document.getElementById('firstName').value;
-    const lastName = document.getElementById('lastName').value;
-    const age = document.getElementById('age').value;
-    const address = document.getElementById('address').value;
-
-    // Here you would typically send this data to a server
-    console.log('Form submitted:', {
-        firstName,
-        lastName,
-        phoneNumber,
-        age,
-        address
-    });
-
-    // Show success message
-    alert('Thank you for registering! We look forward to seeing you at the event.');
-
-    // Close modal and reset form
-    joinFormModal.style.display = 'none';
-    document.body.classList.remove('modal-open');
-    joinForm.reset();
-});
 
 function truncateResponsively(selector, breakpoints) {
     const elements = document.querySelectorAll(selector);
