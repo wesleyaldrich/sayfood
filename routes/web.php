@@ -51,33 +51,30 @@ Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
-<<<<<<< HEAD
 Route::get('/events', function () {
     return view('events');
 })->name('events');
 
 Route::middleware(['auth', 'twofactor'])->group(function () {
-=======
-// RESTAURANT
-Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
+    // RESTAURANT
+    Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
 
-Route::get('/restaurant-activity', [TransactionController::class, 'restaurantActivity'])->name('restaurant-activity');
+    Route::get('/restaurant-activity', [TransactionController::class, 'restaurantActivity'])->name('restaurant-activity');
 
-Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
-Route::get('/restaurant-transactions/filter', [TransactionController::class, 'filter'])->name('restaurant-transactions.filter');
-Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
+    Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
+    Route::get('/restaurant-transactions/filter', [TransactionController::class, 'filter'])->name('restaurant-transactions.filter');
+    Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
 
-Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
-Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
+    Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
+    Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
 
-Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
-Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
-Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
-Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
-
+    Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
+    Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
+    Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
+    Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
+});
 
 Route::middleware('twofactor')->group(function () {
->>>>>>> e7763dff1b26d5f0e6287c44f77ba9c9accf9a58
 
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
