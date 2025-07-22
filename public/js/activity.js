@@ -32,28 +32,44 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+// function agreeAndReturnToForm() {
+//   const termsModalEl = document.getElementById('termsAndConditionsModal');
+//   const proposeModalEl = document.getElementById('proposeEventModal');
+
+//   const termsModal = bootstrap.Modal.getInstance(termsModalEl);
+//   const proposeModal = bootstrap.Modal.getOrCreateInstance(proposeModalEl);
+
+//   // Step 1: Close terms modal
+//   termsModal.hide();
+
+//   // Step 2: Tunggu animasi modal hide selesai, baru show modal form
+//   termsModalEl.addEventListener('hidden.bs.modal', function handler() {
+//       // Step 3: Buka kembali modal form
+//       proposeModal.show();
+
+//       // Step 4: Tambahkan class modal-open ke body agar scroll aktif
+//       document.body.classList.add('modal-open');
+
+//       // Step 5: Unbind event listener agar tidak dipanggil berulang
+//       termsModalEl.removeEventListener('hidden.bs.modal', handler);
+//   });
+// }
+
 function agreeAndReturnToForm() {
-  const termsModalEl = document.getElementById('termsAndConditionsModal');
-  const proposeModalEl = document.getElementById('proposeEventModal');
+        // Centang checkbox yang tersembunyi
+        document.getElementById('hiddenAgreeCheckbox').checked = true;
 
-  const termsModal = bootstrap.Modal.getInstance(termsModalEl);
-  const proposeModal = bootstrap.Modal.getOrCreateInstance(proposeModalEl);
+        // Centang juga yang ada di modal Terms (opsional kalau kamu pakai dua)
+        document.getElementById('agreeTermsCheckbox').checked = true;
 
-  // Step 1: Close terms modal
-  termsModal.hide();
+        // Tutup modal Terms & Conditions saja
+        const termsModal = bootstrap.Modal.getInstance(document.getElementById('termsAndConditionsModal'));
+        if (termsModal) {
+            termsModal.hide();
+        }
 
-  // Step 2: Tunggu animasi modal hide selesai, baru show modal form
-  termsModalEl.addEventListener('hidden.bs.modal', function handler() {
-      // Step 3: Buka kembali modal form
-      proposeModal.show();
-
-      // Step 4: Tambahkan class modal-open ke body agar scroll aktif
-      document.body.classList.add('modal-open');
-
-      // Step 5: Unbind event listener agar tidak dipanggil berulang
-      termsModalEl.removeEventListener('hidden.bs.modal', handler);
-  });
-}
+        // Tidak perlu buka modal utama karena masih terbuka
+    }
 
 document.addEventListener('DOMContentLoaded', function () {
     const modals = document.querySelectorAll('.modal');

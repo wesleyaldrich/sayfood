@@ -214,11 +214,15 @@
             </div>
         </div>
     </div>
-
+    
     @if ($errors->any())
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                var myModal = new bootstrap.Modal(document.getElementById('proposeEventModal'));
+            document.addEventListener('DOMContentLoaded', function () {
+                // 1. Trigger ke tab "EVENT ACTIVITIES"
+                document.querySelector('#charity-tab')?.click();
+
+                // 2. Setelah tab terbuka, munculkan modal
+                const myModal = new bootstrap.Modal(document.getElementById('proposeEventModal'));
                 myModal.show();
             });
         </script>
@@ -238,8 +242,6 @@
             </div>
             <div class="modal-body">
 
-
-
                 <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
                     @csrf
 
@@ -255,7 +257,7 @@
                                         name="name" value="{{ old('name') }}" />
                                     @error('name') <div class="text-danger">{{ $message }}</div> @enderror
                                 </div>
-                                
+
                                 <div class="mb-3">
                                     <label class="form-label">Event Category</label>
                                     <select class="form-select @error('event_category_id') is-invalid @enderror"
@@ -417,7 +419,7 @@
                         </div>
                     </div>
 
-                    <div class="submit-section mt-4 d-flex flex-column align-items-start w-100">
+                    <div class="submit-section mt-4 d-flex flex-column align-items-center w-100">
                         <button type="button"
                             class="btn btn-terms d-flex justify-content-center align-items-center gap-2 mb-2 w-100 text-center"
                             data-bs-target="#termsAndConditionsModal" data-bs-toggle="modal">
@@ -425,7 +427,16 @@
                             <span class="text-center">Read Terms & Conditions</span>
                         </button>
 
-                        <button type="submit" class="btn btn-submit w-100">PROPOSE EVENT</button>
+                        <input type="checkbox" name="agree_terms" id="hiddenAgreeCheckbox" hidden>
+
+                        @error('agree_terms')
+                            <div class="text-danger text-center" style="border: 1px red solid">{{ $message }}</div>
+                        @enderror
+
+                        <button type="submit" class="btn btn-submit w-100 mt-4">PROPOSE EVENT</button>
+
+                        
+
                     </div>
                 </form>
 
@@ -434,12 +445,54 @@
     </div>
 </div>
 
+<!-- Modal Terms & Conditions (chained) -->
+<div class="modal fade" id="termsAndConditionsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-3" style="background-color: #234C4C; padding: 30px 40px;">
+            <div class="modal-header border-0 d-flex justify-content-end">
+                <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close"
+                    style="background: none; border: none;">
+                    <i class="bi bi-x-lg text-white fs-4 p-2" style="background: red; border-radius: 50px;"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="fw-bold mb-4 text-white text-center" style="font-family: 'Oswald';">Terms & Conditions</h3>
+                <div class="terms-content bg-white p-4 rounded-3 text-start"
+                    style="max-height: 300px; overflow-y: auto;">
+                    <p>By submitting an event on SayFood, you agree to the following:</p>
+                    <ol>
+                        <li><strong>Community Respect:</strong> Promote kindness, inclusivity, and sustainability.</li>
+                        <li><strong>Food Safety:</strong> You are responsible for food hygiene.</li>
+                        <li><strong>Honest Info:</strong> Update your event details if needed.</li>
+                        <li><strong>No Profit-Only:</strong> Focus must be on community.</li>
+                        <li><strong>Liability:</strong> SayFood is not responsible for issues.</li>
+                        <li><strong>Moderation Right:</strong> We may reject your event if needed.</li>
+                    </ol>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-center mt-4">
+                    <input type="checkbox" id="agreeTermsCheckbox">
+                    <label onclick="agreeAndReturnToForm()" style="cursor: pointer; color: white;">
+                        I agree to the Terms & Conditions above.
+                    </label>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
 
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/activity.css') }}">
+<link rel="stylesheet" href="{{ asset('css/activity.css') }}">
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/activity.js') }}" defer></script>
+<script src="{{ asset('js/activity.js') }}" defer></script>
 @endpush

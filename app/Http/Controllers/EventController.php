@@ -68,6 +68,8 @@ class EventController extends Controller
             'end_ampm' => 'required',
 
             'files.*' => 'nullable|file|max:5120', // max 5MB each
+
+            'agree_terms' => 'accepted'
         ]);
 
         // Parse jam dari input
@@ -89,7 +91,6 @@ class EventController extends Controller
             $imagePath = $request->file('image')->storeAs('events', $originalName, 'public');
         }
 
-
         // Simpan file pendukung jika ada
         $supportingFiles = [];
         if ($request->hasFile('files')) {
@@ -109,8 +110,6 @@ class EventController extends Controller
 
         $duration = $start->diffInMinutes($end); // yang benar: $start->diffInMinutes($end), bukan sebaliknya
         $durationInHours = ceil($duration / 60);
-
-
 
         // Simpan data ke DB
         Event::create([
