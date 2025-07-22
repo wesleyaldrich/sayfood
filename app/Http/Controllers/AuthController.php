@@ -199,7 +199,7 @@ class AuthController extends Controller
         ]);
 
         // Update the status to be 'approved'
-        $registration->status = 'approved';
+        $registration->status = 'operational';
         $registration->save();
 
         // Notify the user via email message

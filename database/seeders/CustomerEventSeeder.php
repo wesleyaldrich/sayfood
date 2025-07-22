@@ -66,18 +66,18 @@ class CustomerEventSeeder extends Seeder
                 'event_id'=>7,
                 'customer_id'=>7
             ],
-            [
-                'event_id'=>10,
-                'customer_id'=>8
-            ],
-            [
-                'event_id'=>10,
-                'customer_id'=>9
-            ],
-            [
-                'event_id'=>10,
-                'customer_id'=>3
-            ],
+            // [
+            //     'event_id'=>10,
+            //     'customer_id'=>8
+            // ],
+            // [
+            //     'event_id'=>10,
+            //     'customer_id'=>9
+            // ],
+            // [
+            //     'event_id'=>10,
+            //     'customer_id'=>3
+            // ],
         ]);
         
     }

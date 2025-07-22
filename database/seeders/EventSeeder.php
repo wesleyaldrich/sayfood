@@ -95,6 +95,7 @@ class EventSeeder extends Seeder
                 'image_url' => 'assets/event_images/ev9.jpeg', 'date' => '2025-10-25', 'location' => 'Kampus IPB Dramaga, Kecamatan Dramaga, Kabupaten Bogor', 'status' => 'Pending',
                 'created_at' => now(), 'updated_at' => now()
             ],
+<<<<<<< HEAD
             [
                 'id' => 10,
                 'creator_id' => 10,
@@ -113,5 +114,15 @@ class EventSeeder extends Seeder
         }
 
          DB::table('events')->insert($events);
+=======
+            // [
+            //     'id' => 10, 'creator_id' => 10, 'event_category_id' => 1, // Food Donation
+            //     'name' => 'Ascott Takes Part Ramadan 2025',
+            //     'description' => 'Ascott Takes Part Ramadan 2025 merupakan wujud kepedulian The Ascott Limited terhadap masyarakat sekitar dengan berbagi takjil gratis.',
+            //     'image_url' => 'assets/event_images/ev10.jpg', 'date' => '2025-03-13', 'location' => 'Oakwood Hotel & Apartments Grand Batam', 'status' => 'Completed',
+            //     'created_at' => now(), 'updated_at' => now()
+            // ]
+        ]);
+>>>>>>> ac428bdae8a6ef4035a29b5bb78563fbaf9f2e5c
     }
 }

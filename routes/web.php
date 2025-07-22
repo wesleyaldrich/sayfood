@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeDishesController;
 use App\Http\Controllers\HomeRestaurantController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\RestaurantAdminController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
@@ -103,6 +104,8 @@ Route::middleware('twofactor')->group(function () {
 
         Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');
         Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
+
+        Route::get('/admin/manage-restaurants', [RestaurantAdminController::class, 'index'])->name('show.manage.restaurants');
 
         Route::get('/admin/logs', function(){
             return Activity::all();

@@ -13,7 +13,7 @@ class EventCustController extends Controller
      */
     public function index()
     {
-        $slides = Event::with(['creator.user', 'customers']) // eager load relasi
+        $slides = Event::with(['creator.user', 'customers'])
             ->latest()
             ->get()
             ->map(function ($event) {
@@ -21,7 +21,6 @@ class EventCustController extends Controller
                     ->locale('id')
                     ->translatedFormat('l, j F Y');
 
-                // Ambil nama user dari creator_id (melalui relasi customer -> user)
                 $author = $event->creator?->user?->username ?? 'Unknown';
 
                 return [
@@ -36,6 +35,7 @@ class EventCustController extends Controller
                     'duration' => $event->hour,
                 ];
             });
+
         $coming_soon = Event::with(['creator.user', 'customers'])
             ->where('status', 'Coming Soon')
             ->latest()
@@ -43,34 +43,61 @@ class EventCustController extends Controller
             ->get()
             ->map(function ($event) {
                 $date = Carbon::parse($event->date)->locale('id');
-
                 $author = $event->creator?->user?->username ?? 'Unknown';
-
-                // Ambil substring lokasi sebelum koma
                 $location = $event->location ?? '';
+                $shortLocation = $location;
                 if (strpos($location, ',') !== false) {
-                    $shortLocation = trim(explode(',', $location)[0]);
-                } else {
-                    $shortLocation = trim($location);
+                    $pos = strrpos($location, ','); // cari koma terakhir
+                    $shortLocation = trim(substr($location, $pos + 1)); // ambil setelah koma terakhir
                 }
+
 
                 return [
                     'id' => $event->id,
                     'title' => $event->name,
                     'author' => $author,
-                    'location' => $shortLocation, // hanya bagian sebelum koma
+                    'location' => $shortLocation,
                     'image' => $event->image_url,
                     'people' => $event->customers->count(),
                     'formatted_date' => $date->translatedFormat('l, j F Y'),
                     'month' => $date->translatedFormat('F'),
                     'day' => $date->translatedFormat('j'),
                     'description' => $event->description,
-                    'duration' => Carbon::parse($event->hour)->format('H:i'), // contoh: 15:00
+                    'duration' => $event->hour,
                 ];
             });
 
-        return view('events', compact('slides', 'coming_soon'));
+        // Bagian Recommended (misalnya event populer, bisa filter pakai kondisi lain)
+        $events = Event::with(['creator.user', 'customers'])
+            ->latest()
+            ->take(3) // ambil 6 event
+            ->get()
+            ->map(function ($event) {
+                $location = $event->location ?? '';
+                $shortLocation = $location;
+                if (strpos($location, ',') !== false) {
+                    $pos = strrpos($location, ','); // cari koma terakhir
+                    $shortLocation = trim(substr($location, $pos + 1)); // ambil setelah koma terakhir
+                }
+
+                return [
+                    'id' => $event->id,
+                    'title' => $event->name,
+                    'host' => $event->creator?->user?->username ?? 'Unknown',
+                    'location' => $shortLocation,
+                    'image' => $event->image_url,
+                    'participants' => $event->customers->count(),
+                    'date' => Carbon::parse($event->date)
+                        ->locale('id')
+                        ->translatedFormat('l, j F Y'),
+                    'badge' => $event->status ?? 'Active', // default badge
+                    'badge_color' => $event->status === 'Coming Soon' ? 'warning' : 'success', // warna badge
+                ];
+            });
+
+        return view('events', compact('slides', 'coming_soon', 'events'));
     }
+
 
     /**
      * Show the form for creating a new resource.
