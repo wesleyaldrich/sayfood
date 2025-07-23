@@ -15,8 +15,8 @@ class EventCustController extends Controller
     {
         $slides = Event::with(['creator.user', 'customers'])
             ->latest()
-            ->get()
-            ->map(function ($event) {
+            ->paginate(4) // Ambil 10 per halaman
+            ->through(function ($event) {
                 $formattedDate = Carbon::parse($event->date)
                     ->locale('id')
                     ->translatedFormat('l, j F Y');
@@ -70,7 +70,7 @@ class EventCustController extends Controller
         // Bagian Recommended (misalnya event populer, bisa filter pakai kondisi lain)
         $events = Event::with(['creator.user', 'customers'])
             ->latest()
-            ->take(3) // ambil 6 event
+            ->take(3) // ambil 
             ->get()
             ->map(function ($event) {
                 $location = $event->location ?? '';

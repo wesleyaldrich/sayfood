@@ -99,7 +99,7 @@
                                 <div class="coming-item mb-3 d-flex align-items-center">
                                     <div class="Container-csd rounded p-3 d-flex align-items-center">
                                         <div class="Container-date-box text-white fw-bold text-center mx-0">
-                                            <div class="date p-3">
+                                            <div class="date p-4">
                                                 {{ $event['month'] }}<br />
                                                 <div class="date-cs" style="font-size: 25px;">
                                                     {{ $event['day'] }}
@@ -186,6 +186,9 @@
                     </div>
                 </div>
             @endforeach
+            <div class="mt-3">
+                {{ $slides->links() }}
+            </div>
         </div>
     </div>
 
@@ -224,30 +227,10 @@
         </div>
     </div>
 
-    
-    {{-- Pagination --}}
-    <div class="d-flex justify-content-center mb-4">
-        <nav>
-            <ul class="pagination mb-0">
-                <li class="page-item active">
-                    <a class="page-link text-white" href="#"
-                        style="background-color: #f6d6a4; border-color: #f6d6a4;">1</a>
-                </li>
-                <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">4</a></li>
-                <li class="page-item"><a class="page-link text-dark" href="#">5</a></li>
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#"><i class="bi bi-chevron-right"></i></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    </div>
 
 
     <!-- Volunteering -->
-    <div class="volunteering-list row row-cols-1 row-cols-md-3 g-4 container-fluid">
+    <div class="volunteering-list row row-cols-1 row-cols-md-3 g-4 container-fluid py-5">
         <!-- Card 1 -->
         <div class="col">
             <div class="card border-0 shadow-sm h-100 text-center">
