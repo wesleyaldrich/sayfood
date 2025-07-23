@@ -48,41 +48,6 @@ Route::middleware('twofactor')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
     Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
-
-// FORGOT PASSWORD
-Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
-Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
-Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
-Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
-
-// RESTAURANT
-Route::get('/restaurant-home', [HomeRestaurantController::class, 'index'])->name('restaurant-home');
-
-Route::get('/restaurant-activity', [TransactionController::class, 'restaurantActivity'])->name('restaurant-activity');
-
-Route::get('/restaurant-transactions', [TransactionController::class, 'index'])->name('restaurant-transactions');
-Route::get('/restaurant-transactions/filter', [TransactionController::class, 'filter'])->name('restaurant-transactions.filter');
-Route::get('/restaurant-transactions/download', [TransactionController::class, 'download'])->name('restaurant-transactions.download');
-
-Route::get('/restaurant-orders', [TransactionController::class, 'manageOrders'])->name('restaurant-orders');
-Route::post('/restaurant-orders/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('restaurant-orders.update-status');
-
-Route::get('/restaurant-foods', [RestaurantController::class, ('manageFood')])->name('manage.food.restaurant');
-Route::post('/restaurant-foods/create', [RestaurantController::class,'store'])->name('create.food.restaurant');
-Route::patch('/restaurant-foods/update/{id}', [RestaurantController::class, 'update'])->name('update.food.restaurant');
-Route::delete('/restaurant-foods/delete/{id}', [RestaurantController::class, 'destroy'])->name('delete.food.restaurant');
-
-
-Route::middleware('twofactor')->group(function () {
-
-    // LOGOUT
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-    // PROFILE OPTIONS
-    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-    Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
-    Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
     
     // CUSTOMER & ADMIN ROUTES
     Route::middleware('role:customer')->group(function(){
@@ -95,6 +60,31 @@ Route::middleware('twofactor')->group(function () {
         Route::post('/profile-restaurant', [AuthController::class, 'updateProfileRestaurant'])->name('update.profile.restaurant');
         Route::post('/login-as-customer', [AuthController::class, 'redirectToCustomerLogin'])->name('login.as.customer');
     });
+
+    // ADMIN ROUTES
+    Route::middleware('role:admin')->group(function(){
+
+        // ADMIN APPROVE RESTAURANT REGISTRATION (DELETE SOON)!
+        Route::get('/approve-registration/{id}', [AuthController::class, 'approveRegistration'])->name('approve.registration');
+
+        Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');
+        Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
+
+        
+        Route::post('/admin/manage-events/approve/{event}', [EventController::class,'approve'])->name('admin.approve.event');
+        Route::post('/admin/manage-events/reject/{event}', [EventController::class,'reject'])->name('admin.reject.event');
+
+        Route::post('admin/create/event',[EventController::class, 'store'])->name('admin.create.event');
+
+        Route::get('/admin/manage-restaurants', [RestaurantAdminController::class, 'index'])->name('show.manage.restaurants');
+        Route::get('/admin/manage-restaurants/{id}', [RestaurantAdminController::class, 'show'])->name('show.manage.restaurants.detail');
+        Route::post('/admin/manage-restaurants/export/{id}', [RestaurantAdminController::class, 'export'])->name('show.manage.restaurants.detail.export');
+
+        Route::get('/admin/logs', function(){
+            return Activity::all();
+        });
+    });
+
 });
 
 Route::middleware('auth')->group(function () {
