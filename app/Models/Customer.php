@@ -20,11 +20,9 @@
             return $this->hasMany(Event::class);
         }
 
-        public function joinedEvents()
-        {
-            // return $this->belongsToMany(Event::class, 'customer_event', 'event_id', 'customer_id');
-            return $this->belongsToMany(Event::class, 'customer_event', 'customer_id', 'event_id');
-        }
+    public function joinedEvents(){
+        return $this->belongsToMany(Event::class, 'customer_event','customer_id','event_id');
+    }
 
         public function user()
         {

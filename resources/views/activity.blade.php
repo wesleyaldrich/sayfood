@@ -204,9 +204,9 @@
                                         <div class="mb-3">
                                             <label class="form-label">WhatsApp Group Link</label>
                                             <input type="url"
-                                                class="form-control @error('wa_link') is-invalid @enderror"
-                                                name="wa_link" value="{{ old('wa_link') }}" />
-                                            @error('wa_link') <div class="text-danger">{{ $message }}</div> @enderror
+                                                class="form-control @error('group_link') is-invalid @enderror"
+                                                name="group_link" value="{{ old('group_link') }}" />
+                                            @error('group_link') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
                                     </div>
 

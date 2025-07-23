@@ -30,7 +30,7 @@ return new class extends Migration
             $table->integer('duration')->nullable(); // Misalnya '2'
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
-            $table->string('wa_link')->nullable(); // Link grup
+            $table->string('group_link')->nullable(); // Link grup
             $table->string('organizer_name')->nullable();
             $table->string('organizer_phone')->nullable();
             $table->string('organizer_email')->nullable();

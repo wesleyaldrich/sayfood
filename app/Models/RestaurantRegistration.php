@@ -34,4 +34,9 @@ class RestaurantRegistration extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class, 'id', 'id');
+    }
 }

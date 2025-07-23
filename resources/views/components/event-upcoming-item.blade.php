@@ -83,9 +83,9 @@
 
                             <div class="community-link d-flex align-items-center">
                                 <strong>Community:</strong>
-                                <a href="{{ $event->wa_link }}" target="_blank" class="link-whatsapp"
+                                <a href="{{ $event->group_link }}" target="_blank" class="link-whatsapp"
                                     style="margin-left: 10px">
-                                    {{ $event->wa_link }}
+                                    {{ $event->group_link }}
                                 </a>
                             </div>
                         </div>

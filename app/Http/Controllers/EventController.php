@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use Carbon\Carbon;
+use App\Models\EventCategory;use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -27,8 +27,10 @@ class EventController extends Controller
         // 4. Ambil data event yang sudah difilter dan urutkan dari yang terbaru
         $events = $query->latest()->get();
 
+        $categories = EventCategory::all();
+
         // 5. Kirim data events dan statuses ke view
-        return view('manage-events', compact('events', 'statuses'));
+        return view('manage-events', compact('events', 'statuses','categories'));
     }
 
 
@@ -58,7 +60,7 @@ class EventController extends Controller
                 'organizer_name' => 'required',
                 'organizer_email' => 'required|email',
                 'organizer_phone' => 'required',
-                'wa_link' => 'required|url',
+                'group_link' => 'required|url',
 
                 'start_hour' => 'required',
                 'start_minute' => 'required',
@@ -126,7 +128,7 @@ class EventController extends Controller
                 'organizer_name' => $request->organizer_name,
                 'organizer_email' => $request->organizer_email,
                 'organizer_phone' => $request->organizer_phone,
-                'wa_link' => $request->wa_link,
+                'group_link' => $request->group_link,
                 'supporting_files' => json_encode($supportingFiles),
                 'duration' => $durationInHours,
 

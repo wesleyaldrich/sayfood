@@ -204,7 +204,7 @@ class TransactionController extends Controller
                     'image' => asset($event->image_url),
                     'description' => $event->description,
                     'duration' => '12',
-                    'wa_link' => 'https://wa.me/6281234567890',
+                    'group_link' => 'https://wa.me/6281234567890',
                 ];
             });
 
