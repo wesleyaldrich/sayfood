@@ -16,7 +16,7 @@
                             ADMIN
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#2">REVIEW REPORT</a></li>
+                            <li><a class="dropdown-item" href="{{route('report.resto.admin')}}">REVIEW REPORT</a></li>
                             <li><a class="dropdown-item" href="#3">MANAGE RESTAURANT</a></li>
                             <li><a class="dropdown-item" href="#4">MANAGE EVENT</a></li>
                         </ul>
@@ -70,9 +70,9 @@
             
             @if (Auth::check() && Auth::user()->role === 'admin')
                 <li class="p-0"><hr class="dropdown-divider"></li>
-                <li class="">
-                    <a href="#" class="oswald nav-button">REVIEW REPORT</a>
-                </li>
+                {{-- <li class="">
+                    <a href="{{ route('report-admin') }}" class="oswald nav-button">REVIEW REPORT</a>
+                </li> --}}
                 <li class="">
                     <a href="#" class="oswald nav-button">MANAGE RESTAURANT</a>
                 </li>

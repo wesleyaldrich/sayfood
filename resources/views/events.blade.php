@@ -81,8 +81,7 @@ $events = [
                                         <div
                                             class="card-details d-flex p-2 align-items-center bg-dark text-white rounded-bottom">
                                             <!-- Participant Circle -->
-                                            <div
-                                                class="participants-circle d-flex align-items-center justify-content-center">
+                                            <div class="participants-circle d-flex align-items-center justify-content-center">
                                                 <div class="circle text-dark d-flex flex-column align-items-center justify-content-center rounded-circle"
                                                     style="width:70px; height:70px; border: 3px solid #cd8200;">
                                                     <img src="{{ asset('assets/participant_logo.png') }}"
@@ -98,7 +97,8 @@ $events = [
                                             <div class="d-flex justify-content-between align-items-center w-100 flex-wrap">
                                                 <!-- Kiri: Title & Host -->
                                                 <div>
-                                                    <p class="title fw-bold mb-0" style="font-size: 20px;">{{ $event['title'] }}</p>
+                                                    <p class="title fw-bold mb-0" style="font-size: 20px;">{{ $event['title'] }}
+                                                    </p>
                                                     <p class="host fst-italic mb-0 text-warning">by {{ $event['host'] }}</p>
                                                 </div>
 
@@ -220,7 +220,7 @@ $events = [
 
                         {{-- Join Button --}}
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-success rounded-pill px-5 py-1" style="background-color: #1d4d4f;">Join
+                            <button class="btn btn-success rounded-pill px-2 py-1" style="background-color: #1d4d4f;">Join
                                 Event</button>
                         </div>
                     </div>
@@ -300,6 +300,7 @@ $events = [
                             community. Every event is a chance to give back and connect.</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

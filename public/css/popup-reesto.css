@@ -1,0 +1,72 @@
+body {
+    font-family: 'Oswald', sans-serif;
+}
+
+.popup-report-card {
+    max-width: 400px;
+    margin: auto;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 2px solid #a855f7; /* ungu lembut */
+    background-color: #ffffff;
+}
+
+/* Title */
+.popup-report-card .title-report {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+/* Subtitle */
+.popup-report-card p {
+    font-size: 1rem;
+    color: #333333;
+    margin-bottom: 16px;
+}
+
+/* Option buttons */
+.popup-report-card .option-btn {
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 1rem;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.popup-report-card .option-btn:hover {
+    background-color: #e5e5e5;
+    border-color: #999999;
+}
+
+/* Others section */
+.popup-report-card .others-section {
+    background-color: #ebebeb;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.popup-report-card textarea.form-control {
+    border-radius: 12px;
+    border: 1px solid #999999;
+    resize: none;
+    padding: 10px;
+}
+
+/* Submit button */
+.popup-report-card .btn-submit {
+    background-color: #1d4d4f;
+    color: white;
+    border-radius: 9999px;
+    padding: 6px 32px;
+    font-size: 1rem;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.popup-report-card .btn-submit:hover {
+    background-color: #163b3c;
+    color: white;
+}

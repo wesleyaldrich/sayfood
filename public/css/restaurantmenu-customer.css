@@ -325,3 +325,23 @@
         left: 15px;
     }
 }
+
+/*Report Resto Button*/
+.report-resto img {
+    width: 50px; 
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.report-resto img:hover {
+    opacity: 70%;
+}
+
+.report-resto {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10; /* supaya gak ketutup elemen lain */
+    cursor: pointer;
+}
