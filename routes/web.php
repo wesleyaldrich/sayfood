@@ -109,6 +109,8 @@ Route::middleware('twofactor')->group(function () {
         Route::get('/admin/manage-restaurants', [RestaurantAdminController::class, 'index'])->name('show.manage.restaurants');
         Route::get('/admin/manage-restaurants/{id}', [RestaurantAdminController::class, 'show'])->name('show.manage.restaurants.detail');
         Route::post('/admin/manage-restaurants/export/{id}', [RestaurantAdminController::class, 'export'])->name('show.manage.restaurants.detail.export');
+        Route::post('/admin/manage-restaurants/reject/{id}', [RestaurantAdminController::class, 'reject'])->name('show.manage.restaurants.detail.reject');
+        Route::post('/admin/manage-restaurants/approve/{id}', [RestaurantAdminController::class, 'approve'])->name('show.manage.restaurants.detail.approve');
 
         Route::get('/admin/logs', function(){
             return Activity::all();

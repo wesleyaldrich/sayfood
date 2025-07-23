@@ -60,7 +60,7 @@ class Restaurant extends Model
 
     public function registration()
     {
-        return $this->hasOne(RestaurantRegistration::class, 'id', 'id');
+        return $this->hasOne(RestaurantRegistration::class);
     }
 
     public function getTotalDonationAttribute()
