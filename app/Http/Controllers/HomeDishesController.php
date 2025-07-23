@@ -45,6 +45,7 @@ class HomeDishesController extends Controller
                     'date' => $event->date,
                 ];
             });
+        // dd($events);
         $slides = Event::with(['creator.user', 'customers']) // eager load relasi
             ->where('status', 'Completed')
             ->latest()

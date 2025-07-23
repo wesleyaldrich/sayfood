@@ -119,7 +119,7 @@ class EventSeeder extends Seeder
                 'event_category_id' => 1, // Food Donation
                 'name' => 'Ascott Takes Part Ramadan 2025',
                 'description' => 'Ascott Takes Part Ramadan 2025 merupakan wujud kepedulian The Ascott Limited terhadap masyarakat sekitar dengan berbagi takjil gratis.',
-                'image_url' => 'assets/event_images/ev10.jpg', 'date' => '2025-03-13', 'location' => 'Oakwood Hotel & Apartments Grand Batam', 'status' => 'Completed',
+                'image_url' => 'event_images/ev10.jpg', 'date' => '2025-03-13', 'location' => 'Oakwood Hotel & Apartments Grand Batam', 'status' => 'Completed',
                 'created_at' => now(), 'updated_at' => now(),
                 'group_link'=>$this->randomGroupLink()
             ]

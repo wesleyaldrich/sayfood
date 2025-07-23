@@ -202,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalEventTitle').textContent = button.getAttribute('data-event-title');
         document.getElementById('modalEventHost').textContent = button.getAttribute('data-event-host');
         document.getElementById('modalEventLocation').textContent = button.getAttribute('data-event-location');
+        document.getElementById('modalEventDate').textContent = button.getAttribute('data-event-date');
     });
 
     // Submit form AJAX

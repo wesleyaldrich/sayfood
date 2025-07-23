@@ -992,3 +992,19 @@ button {
   font-weight: bold !important;
   margin-bottom: 15px;
 }
+
+.truncate-text {
+    display: block;          /* Pastikan ini dianggap block */
+    max-width: 100px;        /* Atur lebar sesuai kebutuhan */
+    white-space: nowrap;     /* Jangan pindah baris */
+    overflow: hidden;        /* Sembunyikan teks berlebih */
+    text-overflow: ellipsis; /* Tambahkan ... di akhir */
+}
+
+.truncate-text1 {
+    display: block;          /* Pastikan ini dianggap block */
+    max-width: 180px;        /* Atur lebar sesuai kebutuhan */
+    white-space: nowrap;     /* Jangan pindah baris */
+    overflow: hidden;        /* Sembunyikan teks berlebih */
+    text-overflow: ellipsis; /* Tambahkan ... di akhir */
+}

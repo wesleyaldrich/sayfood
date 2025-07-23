@@ -193,14 +193,16 @@
             @foreach ($events as $event)
                 <div class="event-card m-5" data-bs-toggle="modal" data-bs-target="#joinFormModal"
                     data-event-id="{{ $event['id'] }}" data-event-title="{{ $event['name'] }}"
-                    data-event-host="{{ $event['host'] }}" data-event-location="{{ $event['location'] }}">
+                    data-event-host="{{ $event['host'] }}" data-event-location="{{ $event['location'] }}"
+                    data-event-date="{{ $event['date'] }}">
                     @if (isset($event['badge']))
                         <div class="event-badge badge-{{ strtolower($event['badge_color']) }}">
                             {{ $event['badge'] }}
                         </div>
                     @endif
                     <div class="image-container">
-                        <img src="{{ $event['image_url'] }}" alt="{{ $event['name'] }}" class="event-image">
+                        <img src="{{ asset('storage/' . $event['image_url']) }}" alt="{{ $event['name'] }}"
+                            class="event-image">
                         <div class="image-content">
                             <div class="shape-container">
                                 <div class="circle">
@@ -269,6 +271,8 @@
                     <p class="lato-light-italic" id="modalEventHost"></p>
                     <label class="form-label text-[#234C4C] text-xl">Location</label>
                     <p class="lato-regular" id="modalEventLocation"></p>
+                    <label class="form-label text-[#234C4C] text-xl">Date</label>
+                    <p class="lato-regular" id="modalEventDate"></p>
                     <!-- Form Join -->
                     <form method="POST" action="{{ route('event.join') }}">
                         @csrf
@@ -313,7 +317,7 @@
                             <div class="carousel-header">{{ $slide['title'] }}</div>
                             <div class="carousel-sub">by {{ $slide['author'] }}</div>
                             <div class="carousel-body">
-                                <img src="{{ $slide['image'] }}" alt="{{ $slide['title'] }}">
+                                <img src="{{ asset('storage/' . $slide['image']) }}" alt="{{ $slide['title'] }}">
                                 <div class="carousel-text" id="text-{{ $index }}">
                                     <div class="desc">{{ $slide['description'] }}</div>
                                     <div class="carousel-info">
