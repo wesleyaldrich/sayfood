@@ -127,7 +127,7 @@
             <div class="col-lg-8">
                 <div class="details-card">
                     @if($event->image_url)
-                        <img src="{{ asset($event->image_url) }}" class="event-photo" alt="[Photo of {{ $event->name }}]">
+                        <img src="{{ asset('storage/' . $event->image_url) }}" class="event-photo" alt="[Photo of {{ $event->name }}]">
                     @endif
 
                     <div class="card-body">

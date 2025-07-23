@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Http\Requests\AdminEventStoreRequest;
 use App\Models\Event;
 use App\Models\EventCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -53,9 +56,28 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AdminEventStoreRequest $request)
     {
-        return view('manage-events');
+        $validated = $request->validated();
+
+        $imagePath = null;
+        if ($request->hasFile('image_url')) {
+            $imagePath = $request->file('image_url')->store('event_images', 'public');
+        }
+
+        Event::create([
+            'name'              => $validated['name'],
+            'description'       => $validated['description'],
+            'creator_id'        => 1,
+            'event_category_id' => $validated['event_category_id'],
+            'date'              => $validated['date'],
+            'location'          => $validated['location'],
+            'status'            => $validated['status'],
+            'group_link'        => $validated['group_link'],
+            'image_url'         => $imagePath,
+        ]);
+
+        return redirect()->route('show.manage.events')->with('status', 'Event successfully created!');
     }
 
     /**
@@ -77,7 +99,7 @@ class EventController extends Controller
         $event->save(); 
 
         return redirect()->back()->with('success', 'Event "' . $event->name . '" has been approved successfully.');
-    }
+    } 
 
     public function reject(Event $event)
     {
