@@ -241,6 +241,30 @@
     font-weight: bold;
 }
 
+.modal-content.popupmodal{
+    background-color: white;
+    border-radius: 1.5rem;
+}
+
+.modal-title{
+    font-family: "Oswald";
+    font-size: 20px;
+    font-weight: bold;
+    color:white;
+}
+
+.modal-header{
+    background-color: #234C4C;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+}
+
+.modal-body{
+    font-family: "Lato";
+    font-size: 15px;
+    font-weight: bold;
+}
+
 .modal-content{
     border-radius: 1.5rem;
 }

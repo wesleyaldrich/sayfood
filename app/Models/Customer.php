@@ -15,5 +15,17 @@ class Customer extends Model
         return $this->hasMany(Order::class, 'customer_id');
     }
 
-    
+    public function createdEvents(){
+        return $this->hasMany(Event::class);
+    }
+
+    public function joinedEvents(){
+        return $this->belongsToMany(Event::class, 'customer_event','customer_id','event_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+                            
 }

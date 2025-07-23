@@ -17,6 +17,7 @@
                     <th>Customer Name</th>
                     <th>Food Name</th>
                     <th>Qty</th>
+                    <th>Notes</th>
                     <th>Order Date</th>
                     <th>Action</th>
                 </tr>
@@ -37,10 +38,11 @@
                             @if ($index === 0)
                                 <td rowspan="{{ $rowspan }}">{{ $no++ }}</td>
                                 <td rowspan="{{ $rowspan }}">ORD{{ str_pad($order->id, 3, '0', STR_PAD_LEFT) }}</td>
-                                <td rowspan="{{ $rowspan }}">{{ $order->customer->username }}</td>
+                                <td rowspan="{{ $rowspan }}">{{ $order->customer->user->username }}</td>
                             @endif
                             <td>{{ $item->food->name }}</td>
                             <td>{{ $item->qty }}</td>
+                            <td>{{ $item->notes }}</td>
                             @if ($index === 0)
                                 <td rowspan="{{ $rowspan }}">{{ $order->created_at->format('d/m/y') }}</td>
                                 <td rowspan="{{ $rowspan }}">

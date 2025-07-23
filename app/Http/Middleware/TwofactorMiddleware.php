@@ -18,7 +18,7 @@ class TwofactorMiddleware
     {
         // Check if the user is authenticated
         if (!Auth::check()) {
-            return redirect()->route('show.login');
+            return redirect()->route('selection.login');
         }
 
         $user = Auth::user();

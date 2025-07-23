@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\RestaurantRegistration;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
@@ -41,6 +42,12 @@ class AuthController extends Controller
             $message->to($currentUser->email)
                     ->subject('Sayfood | Two-Factor Authentication Code');
         });
+
+        Log::channel('auth')->info('User registered.', [
+            'user_id' => $currentUser->id,
+            'username' => $currentUser->username,
+            'email' => $currentUser->email
+        ]);
 
         return redirect()->route('twofactor.verif');
     }
@@ -94,20 +101,38 @@ class AuthController extends Controller
             // Log the user in (if not already)
             Auth::login($currentUser);
 
+            Log::channel('auth')->info('User passed two-factor verification.', [
+                'user_id' => $currentUser->id
+            ]);
+
             return redirect()->route('home')->with('status', 'Two-factor authentication successful.');
         } else {
+            Log::channel('auth')->info('User submitted wrong two-factor code.', [
+                'user_id' => $currentUser->id,
+                'actual_otp' => $currentUser->two_factor_code,
+                'submitted_otp' => $validatedData['otp']
+            ]);
+
             throw ValidationException::withMessages([
                 'otp' => 'The provided two-factor code is incorrect.',
             ]);
         }
     }
 
-    public function twoFactorResend(Request $request)
+    public function twoFactorResend()
     {
         // Check if the user is authenticated
         if (!Auth::check()) {
+            Log::channel('auth')->warning('Unauthenticated user attempted to request a new two-factor code.',[
+                'ip_address' => request()->ip()
+            ]);
+            
             return redirect()->route('show.register');
         }
+
+        Log::channel('auth')->info('User requested a new two-factor code.', [
+            'user_id' => Auth::id()
+        ]);
 
         $currentUser = Auth::user();
 
@@ -141,6 +166,11 @@ class AuthController extends Controller
 
         RestaurantRegistration::create($validatedData);
 
+        Log::channel('auth')->info('Restaurant registration created.', [
+            'restaurant_name' => $validatedData['name'],
+            'email' => $validatedData['email']
+        ]);
+
         return redirect()->route('home')->with('status', 'Restaurant registration successful. We will contact your email soon.');
     }
 
@@ -169,7 +199,7 @@ class AuthController extends Controller
         ]);
 
         // Update the status to be 'approved'
-        $registration->status = 'approved';
+        $registration->status = 'operational';
         $registration->save();
 
         // Notify the user via email message
@@ -188,6 +218,11 @@ class AuthController extends Controller
             ");
         });
 
+        Log::channel('auth')->info('Restaurant registration approved.', [
+            'restaurant_name' => $registration->name,
+            'admin_id' => Auth::id()
+        ]);
+
         return;
     }
 
@@ -201,6 +236,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($validatedData)) {
             if (Auth::user()->role === 'customer' || Auth::user()->role === 'admin') {
+                Log::channel('auth')->info('User successfully logged in.', [
+                    'user_id' => Auth::id(),
+                    'username' => Auth::user()->username
+                ]);
+
                 $request->session()->regenerate();
                 return redirect()->route('home');
             }
@@ -208,12 +248,20 @@ class AuthController extends Controller
             Auth::logout();
 
             // show error
+            Log::channel('auth')->error('User attempted to log in with a customer account but has a different role.', [
+                'user_id' => Auth::id(),
+            ]);
+
             throw ValidationException::withMessages([
                 'credentials' => 'You do not have a customer account.',
             ]);
         }
         else {
             // If auth fails, show error
+            Log::channel('auth')->error('Failed login attempt as customer.', [
+                'username' => $validatedData['username']
+            ]);
+
             throw ValidationException::withMessages([
                 'credentials' => 'The provided credentials do not match our records.',
             ]);
@@ -230,6 +278,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($validatedData)) {
             if (Auth::user()->role === 'restaurant') {
+                Log::channel('auth')->info('Restaurant successfully logged in.', [
+                    'user_id' => Auth::id(),
+                    'username' => Auth::user()->username,
+                    'restaurant_id' => Auth::user()->restaurant->id,
+                    'restaurant_name' => Auth::user()->restaurant->name
+                ]);
+
                 $request->session()->regenerate();
                 return redirect()->route('restaurant-home');
             }
@@ -237,12 +292,20 @@ class AuthController extends Controller
             Auth::logout();
 
             // show error
+            Log::channel('auth')->error('User attempted to log in with a restaurant account but has a different role.', [
+                'user_id' => Auth::id(),
+            ]);
+
             throw ValidationException::withMessages([
                 'credentials' => 'You do not have a restaurant account.',
             ]);
         }
         else {
             // If auth fails, show error
+            Log::channel('auth')->error('Failed login attempt as restaurant.', [
+                'username' => $validatedData['username']
+            ]);
+
             throw ValidationException::withMessages([
                 'credentials' => 'The provided credentials do not match our records.',
             ]);
@@ -251,10 +314,16 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        Log::channel('auth')->info('User logged out.', [
+            'user_id' => Auth::id(),
+            'username' => Auth::user()->username
+        ]);
+        
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
 
         return redirect()->route('home');
     }
@@ -349,7 +418,7 @@ class AuthController extends Controller
             $imagePath = $image->storeAs('profile_images', $imageName, 'public');
 
             // Save the image path to the user (assuming a 'profile_image' column exists)
-            $currentUser->profile_image = 'profile_images/' . $imageName;
+            $currentUser->profile_image = 'storage/profile_images/' . $imageName;
             $currentUser->save();
 
             return redirect()->route('profile')->with(
