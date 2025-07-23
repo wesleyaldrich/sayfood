@@ -86,4 +86,9 @@ class Restaurant extends Model
             ->whereNotNull('rating')
             ->avg('rating');
     }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
 }

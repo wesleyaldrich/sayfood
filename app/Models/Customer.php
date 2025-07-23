@@ -20,9 +20,10 @@
             return $this->hasMany(Event::class);
         }
 
-    public function joinedEvents(){
-        return $this->belongsToMany(Event::class, 'customer_event','customer_id','event_id');
-    }
+        public function joinedEvents()
+        {
+            return $this->belongsToMany(Event::class, 'customer_event','customer_id','event_id');
+        }
 
         public function user()
         {
@@ -32,5 +33,10 @@
         public function getNameAttribute()
         {
             return $this->user->name ?? 'Anonymous';
+        }
+
+        public function reports()
+        {
+            return $this->hasMany(Report::class);
         }
     }
