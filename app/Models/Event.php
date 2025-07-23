@@ -11,6 +11,18 @@ class Event extends Model
 
     protected $guarded = ['id'];
 
+    protected $fillable = [
+        'creator_id',
+        'event_category_id',
+        'name',
+        'description',
+        'image_url',
+        'date',
+        'location',
+        'status',
+        'group_link'
+    ];
+
     public function creator()
     {
         return $this->belongsTo(Customer::class, 'creator_id');
