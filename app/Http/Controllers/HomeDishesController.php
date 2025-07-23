@@ -25,14 +25,18 @@ class HomeDishesController extends Controller
         ];
 
         $events = Event::with(['creator.user', 'customers'])
+            ->whereDoesntHave('customers', function ($query) {
+                // Hapus event di mana creator juga ada di pivot sebagai customer
+                $query->whereColumn('customers.id', 'events.creator_id');
+            })
             ->latest()
             ->take(3)
             ->get()
-            ->values() // biar index rapi dari 0
+            ->values()
             ->map(function ($event, $index) use ($badges) {
-                // Ambil badge sesuai urutan (jika index > 2, ulang dari awal)
                 $badge = $badges[$index % count($badges)];
                 $author = $event->creator?->user?->username ?? 'Unknown';
+
                 return [
                     'id' => $event->id,
                     'name' => $event->name,
@@ -45,9 +49,13 @@ class HomeDishesController extends Controller
                     'date' => $event->date,
                 ];
             });
-        // dd($events);
-        $slides = Event::with(['creator.user', 'customers']) // eager load relasi
+
+
+        $slides = Event::with(['creator.user', 'customers'])
             ->where('status', 'Completed')
+            ->whereDoesntHave('customers', function ($query) {
+                $query->whereColumn('customers.id', 'events.creator_id');
+            })
             ->latest()
             ->take(3)
             ->get()
@@ -56,7 +64,6 @@ class HomeDishesController extends Controller
                     ->locale('id')
                     ->translatedFormat('l, j F Y');
 
-                // Ambil nama user dari creator_id (melalui relasi customer -> user)
                 $author = $event->creator?->user?->username ?? 'Unknown';
 
                 return [
@@ -71,6 +78,8 @@ class HomeDishesController extends Controller
                     'duration' => $event->hour,
                 ];
             });
+
+
 
         return view('home', compact('restaurant', 'events', 'slides'));
     }
