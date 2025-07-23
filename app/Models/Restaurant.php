@@ -79,4 +79,11 @@ class Restaurant extends Model
             ->whereIn('status', ['Order Completed', 'Order Reviewed'])
             ->count();
     }
+
+    public function getAvgRatingAttribute()
+    {
+        return $this->orders()
+            ->whereNotNull('rating')
+            ->avg('rating');
+    }
 }

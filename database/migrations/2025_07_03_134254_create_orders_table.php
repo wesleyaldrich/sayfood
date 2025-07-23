@@ -25,7 +25,7 @@ return new class extends Migration
                 'Order Reviewed'
             ]);
 
-            $table->float('rating')->nullable();
+            $table->float('rating')->nullable()->default(null);
         });
     }
 

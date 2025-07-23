@@ -82,21 +82,22 @@ class CustomerEventSeeder extends Seeder
                 'customer_id'=>7,
                 'phone_number'=> $faker->phoneNumber()
             ],
-            [
-                'event_id'=>10,
-                'customer_id'=>8,
-                'phone_number'=> $faker->phoneNumber()
-            ],
-            [
-                'event_id'=>10,
-                'customer_id'=>9,
-                'phone_number'=> $faker->phoneNumber()
-            ],
-            [
-                'event_id'=>10,
-                'customer_id'=>3,
-                'phone_number'=> $faker->phoneNumber()
-            ],
+            // DELETE THESE BECAUSE EVENT_ID 10 IS PROBLEMATIC (RELATED TO CUSTOMER_ID 10)
+            // [
+            //     'event_id'=>10,
+            //     'customer_id'=>8,
+            //     'phone_number'=> $faker->phoneNumber()
+            // ],
+            // [
+            //     'event_id'=>10,
+            //     'customer_id'=>9,
+            //     'phone_number'=> $faker->phoneNumber()
+            // ],
+            // [
+            //     'event_id'=>10,
+            //     'customer_id'=>3,
+            //     'phone_number'=> $faker->phoneNumber()
+            // ],
         ]);   
     }
 }

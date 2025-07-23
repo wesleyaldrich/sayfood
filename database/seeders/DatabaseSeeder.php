@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             RestaurantSeeder::class,
             FoodSeeder::class,
-            CustomerSeeder::class,
             EventCategorySeeder::class,
+            CustomerSeeder::class,
             EventSeeder::class,
             OrderSeeder::class,
+            RestaurantRegistrationSeeder::class,
             TransactionSeeder::class,
             CustomerEventSeeder::class,
-            RestaurantRegistrationSeeder::class,
         ]);
     }
 }

@@ -38,34 +38,26 @@
 
     @include('layout.footer')
     @stack('scripts')
-    {{-- script untuk membuat notifikasi sukses dan error menghilang dalam 1 detik --}}
      <script>
-        // Script ini tidak butuh jQuery
         window.addEventListener('load', function() {
-            // 1. Cari semua elemen alert
             const alerts = document.querySelectorAll('.alert');
 
             if (alerts.length > 0) {
                 alerts.forEach(function(alert) {
-                    // 2. Langsung tampilkan dengan efek "slide down"
-                    //    Kita beri sedikit delay agar transisi CSS berjalan
                     setTimeout(function() {
                         alert.classList.add('show');
                     },);
 
-                    // 3. Set timer untuk menyembunyikan kembali (misal: 3 detik)
                     setTimeout(function() {
-                        // Hapus class 'show' untuk memicu animasi "slide up"
                         alert.classList.remove('show');
 
-                        // 4. Hapus elemen dari DOM setelah animasi slide up selesai
                         setTimeout(function() {
                            if(alert.parentNode) {
                                alert.parentNode.removeChild(alert);
                            }
-                        }, 600); // 500ms untuk animasi + 100ms buffer
+                        }, 1000);
 
-                    }, 1000); // Alert akan mulai menghilang setelah 1 detik
+                    }, 3000);
                 });
             }
         });
