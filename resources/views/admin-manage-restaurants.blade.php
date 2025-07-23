@@ -26,17 +26,8 @@
         .active {
             background-color: #4dabab;
         }
-        .download-button {
-            height: 30px;
-            padding: 0 1.2rem;
-            background-color: #FEA322;
-            font-weight: 600;
-            font-size: 1rem;
-            border-radius: 40px;
-            border: none;
-        }
-        .download-button:hover {
-            background-color: #ffc70e;
+        .table-row-entry:hover {
+            background-color: #00eeff15;
         }
     </style>
     <div class="container-fluid px-5 mb-5">
@@ -75,7 +66,7 @@
             </thead>
             <tbody>
                 @foreach ($restaurant_registrations as $i)
-                    <tr>
+                    <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.restaurants.detail', $i->id) }}'" style="cursor: pointer;">
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $i->id }}</td>
                         <td>{{ $i->name }}</td>
