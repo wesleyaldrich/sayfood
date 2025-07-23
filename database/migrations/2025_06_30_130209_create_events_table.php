@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('location');
             $table->enum('status',['Pending','Coming Soon','On Going','Completed','Canceled']);
+            $table->string('group_link');
             $table->timestamps();
         });
     }
