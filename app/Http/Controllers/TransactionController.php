@@ -115,7 +115,10 @@ class TransactionController extends Controller
 
     public function customerActivities()
     {
+
         $user = Auth::user();
+
+        // dd(Auth::id(), $user->customer->id);
 
         if (!$user || !$user->customer) {
             return redirect('/')->withErrors(['error' => 'Unauthorized access']);
