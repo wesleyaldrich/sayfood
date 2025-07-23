@@ -201,7 +201,7 @@ class TransactionController extends Controller
                                 : asset('assets/icon_profile.png'),
                         ];
                     })->toArray(),
-                    'image' => asset($event->image_url),
+                    'image' => $event->image_url,
                     'description' => $event->description,
                     'duration' => '12',
                     'group_link' => 'https://wa.me/6281234567890',

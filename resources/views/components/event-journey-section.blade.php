@@ -8,7 +8,7 @@
                 <p>by {{ $event->organizer }}</p>
             </div>
             <div class="event-card-body d-flex">
-                <img src="{{ $event->image }}" class="event-card-body-img" alt="{{ $event->title }}">
+                <img src="{{ asset('storage/'.$event->image) }}" class="event-card-body-img" alt="{{ $event->title }}">
                 <div class="event-details">
                     <p>{{ $event->description }}</p>
                     <div class="event-meta">
