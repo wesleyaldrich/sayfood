@@ -1,0 +1,56 @@
+body {
+    background: #F8F4E9;
+}
+
+.nav-admin-report{
+    background: #234C4C;
+    height: 50px;
+}
+
+.parent-container {
+  position: relative;
+}
+
+.search-bar {
+  position: absolute;
+  right: 0;
+}
+
+.table-container {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    background-color: #fdf9f1;
+}
+
+.custom-table th,
+.custom-table td {
+    border-bottom: 1px solid #ccc;
+    padding: 12px 16px;
+    text-align: left;
+}
+
+.custom-table th {
+    font-weight: bold;
+    color: #1a1a1a;
+    background-color: #f9f6ef;
+}
+
+.status-badge {
+    background-color: #f9a825; /* oranye */
+    color: white;
+    padding: 6px 14px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    float: right;
+    font-weight: bold;
+}
+
+
+

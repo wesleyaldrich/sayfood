@@ -1,9 +1,10 @@
 @extends('layout.app')
 @section('title', 'Restaurant Menu Page')
 @section('content')
+
 <div class="hero-container">
         <img src="{{ asset($restaurant->image_url_resto) }}" class="hero-img" alt="">
-        
+
         <!-- Back Icon -->
         <a href="{{ route('foods') }}" class="back-icon">
             <i class="fas fa-chevron-left"></i>
@@ -19,6 +20,13 @@
                 <span>{{ $restaurant->address }}</span>
             </div>
         </div>
+
+        <!-- Report Resto Button -->
+<!-- Report Resto Button -->
+        <button class="report-resto" onclick="reportRestoPopup()">
+            <img src="{{ asset('assets/reportResto-btn.png') }}" alt="reportResto_btn">
+        </button>
+
     </div>
     <div class="menu-tab-bar">  
         <div class="tab" data-category="maincourse"><p class="oswald">{{ __('foods.main_courses') }}</p></div>

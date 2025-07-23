@@ -976,3 +976,9 @@ button {
         width: 80% !important;
     }
 }
+
+.title-report {
+  font-size: 30px !important;
+  font-weight: bold !important;
+  margin-bottom: 15px;
+}
