@@ -16,16 +16,26 @@ class Event extends Model
     }
 
     protected $fillable = [
-        'creator_id',
-        'event_category_id',
         'name',
+        'location',
+        'date',
         'description',
         'image_url',
-        'date',
-        'location',
+        'creator_id',
         'status',
-        'group_link'
+        'event_category_id',
+        'estimated_participants',
+        'organizer_name',
+        'organizer_email',
+        'organizer_phone',
+        'group_link',
+        'supporting_files',
+        'duration',
+        'start_time',
+        'end_time'
     ];
+
+
 
     public function creator()
     {
