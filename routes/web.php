@@ -99,6 +99,12 @@ Route::middleware('twofactor')->group(function () {
         Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');
         Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
 
+        
+        Route::post('/admin/manage-events/approve/{event}', [EventController::class,'approve'])->name('admin.approve.event');
+        Route::post('/admin/manage-events/reject/{event}', [EventController::class,'reject'])->name('admin.reject.event');
+
+        Route::post('admin/create/event',[EventController::class, 'store'])->name('admin.create.event');
+
         Route::get('/admin/manage-restaurants', [RestaurantAdminController::class, 'index'])->name('show.manage.restaurants');
 
         Route::get('/admin/logs', function(){

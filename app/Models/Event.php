@@ -11,6 +11,10 @@ class Event extends Model
 
     protected $guarded = ['id'];
 
+    protected $fillable = [
+        'status',
+    ];
+
     public function creator()
     {
         return $this->belongsTo(Customer::class, 'creator_id');
