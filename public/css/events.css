@@ -987,3 +987,8 @@ button {
     animation: modalFadeIn 0.3s;
     position: relative;
 }
+.title-report {
+  font-size: 30px !important;
+  font-weight: bold !important;
+  margin-bottom: 15px;
+}

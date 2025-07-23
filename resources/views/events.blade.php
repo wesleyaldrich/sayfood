@@ -51,37 +51,44 @@
 
                                         <div
                                             class="card-details d-flex p-2 align-items-center bg-dark text-white rounded-bottom">
-                                            <div
+                                            <<<<<<< HEAD <div
                                                 class="participants-circle d-flex align-items-center justify-content-center">
-                                                <div class="circle text-dark d-flex flex-column align-items-center justify-content-center rounded-circle"
-                                                    style="width:70px; height:70px; border: 3px solid #cd8200;">
-                                                    <img src="{{ asset('assets/participant_logo.png') }}"
-                                                        alt="participants icon" style="width: 24px; height: 24px;">
-                                                    <div class="text-center small">
-                                                        <div class="fw-bold">{{ $event['participants'] }}</div>
-                                                        <div>joined</div>
+                                                =======
+                                                <!-- Participant Circle -->
+                                                <div
+                                                    class="participants-circle d-flex align-items-center justify-content-center">
+                                                    >>>>>>> 28f3cf9625d013fc68bab518f111ce5f1f62ec64
+                                                    <div class="circle text-dark d-flex flex-column align-items-center justify-content-center rounded-circle"
+                                                        style="width:70px; height:70px; border: 3px solid #cd8200;">
+                                                        <img src="{{ asset('assets/participant_logo.png') }}"
+                                                            alt="participants icon" style="width: 24px; height: 24px;">
+                                                        <div class="text-center small">
+                                                            <div class="fw-bold">{{ $event['participants'] }}</div>
+                                                            <div>joined</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="d-flex justify-content-between align-items-center w-100 flex-wrap">
-                                                <div>
-                                                    <p class="title fw-bold mb-0" style="font-size: 20px;">
-                                                        {{ $event['title'] }}</p>
-                                                    <p class="host fst-italic mb-0 text-warning">by {{ $event['host'] }}
-                                                    </p>
+                                                <div
+                                                    class="d-flex justify-content-between align-items-center w-100 flex-wrap">
+                                                    <div>
+                                                        <p class="title fw-bold mb-0" style="font-size: 20px;">
+                                                            {{ $event['title'] }}
+                                                        </p>
+                                                        <p class="host fst-italic mb-0 text-warning">by
+                                                            {{ $event['host'] }}</p>
+                                                    </div>
+                                                    <div class="text-end me-5">
+                                                        <p class="info mb-0">
+                                                            <i class="bi bi-geo-alt-fill text-warning"></i>
+                                                            {{ $event['location'] }}
+                                                        </p>
+                                                        <p class="info mb-0">
+                                                            <i class="bi bi-calendar-event-fill text-warning"></i>
+                                                            {{ $event['date'] }}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div class="text-end me-5">
-                                                    <p class="info mb-0">
-                                                        <i class="bi bi-geo-alt-fill text-warning"></i>
-                                                        {{ $event['location'] }}
-                                                    </p>
-                                                    <p class="info mb-0">
-                                                        <i class="bi bi-calendar-event-fill text-warning"></i>
-                                                        {{ $event['date'] }}
-                                                    </p>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
@@ -176,13 +183,15 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-success rounded-pill px-5 py-1" style="background-color: #1d4d4f;"
-                                data-bs-toggle="modal" data-bs-target="#joinFormModal"
+                            <button class="btn btn-success rounded-pill px-5 py-1"
+                                style="background-color: #1d4d4f;" data-bs-toggle="modal" data-bs-target="#joinFormModal"
                                 data-event-title="{{ $slide['title'] }}" data-event-host="{{ $slide['author'] }}"
                                 data-event-location="{{ $slide['location'] }}" data-event-id="{{ $slide['id'] }}">
                                 Join Event
-                            </button>
-                        </div>
+                                </button>
+                                <button class="btn btn-success rounded-pill px-2 py-1"
+                                    style="background-color: #1d4d4f;">Join
+                                    Event</button>
                     </div>
                 </div>
             @endforeach
@@ -223,6 +232,7 @@
                         </button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

@@ -120,6 +120,22 @@ Route::middleware('twofactor')->group(function () {
         Route::get('/admin/logs', function(){
             return Activity::all();
         });
+
+        //REPORT RESTO DETAIL
+        Route::get('/report-resto-detail', function () {
+            return view('report-resto-detail');
+        })->name('report.resto.detail');
+
+        //REPORT RESTO ADMIN
+        Route::get('/report-resto-admin', function () {
+            return view('report-resto-admin');
+        })->name('report.resto.admin');
+
+        //REPORT RESTO ADMIN
+        Route::get('/popup-report-resto', function () {
+            return view('popup-report-resto');
+        })->name('popup.report.resto');
+        
     });
 
 });
