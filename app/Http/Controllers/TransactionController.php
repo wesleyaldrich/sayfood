@@ -208,9 +208,27 @@ class TransactionController extends Controller
                 ];
             });
 
+        $completedEvents = $user->customer->joinedEvents()
+            ->with(['creator.user', 'participants.user'])
+            ->where('status', 'Completed')
+            ->orderByDesc('date')
+            ->get()
+            ->map(function ($event) {
+                return (object)[
+                    'title' => $event->name,
+                    'organizer' => $event->creator->user->username,
+                    'location' => $event->location,
+                    'date' => $event->date,
+                    'participants_count' => $event->participants->count(),
+                    'duration' => $event->duration ? $event->duration . ' hours' : 'Unknown',
+                    'image_color' => 'FFDDC1',
+                    'description' => $event->description,
+                    'image' => asset($event->image_url),
+                ];
+            });
 
 
-        return view('activity', compact('orders', 'totalDonated', 'orderStatuses', 'upcomingEvents'));
+        return view('activity', compact('orders', 'totalDonated', 'orderStatuses', 'upcomingEvents', 'completedEvents'));
     }
 
 
