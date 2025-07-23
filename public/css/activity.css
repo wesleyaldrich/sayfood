@@ -384,13 +384,32 @@ h1 {
   display: none;
 }
 
+.container-arrow {
+    z-index: 10; /* pastikan tombol di atas elemen lain */
+    pointer-events: auto !important;
+}
 
 .event-cards-wrapper {
     display: flex;
     gap: 20px;
     margin-top: 20px;
     padding-bottom: 10px;
+    flex-wrap: nowrap;
+    gap: 1rem;
 }
+
+.scroll-container {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.event-card {
+    flex: 0 0 auto;
+    min-width: 250px;
+}
+
 
 .container-arrow{
     background-color: #FFDD7A; 
@@ -441,10 +460,9 @@ h1 {
 }
 
 .event-card-upcoming .event-background-image {
-    width: 400px;
-    object-fit: cover;
-    display: block;
-    border-radius: 12px 12px 0 0;
+    width: 100%; 
+    aspect-ratio: 16 / 9;  
+    object-fit: cover;     
 }
 
 .parent-container {
@@ -466,6 +484,7 @@ h1 {
 .event-main-details {
     flex-basis: calc(65% - 5px);
     text-align: left;
+    max-width: 100% !important;
 }
 
 .event-main-details h3 {
@@ -488,7 +507,6 @@ h1 {
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
-    margin-bottom: 5px; 
 }
 
 .event-meta-details .meta-item {
@@ -656,7 +674,8 @@ p{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .event-card {
@@ -667,6 +686,7 @@ p{
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease;
+    padding: 20px;
 }
 
 .event-card:hover {
@@ -676,9 +696,8 @@ p{
 .event-card-header {
     background-color: #234C4C; 
     color: white;
-    padding: 10px;
-    padding-top: 20px;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .event-card-header h3 {
@@ -687,7 +706,6 @@ p{
 }
 
 .event-card-header p {
-    margin: 0;
     font-size: 0.9em;
     font-style: italic;
     opacity: 0.8;
@@ -698,7 +716,6 @@ p{
     padding: 10px;
     display: flex;
     gap: 20px;
-    margin-left: 10px;
     margin-right: 10px;
     align-items: flex-start; 
 }
@@ -707,8 +724,11 @@ p{
     border-radius: 12px;
     border: white 4px solid;
     object-fit: cover;
-    flex-shrink: 0; 
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 200px;
 }
+
 
 .event-details {
     flex-grow: 1; 
@@ -717,7 +737,7 @@ p{
 
 .event-details p {
     font-family: "Lato";
-    font-size: 0.65em;
+    font-size: 0.85rem;
     line-height: 1.6;
     color: white;
     margin-top: 0;
@@ -918,31 +938,23 @@ p{
     filter: brightness(0) saturate(100%) invert(24%) sepia(6%) saturate(3929%) hue-rotate(131deg) brightness(90%) contrast(84%);
 }
 
-.participant-avatars {
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 4px;
-}
-
 .participant-avatar {
-    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontal center */
+    justify-content: center; /* Vertical center */
     text-align: center;
-    min-width: 60px;
 }
-
 .avatar-img {
-    width: 48px;
+    width: 48px; /* atau sesuai kebutuhan */
     height: 48px;
-    border-radius: 50%;
     object-fit: cover;
-    
+    border-radius: 50%; /* agar gambar jadi lingkaran */
+}
+.avatar-name {
+    font-size: 0.85rem;
 }
 
-.avatar-name {
-    font-size: 0.75rem;
-    color: #444;
-    white-space: nowrap;
-}
 
 .link-whatsapp {
     color: #007f7f;
@@ -1006,7 +1018,7 @@ label{
 }
 
 .btn-submit:hover{
-    color: none;
+    color:white;
 }
 
 .modal .modal-dialog {

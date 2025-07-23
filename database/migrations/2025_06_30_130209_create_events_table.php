@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('creator_id')->constrained('customers')->cascadeOnUpdate()->cascadeOnDelete();
-            
+
             $table->foreignId('event_category_id')->constrained('event_categories')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->string('name');
@@ -22,8 +22,19 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->date('date');
             $table->string('location');
-            $table->enum('status',['Pending','Coming Soon','On Going','Completed','Canceled']);
-            $table->string('group_link');
+            $table->enum('status', ['Pending', 'Coming Soon', 'On Going', 'Completed', 'Canceled']);
+
+            // Tambahan kolom
+            $table->integer('estimated_participants')->nullable();
+            $table->string('supporting_files')->nullable(); // Bisa file path
+            $table->integer('duration')->nullable(); // Misalnya '2'
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
+            $table->string('group_link')->nullable(); // Link grup
+            $table->string('organizer_name')->nullable();
+            $table->string('organizer_phone')->nullable();
+            $table->string('organizer_email')->nullable();
+
             $table->timestamps();
         });
     }
