@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AdminEventStoreRequest;
 
 use App\Models\Event;
-use App\Models\EventCategory;use Carbon\Carbon;
+use App\Models\EventCategory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -28,23 +29,23 @@ class EventController extends Controller
             $search = $request->get('search');
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('location', 'like', "%{$search}%")
-                  ->orWhereHas('creator.user', function ($userQuery) use ($search) {
-                      $userQuery->where('username', 'like', "%{$search}%");
-                  })
-                  ->orWhereHas('category', function ($catQuery) use ($search) {
-                      $catQuery->where('name', 'like', "%{$search}%");
-                  });
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%")
+                    ->orWhereHas('creator.user', function ($userQuery) use ($search) {
+                        $userQuery->where('username', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('category', function ($catQuery) use ($search) {
+                        $catQuery->where('name', 'like', "%{$search}%");
+                    });
             });
         }
-        
-        $events = $query->latest()->paginate(10); 
+
+        $events = $query->latest()->paginate(10);
 
 
         $categories = EventCategory::all();
 
-        return view('manage-events', compact('events', 'statuses','categories'));
+        return view('manage-events', compact('events', 'statuses', 'categories'));
     }
 
 
@@ -62,49 +63,15 @@ class EventController extends Controller
     public function store(AdminEventStoreRequest $request)
     {
         try {
-
-            $request->validate([
-                'name' => 'required',
-                'description' => 'required',
-                'date' => 'required|after:today',
-                'location' => 'required',
-                'event_category_id' => 'required',
-                'image_url' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
-                'estimated_participants' => 'required',
-                'organizer_name' => 'required',
-                'organizer_email' => 'required|email',
-                'organizer_phone' => 'required',
-                'group_link' => 'required|url',
-
-                'start_hour' => 'required',
-                'start_minute' => 'required',
-                'start_ampm' => 'required',
-                'end_hour' => 'required',
-                'end_minute' => 'required',
-                'end_ampm' => 'required',
-
-                'files.*' => 'nullable|file|max:5120', // max 5MB each
-
-                'agree_terms' => 'accepted'
-            ]);
-
-            // Parse jam dari input
-            try {
-                $start = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->start_hour, $request->start_minute, $request->start_ampm));
-                $end = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->end_hour, $request->end_minute, $request->end_ampm));
-            } catch (\Exception $e) {
-                return back()->withErrors(['start_hour' => 'Invalid time format.'])->withInput();
-            }
-
-            // Custom rule: end > start
-            if ($end <= $start) {
-                return back()->withErrors(['end_hour' => 'End time must be after start time.'])->withInput();
-            }
+            $start = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->start_hour, $request->start_minute, $request->start_ampm));
+            $end = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->end_hour, $request->end_minute, $request->end_ampm));
+            $duration = $start->diffInMinutes($end);
+            $durationInHours = ceil($duration / 60);
 
             // Simpan gambar jika ada
-            if ($request->hasFile('image')) {
-                $originalName = $request->file('image')->getClientOriginalName();
-                $imagePath = $request->file('image')->storeAs('events', $originalName, 'public');
+            if ($request->hasFile('image_url')) {
+                $originalName = $request->file('image_url')->getClientOriginalName();
+                $imagePath = $request->file('image_url')->storeAs('events', $originalName, 'public');
             }
 
             // Simpan file pendukung jika ada
@@ -117,17 +84,6 @@ class EventController extends Controller
                 }
             }
 
-            $start = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->start_hour, $request->start_minute, $request->start_ampm));
-            $end = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->end_hour, $request->end_minute, $request->end_ampm));
-
-            if ($end <= $start) {
-                return back()->withErrors(['end_hour' => 'End time must be after start time.'])->withInput();
-            }
-
-            $duration = $start->diffInMinutes($end); // yang benar: $start->diffInMinutes($end), bukan sebaliknya
-            $durationInHours = ceil($duration / 60);
-
-            // Simpan data ke DB
             Event::create([
                 'creator_id' => Auth::user()->customer->id,
                 'event_category_id' => $request->event_category_id,
@@ -151,14 +107,14 @@ class EventController extends Controller
             ]);
 
             return redirect()->route('activity')->with('success', 'Event proposal submitted!');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Kalau validasi gagal: balik lagi + input lama + modal kebuka
+        } catch (\Exception $e) {
             return redirect()->back()
-                ->withErrors($e->validator)
+                ->withErrors(['error' => 'An error occurred while saving the event.'])
                 ->withInput()
                 ->with('show_modal', true);
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -176,15 +132,15 @@ class EventController extends Controller
     public function approve(Event $event)
     {
         $event->status = 'Coming Soon';
-        $event->save(); 
+        $event->save();
 
         return redirect()->back()->with('success', 'Event "' . $event->name . '" has been approved successfully.');
-    } 
+    }
 
     public function reject(Event $event)
     {
         $event->status = 'Canceled';
-        $event->save(); 
+        $event->save();
 
         return redirect()->back()->with('danger', 'Event "' . $event->name . '" has been rejected.');
     }

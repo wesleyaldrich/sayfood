@@ -215,9 +215,9 @@
 
                                         <div class="mb-3">
                                             <label class="form-label">Cover Image</label>
-                                            <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                                name="image" />
-                                            @error('image') <div class="text-danger">{{ $message }}</div> @enderror
+                                            <input type="file" class="form-control @error('image_url') is-invalid @enderror"
+                                                name="image_url" />
+                                            @error('image_url') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
 
                                         <div class="mb-3">
