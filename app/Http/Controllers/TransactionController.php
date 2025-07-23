@@ -305,8 +305,8 @@ public function rate(Request $request, $id)
 
 public function confirmPayment(Request $request)
 {
-    $user = Auth::user();
-    $cartItems = Cart::where('user_id', $user->id)->with('food')->get();
+    $customer = Auth::user()->customer->id;
+    $cartItems = Cart::where('user_id', $customer->id)->with('food')->get();
 
     if ($cartItems->isEmpty()) {
         return redirect()->route('show.cart')->withErrors(['error' => 'Your cart is empty.']);
@@ -316,7 +316,7 @@ public function confirmPayment(Request $request)
 
     // Use a database transaction to ensure all operations succeed or none do.
     try {
-        DB::transaction(function () use ($user, $cartItems, $restaurantId, $request) {
+        DB::transaction(function () use ($customer, $cartItems, $restaurantId, $request) {
             // 1. Validate stock before proceeding
             foreach ($cartItems as $item) {
                 if ($item->quantity > $item->food->stock) {
@@ -327,7 +327,7 @@ public function confirmPayment(Request $request)
             
             // 2. Create a new Order record
             $order = Order::create([
-                'customer_id' => $user->id,
+                'customer_id' => $customer->id,
                 'restaurant_id' => $restaurantId,
                 'status' => 'Order Created', // Set status directly to successful
                 'payment_method' => $request->input('payment_method_final', 'Unknown'), // Optional: save the mock payment method
@@ -351,7 +351,7 @@ public function confirmPayment(Request $request)
             }
 
             // 4. Clear the user's cart
-            Cart::where('user_id', $user->id)->delete();
+            Cart::where('user_id', $customer->id)->delete();
         });
 
     } catch (\Exception $e) {

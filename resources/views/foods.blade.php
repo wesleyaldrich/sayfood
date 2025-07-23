@@ -103,23 +103,6 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         id="btnMostPopular">{{ __('foods.most_popular') }}</button>
 </form>
 
-{{-- <a href="/cart">
-    <img class="mycart" src="assets/icon_mycart.png" alt="mycart">
-</a> --}}
-<div style="position: relative; width: fit-content;">
-    <a href="{{ route('show.cart') }}">
-        <img class="mycart" src="{{ asset('assets/icon_mycart.png') }}" alt="mycart">
-    </a>
-    
-    {{-- Badge untuk jumlah item --}}
-    @if($cartItemCount > 0)
-        <span class="cart-badge">{{ $cartItemCount }}</span>
-    @else
-        <span class="cart-badge">0</span>
-    @endif
-</div>
-
-
 @if (!request()->has('q') && !request()->has('price') && !request()->has('rating') && !request()->has('sort'))
     <div class="container-today container-fluid my-4 px-4 py-4 d-flex">
         <h2 class="category-title">{{ __('foods.recommended_for_you') }}</h2>

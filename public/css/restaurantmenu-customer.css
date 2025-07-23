@@ -271,6 +271,46 @@
     margin-left: 8px
 }
 
+.mycart {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    right: 32px;
+    bottom: 32px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.cart-badge {
+    padding: 5px 12px;
+    border-radius: 50%;
+    background-color: #D9534F;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border: 3px solid #063434F0;
+    position: fixed;
+    right: 35px;
+    bottom: 120px;
+    z-index: 10;
+}
+
+.cart-resto-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #063434;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    position: fixed;
+    right: 35px;
+    bottom: 120px;
+    z-index: 5;
+}
+
 @media (max-width: 390px) {
     .hero-container {
         height: 300px;
