@@ -4,7 +4,7 @@
 @endsection
 
 <style>
-    .title{
+    .title {
         font-family: Oswald;
         color: #234C4C;
         font-weight: bold;
@@ -12,8 +12,8 @@
     }
 
 
-    .table{
-        font-size: 14px;    
+    .table {
+        font-size: 14px;
     }
 
     /* .filter-btn{
@@ -23,14 +23,14 @@
         background-color: #234C4C;
     } */
 
-    .status-badge{
+    .status-badge {
         font-size: 17px;
     }
 
     .tab-control .nav-tabs .nav-link {
         font-family: oswald;
         color: white;
-        background-color: #234C4C;  
+        background-color: #234C4C;
         border-radius: 1rem;
     }
 
@@ -40,9 +40,34 @@
         font-weight: bold;
         border-radius: 1rem;
     }
+
     .table-hover tbody tr:hover {
         cursor: pointer;
-        background-color: #f8f9fa; /* Warna latar saat hover */
+        background-color: #f8f9fa;
+    }
+
+    .modal-content.popupmodal {
+        background-color: white;
+        border-radius: 1.5rem;
+    }
+
+    .modal-title {
+        font-family: "Oswald";
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .modal-header {
+        background-color: #234C4C;
+        border-top-left-radius: 1.5rem;
+        border-top-right-radius: 1.5rem;
+    }
+
+    .modal-body {
+        font-family: "Lato";
+        font-size: 15px;
+        font-weight: bold;
     }
 </style>
 
@@ -52,35 +77,35 @@
             <h1 class="title">EVENTS</h1>
             <div class="d-flex">
                 <form class="d-flex me-3" role="search">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
+                    <input type="hidden" name="status" value="{{ request('status', 'All') }}">
+                    <input class="form-control" type="search" placeholder="Search event, creator..." name="search"
+                        value="{{ request('search') }}" aria-label="Search" />
                     <button class="btn btn-warning" type="submit">
                         <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                     </button>
                 </form>
                 <div class="create-btn">
-                    <a href="#" class="btn btn-success text-light"
-                    style="font-weight: bold; background-color: darkgreen;"
-                    data-bs-target="#createEventModal"
-                     data-bs-toggle="modal">+ Create</a>
+                    <a href="#" class="btn btn-success text-light" style="font-weight: bold; background-color: darkgreen;"
+                        data-bs-target="#createEventModal" data-bs-toggle="modal">+ Create</a>
                 </div>
             </div>
         </div>
         <div class="tab-control m-3">
-           <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs">
                 <li class="nav-item m-1">
-                    <a class="nav-link {{ !request('status') || request('status') == 'All' ? 'active' : '' }}" 
-                       href="{{ route('show.manage.events', ['status' => 'All']) }}">
-                       All
+                    <a class="nav-link {{ !request('status') || request('status') == 'All' ? 'active' : '' }}"
+                        href="{{ route('show.manage.events', ['status' => 'All', 'search' => request('search')]) }}">
+                        All
                     </a>
                 </li>
 
                 @foreach ($statuses as $status)
-                <li class="nav-item m-1">
-                    <a class="nav-link {{ request('status') == $status ? 'active' : '' }}" 
-                       href="{{ route('show.manage.events', ['status' => $status]) }}">
-                       {{ $status }}
-                    </a>
-                </li>
+                    <li class="nav-item m-1">
+                        <a class="nav-link {{ request('status') == $status ? 'active' : '' }}"
+                            href="{{ route('show.manage.events', ['status' => $status]) }}">
+                            {{ $status }}
+                        </a>
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -114,13 +139,17 @@
                         <td>{{ $event->category->name ?? 'N/A' }}</td>
                         <td class="status-badge">
                             @php
-                                    $statusClass = 'bg-secondary'; // Default color
-                                    if($event->status == 'Pending') $statusClass = 'bg-warning text-dark';
-                                    if($event->status == 'Coming Soon') $statusClass = 'bg-info text-light';
-                                    if($event->status == 'On Going') $statusClass = 'bg-primary text-light';
-                                    if($event->status == 'Completed') $statusClass = 'bg-success text-light';
-                                @endphp
-                                <span class="badge {{ $statusClass }}">{{ $event->status }}</span>
+                                $statusClass = 'bg-secondary'; // Default color
+                                if ($event->status == 'Pending')
+                                    $statusClass = 'bg-warning text-dark';
+                                if ($event->status == 'Coming Soon')
+                                    $statusClass = 'bg-info text-light';
+                                if ($event->status == 'On Going')
+                                    $statusClass = 'bg-primary text-light';
+                                if ($event->status == 'Completed')
+                                    $statusClass = 'bg-success text-light';
+                            @endphp
+                            <span class="badge {{ $statusClass }}">{{ $event->status }}</span>
                         </td>
                     </tr>
                 @empty
@@ -132,76 +161,83 @@
         </table>
     </div>
 
-    
-<x-popup-modal id="createEventModal" title="Create Event">
-    <form action="" method="POST" enctype="multipart/form-data">
+    <div class="d-flex justify-content-center">
+        {{ $events->appends(request()->query())->links() }}
+    </div>
+
+
+    <form action="{{route("admin.create.event")}}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="row">
-            {{-- Event Name --}}
-            <div class="col-12 mb-3">
-                <label for="name" class="form-label">Event Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+        <x-popup-modal id="createEventModal" title="Create Event">
+            <div class="row">
+                {{-- Event Name --}}
+                <div class="col-12 mb-3">
+                    <label for="name" class="form-label">Event Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+
+                {{-- Description --}}
+                <div class="col-12 mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                </div>
+
+                {{-- Date --}}
+                <div class="col-md-6 mb-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                </div>
+
+                {{-- Location --}}
+                <div class="col-md-6 mb-3">
+                    <label for="location" class="form-label">Location / Address</label>
+                    <input type="text" class="form-control" id="location" name="location" required>
+                </div>
+
+                {{-- Category --}}
+                <div class="col-md-6 mb-3">
+                    <label for="event_category_id" class="form-label">Category</label>
+                    <select class="form-select border border-secondary" id="event_category_id" name="event_category_id"
+                        required>
+                        <option selected disabled value="">Choose...</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Status --}}
+                <div class="col-md-6 mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select border border-secondary" id="status" name="status" required>
+                        <option selected value="Coming Soon">Coming Soon</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+
+                {{-- Group Link --}}
+                <div class="col-12 mb-3">
+                    <label for="group_link" class="form-label">Group Link</label>
+                    <input type="url" class="form-control" id="group_link" name="group_link"
+                        placeholder="https://chat.whatsapp.com/...">
+                </div>
+
+                {{-- Event Image --}}
+                <div class="col-md-6 mb-3">
+                    <label for="image_url" class="form-label">Event Image</label>
+                    <input class="form-control" type="file" id="image_url" name="image_url" accept="image/*">
+                </div>
             </div>
 
-            {{-- Description --}}
-            <div class="col-12 mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-            </div>
-
-            {{-- Date --}}
-            <div class="col-md-6 mb-3">
-                <label for="date" class="form-label">Date</label>
-                <input type="datetime-local" class="form-control" id="date" name="date" required>
-            </div>
-
-            {{-- Location --}}
-            <div class="col-md-6 mb-3">
-                <label for="location" class="form-label">Location / Address</label>
-                <input type="text" class="form-control" id="location" name="location" required>
-            </div>
-
-            {{-- Category --}}
-            <div class="col-md-6 mb-3">
-                <label for="event_category_id" class="form-label">Category</label>
-                <select class="form-select" id="event_category_id" name="event_category_id" required>
-                    <option selected disabled value="">Choose...</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            {{-- Status --}}
-            <div class="col-md-6 mb-3">
-                <label for="status" class="form-label">Status</label>
-                <select class="form-select" id="status" name="status" required>
-                    <option selected value="Coming Soon">Coming Soon</option>
-                    <option value="Ongoing">Ongoing</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Pending">Pending</option>
-                </select>
-            </div>
-            
-            {{-- Group Link --}}
-            <div class="col-12 mb-3">
-                <label for="group_link" class="form-label">Group Link (Optional)</label>
-                <input type="url" class="form-control" id="group_link" name="group_link" placeholder="https://chat.whatsapp.com/...">
-            </div>
-
-            {{-- Event Image --}}
-            <div class="col-md-6 mb-3">
-                <label for="image_url" class="form-label">Event Image</label>
-                <input class="form-control" type="file" id="image_url" name="image_url" accept="image/*">
-            </div>
-        </div>
-
-        {{-- Modal Footer --}}
-        <x-slot name="footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary" style="background-color: darkgreen; border-color: darkgreen;">Create Event</button>
-        </x-slot>
+            {{-- Modal Footer --}}
+            <x-slot name="footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary"
+                    style="background-color: darkgreen; border-color: darkgreen;">Create Event</button>
+            </x-slot>
+        </x-popup-modal>
     </form>
-</x-popup-modal>
 
 @endsection

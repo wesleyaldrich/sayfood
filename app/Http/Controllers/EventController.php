@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminEventStoreRequest;
+
 use App\Models\Event;
 use App\Models\EventCategory;use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,18 +20,30 @@ class EventController extends Controller
         $statuses = Event::pluck('status')->unique();
         $query = Event::with('creator.user', 'category');
 
-        // Filter query jika ada request status dari URL
-        // Pastikan status yang diminta ada dan bukan 'All'
         if ($request->has('status') && $request->get('status') != 'All') {
             $query->where('status', $request->get('status'));
         }
 
-        // 4. Ambil data event yang sudah difilter dan urutkan dari yang terbaru
-        $events = $query->latest()->get();
+        if ($request->has('search') && $request->get('search') != '') {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('location', 'like', "%{$search}%")
+                  ->orWhereHas('creator.user', function ($userQuery) use ($search) {
+                      $userQuery->where('username', 'like', "%{$search}%");
+                  })
+                  ->orWhereHas('category', function ($catQuery) use ($search) {
+                      $catQuery->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+        
+        $events = $query->latest()->paginate(10); 
+
 
         $categories = EventCategory::all();
 
-        // 5. Kirim data events dan statuses ke view
         return view('manage-events', compact('events', 'statuses','categories'));
     }
 
@@ -45,7 +59,7 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AdminEventStoreRequest $request)
     {
         try {
 
@@ -55,7 +69,7 @@ class EventController extends Controller
                 'date' => 'required|after:today',
                 'location' => 'required',
                 'event_category_id' => 'required',
-                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
+                'image_url' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
                 'estimated_participants' => 'required',
                 'organizer_name' => 'required',
                 'organizer_email' => 'required|email',
@@ -159,9 +173,22 @@ class EventController extends Controller
         return view('manage-events-detail', compact('event'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    public function approve(Event $event)
+    {
+        $event->status = 'Coming Soon';
+        $event->save(); 
+
+        return redirect()->back()->with('success', 'Event "' . $event->name . '" has been approved successfully.');
+    } 
+
+    public function reject(Event $event)
+    {
+        $event->status = 'Canceled';
+        $event->save(); 
+
+        return redirect()->back()->with('danger', 'Event "' . $event->name . '" has been rejected.');
+    }
+
     public function edit(string $id)
     {
         //

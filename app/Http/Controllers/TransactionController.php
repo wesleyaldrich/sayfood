@@ -223,7 +223,7 @@ class TransactionController extends Controller
                     'duration' => $event->duration ? $event->duration . ' hours' : 'Unknown',
                     'image_color' => 'FFDDC1',
                     'description' => $event->description,
-                    'image' => asset($event->image_url),
+                    'image' => $event->image_url,
                 ];
             });
 

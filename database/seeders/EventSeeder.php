@@ -97,6 +97,8 @@ class EventSeeder extends Seeder
                 'organizer_email' => 'tunggadewi@yayasan.org',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'image_url' => 'event_images/ev4.jpeg', 'date' => '2025-08-09', 'location' => 'Jl. Ciniru 7 No.23, Kebayoran Baru, Jakarta Selatan', 'status' => 'Canceled',
+                'created_at' => now(), 'updated_at' => now(),
             ],
             [
                 'id' => 5,
@@ -119,6 +121,9 @@ class EventSeeder extends Seeder
                 'organizer_email' => 'support@kankerindonesia.org',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'description' => 'Dalam kegiatan ini, Yayasan Tunggadewi bersama komunitas peduli kanker akan menyalurkan paket makanan sehat kepada para penderita.',
+                'image_url' => 'event_images/ev5.jpeg', 'date' => '2025-08-19', 'location' => 'Jl. Wijaya 2, Kebayoran, Jakarta Selatan', 'status' => 'Completed',
+                'created_at' => now(), 'updated_at' => now(),
             ],
             [
                 'id' => 6,
@@ -141,6 +146,9 @@ class EventSeeder extends Seeder
                 'organizer_email' => 'info@greeneration.org',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'description' => 'Greeneration Charity adalah kegiatan sosial yang diinisiasi oleh Greeneration Foundation untuk mengurangi sampah makanan dan membantu sesama.',
+                'image_url' => 'event_images/ev6.jpg', 'date' => '2025-09-02', 'location' => 'Jl. Tikukur No. 6, Gasibu, Sadang Serang, Coblong, Kota Bandung', 'status' => 'On Going',
+                'created_at' => now(), 'updated_at' => now(),
             ],
             [
                 'id' => 7,
@@ -163,6 +171,9 @@ class EventSeeder extends Seeder
                 'organizer_email' => 'hello@happyhearts.org',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'description' => 'Happy Hearts Indonesia Charity adalah kegiatan sosial yang bertujuan untuk membangun kembali sekolah-sekolah di daerah terdampak bencana.',
+                'image_url' => 'event_images/ev7.jpg', 'date' => '2025-05-15', 'location' => 'Jl. Anggrek Garuda Blok J No.71 RT.6/RW.3, Kemanggisan, Palmerah, Jakarta Barat', 'status' => 'Coming Soon',
+                'created_at' => now(), 'updated_at' => now(),
             ],
             [
                 'id' => 8,
@@ -185,6 +196,9 @@ class EventSeeder extends Seeder
                 'organizer_email' => 'info@bumisehat.org',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'description' => 'Bumi Sehat Festival adalah perayaan kepedulian terhadap kesehatan ibu dan anak, serta lingkungan yang diselenggarakan oleh Yayasan Bumi Sehat.',
+                'image_url' => 'event_images/ev8.jpg', 'date' => '2025-06-27', 'location' => 'Jl. Nyuh Bulan, Banjar Nyuh Kuning, Mas, Ubud, Bali', 'status' => 'Pending',
+                'created_at' => now(), 'updated_at' => now(),
             ],
             [
                 'id' => 9,
@@ -207,6 +221,10 @@ class EventSeeder extends Seeder
                 'organizer_email' => 'jalinanrasa@ipb.ac.id',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'description' => 'Jalinan Rasa IPB merupakan kegiatan sosial yang diadakan oleh mahasiswa IPB untuk berbagi makanan kepada masyarakat kurang mampu di sekitar kampus.',
+                'image_url' => 'event_images/ev9.jpeg', 
+                'date' => '2025-10-25', 'location' => 'Kampus IPB Dramaga, Kecamatan Dramaga, Kabupaten Bogor', 'status' => 'Pending',
+                'created_at' => now(), 'updated_at' => now(),
             ],
             [
                 'id' => 10,
