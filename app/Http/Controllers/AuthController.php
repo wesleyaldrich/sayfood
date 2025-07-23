@@ -192,14 +192,15 @@ class AuthController extends Controller
         $user->save();
 
         // Create a new restaurant record
-        Restaurant::create([
+        $newRestaurant = Restaurant::create([
             'user_id' => $user->id,
             'name' => $registration->name,
             'address' => $registration->address,
         ]);
 
-        // Update the status to be 'approved'
+        // Update the registration
         $registration->status = 'operational';
+        $registration->restaurant_id = $newRestaurant->id;
         $registration->save();
 
         // Notify the user via email message
