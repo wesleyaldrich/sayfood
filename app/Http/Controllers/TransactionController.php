@@ -305,8 +305,9 @@ public function rate(Request $request, $id)
 
 public function confirmPayment(Request $request)
 {
-    $customer = Auth::user()->customer->id;
-    $cartItems = Cart::where('user_id', $customer->id)->with('food')->get();
+    // PERBAIKAN 1 & 3: Dapatkan ID customer dan ganti nama variabel agar lebih jelas
+    $customerId = Auth::user()->customer->id;
+    $cartItems = Cart::where('customer_id', $customerId)->with('food')->get();
 
     if ($cartItems->isEmpty()) {
         return redirect()->route('show.cart')->withErrors(['error' => 'Your cart is empty.']);
@@ -314,52 +315,49 @@ public function confirmPayment(Request $request)
 
     $restaurantId = $cartItems->first()->food->restaurant_id;
 
-    // Use a database transaction to ensure all operations succeed or none do.
     try {
-        DB::transaction(function () use ($customer, $cartItems, $restaurantId, $request) {
-            // 1. Validate stock before proceeding
+        DB::transaction(function () use ($customerId, $cartItems, $restaurantId, $request) {
+            // 1. Validasi stok sebelum melanjutkan
             foreach ($cartItems as $item) {
                 if ($item->quantity > $item->food->stock) {
-                    // If stock is insufficient, the transaction will be rolled back.
                     throw new \Exception('Stock for ' . $item->food->name . ' is not sufficient.');
                 }
             }
             
-            // 2. Create a new Order record
+            // 2. Buat record Order baru
             $order = Order::create([
-                'customer_id' => $customer->id,
+                // PERBAIKAN 1: Gunakan $customerId langsung, bukan $customer->id
+                'customer_id'   => $customerId,
                 'restaurant_id' => $restaurantId,
-                'status' => 'Order Created', // Set status directly to successful
-                'payment_method' => $request->input('payment_method_final', 'Unknown'), // Optional: save the mock payment method
-                'rating' => null,
+                'status'        => 'Order Created',
+                'payment_method' => $request->input('payment_method_final', 'Unknown'),
+                'rating'        => null,
             ]);
 
-            // 3. Move items from cart to transactions table & decrease stock
+            // 3. Pindahkan item dari keranjang ke tabel transactions & kurangi stok
             foreach ($cartItems as $item) {
-                // Create a transaction record for each item
+                // Buat record transaksi untuk setiap item
                 Transaction::create([
                     'order_id' => $order->id,
-                    'food_id' => $item->food_id,
-                    'qty' => $item->quantity,
-                    'price' => $item->food->price,
-                    'notes' => $item->notes,
+                    'food_id'  => $item->food_id,
+                    'qty'      => $item->quantity,
+                    'price'    => $item->food->price,
+                    'notes'    => $item->notes,
                 ]);
 
-                // Decrease the food stock
-                $food = Food::find($item->food_id);
-                $food->decrement('stock', $item->quantity);
+                // OPTIMASI 2: Kurangi stok langsung dari relasi, tidak perlu query baru
+                $item->food->decrement('stock', $item->quantity);
             }
 
-            // 4. Clear the user's cart
-            Cart::where('user_id', $customer->id)->delete();
+            // 4. Hapus keranjang user
+            // PERBAIKAN 1: Gunakan $customerId langsung
+            Cart::where('customer_id', $customerId)->delete();
         });
 
     } catch (\Exception $e) {
-        // If any error occurs (like the stock issue), redirect back with the error message.
         return redirect()->route('show.cart')->withErrors(['error' => $e->getMessage()]);
     }
 
-    // If everything is successful, redirect to the activity page.
     return redirect()->route('activity')->with('status', 'Payment confirmed successfully! Your order is being processed.');
 }
 

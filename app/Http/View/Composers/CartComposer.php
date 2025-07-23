@@ -20,10 +20,10 @@ class CartComposer
         $cartRestaurant = null;
 
         if (Auth::check()) {
-            $cartItemCount = Cart::where('user_id', Auth::id())->sum('quantity');
+            $cartItemCount = Cart::where('customer_id', Auth::user()->customer->id)->sum('quantity');
 
             if ($cartItemCount > 0) {
-                $firstItemCart = Cart::where('user_id', Auth::id())->with('food.restaurant')->first();
+                $firstItemCart = Cart::where('customer_id', Auth::user()->customer->id)->with('food.restaurant')->first();
 
                 if ($firstItemCart && $firstItemCart->food && $firstItemCart->food->restaurant) {
                     $cartRestaurant = $firstItemCart->food->restaurant;
