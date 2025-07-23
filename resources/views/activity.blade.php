@@ -240,7 +240,7 @@
             <div class="modal-header border-0 d-flex justify-content-end">
                 <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close"
                     style="background: none; border: none;">
-                    <i class="bi bi-x-lg text-white fs-4 p-2" style="background: red; border-radius: 50px;"></i>
+                    <i class="bi bi-x-lg text-white fs-4 p-2""></i>
                 </button>
             </div>
             <div class="modal-body">
@@ -433,7 +433,7 @@
                         <input type="checkbox" name="agree_terms" id="hiddenAgreeCheckbox" hidden>
 
                         @error('agree_terms')
-                            <div class="text-danger text-center" style="border: 1px red solid">{{ $message }}</div>
+                            <div class="text-danger text-center">{{ $message }}</div>
                         @enderror
 
                         <button type="submit" class="btn btn-submit w-100 mt-4">PROPOSE EVENT</button>
