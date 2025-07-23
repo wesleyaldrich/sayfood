@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeDishesController;
 use App\Http\Controllers\HomeRestaurantController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RestaurantAdminController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\TransactionController;
@@ -112,21 +113,17 @@ Route::middleware('twofactor')->group(function () {
         Route::post('/admin/manage-restaurants/reject/{id}', [RestaurantAdminController::class, 'reject'])->name('show.manage.restaurants.detail.reject');
         Route::post('/admin/manage-restaurants/approve/{id}', [RestaurantAdminController::class, 'approve'])->name('show.manage.restaurants.detail.approve');
 
+        Route::get('/admin/manage-reports', [ReportController::class, 'index'])->name('show.manage.reports');
+        Route::get('/admin/manage-reports/{report}', [ReportController::class, 'show'])->name('show.manage.reports.detail');
+        Route::post('/admin/manage-reports/suspend/{report}', [ReportController::class, 'suspend'])->name('show.manage.reports.detail.suspend');
+        Route::post('/admin/manage-reports/safe/{report}', [ReportController::class, 'safe'])->name('show.manage.reports.detail.safe');
+        
+        
         Route::get('/admin/logs', function(){
             return Activity::all();
         });
 
-        //REPORT RESTO DETAIL
-        Route::get('/report-resto-detail', function () {
-            return view('report-resto-detail');
-        })->name('report.resto.detail');
 
-        //REPORT RESTO ADMIN
-        Route::get('/report-resto-admin', function () {
-            return view('report-resto-admin');
-        })->name('report.resto.admin');
-
-        //REPORT RESTO ADMIN
         Route::get('/popup-report-resto', function () {
             return view('popup-report-resto');
         })->name('popup.report.resto');

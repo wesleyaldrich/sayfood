@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('customer_id')->constrained('users');
-            $table->foreignId('restaurant_id')->constrained('restaurants');
+            $table->foreignId('customer_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('restaurant_id')->constrained('restaurants')->cascadeOnDelete();
 
             $table->enum('status', [
                 'Order Created',

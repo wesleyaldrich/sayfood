@@ -1,109 +1,83 @@
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/report-detail.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+@extends('layout.app')
 
-    <nav class="navbar nav-admin-report">
-    </nav>
-</head>
+@section('title', "Sayfood Admin | Manage Restaurants")
 
-<body>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+@section('content')
+    <style>
+        .filter-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 28px;
+            color: #FFFFFF;
+            border-radius: 32px;
+            background-color: #234C4C;
+            font-weight: 500;
+            line-height: 1rem;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+        .filter-button:hover {
+            background-color: #4dabab;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .active {
+            background-color: #4dabab;
+        }
+        .table-row-entry:hover {
+            background-color: #00eeff15;
+        }
+    </style>
+    <div class="container-fluid px-5 mb-5">
+        <div class="d-flex flex-row my-4 align-items-center">
+            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">REPORTS</h2>
+        </div>
 
-    <div class="container mx-4 my-5">
-        <h1 class="fw-bold mb-0" style="color: #234C4C; font-family: 'Oswald', sans-serif;">REPORT</h1>
-
-        <div class="d-flex justify-content-between align-items-center flex-wrap my-3">
-            <!-- Filter Buttons -->
-            <div class="btn-filter d-flex gap-2 flex-wrap text-white">
-                <button class="btn rounded-pill btn-oswald text-white" type="button"
-                    style="background:#FEA322; width: 100px; border: none;">All</button>
-                <button class="btn rounded-pill btn-oswald text-white" type="button"
-                    style="background:#234C4C; width: 130px; border: none;">Pending</button>
-                <button class="btn rounded-pill btn-oswald text-white" type="button"
-                    style="background:#234C4C; width: 130px; border: none;">In Review</button>
-                <button class="btn rounded-pill btn-oswald text-white" type="button"
-                    style="background:#234C4C; width: 130px; border: none;">Resolved</button>
-            </div>
-
-            <!-- Search Bar -->
-            <div class="search-box ms-auto mt-2 mt-md-0">
-                <div class="input-group rounded-pill border overflow-hidden" style="width: 300px;">
-                    <span class="input-group-text bg-white border-0">
-                        <i class="bi bi-search text-muted"></i>
-                    </span>
-                    <input type="text" class="form-control border-0" placeholder="Search">
+        <div class="mb-4">
+            <div class="d-flex flex-row w-100" style="gap: 6px;">
+                <a href="{{ route('show.manage.reports') }}"
+                    class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">Pending</a>
+                <a href="{{ route('show.manage.reports', ['status' => 'Resolved']) }}"
+                    class="oswald filter-button {{ (request()->query('status') == 'Resolved') ? 'active' : '' }}">Resolved</a>
+                <div class="d-flex ms-auto mt-auto">
+                    <form class="d-flex" role="search">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-warning" type="submit">
+                            <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
 
-
-    <div style="overflow-x: auto; width: 100%; padding-right: 10px; padding-left: 10px;">
-        <table style="width: 100%; border-collapse: separate; border-spacing: 0 0; background-color: #F8F4E9;">
-            <thead style="border-bottom: 0.5px solid #000;">
+        <table class="table w-100">
+            <thead>
                 <tr>
-                    <th style="padding: 12px 16px; text-align: left;">ID</th>
-                    <th style="padding: 12px 16px; text-align: left;">Name</th>
-                    <th style="padding: 12px 70px; text-align: left;">Email</th>
-                    <th style="padding: 12px 150px; text-align: left;">Resto ID</th>
-                    <th style="padding: 12px 16px; text-align: left;">Status</th>
+                    <th scope="col">No.</th>
+                    <th scope="col">Customer ID</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Restaurant ID</th>
+                    <th scope="col">Restaurant Name</th>
+                    <th scope="col">Status</th>
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $statuses = ['Pending', 'In Review', 'Resolved'];
-                    $colors = [
-                        'Pending' => 'background-color: #f59e0b; color: white; width: 150px; height: 30px;',
-                        'In Review' => 'background-color: #0f766e; color: white; width: 150px; height: 30px;',
-                        'Resolved' => 'background-color: #064e3b; color: white; width: 150px; height: 30px;',
-                    ];
-                @endphp
-
-                @for ($i = 0; $i < 10; $i++)
-                    @php
-                        $status = $statuses[$i % 3];
-                        $reportId = 1000 + $i; // contoh id untuk routing
-                    @endphp
-                    <tr style="background: #F8F4E9;">
-                        <td
-                            style="padding: 5px 16px; border-top: 0.5px solid black; border-bottom: 0.5px solid rgba(0,0,0,0.1);">
-                            12345678
-                        </td>
-                        <td
-                            style="padding: 5px 70px; border-top: 0.5px solid black; border-bottom: 0.5px solid rgba(0,0,0,0.1);">
-                            Upin Cucu Opah
-                        </td>
-                        <td
-                            style="padding: 5px 16px; border-top: 0.5px solid black; border-bottom: 0.5px solid rgba(0,0,0,0.1);">
-                            upin123@gmail.com
-                        </td>
-                        <td
-                            style="padding: 5px 150px; border-top: 0.5px solid black; border-bottom: 0.5px solid rgba(0,0,0,0.1);">
-                            11089012
-                        </td>
-                        <td
-                            style="padding: 1px 0px; border-top: 0.5px solid black; border-bottom: 0.5px solid rgba(0,0,0,0.1);">
-                            <form action="{{ route('report.resto.detail', ['id' => $reportId]) }}" method="get"
-                                style="display:inline;">
-                                <button type="submit" style="
-                                    border: none;
-                                    cursor: pointer;
-                                    border-radius: 9999px;
-                                    font-weight: 500;
-                                    font-size: 0.9rem;
-                                    text-align: center;
-                                    padding: 1px 0;
-                                    {{ $colors[$status] }}
-                                ">
-                                    {{ $status }}
-                                </button>
-                            </form>
-                        </td>
+                @foreach ($reports as $i)
+                    <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.reports.detail', $i->id) }}'" style="cursor: pointer;">
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $i->customer->id }}</td>
+                        <td>{{ $i->customer->user->username }}</td>
+                        <td>{{ $i->restaurant->id }}</td>
+                        <td>{{ $i->restaurant->name }}</td>
+                        <td>{{ $i->status }}</td>
                     </tr>
-                @endfor
+                @endforeach
             </tbody>
         </table>
+        <div class="mt-4">
+            {{-- {{ $restaurant_registrations->links() }} --}}
+        </div>
     </div>
-</body>
+@endsection
