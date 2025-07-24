@@ -230,8 +230,11 @@ class TransactionController extends Controller
                 ];
             });
 
+        $createdEvents = Event::where('creator_id', $user->customer->id)
+            ->orderByDesc('date')
+            ->get();
 
-        return view('activity', compact('orders', 'totalDonated', 'orderStatuses', 'upcomingEvents', 'completedEvents'));
+        return view('activity', compact('orders', 'totalDonated', 'orderStatuses', 'upcomingEvents', 'completedEvents', 'createdEvents'));
     }
 
 

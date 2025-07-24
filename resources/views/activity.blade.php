@@ -69,17 +69,18 @@
 
                 <div class="d-flex row">
                     <section class="created-event-section col-md-8">
-                        <h2 style="font-family: 'Oswald'; margin-bottom: 20px;">Let's take a look at the events you've created!</h2>
-                        <div class="created-event-wrapper d-flex flex-row flex-nowrap overflow-auto gap-4" style="scrollbar-width: thin;">
-                            {{-- @if($completedEvents->isEmpty())
-                            <p class="text-muted" style="font-size: 1.25rem">No created events yet.</p>
-                            @else --}}
-                            
-                            @for ($i = 0; $i < 5; $i++)
-                                <x-event-created-section />
-                            @endfor
+                        <h2 style="font-family: 'Oswald'; margin-bottom: 20px;">Let's take a look at the events you've
+                            created!</h2>
+                        <div class="created-event-wrapper d-flex flex-row flex-nowrap overflow-auto gap-4"
+                            style="scrollbar-width: thin;">
+                            @if ($createdEvents->isEmpty())
+                                <p class="text-muted" style="font-size: 1.25rem">No created events yet.</p>
+                            @else
+                                @foreach ($createdEvents as $event)
+                                    <x-event-created-section :event="$event" />
+                                @endforeach
+                            @endif
 
-                            {{-- @endif --}}
                         </div>
                     </section>
 

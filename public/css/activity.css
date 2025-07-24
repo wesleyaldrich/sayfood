@@ -659,6 +659,8 @@ p{
 
 .created-title{
     color: white;
+    font-family: 'Oswald';
+    font-size: 1.25rem;
 }
 
 .created-location{
@@ -671,6 +673,7 @@ p{
 
 .created-event-wrapper{
     margin-top: 10px;
+    overflow-x: ;
 }
 
 /* History Card*/
