@@ -80,15 +80,12 @@ class TransactionSeeder extends Seeder
                 'qty' => 20,
                 'created_at' => now()
             ],
-            // Untuk Order ID 6 (restaurant_id = 1), gunakan food_id = 4
             [
                 'food_id' => 4,
                 'order_id' => 6,
                 'qty' => 2,
                 'created_at' => now()
             ],
-
-            // Untuk Order ID 7 (restaurant_id = 1), gunakan food_id = 6
             [
                 'food_id' => 6,
                 'order_id' => 7,
@@ -99,6 +96,18 @@ class TransactionSeeder extends Seeder
                 'food_id' => 8,
                 'order_id' => 8,
                 'qty' => 10,
+                'created_at' => now()
+            ],
+            [
+                'food_id' => 4,
+                'order_id' => 9,
+                'qty' => 5,
+                'created_at' => now()
+            ],
+            [
+                'food_id' => 12,
+                'order_id' => 10,
+                'qty' => 4,
                 'created_at' => now()
             ],
         ];

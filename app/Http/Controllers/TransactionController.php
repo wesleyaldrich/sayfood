@@ -121,7 +121,6 @@ class TransactionController extends Controller
     if (!$user || !$user->customer) {
         return redirect('/')->withErrors(['error' => 'Unauthorized access']);
     }
-
     $orders = $user->customer->orders()
         ->with(['restaurant', 'transactions.food'])
         ->orderByDesc('created_at')
@@ -305,7 +304,6 @@ public function rate(Request $request, $id)
 
 public function confirmPayment(Request $request)
 {
-    // PERBAIKAN 1 & 3: Dapatkan ID customer dan ganti nama variabel agar lebih jelas
     $customerId = Auth::user()->customer->id;
     $cartItems = Cart::where('customer_id', $customerId)->with('food')->get();
 
@@ -317,16 +315,13 @@ public function confirmPayment(Request $request)
 
     try {
         DB::transaction(function () use ($customerId, $cartItems, $restaurantId, $request) {
-            // 1. Validasi stok sebelum melanjutkan
             foreach ($cartItems as $item) {
                 if ($item->quantity > $item->food->stock) {
                     throw new \Exception('Stock for ' . $item->food->name . ' is not sufficient.');
                 }
             }
             
-            // 2. Buat record Order baru
             $order = Order::create([
-                // PERBAIKAN 1: Gunakan $customerId langsung, bukan $customer->id
                 'customer_id'   => $customerId,
                 'restaurant_id' => $restaurantId,
                 'status'        => 'Order Created',
@@ -334,9 +329,7 @@ public function confirmPayment(Request $request)
                 'rating'        => null,
             ]);
 
-            // 3. Pindahkan item dari keranjang ke tabel transactions & kurangi stok
             foreach ($cartItems as $item) {
-                // Buat record transaksi untuk setiap item
                 Transaction::create([
                     'order_id' => $order->id,
                     'food_id'  => $item->food_id,
@@ -345,12 +338,9 @@ public function confirmPayment(Request $request)
                     'notes'    => $item->notes,
                 ]);
 
-                // OPTIMASI 2: Kurangi stok langsung dari relasi, tidak perlu query baru
                 $item->food->decrement('stock', $item->quantity);
             }
 
-            // 4. Hapus keranjang user
-            // PERBAIKAN 1: Gunakan $customerId langsung
             Cart::where('customer_id', $customerId)->delete();
         });
 

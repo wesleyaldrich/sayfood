@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
-class AdminEventStoreRequest extends FormRequest
+class RestaurantStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,17 +24,12 @@ class AdminEventStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
             'description' => 'required|string',
-            'event_category_id' => 'required|integer|exists:event_categories,id',
-            'date' => 'required|date|after_or_equal:today',
-            'location' => 'required|string|max:255',
-            'status' => [
-                'required',
-                'string',
-                Rule::in(['Pending', 'Coming Soon', 'On Going', 'Completed', 'Canceled']),
-            ],
-            'group_link' => 'nullable|url|max:255',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'exp_date' => 'required|date',
+            'exp_time' => 'required|date_format:H:i',
+            'image_url' => 'nullable|mimes:png,jpg,jpeg|max:2048',
+            'stock' => 'required|integer|min:0'
         ];
     }
 }
