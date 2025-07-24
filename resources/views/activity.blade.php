@@ -77,7 +77,9 @@
                                 <p class="text-muted" style="font-size: 1.25rem">No created events yet.</p>
                             @else
                                 @foreach ($createdEvents as $event)
-                                    <x-event-created-section :event="$event" />
+                                    <a href="{{ route('show.created-event', $event->id) }}" class="block">
+                                        <x-event-created-section :event="$event" />
+                                    </a>
                                 @endforeach
                             @endif
 
@@ -140,6 +142,19 @@
             });
         </script>
     @endif
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab');
+
+            if (tab === 'eventactivity') {
+                // Trigger klik ke tab CREATED EVENTS
+                document.querySelector('#charity-tab')?.click();
+            } 
+        });
+    </script>
+
 @endsection
 
 <!-- Modal Propose Event -->
