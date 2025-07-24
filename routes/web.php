@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventCustController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeDishesController;
@@ -14,14 +15,17 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RestaurantAdminController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\TransactionController;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity;
+
+Route::get('/testing', function(){
+    return Auth::user()->customer;
+});
 
 // UNPROTECTED ROUTES
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
+Route::get('/events', [EventCustController::class, 'index'])->name('events');
 
-Route::get('/events', function () {
-    return view('events');
-})->name('events');
 
 Route::get('/foods', [FoodController::class, 'index'])->name('foods');
 Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
@@ -62,8 +66,10 @@ Route::middleware('twofactor')->group(function () {
         Route::post('/cart/cancel', [CartController::class, 'cancelCart'])->name('cart.cancel');
 
         Route::post('/orders/{id}/rate', [TransactionController::class, 'rate'])->name('orders.rate');
-
+        
+        Route::post('/', [HomeDishesController::class, 'store'])->name('event.join');;
     });
+
 
     // RESTAURANT ROUTES
     Route::middleware('role:restaurant')->group(function(){

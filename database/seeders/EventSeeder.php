@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -9,7 +10,7 @@ class EventSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('events')->insert([
+        $events = [
             [
                 'id' => 1,
                 'creator_id' => 1,
@@ -208,6 +209,14 @@ class EventSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
-        ]);
+        ];
+        // Hitung kolom 'hour' (integer) dari selisih end_time - start_time
+        foreach ($events as &$event) {
+            $start = Carbon::parse($event['start_time']);
+            $end = Carbon::parse($event['end_time']);
+            $event['hour'] = (int) floor($start->diffInMinutes($end) / 60);
+        }
+
+        DB::table('events')->insert($events);
     }
 }

@@ -40,7 +40,7 @@
     {{-- Main Course --}}
     <div class="row g-4 menu-content" data-category="maincourse">
         @foreach($mainCourses as $i)
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
+        <div class="col-12 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
                 :image="$i->image_url"
                 :title="$i->name"
