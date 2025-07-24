@@ -21,13 +21,13 @@ class TransactionController extends Controller
     {
         $currentUser = Auth::user();
 
-        if (!$currentUser){
+        if (!$currentUser) {
             return redirect()->route('selection.login');
         }
-        
+
         $currentUser = User::find($currentUser->id);
 
-        if ($currentUser->role === 'restaurant'){
+        if ($currentUser->role === 'restaurant') {
             $transactions = $currentUser->restaurant
                 ->orders()
                 ->whereIn('status', ['Order Completed', 'Order Reviewed'])
@@ -37,8 +37,7 @@ class TransactionController extends Controller
                 ->flatten();
 
             return view('restaurant-transactions', compact('transactions'));
-        }
-        else {
+        } else {
             return redirect()->back()->withErrors('error', 'You do not have permission to access this page.');
         }
     }
@@ -47,13 +46,13 @@ class TransactionController extends Controller
     {
         $currentUser = Auth::user();
 
-        if (!$currentUser){
+        if (!$currentUser) {
             return redirect()->route('selection.login');
         }
-        
+
         $currentUser = User::find($currentUser->id);
 
-        if ($currentUser->role === 'restaurant'){
+        if ($currentUser->role === 'restaurant') {
             $transactions = $currentUser->restaurant
                 ->orders()
                 ->whereIn('status', ['Order Completed', 'Order Reviewed'])
@@ -65,7 +64,7 @@ class TransactionController extends Controller
             $minDate = $request->query('start_date');
             $maxDate = $request->query('end_date');
 
-            if ($minDate && $maxDate){
+            if ($minDate && $maxDate) {
                 $minDate = Carbon::parse($minDate)->startOfDay();
                 $maxDate = Carbon::parse($maxDate)->endOfDay();
 
@@ -77,8 +76,7 @@ class TransactionController extends Controller
             }
 
             return view('restaurant-transactions', compact('transactions'));
-        }
-        else {
+        } else {
             return redirect()->back()->withErrors('error', 'You do not have permission to access this page.');
         }
     }
@@ -104,7 +102,7 @@ class TransactionController extends Controller
         $order = Order::findOrFail($id);
 
         if ($order->status === 'Order Created') {
-            $order->status = 'Ready to Pickup'; 
+            $order->status = 'Ready to Pickup';
         } elseif ($order->status === 'Ready to Pickup') {
             $order->status = 'Order Completed';
         }
@@ -259,8 +257,6 @@ class TransactionController extends Controller
         return redirect()->back()->with('success', 'Thanks for your review!');
     }
 
-
-
     public function download(Request $request)
     {
         $currentUser = Auth::user();
@@ -350,9 +346,9 @@ class TransactionController extends Controller
         return view('restaurant-activity', compact('orders'));
     }
 
+
     public function confirmPayment(Request $request)
     {
-        // PERBAIKAN 1 & 3: Dapatkan ID customer dan ganti nama variabel agar lebih jelas
         $customerId = Auth::user()->customer->id;
         $cartItems = Cart::where('customer_id', $customerId)->with('food')->get();
 
@@ -364,16 +360,13 @@ class TransactionController extends Controller
 
         try {
             DB::transaction(function () use ($customerId, $cartItems, $restaurantId, $request) {
-                // 1. Validasi stok sebelum melanjutkan
                 foreach ($cartItems as $item) {
                     if ($item->quantity > $item->food->stock) {
                         throw new \Exception('Stock for ' . $item->food->name . ' is not sufficient.');
                     }
                 }
-                
-                // 2. Buat record Order baru
+
                 $order = Order::create([
-                    // PERBAIKAN 1: Gunakan $customerId langsung, bukan $customer->id
                     'customer_id'   => $customerId,
                     'restaurant_id' => $restaurantId,
                     'status'        => 'Order Created',
@@ -381,9 +374,7 @@ class TransactionController extends Controller
                     'rating'        => null,
                 ]);
 
-                // 3. Pindahkan item dari keranjang ke tabel transactions & kurangi stok
                 foreach ($cartItems as $item) {
-                    // Buat record transaksi untuk setiap item
                     Transaction::create([
                         'order_id' => $order->id,
                         'food_id'  => $item->food_id,
@@ -392,21 +383,15 @@ class TransactionController extends Controller
                         'notes'    => $item->notes,
                     ]);
 
-                    // OPTIMASI 2: Kurangi stok langsung dari relasi, tidak perlu query baru
                     $item->food->decrement('stock', $item->quantity);
                 }
 
-                // 4. Hapus keranjang user
-                // PERBAIKAN 1: Gunakan $customerId langsung
                 Cart::where('customer_id', $customerId)->delete();
             });
-
         } catch (\Exception $e) {
             return redirect()->route('show.cart')->withErrors(['error' => $e->getMessage()]);
         }
 
         return redirect()->route('activity')->with('status', 'Payment confirmed successfully! Your order is being processed.');
     }
-
 }
-
