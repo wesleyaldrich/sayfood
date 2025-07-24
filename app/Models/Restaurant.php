@@ -49,7 +49,8 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function foods(){
+    public function foods()
+    {
         return $this->hasMany(Food::class);
     }
 
@@ -70,15 +71,16 @@ class Restaurant extends Model
             ->join('foods', 'transactions.food_id', '=', 'foods.id')
             ->selectRaw('SUM(foods.price * transactions.qty) as total')
             ->whereIn('orders.status', ['Order Completed', 'Order Reviewed'])
-            ->value('total');
-    }
-
-    public function getTotalOrdersAttribute()
-    {
-        return $this->orders()
-            ->whereIn('status', ['Order Completed', 'Order Reviewed'])
+            ->value('total')
             ->count();
     }
+
+    // public function getTotalOrdersAttribute()
+    // {
+    //     return $this->orders()
+    //         ->whereIn('status', ['Order Completed', 'Order Reviewed'])
+    //         z
+    // }
 
     public function getAvgRatingAttribute()
     {
@@ -91,4 +93,5 @@ class Restaurant extends Model
     {
         return $this->hasMany(Report::class);
     }
+
 }

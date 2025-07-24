@@ -189,3 +189,7 @@ Route::get('/test-session', function () {
     session(['locale' => 'id']);
     return 'Session set: ' . session('locale');
 });
+
+Route::post('/report', [ReportController::class, 'store'])->name('report.store')->middleware('auth');
+
+
