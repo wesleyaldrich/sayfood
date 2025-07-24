@@ -169,7 +169,7 @@
                                 <div class="detail-item">
                                     <i class="fas fa-calendar-alt"></i>
                                     <div>
-                                        <strong>Date</strong><br>{{ \Carbon\Carbon::parse($event->date)->format('l, d F Y H:i') }}
+                                        <strong>Date</strong><br>{{ $event->date}} | {{ $event->start_time}} - {{ $event->end_time}}
                                     </div>
                                 </div>
                                 <div class="detail-item">
