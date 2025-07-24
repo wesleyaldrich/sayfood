@@ -153,6 +153,7 @@ class TransactionController extends Controller
                     'name' => $transaction->food->name,
                     'qty' => $transaction->qty,
                     'price' => 'Rp' . number_format($transaction->food->price, 0, ',', '.'),
+                    'notes' => $transaction->notes
                 ];
             }
 
