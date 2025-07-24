@@ -125,7 +125,8 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         </div>
     </div>
 @endif
-
+<div id="main-course"></div>
+<br>
 @if ($mainCourses->count() > 0)
     <div class="container-foodcategories container-maincourses container-fluid my-4 px-4 py-4 d-flex">
         <h2 class="category-title">{{ __('foods.main_courses') }}</h2>
@@ -157,7 +158,8 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         @endif
     </div>
 @endif
-
+<div id="desserts"></div>
+<br>
 @if ($desserts->count() > 0)
     <div class="container-foodcategories container-desserts container-fluid my-4 px-4 py-4 d-flex">
         <h2 class="category-title">{{ __('foods.desserts') }}</h2>
@@ -189,7 +191,8 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         @endif
     </div>
 @endif
-
+<div id="snacks"></div>
+<br>
 @if ($snacks->count() > 0)
     <div class="container-foodcategories container-snacks container-fluid my-4 px-4 py-4 d-flex">
         <h2 class="category-title">{{ __('foods.snacks') }}</h2>
@@ -221,7 +224,8 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
         @endif
     </div>
 @endif
-
+<div id="drinks"></div>
+<br>
 @if ($drinks->count() > 0)
     <div class="container-foodcategories container-drinks container-fluid my-4 px-4 py-4 d-flex">
         <h2 class="category-title">{{ __('foods.drinks') }}</h2>

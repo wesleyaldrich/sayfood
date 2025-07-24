@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             RestaurantRegistrationSeeder::class,
             TransactionSeeder::class,
             CustomerEventSeeder::class,
+            ReportSeeder::class
         ]);
     }
 }

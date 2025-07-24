@@ -13,7 +13,7 @@
 
 <div class="container-food">
     <div class="ekor"></div>
-    <img src="{{ asset($image) }}" alt="{{ $title }}" class="food-image">
+    <img src="{{ asset('storage/' . $image) }}" alt="{{ $title }}" class="food-image">
     <div class="container-fooddetail px-3">
         <h5 class="oswald food-title">{{ $title }}</h5>
         <p class="food-description mb-2">{{ $description }}</p>

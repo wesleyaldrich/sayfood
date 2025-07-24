@@ -1,8 +1,9 @@
 @extends('layout.app')
 @section('title', 'Restaurant Menu Page')
 @section('content')
+
 <div class="hero-container">
-        <img src="{{ asset('$restaurant->image_url_resto') }}" class="hero-img" alt="">
+        <img src="{{ asset($restaurant->image_url_resto) }}" class="hero-img" alt="">
         
         <!-- Back Icon -->
         <a href="{{ route('foods') }}" class="back-icon">
@@ -19,6 +20,13 @@
                 <span>{{ $restaurant->address }}</span>
             </div>
         </div>
+
+        <!-- Report Resto Button -->
+<!-- Report Resto Button -->
+        <button class="report-resto" onclick="reportRestoPopup()">
+            <img src="{{ asset('assets/reportResto-btn.png') }}" alt="reportResto_btn">
+        </button>
+
     </div>
     <div class="menu-tab-bar">  
         <div class="tab" data-category="maincourse"><p class="oswald">{{ __('foods.main_courses') }}</p></div>
@@ -32,7 +40,7 @@
     {{-- Main Course --}}
     <div class="row g-4 menu-content" data-category="maincourse">
         @foreach($mainCourses as $i)
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
+        <div class="col-12 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
                 :id="$i->id"
                 :image="'storage/' . $i->image_url"

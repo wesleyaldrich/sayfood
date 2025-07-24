@@ -8,20 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
-
     protected $guarded = ['id'];
+    
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class, 'customer_event','event_id','customer_id');
+    }
 
     protected $fillable = [
-        'creator_id',
-        'event_category_id',
         'name',
+        'location',
+        'date',
         'description',
         'image_url',
-        'date',
-        'location',
+        'creator_id',
         'status',
-        'group_link'
+        'event_category_id',
+        'estimated_participants',
+        'organizer_name',
+        'organizer_email',
+        'organizer_phone',
+        'group_link',
+        'supporting_files',
+        'duration',
+        'start_time',
+        'end_time'
     ];
+
+
 
     public function creator()
     {

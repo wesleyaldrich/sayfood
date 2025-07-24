@@ -47,3 +47,18 @@ function showCartPopup(cartIcon) {
         }, 800);
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    window.reportRestoPopup = function() {
+        var myModal = new bootstrap.Modal(document.getElementById('reportRestoModal'));
+        myModal.show();
+    }
+});
+
+function closePopup() {
+    var myModalEl = document.getElementById('reportRestoModal');
+    var modal = bootstrap.Modal.getInstance(myModalEl);
+    if (modal) {
+        modal.hide();
+    }
+}

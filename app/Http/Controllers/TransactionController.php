@@ -115,102 +115,102 @@ class TransactionController extends Controller
     }
 
     public function customerActivities()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    if (!$user || !$user->customer) {
-        return redirect('/')->withErrors(['error' => 'Unauthorized access']);
-    }
+        if (!$user || !$user->customer) {
+            return redirect('/')->withErrors(['error' => 'Unauthorized access']);
+        }
 
-    $orders = $user->customer->orders()
-        ->with(['restaurant', 'transactions.food'])
-        ->orderByDesc('created_at')
-        ->get();
+        $orders = $user->customer->orders()
+            ->with(['restaurant', 'transactions.food'])
+            ->orderByDesc('created_at')
+            ->get();
 
-    $totalDonated = 0;
-    $orderStatuses = [];
+        $totalDonated = 0;
+        $orderStatuses = [];
 
-    foreach ($orders as $order) {
-    foreach ($order->transactions as $transaction) {
-        $totalDonated += $transaction->food->price * $transaction->qty;
-    }
+        foreach ($orders as $order) {
+        foreach ($order->transactions as $transaction) {
+            $totalDonated += $transaction->food->price * $transaction->qty;
+        }
 
-    // Mapping status ke key untuk timeline
-    $statusKey = match ($order->status) {
-        'Order Created' => 'order_created',
-        'Ready to Pickup' => 'ready_to_pickup',
-        'Order Completed' => 'order_completed',
-        'Order Reviewed' => 'review_order',
-        default => 'order_created',
-    };
+        // Mapping status ke key untuk timeline
+        $statusKey = match ($order->status) {
+            'Order Created' => 'order_created',
+            'Ready to Pickup' => 'ready_to_pickup',
+            'Order Completed' => 'order_completed',
+            'Order Reviewed' => 'review_order',
+            default => 'order_created',
+        };
 
-    // Buat list item makanannya
-    $items = [];
-    foreach ($order->transactions as $transaction) {
-        $items[] = [
-            'name' => $transaction->food->name,
-            'qty' => $transaction->qty,
-            'price' => 'Rp' . number_format($transaction->food->price, 0, ',', '.'),
+        // Buat list item makanannya
+        $items = [];
+        foreach ($order->transactions as $transaction) {
+            $items[] = [
+                'name' => $transaction->food->name,
+                'qty' => $transaction->qty,
+                'price' => 'Rp' . number_format($transaction->food->price, 0, ',', '.'),
+            ];
+        }
+
+        $total = 0;
+        foreach ($order->transactions as $transaction) {
+            $total += $transaction->food->price * $transaction->qty;
+        }
+
+
+        $orderStatuses[] = [
+            'orderId' => $order->id,
+            'status' => $statusKey,
+            'orderPlacedLabel' => 'ORDER PLACED',
+            'orderPlacedDate' => $order->created_at->format('d M Y'),
+            'total' => 'Rp' . number_format($total, 0, ',', '.'),
+            'restoName' => $order->restaurant->name,
+            'restoLocation' => $order->restaurant->address ?? 'Unknown Location',
+            'readyPickupText' => match ($order->status) {
+                'Order Created' => 'Waiting for Confirmation',
+                'Ready to Pickup' => 'Ready to Pick Up',
+                'Order Completed' => 'Completed',
+                'Order Reviewed' => 'Reviewed',
+                default => '',
+            },
+            'items' => $items,
+            'reviewButtonText' => match ($order->status) {
+                'Order Reviewed' => null, // Tombol tidak muncul
+                'Order Completed' => 'Review Order',
+                default => null,
+            },
         ];
     }
 
-    $total = 0;
-    foreach ($order->transactions as $transaction) {
-        $total += $transaction->food->price * $transaction->qty;
+        return view('activity', compact('orders', 'totalDonated', 'orderStatuses'));
     }
 
+    public function rate(Request $request, $id)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
 
-    $orderStatuses[] = [
-        'orderId' => $order->id,
-        'status' => $statusKey,
-        'orderPlacedLabel' => 'ORDER PLACED',
-        'orderPlacedDate' => $order->created_at->format('d M Y'),
-        'total' => 'Rp' . number_format($total, 0, ',', '.'),
-        'restoName' => $order->restaurant->name,
-        'restoLocation' => $order->restaurant->address ?? 'Unknown Location',
-        'readyPickupText' => match ($order->status) {
-            'Order Created' => 'Waiting for Confirmation',
-            'Ready to Pickup' => 'Ready to Pick Up',
-            'Order Completed' => 'Completed',
-            'Order Reviewed' => 'Reviewed',
-            default => '',
-        },
-        'items' => $items,
-        'reviewButtonText' => match ($order->status) {
-            'Order Reviewed' => null, // Tombol tidak muncul
-            'Order Completed' => 'Review Order',
-            default => null,
-        },
-    ];
-}
+        $order = Order::findOrFail($id);
 
-    return view('activity', compact('orders', 'totalDonated', 'orderStatuses'));
-}
+        $order->rating = $request->input('rating');
+        $order->status = 'Order Reviewed'; // Pastikan kapital-nya sesuai DB kamu
+        $order->save();
 
-public function rate(Request $request, $id)
-{
-    $request->validate([
-        'rating' => 'required|integer|min:1|max:5',
-    ]);
+        $restaurant = Restaurant::find($order->restaurant_id);
+        if ($restaurant) {
+            $avg = Order::where('restaurant_id', $restaurant->id)
+                ->whereNotNull('rating')
+                ->avg('rating');
 
-    $order = Order::findOrFail($id);
+            $restaurant->avg_rating = $avg;
+            $restaurant->save();
+        }
 
-    $order->rating = $request->input('rating');
-    $order->status = 'Order Reviewed'; // Pastikan kapital-nya sesuai DB kamu
-    $order->save();
-
-    $restaurant = Restaurant::find($order->restaurant_id);
-    if ($restaurant) {
-        $avg = Order::where('restaurant_id', $restaurant->id)
-            ->whereNotNull('rating')
-            ->avg('rating');
-
-        $restaurant->avg_rating = $avg;
-        $restaurant->save();
+        return redirect()->back()->with('success', 'Thanks for your review!');
     }
-
-    return redirect()->back()->with('success', 'Thanks for your review!');
-}
 
 
 
@@ -282,84 +282,84 @@ public function rate(Request $request, $id)
     }
 
     public function restaurantActivity(Request $request)
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    if (!$user || $user->role !== 'restaurant') {
-        return redirect('/')->withErrors(['error' => 'Unauthorized access']);
+        if (!$user || $user->role !== 'restaurant') {
+            return redirect('/')->withErrors(['error' => 'Unauthorized access']);
+        }
+
+        $query = $user->restaurant->orders()
+            ->with(['customer'])
+            ->whereNotNull('rating');
+
+        if ($request->has('rating')) {
+            $query->where('rating', $request->rating);
+        }
+
+        $orders = $query->orderBy('created_at', 'desc')->get();
+
+
+        return view('restaurant-activity', compact('orders'));
     }
 
-    $query = $user->restaurant->orders()
-        ->with(['customer'])
-        ->whereNotNull('rating');
+    public function confirmPayment(Request $request)
+    {
+        // PERBAIKAN 1 & 3: Dapatkan ID customer dan ganti nama variabel agar lebih jelas
+        $customerId = Auth::user()->customer->id;
+        $cartItems = Cart::where('customer_id', $customerId)->with('food')->get();
 
-    if ($request->has('rating')) {
-        $query->where('rating', $request->rating);
-    }
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('show.cart')->withErrors(['error' => 'Your cart is empty.']);
+        }
 
-    $orders = $query->orderBy('created_at', 'desc')->get();
+        $restaurantId = $cartItems->first()->food->restaurant_id;
 
-
-    return view('restaurant-activity', compact('orders'));
-}
-
-public function confirmPayment(Request $request)
-{
-    // PERBAIKAN 1 & 3: Dapatkan ID customer dan ganti nama variabel agar lebih jelas
-    $customerId = Auth::user()->customer->id;
-    $cartItems = Cart::where('customer_id', $customerId)->with('food')->get();
-
-    if ($cartItems->isEmpty()) {
-        return redirect()->route('show.cart')->withErrors(['error' => 'Your cart is empty.']);
-    }
-
-    $restaurantId = $cartItems->first()->food->restaurant_id;
-
-    try {
-        DB::transaction(function () use ($customerId, $cartItems, $restaurantId, $request) {
-            // 1. Validasi stok sebelum melanjutkan
-            foreach ($cartItems as $item) {
-                if ($item->quantity > $item->food->stock) {
-                    throw new \Exception('Stock for ' . $item->food->name . ' is not sufficient.');
+        try {
+            DB::transaction(function () use ($customerId, $cartItems, $restaurantId, $request) {
+                // 1. Validasi stok sebelum melanjutkan
+                foreach ($cartItems as $item) {
+                    if ($item->quantity > $item->food->stock) {
+                        throw new \Exception('Stock for ' . $item->food->name . ' is not sufficient.');
+                    }
                 }
-            }
-            
-            // 2. Buat record Order baru
-            $order = Order::create([
-                // PERBAIKAN 1: Gunakan $customerId langsung, bukan $customer->id
-                'customer_id'   => $customerId,
-                'restaurant_id' => $restaurantId,
-                'status'        => 'Order Created',
-                'payment_method' => $request->input('payment_method_final', 'Unknown'),
-                'rating'        => null,
-            ]);
-
-            // 3. Pindahkan item dari keranjang ke tabel transactions & kurangi stok
-            foreach ($cartItems as $item) {
-                // Buat record transaksi untuk setiap item
-                Transaction::create([
-                    'order_id' => $order->id,
-                    'food_id'  => $item->food_id,
-                    'qty'      => $item->quantity,
-                    'price'    => $item->food->price,
-                    'notes'    => $item->notes,
+                
+                // 2. Buat record Order baru
+                $order = Order::create([
+                    // PERBAIKAN 1: Gunakan $customerId langsung, bukan $customer->id
+                    'customer_id'   => $customerId,
+                    'restaurant_id' => $restaurantId,
+                    'status'        => 'Order Created',
+                    'payment_method' => $request->input('payment_method_final', 'Unknown'),
+                    'rating'        => null,
                 ]);
 
-                // OPTIMASI 2: Kurangi stok langsung dari relasi, tidak perlu query baru
-                $item->food->decrement('stock', $item->quantity);
-            }
+                // 3. Pindahkan item dari keranjang ke tabel transactions & kurangi stok
+                foreach ($cartItems as $item) {
+                    // Buat record transaksi untuk setiap item
+                    Transaction::create([
+                        'order_id' => $order->id,
+                        'food_id'  => $item->food_id,
+                        'qty'      => $item->quantity,
+                        'price'    => $item->food->price,
+                        'notes'    => $item->notes,
+                    ]);
 
-            // 4. Hapus keranjang user
-            // PERBAIKAN 1: Gunakan $customerId langsung
-            Cart::where('customer_id', $customerId)->delete();
-        });
+                    // OPTIMASI 2: Kurangi stok langsung dari relasi, tidak perlu query baru
+                    $item->food->decrement('stock', $item->quantity);
+                }
 
-    } catch (\Exception $e) {
-        return redirect()->route('show.cart')->withErrors(['error' => $e->getMessage()]);
+                // 4. Hapus keranjang user
+                // PERBAIKAN 1: Gunakan $customerId langsung
+                Cart::where('customer_id', $customerId)->delete();
+            });
+
+        } catch (\Exception $e) {
+            return redirect()->route('show.cart')->withErrors(['error' => $e->getMessage()]);
+        }
+
+        return redirect()->route('activity')->with('status', 'Payment confirmed successfully! Your order is being processed.');
     }
-
-    return redirect()->route('activity')->with('status', 'Payment confirmed successfully! Your order is being processed.');
-}
 
 }
 
