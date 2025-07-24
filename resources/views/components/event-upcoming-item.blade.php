@@ -28,7 +28,7 @@
 
                                 {{-- Gambar Kiri --}}
                                 <div class="event-modal-image">
-                                    <img src="{{ $event->image }}" alt="{{ $event->title }}" class="img-fluid rounded"
+                                    <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}" class="img-fluid rounded"
                                         style=" width: 100%; aspect-ratio: 16 / 9">
                                 </div>
 
