@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/header.js') }}" defer></script>
-    
     @stack('styles')
 </head>
 <body>
@@ -32,6 +31,28 @@
         @endif
         @yield('content')
     </div>
+
+    {{-- Badge Keranjang & Resto (logic di CartComposer) --}}
+    @if(isset($cartItemCount))
+        <div style="position: relative; width: fit-content;">
+            <a href="{{ route('show.cart') }}">
+                <img class="mycart" src="{{ asset('assets/icon_mycart.png') }}" alt="mycart">
+            </a>
+            
+            @if($cartItemCount > 0 && $cartRestaurant)
+                <span class="cart-badge">{{ $cartItemCount}}</span>
+                <div class="cart-resto-badge" style="z-index: 5; bottom: 50px; right: 120px; ">
+                    <p class="mb-2">{{ $cartRestaurant->name}}</p>
+                    <a href="{{ route('resto.show', $cartRestaurant->id) }}" class="btn" style="background:#D9534F; color: white; font-size: 12px; border-radius: 15px;">{{ __('foods.visit') }} RESTO</a>
+                </div>
+            @else
+                <span class="cart-badge">0</span>
+            @endif
+
+        </div>
+    @endif
+
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
