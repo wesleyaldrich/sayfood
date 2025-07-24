@@ -85,12 +85,7 @@ class FoodController extends Controller
         $drinks = Food::with('restaurant')->where('category_id', 3)
             ->where($filters)->tap($applySorting)->get();
 
-        $cartItemCount = 0;
-        if (Auth::check()) {
-            $cartItemCount = Cart::where('user_id', Auth::id())->sum('quantity');
-        }
-
-        return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks', 'cartItemCount'));
+        return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks'));
     }
 
 

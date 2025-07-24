@@ -45,10 +45,8 @@
     </div>
     <h3 class="price py-2 mb-0">{{ $price }}</h3>
 
-    {{-- test functionality add to cart --}}
     <form action="{{ route('add.cart', $id) }}" method="POST" class="cart-form" data-resto-name="{{ $restoName }}">
         @csrf
-        {{-- asumsi default kuantitas adalah 1 saat pertama kali klik --}}
         <input type="hidden" name="quantity" value="1">
 
         <button type="submit" class="cart-icon-button">

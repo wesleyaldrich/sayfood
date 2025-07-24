@@ -4,7 +4,16 @@
 
     use Illuminate\Database\Eloquent\Model;
 
-    class Customer extends Model
+class Customer extends Model
+{
+    protected $fillable = [
+        'user_id'
+    ];
+     public function cart(){
+        return $this->hasMany(Cart::class);
+    }
+    
+    public function orders()
     {
         protected $fillable = [
             'user_id'

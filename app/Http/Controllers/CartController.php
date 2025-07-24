@@ -35,9 +35,9 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
-        $userId = Auth::id();
+        $customerId = Auth::user()->customer->id;
         
-        $existingCartItems = Cart::where('user_id', $userId)->with('food')->get();
+        $existingCartItems = Cart::where('customer_id', $customerId)->with('food')->get();
 
         if ($existingCartItems->isNotEmpty()) {
             $currentRestaurantId = $existingCartItems->first()->food->restaurant_id;
@@ -47,14 +47,14 @@ class CartController extends Controller
             }
         }
         
-        $cartItem = Cart::where('user_id', $userId)->where('food_id', $food->id)->first();
+        $cartItem = Cart::where('customer_id', $customerId)->where('food_id', $food->id)->first();
         
         if($cartItem){
             $cartItem->quantity += $request->quantity;
             $cartItem->save();
         } else {
             Cart::create([
-                'user_id' => $userId,
+                'customer_id' => $customerId,
                 'food_id'=> $food->id,
                 'quantity'=> $request->quantity,
             ]);
@@ -69,7 +69,7 @@ class CartController extends Controller
      */
     public function show()
     {
-        $cartItems = Cart::where('user_id', Auth::id())->with('food.restaurant')->get();
+        $cartItems = Cart::where('customer_id', Auth::user()->customer->id)->with('food.restaurant')->get();
         
         $restaurant = null;
 
@@ -83,7 +83,7 @@ class CartController extends Controller
     public function increase(Cart $cart)
     {
         // Validasi: Pastikan user hanya bisa mengubah keranjangnya sendiri
-        if ($cart->user_id !== Auth::id()) {
+        if ($cart->customer_id !== Auth::user()->customer->id) {
             return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
         }
 
@@ -103,7 +103,7 @@ class CartController extends Controller
     public function decrease(Cart $cart)
     {
         // Validasi: Pastikan user hanya bisa mengubah keranjangnya sendiri
-        if ($cart->user_id !== Auth::id()) {
+        if ($cart->customer_id !== Auth::user()->customer->id) {
             return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
         }
 
@@ -144,7 +144,7 @@ class CartController extends Controller
     }
 
     public function updateNote(Request $request, Cart $cart){
-        if ($cart->user_id !== Auth::id()) {
+        if ($cart->customer_id !== Auth::user()->customer->id) {
             return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
         }
 
@@ -160,15 +160,15 @@ class CartController extends Controller
 
     public function cancelCart()
     {
-        Cart::where('user_id', Auth::id())->delete();
+        Cart::where('customer_id', Auth::user()->customer->id)->delete();
 
         return redirect()->route('foods')->with('status', 'Your cart has been cleared.');
     }
 
     public function clearCart(){
-        $userId = Auth::id();
+        $customerId = Auth::user()->customer->id;
 
-        Cart::where('user_id', $userId)->delete(); 
+        Cart::where('customer_id', $customerId)->delete(); 
         return redirect('/foods')->with('status', 'Your cart is empty');
     }
 }
