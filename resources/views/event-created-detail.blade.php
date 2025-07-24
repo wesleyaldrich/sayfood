@@ -171,7 +171,7 @@
                                 <div class="detail-item">
                                     <i class="fas fa-calendar-alt"></i>
                                     <div>
-                                        <strong>Date</strong><br>{{ $event->date}} | {{ $event->start_time}}
+                                        <strong>Date</strong><br>{{ $event->date}} | {{ $event->start_time}} - {{ $event->end_time}}
                                     </div>
                                 </div>
                                 <div class="detail-item">
