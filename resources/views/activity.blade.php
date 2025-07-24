@@ -104,7 +104,7 @@
                     <h2 style="font-family: 'Oswald'">Let's Take a Look of Your Journey With SAYFOOD!</h2>
                     <div class="event-grid">
                         @if($completedEvents->isEmpty())
-                            <p class="text-muted">No completed events yet.</p>
+                            <p class="text-muted" style="font-size: 1.25rem">No completed events yet.</p>
                         @else
                             <x-event-journey-section :events="$completedEvents" />
                         @endif
