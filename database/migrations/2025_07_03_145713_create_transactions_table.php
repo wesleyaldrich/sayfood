@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->foreignId('food_id')->constrained('foods');
             $table->integer('qty');
             $table->string('notes')->nullable();

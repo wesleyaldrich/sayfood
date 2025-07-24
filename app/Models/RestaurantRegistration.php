@@ -37,6 +37,6 @@ class RestaurantRegistration extends Model
 
     public function restaurant()
     {
-        return $this->belongsTo(Restaurant::class, 'id', 'id');
+        return $this->belongsTo(Restaurant::class);
     }
 }

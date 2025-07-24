@@ -16,7 +16,7 @@
                             {{ __('navigation.admin') }}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#2">{{ __('navigation.review_report') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ route('show.manage.reports') }}">{{ __('navigation.review_report') }}</a></li>
                             <li><a class="dropdown-item" href="{{ route('show.manage.restaurants') }}">{{ __('navigation.manage_restaurant') }}</a></li>
                             <li><a class="dropdown-item" href="{{ route('show.manage.events') }}">{{ __('navigation.manage_event') }}</a></li>
                         </ul>
@@ -71,7 +71,7 @@
             @if (Auth::check() && Auth::user()->role === 'admin')
                 <li class="p-0"><hr class="dropdown-divider"></li>
                 <li class="">
-                    <a href="#" class="oswald nav-button">{{ __('navigation.review_report') }}</a>
+                    <a href="#" class="oswald nav-button">REVIEW REPORT</a>
                 </li>
                 <li class="">
                     <a href="#" class="oswald nav-button">{{ __('navigation.manage_restaurant') }}</a>

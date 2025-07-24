@@ -60,7 +60,7 @@ class Restaurant extends Model
 
     public function registration()
     {
-        return $this->hasOne(RestaurantRegistration::class, 'id', 'id');
+        return $this->hasOne(RestaurantRegistration::class);
     }
 
     public function getTotalDonationAttribute()
@@ -85,5 +85,10 @@ class Restaurant extends Model
         return $this->orders()
             ->whereNotNull('rating')
             ->avg('rating');
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
     }
 }

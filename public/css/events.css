@@ -209,7 +209,7 @@ body {
 }
 
 .event-page {
-  padding: 20px;
+  /* padding: 20px; */
   background-color: #fdf7ef;
 }
 
@@ -975,4 +975,36 @@ button {
     .category-card {
         width: 80% !important;
     }
+}
+
+.modal-content {
+    background-color: #F8F4E9;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.3s;
+    position: relative;
+}
+.title-report {
+  font-size: 30px !important;
+  font-weight: bold !important;
+  margin-bottom: 15px;
+}
+
+.truncate-text {
+    display: block;          /* Pastikan ini dianggap block */
+    max-width: 100px;        /* Atur lebar sesuai kebutuhan */
+    white-space: nowrap;     /* Jangan pindah baris */
+    overflow: hidden;        /* Sembunyikan teks berlebih */
+    text-overflow: ellipsis; /* Tambahkan ... di akhir */
+}
+
+.truncate-text1 {
+    display: block;          /* Pastikan ini dianggap block */
+    max-width: 180px;        /* Atur lebar sesuai kebutuhan */
+    white-space: nowrap;     /* Jangan pindah baris */
+    overflow: hidden;        /* Sembunyikan teks berlebih */
+    text-overflow: ellipsis; /* Tambahkan ... di akhir */
 }

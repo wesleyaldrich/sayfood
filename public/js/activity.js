@@ -32,28 +32,55 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-function agreeAndReturnToForm() {
-  const termsModalEl = document.getElementById('termsAndConditionsModal');
-  const proposeModalEl = document.getElementById('proposeEventModal');
+// function agreeAndReturnToForm() {
+//   const termsModalEl = document.getElementById('termsAndConditionsModal');
+//   const proposeModalEl = document.getElementById('proposeEventModal');
 
-  const termsModal = bootstrap.Modal.getInstance(termsModalEl);
-  const proposeModal = bootstrap.Modal.getOrCreateInstance(proposeModalEl);
+//   const termsModal = bootstrap.Modal.getInstance(termsModalEl);
+//   const proposeModal = bootstrap.Modal.getOrCreateInstance(proposeModalEl);
 
-  // Step 1: Close terms modal
-  termsModal.hide();
+//   // Step 1: Close terms modal
+//   termsModal.hide();
 
-  // Step 2: Tunggu animasi modal hide selesai, baru show modal form
-  termsModalEl.addEventListener('hidden.bs.modal', function handler() {
-      // Step 3: Buka kembali modal form
-      proposeModal.show();
+//   // Step 2: Tunggu animasi modal hide selesai, baru show modal form
+//   termsModalEl.addEventListener('hidden.bs.modal', function handler() {
+//       // Step 3: Buka kembali modal form
+//       proposeModal.show();
 
-      // Step 4: Tambahkan class modal-open ke body agar scroll aktif
-      document.body.classList.add('modal-open');
+//       // Step 4: Tambahkan class modal-open ke body agar scroll aktif
+//       document.body.classList.add('modal-open');
 
-      // Step 5: Unbind event listener agar tidak dipanggil berulang
-      termsModalEl.removeEventListener('hidden.bs.modal', handler);
-  });
-}
+//       // Step 5: Unbind event listener agar tidak dipanggil berulang
+//       termsModalEl.removeEventListener('hidden.bs.modal', handler);
+//   });
+// }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('agreeTermsCheckbox');
+    const hCheck = document.getElementById('hiddenAgreeCheckbox');
+    const checkTC = document.getElementById('checkTC');
+    const backbutton = document.getElementById('backProposeEventModal');
+
+    if (checkbox) {
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                if (hCheck) hCheck.checked = true;
+                if (checkTC) {
+                    checkTC.classList.remove("d-none");
+                    checkTC.classList.add("d-flex");
+                }
+                if (backbutton) backbutton.click();
+            } else{
+                hCheck.checked = false;
+                if (checkTC) {
+                    checkTC.classList.remove("d-flex");
+                    checkTC.classList.add("d-none");
+                }
+                if (backbutton) backbutton.click();
+            }
+        });
+    }
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     const modals = document.querySelectorAll('.modal');
