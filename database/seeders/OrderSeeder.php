@@ -78,6 +78,22 @@ class OrderSeeder extends Seeder
                 'updated_at' => now(),
                 'rating' => null
             ],
+                        [
+                'customer_id' => 1,
+                'restaurant_id' => 1,
+                'status' => 'Order Reviewed',
+                'created_at' => now(),
+                'updated_at' => now(),
+                'rating' => '4'
+            ],
+            [
+                'customer_id' => 2,
+                'restaurant_id' => 1,
+                'status' => 'Order Reviewed',
+                'created_at' => now(),
+                'updated_at' => now(),
+                'rating' => '4'
+            ],
         ];
 
         Order::insert($data);

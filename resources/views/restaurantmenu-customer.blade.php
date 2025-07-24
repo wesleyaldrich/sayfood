@@ -4,7 +4,7 @@
 
 <div class="hero-container">
         <img src="{{ asset($restaurant->image_url_resto) }}" class="hero-img" alt="">
-
+        
         <!-- Back Icon -->
         <a href="{{ route('foods') }}" class="back-icon">
             <i class="fas fa-chevron-left"></i>
@@ -40,9 +40,11 @@
     {{-- Main Course --}}
     <div class="row g-4 menu-content" data-category="maincourse">
         @foreach($mainCourses as $i)
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
+        <div class="col-12 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
+                :id="$i->id"
                 :image="$i->image_url"
+                :restoName="$restaurant->name"
                 :title="$i->name"
                 :description="$i->description"
                 :expiry="$i->exp_datetime->format('d/m h:i A')"
@@ -58,7 +60,9 @@
         @foreach($drinks as $i)
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
+                :id="$i->id"
                 :image="$i->image_url"
+                :restoName="$restaurant->name"
                 :title="$i->name"
                 :description="$i->description"
                 :expiry="$i->exp_datetime->format('d/m h:i A')"
@@ -74,7 +78,9 @@
         @foreach($desserts as $i)
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
+                :id="$i->id"
                 :image="$i->image_url"
+                :restoName="$restaurant->name"
                 :title="$i->name"
                 :description="$i->description"
                 :expiry="$i->exp_datetime->format('d/m h:i A')"
@@ -90,7 +96,9 @@
         @foreach($snacks as $i)
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
+                :id="$i->id"
                 :image="$i->image_url"
+                :restoName="$restaurant->name"
                 :title="$i->name"
                 :description="$i->description"
                 :expiry="$i->exp_datetime->format('d/m h:i A')"

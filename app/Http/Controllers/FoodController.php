@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProcessZipUploadRequest;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Food;
@@ -85,12 +86,7 @@ class FoodController extends Controller
         $drinks = Food::with('restaurant')->where('category_id', 3)
             ->where($filters)->tap($applySorting)->get();
 
-        $cartItemCount = 0;
-        if (Auth::check()) {
-            $cartItemCount = Cart::where('user_id', Auth::id())->sum('quantity');
-        }
-
-        return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks', 'cartItemCount'));
+        return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks'));
     }
 
 
@@ -126,7 +122,7 @@ class FoodController extends Controller
     return new StreamedResponse($callback, 200, $headers);
 }
 
-public function processZipUpload(Request $request)
+public function processZipUpload(ProcessZipUploadRequest $request)
 {
     $request->validate([
         'zip_file' => 'required|file|mimes:zip|max:20480',
@@ -217,14 +213,11 @@ private function processCsv($csvFile, $tempPath, $restaurant)
             );
         }
 
-        // Ubah format tanggal dari DD/MM/YYYY ke YYYY-MM-DD
         $expDateTime = null;
         if (!empty($data['exp_datetime'])) {
             try {
-                // Carbon akan mem-parsing format 'd/m/Y H:i'
                 $expDateTime = Carbon::createFromFormat('d/m/Y H:i', $data['exp_datetime'])->format('Y-m-d H:i:s');
             } catch (\Exception $e) {
-                // Jika format salah, biarkan null agar tidak error
                 $expDateTime = null;
             }
         }

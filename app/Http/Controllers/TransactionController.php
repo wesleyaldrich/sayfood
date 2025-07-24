@@ -116,7 +116,6 @@ class TransactionController extends Controller
 
     public function customerActivities(Request $request)
     {
-
         $user = Auth::user();
 
         // dd(Auth::id(), $user->customer->id);
@@ -247,7 +246,6 @@ class TransactionController extends Controller
         return view('activity', compact('orders', 'totalDonated', 'orderStatuses', 'upcomingEvents', 'completedEvents', 'createdEvents'));
     }
 
-
     public function rate(Request $request, $id)
     {
         $request->validate([
@@ -272,8 +270,6 @@ class TransactionController extends Controller
 
         return redirect()->back()->with('success', 'Thanks for your review!');
     }
-
-
 
     public function download(Request $request)
     {
@@ -364,10 +360,11 @@ class TransactionController extends Controller
         return view('restaurant-activity', compact('orders'));
     }
 
+
     public function confirmPayment(Request $request)
     {
-        $user = Auth::user();
-        $cartItems = Cart::where('user_id', $user->id)->with('food')->get();
+        $customerId = Auth::user()->customer->id;
+        $cartItems = Cart::where('customer_id', $customerId)->with('food')->get();
 
         if ($cartItems->isEmpty()) {
             return redirect()->route('show.cart')->withErrors(['error' => 'Your cart is empty.']);
@@ -375,51 +372,40 @@ class TransactionController extends Controller
 
         $restaurantId = $cartItems->first()->food->restaurant_id;
 
-        // Use a database transaction to ensure all operations succeed or none do.
         try {
-            DB::transaction(function () use ($user, $cartItems, $restaurantId, $request) {
-                // 1. Validate stock before proceeding
+            DB::transaction(function () use ($customerId, $cartItems, $restaurantId, $request) {
                 foreach ($cartItems as $item) {
                     if ($item->quantity > $item->food->stock) {
-                        // If stock is insufficient, the transaction will be rolled back.
                         throw new \Exception('Stock for ' . $item->food->name . ' is not sufficient.');
                     }
                 }
 
-                // 2. Create a new Order record
                 $order = Order::create([
-                    'customer_id' => $user->id,
+                    'customer_id'   => $customerId,
                     'restaurant_id' => $restaurantId,
-                    'status' => 'Order Created', // Set status directly to successful
-                    'payment_method' => $request->input('payment_method_final', 'Unknown'), // Optional: save the mock payment method
-                    'rating' => null,
+                    'status'        => 'Order Created',
+                    'payment_method' => $request->input('payment_method_final', 'Unknown'),
+                    'rating'        => null,
                 ]);
 
-                // 3. Move items from cart to transactions table & decrease stock
                 foreach ($cartItems as $item) {
-                    // Create a transaction record for each item
                     Transaction::create([
                         'order_id' => $order->id,
-                        'food_id' => $item->food_id,
-                        'qty' => $item->quantity,
-                        'price' => $item->food->price,
-                        'notes' => $item->notes,
+                        'food_id'  => $item->food_id,
+                        'qty'      => $item->quantity,
+                        'price'    => $item->food->price,
+                        'notes'    => $item->notes,
                     ]);
 
-                    // Decrease the food stock
-                    $food = Food::find($item->food_id);
-                    $food->decrement('stock', $item->quantity);
+                    $item->food->decrement('stock', $item->quantity);
                 }
 
-                // 4. Clear the user's cart
-                Cart::where('user_id', $user->id)->delete();
+                Cart::where('customer_id', $customerId)->delete();
             });
         } catch (\Exception $e) {
-            // If any error occurs (like the stock issue), redirect back with the error message.
             return redirect()->route('show.cart')->withErrors(['error' => $e->getMessage()]);
         }
 
-        // If everything is successful, redirect to the activity page.
         return redirect()->route('activity')->with('status', 'Payment confirmed successfully! Your order is being processed.');
     }
 }
