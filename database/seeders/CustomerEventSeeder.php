@@ -63,6 +63,31 @@ class CustomerEventSeeder extends Seeder
                 'phone_number'=> $faker->phoneNumber()
             ],
             [
+                'event_id'=>10,
+                'customer_id'=>3,
+                'phone_number'=> $faker->phoneNumber()
+            ],
+            [
+                'event_id'=>10,
+                'customer_id'=>3,
+                'phone_number'=> $faker->phoneNumber()
+            ],
+            [
+                'event_id'=>10,
+                'customer_id'=>3,
+                'phone_number'=> $faker->phoneNumber()
+            ],
+            [
+                'event_id'=>10,
+                'customer_id'=>3,
+                'phone_number'=> $faker->phoneNumber()
+            ],
+            [
+                'event_id'=>10,
+                'customer_id'=>3,
+                'phone_number'=> $faker->phoneNumber()
+            ],
+            [
                 'event_id'=>5,
                 'customer_id'=>4,
                 'phone_number'=> $faker->phoneNumber()
