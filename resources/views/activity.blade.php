@@ -82,6 +82,8 @@
                         </div>
                     </section>
 
+                    
+
                     <section class="create-event-container col-12 col-md-4">
                         <div class="create-event-mascot d-flex justify-content-end">
                             <img src="{{asset('assets/mascot_create_event.png')}}">
@@ -111,7 +113,6 @@
                     </div>
                 </section>
 
-                </section>
             </div>
         </div>
     </div>
