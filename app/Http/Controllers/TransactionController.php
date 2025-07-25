@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Event;
+use App\Models\EventCategory;
 use App\Models\Food;
 use App\Models\Order;
 use App\Models\Restaurant;
@@ -112,7 +114,7 @@ class TransactionController extends Controller
         return redirect()->back();
     }
 
-    public function customerActivities()
+    public function customerActivities(Request $request)
     {
         $user = Auth::user();
 
@@ -150,6 +152,7 @@ class TransactionController extends Controller
                     'name' => $transaction->food->name,
                     'qty' => $transaction->qty,
                     'price' => 'Rp' . number_format($transaction->food->price, 0, ',', '.'),
+                    'notes' => $transaction->notes
                 ];
             }
 
@@ -228,8 +231,19 @@ class TransactionController extends Controller
                 ];
             });
 
+        $createdEvents = Event::where('creator_id', $user->customer->id)
+            ->orderByDesc('date')
+            ->get();
 
-        return view('activity', compact('orders', 'totalDonated', 'orderStatuses', 'upcomingEvents', 'completedEvents'));
+        // if ($request->has('event')) {
+        //     $eventId = $request->get('event');
+        //     $event = Event::with(['creator.user', 'participants.user', 'category'])
+        //         ->findOrFail($eventId);
+
+        //     return view('event-detail', compact('event'));
+        // }
+
+        return view('activity', compact('orders', 'totalDonated', 'orderStatuses', 'upcomingEvents', 'completedEvents', 'createdEvents'));
     }
 
     public function rate(Request $request, $id)
@@ -243,16 +257,6 @@ class TransactionController extends Controller
         $order->rating = $request->input('rating');
         $order->status = 'Order Reviewed'; // Pastikan kapital-nya sesuai DB kamu
         $order->save();
-
-        $restaurant = Restaurant::find($order->restaurant_id);
-        if ($restaurant) {
-            $avg = Order::where('restaurant_id', $restaurant->id)
-                ->whereNotNull('rating')
-                ->avg('rating');
-
-            $restaurant->avg_rating = $avg;
-            $restaurant->save();
-        }
 
         return redirect()->back()->with('success', 'Thanks for your review!');
     }

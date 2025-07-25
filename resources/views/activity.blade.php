@@ -66,19 +66,23 @@
             </div>
 
             <div class="tab-pane fade" id="charity-content" role="tabpanel" aria-labelledby="charity-tab">
-                <div class="d-flex flex-row upcoming-event-wrap">
-                    <section class="upcoming-events col-12 col-md-8 d-flex flex-column gap-2">
-                        <h2>YOUR UPCOMING EVENTS</h2>
-                        <div class="upcoming-content d-flex flex-row align-items-center"
-                            style="padding-left: 2vw; padding-right: 2vw;">
 
-                            <div class="scroll-container d-flex mx-3" id="eventScroll">
-                                <div class="event-cards-wrapper">
+                <div class="d-flex row">
+                    <section class="created-event-section col-md-8">
+                        <h2 style="font-family: 'Oswald'; margin-bottom: 20px;">Let's take a look at the events you've
+                            created!</h2>
+                        <div class="created-event-wrapper d-flex flex-row flex-nowrap overflow-auto gap-4"
+                            style="scrollbar-width: thin;">
+                            @if ($createdEvents->isEmpty())
+                                <p class="text-muted" style="font-size: 1.25rem">No created events yet.</p>
+                            @else
+                                @foreach ($createdEvents as $event)
+                                    <a href="{{ route('show.created-event', $event->id) }}" class="block">
+                                        <x-event-created-section :event="$event" />
+                                    </a>
+                                @endforeach
+                            @endif
 
-                                    <x-event-upcoming-item :upcomingEvents="$upcomingEvents" />
-
-                                </div>
-                            </div>
                         </div>
                     </section>
 
@@ -97,21 +101,28 @@
 
                         </div>
                     </section>
-
                 </div>
+
+                <section class="upcoming-events d-flex flex-column gap-2">
+                    <h2>YOUR UPCOMING EVENTS</h2>
+                    <div class="event-cards-wrapper">
+
+                        <x-event-upcoming-item :upcomingEvents="$upcomingEvents" />
+
+                    </div>
+                </section>
 
                 <section class="journey-section">
                     <h2 style="font-family: 'Oswald'">Let's Take a Look of Your Journey With SAYFOOD!</h2>
                     <div class="event-grid">
                         @if($completedEvents->isEmpty())
-                            <p class="text-muted">No completed events yet.</p>
+                            <p class="text-muted" style="font-size: 1.25rem">No completed events yet.</p>
                         @else
                             <x-event-journey-section :events="$completedEvents" />
                         @endif
                     </div>
                 </section>
 
-                </section>
             </div>
         </div>
     </div>
@@ -131,6 +142,19 @@
             });
         </script>
     @endif
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab');
+
+            if (tab === 'eventactivity') {
+                // Trigger klik ke tab CREATED EVENTS
+                document.querySelector('#charity-tab')?.click();
+            } 
+        });
+    </script>
+
 @endsection
 
 <!-- Modal Propose Event -->
@@ -215,7 +239,8 @@
 
                                         <div class="mb-3">
                                             <label class="form-label">Cover Image</label>
-                                            <input type="file" class="form-control @error('image_url') is-invalid @enderror"
+                                            <input type="file"
+                                                class="form-control @error('image_url') is-invalid @enderror"
                                                 name="image_url" />
                                             @error('image_url') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>

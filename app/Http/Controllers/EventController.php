@@ -145,6 +145,13 @@ class EventController extends Controller
         return redirect()->back()->with('danger', 'Event "' . $event->name . '" has been rejected.');
     }
 
+    public function showCreatedEvent(Request $request, $id) // Tambahkan Request $request
+    {
+        $event = Event::with(['creator.user', 'participants.user', 'category'])->findOrFail($id);
+
+        return view('event-created-detail', compact('event'));
+    }
+
     public function edit(string $id)
     {
         //

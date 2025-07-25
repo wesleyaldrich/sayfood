@@ -56,6 +56,8 @@ Route::middleware('twofactor')->group(function () {
         Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
         Route::post('/events/propose', [EventController::class, 'store'])->name('events.store');
 
+        Route::get('/created-event/{id}', [EventController::class, 'showCreatedEvent'])->name('show.created-event');
+
         Route::get('/cart', [CartController::class,'show'])->name('show.cart')->middleware('auth');
         Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart')->middleware('auth');
         Route::post('/cart/increase/{cart}', [CartController::class, 'increase'])->name('increase.cart')->middleware('auth');
