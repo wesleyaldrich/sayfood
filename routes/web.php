@@ -72,6 +72,8 @@ Route::middleware('twofactor')->group(function () {
 
         Route::get('/foods', [FoodController::class, 'index'])->name('foods');
         Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
+      
+        Route::post('/report', [ReportController::class, 'store'])->name('report.store')->middleware('auth');
 
     });
 
