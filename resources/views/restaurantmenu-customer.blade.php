@@ -74,7 +74,7 @@
 
     </div>
     <div class="menu-tab-bar">  
-        <div class="tab" data-category="maincourse"><p class="oswald">{{ __('foods.main_courses') }}</p></div>
+        <div class="tab active-tab" data-category="maincourse"><p class="oswald">{{ __('foods.main_courses') }}</p></div>
         <div class="tab" data-category="drinks"><p class="oswald">{{ __('foods.drinks') }}</p></div>
         <div class="tab" data-category="desserts"><p class="oswald">{{ __('foods.desserts') }}</p></div>
         <div class="tab" data-category="snacks"><p class="oswald">{{ __('foods.snacks') }}</p></div>
@@ -88,7 +88,7 @@
         <div class="col-12 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
                 :id="$i->id"
-                :image="'storage/' . $i->image_url"
+                :image="$i->image_url"
                 :restoName="$restaurant->name"
                 :title="$i->name"
                 :description="$i->description"
@@ -106,7 +106,7 @@
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
                 :id="$i->id"
-                :image="'storage/' . $i->image_url"
+                :image="$i->image_url"
                 :restoName="$restaurant->name"
                 :title="$i->name"
                 :description="$i->description"
@@ -124,7 +124,7 @@
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
                 :id="$i->id"
-                :image="'storage/' . $i->image_url"
+                :image="$i->image_url"
                 :restoName="$restaurant->name"
                 :title="$i->name"
                 :description="$i->description"
@@ -142,7 +142,7 @@
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
             <x-restaurant-menu-food-item
                 :id="$i->id"
-                :image="'storage/' . $i->image_url"
+                :image="$i->image_url"
                 :restoName="$restaurant->name"
                 :title="$i->name"
                 :description="$i->description"

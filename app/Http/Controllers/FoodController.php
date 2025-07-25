@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProcessZipUploadRequest;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Food;
@@ -21,72 +22,70 @@ class FoodController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
+public function index(Request $request)
+{
+    $searchQuery = $request->query('q');
+    $priceMax    = $request->query('price');
+    $ratingMin   = $request->query('rating');
+    $sort        = $request->query('sort');
 
-        $popular     = Food::with('restaurant')->inRandomOrder()->take(10)->get();
-        $mainCourses = Food::with('restaurant')->where('category_id', 1)->get();
-        $desserts    = Food::with('restaurant')->where('category_id', 2)->get();
-        $drinks      = Food::with('restaurant')->where('category_id', 3)->get();
-        $snacks      = Food::with('restaurant')->where('category_id', 4)->get();
+    // Popular foods from cache
+    $popular = Cache::remember('popular_foods', now()->addHours(1), function () {
+        return Food::with('restaurant')->inRandomOrder()->take(10)->get();
+    });
 
-        $searchQuery = $request->query('q');
-        $priceMax    = $request->query('price');
-        $ratingMin   = $request->query('rating');
-        $sort        = $request->query('sort');
-
-        $popular = Cache::remember('popular_foods', now()->addHours(1), function () {
-            return Food::with('restaurant')->inRandomOrder()->take(10)->get();
-        });
-
-        $filters = function ($query) use ($searchQuery, $priceMax, $ratingMin) {
-            if ($searchQuery) {
-                $query->where(function ($q) use ($searchQuery) {
-                    $q->where('foods.name', 'like', '%' . $searchQuery . '%')
-                        ->orWhereHas('restaurant', function ($q2) use ($searchQuery) {
-                            $q2->where('name', 'like', '%' . $searchQuery . '%');
-                        });
-                });
-            }
-
-            if ($priceMax) {
-                $query->where('foods.price', '<=', (int)$priceMax);
-            }
-
-            if ($ratingMin) {
-                $query->whereHas('restaurant', function ($q) use ($ratingMin) {
-                    $q->where('avg_rating', '>=', (float) $ratingMin);
-                });
-            }
-        };
-
-
-        $applySorting = function ($query) use ($sort) {
-            if ($sort === 'nearby') {
-                $query->join('restaurants', 'foods.restaurant_id', '=', 'restaurants.id')
-                    ->orderBy('restaurants.distance', 'asc')
-                    ->select('foods.*');
-            } elseif ($sort === 'popular') {
-                $query->join('restaurants', 'foods.restaurant_id', '=', 'restaurants.id')
-                    ->orderBy('restaurants.avg_rating', 'desc')
-                    ->select('foods.*');
-            }
-        };
-
-        $mainCourses = Food::with('restaurant')->where('category_id', 1)
-            ->where($filters)->tap($applySorting)->get();
-
-        $desserts = Food::with('restaurant')->where('category_id', 2)
-            ->where($filters)->tap($applySorting)->get();
-
-        $snacks = Food::with('restaurant')->where('category_id', 4)
-            ->where($filters)->tap($applySorting)->get();
-
-        $drinks = Food::with('restaurant')->where('category_id', 3)
-            ->where($filters)->tap($applySorting)->get();
-
-        return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks'));
+    // Refresh stock from DB
+    foreach ($popular as $food) {
+        $food->stock = Food::find($food->id)->stock;
     }
+
+    // Filter for search & price only (rating is handled later in PHP)
+    $filters = function ($query) use ($searchQuery, $priceMax) {
+        if ($searchQuery) {
+            $query->where(function ($q) use ($searchQuery) {
+                $q->where('foods.name', 'like', '%' . $searchQuery . '%')
+                    ->orWhereHas('restaurant', function ($q2) use ($searchQuery) {
+                        $q2->where('name', 'like', '%' . $searchQuery . '%');
+                    });
+            });
+        }
+
+        if ($priceMax) {
+            $query->where('foods.price', '<=', (int)$priceMax);
+        }
+    };
+
+    // Load, filter, sort all in PHP
+    $loadFoodsByCategory = function ($categoryId) use ($filters, $ratingMin, $sort) {
+        $collection = Food::with('restaurant')
+            ->where('category_id', $categoryId)
+            ->where($filters)
+            ->get();
+
+        // Filter by ratingMin (in PHP, not SQL)
+        if ($ratingMin) {
+            $collection = $collection->filter(function ($food) use ($ratingMin) {
+                return $food->restaurant->avg_rating >= (float)$ratingMin;
+            });
+        }
+
+        // Sort by popular or nearby
+        if ($sort === 'popular') {
+            $collection = $collection->sortByDesc(fn($food) => $food->restaurant->avg_rating ?? 0);
+        } elseif ($sort === 'nearby') {
+            $collection = $collection->sortBy(fn($food) => $food->restaurant->distance ?? PHP_INT_MAX);
+        }
+
+        return $collection->values(); // Reset collection keys
+    };
+
+    $mainCourses = $loadFoodsByCategory(1);
+    $desserts    = $loadFoodsByCategory(2);
+    $drinks      = $loadFoodsByCategory(3);
+    $snacks      = $loadFoodsByCategory(4);
+
+    return view('foods', compact('popular', 'mainCourses', 'desserts', 'snacks', 'drinks'));
+}
 
 
     public function downloadTemplate()
@@ -121,7 +120,7 @@ class FoodController extends Controller
     return new StreamedResponse($callback, 200, $headers);
 }
 
-public function processZipUpload(Request $request)
+public function processZipUpload(ProcessZipUploadRequest $request)
 {
     $request->validate([
         'zip_file' => 'required|file|mimes:zip|max:20480',
@@ -212,14 +211,11 @@ private function processCsv($csvFile, $tempPath, $restaurant)
             );
         }
 
-        // Ubah format tanggal dari DD/MM/YYYY ke YYYY-MM-DD
         $expDateTime = null;
         if (!empty($data['exp_datetime'])) {
             try {
-                // Carbon akan mem-parsing format 'd/m/Y H:i'
                 $expDateTime = Carbon::createFromFormat('d/m/Y H:i', $data['exp_datetime'])->format('Y-m-d H:i:s');
             } catch (\Exception $e) {
-                // Jika format salah, biarkan null agar tidak error
                 $expDateTime = null;
             }
         }

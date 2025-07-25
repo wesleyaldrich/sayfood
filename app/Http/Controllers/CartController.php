@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CartStoreRequest;
+use App\Http\Requests\UpdateNoteCartRequest;
 use App\Models\Cart;
 use App\Models\Food;
 use App\Models\Restaurant;
@@ -29,11 +31,8 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function store(Request $request, Food $food)
+     public function store(CartStoreRequest $request, Food $food)
     {
-        $request->validate([
-            'quantity' => 'required|integer|min:1'
-        ]);
 
         $customerId = Auth::user()->customer->id;
         
@@ -143,14 +142,10 @@ class CartController extends Controller
         //
     }
 
-    public function updateNote(Request $request, Cart $cart){
+    public function updateNote(UpdateNoteCartRequest $request, Cart $cart){
         if ($cart->customer_id !== Auth::user()->customer->id) {
             return redirect()->back()->withErrors(['error' => 'Action not allowed!']);
         }
-
-        $request->validate([
-            'notes' => 'nullable|string|max:255'
-        ]);
 
         $cart->notes = $request->input('notes');
         $cart->save();

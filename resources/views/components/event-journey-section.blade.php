@@ -1,6 +1,5 @@
 @props(['events'])
 
-<div class="event-grid">
     @foreach ($events as $event)
         <div class="event-card d-flex align-items-center">
             <div class="event-card-header">
@@ -33,5 +32,3 @@
             </div>
         </div>
     @endforeach
-
-</div>

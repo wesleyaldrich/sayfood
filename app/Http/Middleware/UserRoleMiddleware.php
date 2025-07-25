@@ -21,7 +21,7 @@ class UserRoleMiddleware
         $currentUserRole = $currentUser->role;
 
         if ($role === 'customer'){
-            if ($currentUserRole === 'customer' || $currentUserRole === 'admin') {
+            if ($currentUserRole === 'customer') {
                 return $next($request);
             }
 
@@ -29,7 +29,7 @@ class UserRoleMiddleware
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
-            abort(403, 'Unauthorized access.');
+            abort(403, 'Unauthorized access: wrong user role!');
         }
         if ($role === 'restaurant'){
             if ($currentUserRole === 'restaurant'){
@@ -40,7 +40,7 @@ class UserRoleMiddleware
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
-            abort(403, 'Unauthorized access.');    
+            abort(403, 'Unauthorized access: wrong user role!');
         }
         if ($role === 'admin') {
             if ($currentUserRole === 'admin') {
@@ -51,7 +51,18 @@ class UserRoleMiddleware
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
-            abort(403, 'Unauthorized access.');
+            abort(403, 'Unauthorized access: wrong user role!');
+        }
+        if ($role === 'admincustomer') {
+            if ($currentUserRole === 'customer' || $currentUserRole === 'admin') {
+                return $next($request);
+            }
+
+            Log::channel('sayfood')->warning('User tried to access admincustomer routes.', [
+                'id' => $currentUser->id,
+                'username' => $currentUser->username
+            ]);
+            abort(403, 'Unauthorized access: wrong user role!');
         }
         
         // Unexpected role (server side's fault)!

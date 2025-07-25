@@ -27,13 +27,18 @@ class AdminEventStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:1'],
-            'description' => ['required', 'min:1'],
-            'date' => ['required', 'date', 'after:today'],
-            'location' => ['required', 'min:1'],
-            'event_category_id' => ['required', 'exists:event_categories,id'],
-
-            'image_url' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:5120'], // max 5MB
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'event_category_id' => 'required|integer|exists:event_categories,id',
+            'date' => 'required|date|after_or_equal:today',
+            'location' => 'required|string|max:255',
+            'status' => [
+                'required',
+                'string',
+                Rule::in(['Pending', 'Coming Soon', 'On Going', 'Completed', 'Canceled']),
+            ],
+            'group_link' => 'nullable|url|max:255',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
             'files.*' => ['nullable', 'file', 'max:5120'], // per file max 5MB
 
             'estimated_participants' => ['required', 'integer', 'min:1'],

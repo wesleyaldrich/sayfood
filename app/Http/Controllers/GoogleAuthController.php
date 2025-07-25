@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -41,6 +42,10 @@ class GoogleAuthController extends Controller
                     'two_factor_verified' => true
                 ]
             );
+
+            Customer::create([
+                'user_id' => $newUser->id
+            ]);
 
             // Automatically log in the new user
             Auth::login($newUser);
