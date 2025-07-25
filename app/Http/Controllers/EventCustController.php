@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventCustStoreRequest;
+use App\Http\Requests\HomeStoreRequest;
 use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EventCustController extends Controller
 {
@@ -13,6 +17,7 @@ class EventCustController extends Controller
      */
     public function index()
     {
+        
         $slides = Event::with(['creator.user', 'customers'])
             ->latest()
             ->paginate(4) // Ambil 10 per halaman
@@ -110,11 +115,6 @@ class EventCustController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      */

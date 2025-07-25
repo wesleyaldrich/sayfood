@@ -110,7 +110,10 @@ class HomeDishesController extends Controller
         }
 
         // Simpan ke pivot table
-        $event->customers()->attach($customerId);
+        $event->participants()->attach($customerId, [
+            'phone_number' => $request->phoneNumber,
+        ]);
+;
 
         // Balikan respon sesuai request
         if ($request->ajax()) {
