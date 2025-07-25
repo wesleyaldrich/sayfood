@@ -260,16 +260,6 @@ class TransactionController extends Controller
         $order->status = 'Order Reviewed'; // Pastikan kapital-nya sesuai DB kamu
         $order->save();
 
-        $restaurant = Restaurant::find($order->restaurant_id);
-        if ($restaurant) {
-            $avg = Order::where('restaurant_id', $restaurant->id)
-                ->whereNotNull('rating')
-                ->avg('rating');
-
-            $restaurant->avg_rating = $avg;
-            $restaurant->save();
-        }
-
         return redirect()->back()->with('success', 'Thanks for your review!');
     }
 
