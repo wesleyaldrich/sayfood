@@ -74,31 +74,9 @@ function closePopup() {
 }
 
 
-
 const expiredBtn = document.getElementById('expiredFoodBtn');
 const textarea = document.getElementById('otherTextarea');
 const descInput = document.getElementById('descriptionInput');
-
-function chooseExpiredFood() {
-    descInput.value = 'They sell expired foods';
-    expiredBtn.classList.add('btn-secondary');
-    expiredBtn.classList.remove('btn-light');
-    textarea.value = '';
-    textarea.disabled = true;
-}
-
-function chooseOther() {
-    textarea.disabled = false;
-    expiredBtn.classList.remove('btn-secondary');
-    expiredBtn.classList.add('btn-light');
-    descInput.value = textarea.value;
-}
-
-textarea.addEventListener('input', () => {
-    if (!textarea.disabled) {
-        descInput.value = textarea.value;
-    }
-});
 
 const modal = document.getElementById('reportModal');
 modal.addEventListener('show.bs.modal', () => {

@@ -5,31 +5,34 @@
     <!-- Modal Report Restaurant -->
     <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <form action="{{ route('report.store') }}" method="POST"
-                class="modal-content p-4 shadow rounded position-relative">
+            <form action="{{ route('report.store') }}" method="POST" class="modal-content p-4 shadow position-relative"
+                style="border-radius: 15px !important;">
                 @csrf
 
-                <!-- Tombol Close -->
-                <button type="button" class="btn-close position-absolute" style="top: 10px; right: 10px;"
-                    data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header border-0 d-flex justify-content-end">
+                <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close"
+                    style="background: red; border-radius: 50px; width: 35px; height: 35px;">
+                    <h1 style="font-weight: bold; color: white;">X</h1>
+                </button>
+            </div>
 
-                <div class="modal-body text-center mt-4">
-                    <h1 class="fw-bold mb-3" style="font-size: 28px;">Report Restaurant</h1>
+                <div class="modal-body text-center">
+                    <h1 class="fw-bold mb-3" style="font-size: 28px; font-family: 'Oswald'; font-weight: bold;">Report Restaurant</h1>
 
-                    <p class="mb-3">Why do you want to report this restaurant?</p>
+                    <p class="mb-3" style="font-family: font-family: 'Lato';">Why do you want to report this restaurant?</p>
 
                     <!-- Tombol pilihan -->
                     <div class="d-grid gap-2 mb-3">
-                        <button type="button" id="expiredFoodBtn" class="btn btn-light border"
-                            onclick="chooseExpiredFood()">They sell expired foods</button>
+                        <button type="button" id="expiredFoodBtn" class="btn btn-light border" onclick="chooseExpiredFood()"
+                            style="font-family: font-family: 'Lato';">They sell expired foods</button>
                     </div>
 
                     <!-- Textarea others -->
                     <div class="mb-3 text-start">
-                        <label class="form-label fw-semibold">Others:</label>
+                        <label class="form-label fw-semibold" style="font-family: font-family: 'Lato';">Others:</label>
                         <textarea id="otherTextarea" class="form-control @error('description') is-invalid @enderror"
-                            name="other_reason" rows="3" placeholder="Write something..."
-                            oninput="chooseOther()">{{ old('other_reason') }}</textarea>
+                            name="other_reason" rows="3" placeholder="Write something..." oninput="chooseOther()"
+                            style="font-family: font-family: 'Lato';">{{ old('other_reason') }}</textarea>
                     </div>
 
                     {{-- @if (session('report_success'))
@@ -44,7 +47,7 @@
                         <div class="text-danger small mt-1">{{ $message }}</div>
                     @enderror
                     <button type="submit" class="btn btn-success rounded-pill px-5 py-1 mt-3"
-                        style="background-color: #1d4d4f;">
+                        style="background-color: #1d4d4f; font-family: 'Lato';">
                         Submit
                     </button>
                 </div>
