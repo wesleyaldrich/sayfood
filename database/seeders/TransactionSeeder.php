@@ -116,12 +116,14 @@ class TransactionSeeder extends Seeder
                 'food_id' => 4,
                 'order_id' => 9,
                 'qty' => 5,
+                'notes' => null,
                 'created_at' => now()
             ],
             [
                 'food_id' => 12,
                 'order_id' => 10,
                 'qty' => 4,
+                'noted' => null,
                 'created_at' => now()
             ],
         ];
