@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RestaurantStoreUpdateRequest;
 use App\Models\Category;
 use App\Models\Food;
 use App\Models\Order;
@@ -33,17 +34,9 @@ class RestaurantController extends Controller
         return view('restaurant-foods', compact('restaurant', 'foods', 'categories'));
     }
 
-    public function store(Request $request)
+    public function store(RestaurantStoreUpdateRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'description' => 'required|string',
-            'exp_date' => 'required|date',
-            'exp_time' => 'required|date_format:H:i',
-            'image_url' => 'nullable|mimes:png,jpg,jpeg|max:2048',
-            'stock' => 'required|integer|min:0'
-        ]);
+        $validatedData = $request->validated();
 
         $restaurantId = Auth::user()->restaurant->id;
 
@@ -74,20 +67,12 @@ class RestaurantController extends Controller
         return redirect()->back()->with('status', 'Food item has been added successfully!');
     }
 
-    public function update(Request $request, $id)
+    public function update(RestaurantStoreUpdateRequest $request, $id)
     {
         // dd($request->all());
         $food = Food::findOrFail($id);
 
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'description' => 'required|string',
-            'exp_date' => 'required|date',
-            'exp_time' => 'required|date_format:H:i',
-            'image_url' => 'nullable|mimes:png,jpg,jpeg|max:2048',
-            'stock' => 'required|integer|min:0'
-        ]);
+        $validatedData = $request->validated();
 
         $expDatetime = Carbon::parse($validatedData['exp_date'] . '' . $validatedData['exp_time']);
 

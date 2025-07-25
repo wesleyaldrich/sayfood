@@ -378,6 +378,22 @@ body {
     z-index: 10;
 }
 
+.cart-resto-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #063434;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    position: fixed;
+    right: 35px;
+    bottom: 120px;
+    z-index: 5;
+}
+
 .successfully-added {
     position: absolute;
     flex-direction: row;
@@ -652,18 +668,18 @@ input[type="range"]::-moz-range-track {
     }
 
     .cart-badge {
-    padding: 5px 12px;
-    border-radius: 50%;
-    background-color: #D9534F;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    border: 3px solid #063434F0;
-    position: fixed;
-    right: 25px;
-    bottom: 95px;
-    z-index: 10;
-}
+        padding: 5px 12px;
+        border-radius: 50%;
+        background-color: #D9534F;
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+        border: 3px solid #063434F0;
+        position: fixed;
+        right: 25px;
+        bottom: 95px;
+        z-index: 10;
+    }
 }
 
 @media(max-width: 768px) {
