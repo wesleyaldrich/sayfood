@@ -14,17 +14,6 @@ class Report extends Model
         'note',
     ];
 
-
-    // public function customer()
-    // {
-    //     return $this->belongsTo(Customer::class);
-    // }
-
-    // public function restaurant()
-    // {
-    //     return $this->belongsTo(Restaurant::class);
-    // }
-
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
@@ -32,8 +21,6 @@ class Report extends Model
 
     public function customer()
     {
-        return $this->belongsTo(User::class, 'customer_id');
+        return $this->belongsTo(User::class);
     }
-
-    
 }

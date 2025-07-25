@@ -71,16 +71,16 @@ class Restaurant extends Model
             ->join('foods', 'transactions.food_id', '=', 'foods.id')
             ->selectRaw('SUM(foods.price * transactions.qty) as total')
             ->whereIn('orders.status', ['Order Completed', 'Order Reviewed'])
-            ->value('total')
+            ->value('total');
+    }
+
+    public function getTotalOrdersAttribute()
+    {
+        return $this->orders()
+            ->whereIn('status', ['Order Completed', 'Order Reviewed'])
             ->count();
     }
 
-    // public function getTotalOrdersAttribute()
-    // {
-    //     return $this->orders()
-    //         ->whereIn('status', ['Order Completed', 'Order Reviewed'])
-    //         z
-    // }
 
     public function getAvgRatingAttribute()
     {

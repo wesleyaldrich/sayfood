@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId(column: 'customer_id')->nullable()->constrained(table: 'users', column: 'id')->nullOnDelete()->cascadeOnUpdate();
-            $table->foreignId(column: 'restaurant_id')->nullable()->constrained(table: 'restaurants', column: 'id')->nullOnDelete()->cascadeOnUpdate();
-            $table->text(column: 'description');
-            $table->enum(column: 'status', allowed: ['Pending', 'Resolved'])->default(value: 'Pending');
+            $table->foreignId('customer_id')->nullable()->constrained('customers', 'id')->nullOnDelete()->cascadeOnUpdate();
+            $table->foreignId('restaurant_id')->nullable()->constrained('restaurants', 'id')->nullOnDelete()->cascadeOnUpdate();
+            $table->text('description');
+            $table->enum('status', ['Pending', 'Resolved'])->default('Pending');
             $table->text(column: 'note')->nullable();
             $table->timestamps();
         });
