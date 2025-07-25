@@ -1,31 +1,41 @@
-document.querySelectorAll('.menu-tab-bar .tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        const isActive = tab.classList.contains('active-tab');
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.menu-tab-bar .tab');
+    const contents = document.querySelectorAll('.menu-content');
 
-        // Hapus semua active-tab class
-        document.querySelectorAll('.menu-tab-bar .tab').forEach(t => t.classList.remove('active-tab'));
-
-        if (isActive) {
-            // Kalau tab diklik dua kali (sudah aktif), tampilkan semua kategori
-            document.querySelectorAll('.menu-content').forEach(content => {
+    function showCategory(category) {
+        contents.forEach(content => {
+            if (content.getAttribute('data-category') === category) {
                 content.classList.remove('d-none');
-            });
-        } else {
-            // Kalau tab baru dipilih, aktifkan dan tampilkan sesuai kategori
-            tab.classList.add('active-tab');
-            const selectedCategory = tab.getAttribute('data-category');
-
-            document.querySelectorAll('.menu-content').forEach(content => {
+            } else {
                 content.classList.add('d-none');
-            });
-
-            const target = document.querySelector(`.menu-content[data-category="${selectedCategory}"]`);
-            if (target) {
-                target.classList.remove('d-none');
             }
-        }
+        });
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Hapus active-tab dari semua tab
+            tabs.forEach(t => t.classList.remove('active-tab'));
+
+            // Set tab yang diklik jadi aktif
+            tab.classList.add('active-tab');
+
+            // Tampilkan hanya kategori yang sesuai
+            const selectedCategory = tab.getAttribute('data-category');
+            showCategory(selectedCategory);
+        });
     });
+
+    // **Default ke 'maincourse' saat halaman load**
+    const defaultTab = document.querySelector('.menu-tab-bar .tab[data-category="maincourse"]');
+    if (defaultTab) {
+        tabs.forEach(t => t.classList.remove('active-tab'));
+        defaultTab.classList.add('active-tab');
+        showCategory('maincourse');
+    }
 });
+
+
 
 function showCartPopup(cartIcon) {
     const parent = cartIcon.closest('.container-food');
