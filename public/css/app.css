@@ -120,6 +120,7 @@ header .right .icons a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 header .right .icons a .notif-icon-img {
