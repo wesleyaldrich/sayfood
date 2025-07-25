@@ -69,7 +69,8 @@ Route::middleware('twofactor')->group(function () {
 
         Route::post('/orders/{id}/rate', [TransactionController::class, 'rate'])->name('orders.rate');
         
-        Route::post('/', [HomeDishesController::class, 'store'])->name('event.join');;
+        Route::post('/post-event', [HomeDishesController::class, 'store'])->name('event.join');;
+        Route::post('/post-event', [HomeDishesController::class, 'store'])->name('event.join');;
     });
 
 
