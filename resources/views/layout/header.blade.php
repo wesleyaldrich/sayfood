@@ -8,6 +8,7 @@
         <img src="{{ asset('assets/icon_hamburgermenu.png') }}" alt="Hamburger Icon" class="hamburger-icon-img">
     </div>
     <div class="right">
+        {{-- DESKTOP NAVBAR --}}
         <nav>
             <ul class="oswald">
                 @if (Auth::check() && Auth::user()->role === 'admin')
@@ -23,9 +24,15 @@
                     </li>
                 @endif
                 <li><a href="{{ route('home') }}" class="oswald nav-button {{ request()->routeIs('home') ? 'nav-active' : '' }}">{{ __('navigation.home') }}</a></li>
-                <li><a href="{{ route('foods') }}" class="oswald nav-button {{ request()->routeIs('foods') ? 'nav-active' : '' }}">{{ __('navigation.foods') }}</a></li>
-                <li><a href="{{ route('events') }}" class="oswald nav-button {{ request()->routeIs('events') ? 'nav-active' : '' }}">{{ __('navigation.events') }}</a></li>
-                <li><a href="{{ route('activity') }}" class="oswald nav-button {{ request()->routeIs('activity') ? 'nav-active' : '' }}">{{ __('navigation.activity') }}</a></li>
+                @if (Auth::check() && Auth::user()->role != 'admin')
+                    <li><a href="{{ route('foods') }}" class="oswald nav-button {{ request()->routeIs('foods') ? 'nav-active' : '' }}">{{ __('navigation.foods') }}</a></li>
+                    <li><a href="{{ route('events') }}" class="oswald nav-button {{ request()->routeIs('events') ? 'nav-active' : '' }}">{{ __('navigation.events') }}</a></li>
+                    <li><a href="{{ route('activity') }}" class="oswald nav-button {{ request()->routeIs('activity') ? 'nav-active' : '' }}">{{ __('navigation.activity') }}</a></li>
+                @else
+                    <li><a href="#" class="oswald nav-button unavailable">{{ __('navigation.foods') }}</a></li>
+                    <li><a href="#" class="oswald nav-button unavailable">{{ __('navigation.events') }}</a></li>
+                    <li><a href="#" class="oswald nav-button unavailable">{{ __('navigation.activity') }}</a></li>
+                @endif
                 <li class="nav-hide"><a href="{{ route('profile') }}" class="oswald nav-button {{ request()->routeIs('profile') ? 'nav-active' : '' }}">{{ __('navigation.profile') }}</a></li>
             </ul>
         </nav>
@@ -49,40 +56,51 @@
         </div>
     </div>
 
+    {{-- MOBILE NAVBAR --}}
     <nav class="dropdown-nav">
         <ul>
             <li class="{{ request()->routeIs('home') ? 'nav-active' : '' }}">
                 <a href="{{ route('home') }}" class="oswald nav-button">{{ __('navigation.home') }}</a>
             </li>
-            <li class="{{ request()->routeIs('foods') ? 'nav-active' : '' }}">
-                <a href="{{ route('foods') }}" class="oswald nav-button">{{ __('navigation.foods') }}</a>
-            </li>
-            <li class="{{ request()->routeIs('events') ? 'nav-active' : '' }}">
-                <a href="{{ route('events') }}" class="oswald nav-button">{{ __('navigation.events') }}</a>
-            </li>
-            <li class="{{ request()->routeIs('activity') ? 'nav-active' : '' }}">
-                <a href="{{ route('activity') }}" class="oswald nav-button">{{ __('navigation.activity') }}</a>
-            </li>
+            @if (Auth::check() && Auth::user()->role != 'admin')
+                <li class="{{ request()->routeIs('foods') ? 'nav-active' : '' }}">
+                    <a href="{{ route('foods') }}" class="oswald nav-button">{{ __('navigation.foods') }}</a>
+                </li>
+                <li class="{{ request()->routeIs('events') ? 'nav-active' : '' }}">
+                    <a href="{{ route('events') }}" class="oswald nav-button">{{ __('navigation.events') }}</a>
+                </li>
+                <li class="{{ request()->routeIs('activity') ? 'nav-active' : '' }}">
+                    <a href="{{ route('activity') }}" class="oswald nav-button">{{ __('navigation.activity') }}</a>
+                </li>
+            @else
+                <li>
+                    <a href="#" class="oswald nav-button unavailable">{{ __('navigation.foods') }}</a>
+                </li>
+                <li>
+                    <a href="#" class="oswald nav-button unavailable">{{ __('navigation.events') }}</a>
+                </li>
+                <li>
+                    <a href="#" class="oswald nav-button unavailable">{{ __('navigation.activity') }}</a>
+                </li>
+            @endif
             <li class="{{ request()->routeIs('profile') ? 'nav-active' : '' }}">
                 <a href="{{ route('profile') }}" class="oswald nav-button">{{ __('navigation.profile') }}</a>
             </li>
-
             
             @if (Auth::check() && Auth::user()->role === 'admin')
                 <li class="p-0"><hr class="dropdown-divider"></li>
                 <li class="">
-                    <a href="#" class="oswald nav-button">REVIEW REPORT</a>
+                    <a href="{{ route('show.manage.reports') }}" class="oswald nav-button">{{ __('navigation.review_report') }}</a>
                 </li>
                 <li class="">
-                    <a href="#" class="oswald nav-button">{{ __('navigation.manage_restaurant') }}</a>
+                    <a href="{{ route('show.manage.restaurants') }}" class="oswald nav-button">{{ __('navigation.manage_restaurant') }}</a>
                 </li>
                 <li class="">
-                    <a href="#" class="oswald nav-button">{{ __('navigation.manage_event') }}</a>
+                    <a href="{{ route('show.manage.events') }}" class="oswald nav-button">{{ __('navigation.manage_event') }}</a>
                 </li>
             @endif
         </ul>
     </nav>
-
 
     <div class="dropdown-language">
         <ul>

@@ -400,3 +400,13 @@ h4 {
     border-width: 1px;
     opacity: 1;
 }
+
+.unavailable {
+    color: #999;
+    cursor: not-allowed;
+}
+
+.unavailable:hover {
+    text-decoration: none;
+    color: #999;
+}
