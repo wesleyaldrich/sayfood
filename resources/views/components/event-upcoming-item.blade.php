@@ -2,7 +2,7 @@
 
 <div class="event-cards-wrapper">
     @foreach($upcomingEvents as $index => $event)
-        <div class="event-card-upcoming" data-bs-toggle="modal" data-bs-target="#eventModal{{ $index }}">
+        <div class="event-card-upcoming " data-bs-toggle="modal" data-bs-target="#eventModal{{ $index }}">
             <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}" class="event-background-image">
             <div class="overlay-area d-flex flex-row">
                 <div class="circle d-flex flex-column">
@@ -28,7 +28,7 @@
 
                                 {{-- Gambar Kiri --}}
                                 <div class="event-modal-image">
-                                    <img src="{{ $event->image }}" alt="{{ $event->title }}" class="img-fluid rounded"
+                                    <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}" class="img-fluid rounded"
                                         style=" width: 100%; aspect-ratio: 16 / 9">
                                 </div>
 

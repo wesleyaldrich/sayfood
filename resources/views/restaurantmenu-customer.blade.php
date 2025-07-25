@@ -2,6 +2,51 @@
 @section('title', 'Restaurant Menu Page')
 @section('content')
 
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="{{ route('report.store') }}" method="POST" class="modal-content p-4 shadow rounded position-relative">
+            @csrf
+
+            <!-- Hidden Inputs -->
+            <input type="hidden" name="customer_id" value="{{ auth()->user()->id }}">
+            <input type="hidden" name="restaurant_id" value="{{ $restaurant->id }}">
+
+            <!-- Tombol Close Kustom -->
+            <button type="button" onclick="closePopup()" style="background: none; border: none; position: absolute; top: 10px; right: 10px;">
+                <img src="{{ asset('assets/btn_exit.png') }}" alt="exit-button" style="width: 35px; height: 35px;">
+            </button>
+
+            <div class="modal-body text-center mt-4">
+                <h1 class="fw-bold mb-3" style="font-size: 28px;">Report Restaurant</h1>
+
+                <p class="mb-3">Why do you want to report this restaurant?</p>
+
+                <!-- Pilihan alasan -->
+                <div id="report-options" class="d-grid gap-2 mb-3">
+                    <button type="button" class="btn btn-light border option-btn"
+                        onclick="selectOption(this, 'They sell expired foods')">They sell expired foods</button>
+                    <button type="button" class="btn btn-light border option-btn"
+                        onclick="selectOption(this, 'This resto is a scam')">This resto is a scam</button>
+                    <button type="button" class="btn btn-light border option-btn"
+                        onclick="selectOption(this, 'Bad hygiene')">Bad hygiene</button>
+                </div>
+
+                <!-- Textarea untuk others -->
+                <div class="form-group mb-3">
+                    <label class="fw-semibold">Others:</label>
+                    <textarea name="description" class="form-control" placeholder="Write something..." rows="3"></textarea>
+                </div>
+
+                <input type="hidden" name="selected_reason" id="selectedReasonInput">
+
+                <button type="submit" class="btn btn-success rounded-pill px-5 py-1" style="background-color: #1d4d4f;">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="hero-container">
         <img src="{{ asset($restaurant->image_url_resto) }}" class="hero-img" alt="">
         
@@ -21,15 +66,15 @@
             </div>
         </div>
 
-        <!-- Report Resto Button -->
-<!-- Report Resto Button -->
-        <button class="report-resto" onclick="reportRestoPopup()">
-            <img src="{{ asset('assets/reportResto-btn.png') }}" alt="reportResto_btn">
-        </button>
+    <!-- Tombol Report -->
+    <button class="report-resto" data-bs-toggle="modal" data-bs-target="#reportModal">
+        <img src="{{ asset('assets/reportResto-btn.png') }}" alt="reportResto_btn">
+    </button>
+    
 
     </div>
     <div class="menu-tab-bar">  
-        <div class="tab" data-category="maincourse"><p class="oswald">{{ __('foods.main_courses') }}</p></div>
+        <div class="tab active-tab" data-category="maincourse"><p class="oswald">{{ __('foods.main_courses') }}</p></div>
         <div class="tab" data-category="drinks"><p class="oswald">{{ __('foods.drinks') }}</p></div>
         <div class="tab" data-category="desserts"><p class="oswald">{{ __('foods.desserts') }}</p></div>
         <div class="tab" data-category="snacks"><p class="oswald">{{ __('foods.snacks') }}</p></div>

@@ -100,9 +100,10 @@
 
     <div class="container-fluid main-content">
         <div class="mb-3">
-            <a href="{{ route('show.manage.events') }}" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left me-1"></i> Back to List
+            <a href="{{ route('activity', ['tab' => 'eventactivity']) }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Back
             </a>
+            
         </div>
         <!-- Header: Event Name and Action Buttons -->
         <div class="header-section">
@@ -127,7 +128,8 @@
             <div class="col-lg-8">
                 <div class="details-card">
                     @if($event->image_url)
-                        <img src="{{ asset('storage/' . $event->image_url) }}" class="event-photo" alt="[Photo of {{ $event->name }}]">
+                        <img src="{{ asset('storage/' . $event->image_url) }}" class="event-photo"
+                            alt="[Photo of {{ $event->name }}]">
                     @endif
 
                     <div class="card-body">
