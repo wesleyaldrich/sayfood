@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
@@ -62,4 +64,37 @@ class ReportController extends Controller
 
     //     return redirect()->back()->with('success', 'Laporan telah dikirim.');
     // }
+
+    public function store(Request $request)
+    {
+        $currentUser = Auth::user();
+
+        // Validasi: user harus customer
+        if (!$currentUser->customer) {
+            return back()
+                ->withErrors(['user' => 'Akun Anda tidak terdaftar sebagai customer.'])
+                ->withInput();
+        }
+
+        // Validasi awal: restaurant_id harus valid
+        $request->validate([
+            'restaurant_id' => 'required|exists:restaurants,id',
+        ]);
+
+        // Validasi khusus: salah satu harus diisi
+        if (empty($request->description)) {
+            return back()
+                ->withErrors(['description' => 'Please select a reason or write a report.'])
+                ->withInput();
+        }
+
+        // Simpan ke database
+        Report::create([
+            'restaurant_id' => $request->restaurant_id,
+            'customer_id' => $currentUser->customer->id,
+            'description' => $request->description,
+        ]);
+
+        return back()->with('report_success', 'Thank you! Your report has been submitted.   ');
+    }
 }
