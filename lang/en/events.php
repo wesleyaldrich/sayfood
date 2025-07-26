@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'event_categories' => 'EVENT CATEGORIES',
+    'cooking_workshop' => 'Cooking Workshop',
+    'food_donation' => 'Food Donation',
+    'education' => 'Education',
+    'recommended_for_you' => 'RECOMMENDED FOR YOU',
+    'joined' => 'joined',
+    'by' => 'by',
+    'coming_soon' => 'COMING SOON',
+    'hours' => 'hours',
+    'participants' => 'participants',
+    'join_event' => 'Join Event',
+    'host' => 'Host',
+    'location' => 'Location',
+    'date' => 'Date',
+    'phone_number' => 'Phone Number',
+    'submit_form' => 'Submit',
+    'fund_raising_title' => 'FUND RAISING',
+    'fund_raising_description' => 'Help us raise funds to empower community-driven solutions against food waste and hunger. Every donation goes directly to impactful programs, from food redistribution to sustainable education. By contributing, you\'re not only giving — you\'re creating long-term change.',
+    'reduce_food_waste_title' => 'REDUCE FOOD WASTE',
+    'reduce_food_waste_description' => 'Our platform connects food providers with charities to ensure excess food is redirected to those in need. By joining, you help reduce landfill waste and fight hunger — all while supporting a more sustainable ecosystem.',
+    'charity_event_title' => 'CHARITY EVENT',
+    'charity_event_description' => 'Be part of our regular charity events — from food drives to awareness campaigns. Participate or volunteer to make a real impact while building a more compassionate community. Every event is a chance to give back and connect.',
+];

@@ -15,34 +15,33 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <!-- Kategori -->
+
         <div class="event-categories row mx-0 gap-5 w-auto">
             <div class="col-3 p-3 mx-5 gap-3">
-                <h1 class="event-categories" style="font-size: 35px; font-weight: bold;">EVENT<br>CATEGORIES</h1>
+                <h1 class="event-categories" style="font-size: 35px; font-weight: bold;">{{ __('events.event_categories') }}</h1>
             </div>
-            <div class="category-list p-0">
-                <button class="category-card" style="width: 250px;">
+            <div class="category-list p-0 d-flex flex-wrap gap-3">
+                <div class="category-card" style="width: 250px;">
                     <img src="assets/cookingworkshop.jpg" alt="Cooking Workshop">
-                    <span>Cooking Workshop</span>
-                </button>
-                <button class="category-card" style="width: 250px;">
+                    <span>{{ __('events.cooking_workshop') }}</span>
+                </div>
+                <div class="category-card" style="width: 250px;">
                     <img src="assets/fooddonation.jpg" alt="Food Donation">
-                    <span>Food Donation</span>
-                </button>
-                <button class="category-card" style="width: 250px;">
+                    <span>{{ __('events.food_donation') }}</span>
+                </div>
+                <div class="category-card" style="width: 250px;">
                     <img src="assets/education.jpg" alt="Education">
-                    <span>Education</span>
-                </button>
+                    <span>{{ __('events.education') }}</span>
+                </div>
             </div>
         </div>
 
         <div class="container my-4">
             <div class="row g-4 align-items-start">
 
-                <!-- RECOMMENDED -->
                 <div class="recommended-cb col-lg-8 col-12 h-100 d-flex flex-column">
                     <div class="recommended p-3 d-flex flex-column h-100">
-                        <h3>RECOMMENDED FOR YOU</h3>
+                        <h3>{{ __('events.recommended_for_you') }}</h3>
                         <div class="recommended-wrapper position-relative flex-grow-1">
                             <div class="recommended-list d-flex gap-3 h-100" id="recommendedList">
                                 @foreach ($events as $event)
@@ -72,7 +71,7 @@
                                                         alt="participants icon" style="width: 24px; height: 24px;">
                                                     <div class="text-center small">
                                                         <div class="fw-bold">{{ $event['participants'] }}</div>
-                                                        <div>joined</div>
+                                                        <div>{{ __('events.joined') }}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,7 +80,7 @@
                                                 <div>
                                                     <p class="title fw-bold mb-0 truncate-text" style="font-size: 20px;">
                                                         {{ $event['title'] }}</p>
-                                                    <p class="host fst-italic mb-0 text-warning">by {{ $event['host'] }}
+                                                    <p class="host fst-italic mb-0 text-warning">{{ __('events.by') }} {{ $event['host'] }}
                                                     </p>
                                                 </div>
                                                 <div class="text-end me-5">
@@ -103,10 +102,9 @@
                     </div>
                 </div>
 
-                <!-- COMING SOON -->
                 <div class="col-lg-4 col-12">
                     <div class="coming-soon fw-bold">
-                        <h3>COMING SOON</h3>
+                        <h3>{{ __('events.coming_soon') }}</h3>
                         <div class="coming-scroll overflow-auto p-2">
                             @foreach ($coming_soon as $event)
                                 <div class="coming-item mb-3 d-flex align-items-center">
@@ -122,7 +120,7 @@
                                         <div class="cs-description">
                                             <div class="cs-title fw-bold mx-2 truncate-text1">{{ $event['title'] }}</div>
                                             <div class="cs-by mx-2 fst-italic text-warning-emphasis">
-                                                by {{ $event['author'] }}
+                                                {{ __('events.by') }} {{ $event['author'] }}
                                             </div>
                                             <div class="d-flex gap-2 mx-2 mt-2">
                                                 <div class="border-loc px-1 py-1 d-flex align-items-center mx-1">
@@ -133,7 +131,7 @@
                                                 <div class="border-date px-1 py-1 d-flex align-items-center">
                                                     <i class="bi bi-clock-fill p-1"></i>
                                                     <span class="cs-date fw-bold text-dark-green">{{ $event['duration'] }}
-                                                        Hours</span>
+                                                        {{ __('events.hours') }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,7 +144,6 @@
             </div>
         </div>
 
-        <!-- Event List -->
         <div class="event-list">
             @foreach ($slides as $slide)
                 <div class="event-card d-flex flex-column rounded-4 shadow-sm overflow-hidden mb-4"
@@ -157,7 +154,7 @@
                         <div class="ps-4 flex-grow-1">
                             <h5 class="fw-bold text-dark mb-1">{{ $slide['title'] }}</h5>
                             <div class="fst-italic fw-semibold mb-2" style="color: #d38a2e;">
-                                by {{ $slide['author'] }}
+                                {{ __('events.by') }} {{ $slide['author'] }}
                             </div>
                             <p class="text-dark small mb-2">
                                 {{ $slide['description'] }}
@@ -180,12 +177,12 @@
                             <div class="border-loc px-2 py-1 d-flex align-items-center rounded"
                                 style="border: 2px solid #cd8200;">
                                 <i class="bi bi-people-fill me-2 text-dark-green"></i>
-                                <span class="fw-bold text-dark-green">{{ $slide['people'] }} participants</span>
+                                <span class="fw-bold text-dark-green">{{ $slide['people'] }} {{ __('events.participants') }}</span>
                             </div>
                             <div class="border-loc px-2 py-1 d-flex align-items-center rounded"
                                 style="border: 2px solid #cd8200;">
                                 <i class="bi bi-clock-fill me-2 text-dark-green"></i>
-                                <span class="fw-bold text-dark-green">{{ $slide['duration'] }} hours</span>
+                                <span class="fw-bold text-dark-green">{{ $slide['duration'] }} {{ __('events.hours') }}</span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
@@ -193,7 +190,7 @@
                                 data-bs-toggle="modal" data-bs-target="#joinFormModal"
                                 data-event-title="{{ $slide['title'] }}" data-event-host="{{ $slide['author'] }}"
                                 data-event-location="{{ $slide['location'] }}" data-event-id="{{ $slide['id'] }}">
-                                Join Event
+                                {{ __('events.join_event') }}
                             </button>
                         </div>
                     </div>
@@ -203,7 +200,6 @@
         </div>
     </div>
 
-    <!-- Modal Join -->
     <div class="modal fade" id="joinFormModal" tabindex="-1" aria-labelledby="joinEventLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-3">
@@ -213,18 +209,18 @@
                     </p>
                 </div>
                 <div class="modal-body">
-                    <label class="form-label text-[#234C4C] text-xl">Host</label>
+                    <label class="form-label text-[#234C4C] text-xl">{{ __('events.host') }}</label>
                     <p class="lato-light-italic" id="modalEventHost"></p>
-                    <label class="form-label text-[#234C4C] text-xl">Location</label>
+                    <label class="form-label text-[#234C4C] text-xl">{{ __('events.location') }}</label>
                     <p class="lato-regular" id="modalEventLocation"></p>
-                    <label class="form-label text-[#234C4C] text-xl">Date</label>
+                    <label class="form-label text-[#234C4C] text-xl">{{ __('events.date') }}</label>
                     <p class="lato-regular" id="modalEventDate"></p>
                     <form method="POST" action="{{ route('event.join') }}">
                         @csrf
                         <input type="hidden" name="event_id" id="eventId">
                         <div class="mb-3">
                             <label for="phoneNumber"
-                                class="form-label text-[#234C4C] text-xl">{{ __('home.phone_number') }}</label>
+                                class="form-label text-[#234C4C] text-xl">{{ __('events.phone_number') }}</label>
                             <input type="tel" class="form-control @error('phoneNumber') is-invalid @enderror"
                                 id="phoneNumber" name="phoneNumber" value="{{ old('phoneNumber') }}">
                             @error('phoneNumber')
@@ -232,7 +228,7 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-success w-100">
-                            {{ __('home.submit_form') }}
+                            {{ __('events.submit_form') }}
                         </button>
                     </form>
                 </div>
@@ -243,50 +239,39 @@
     </div>
 
 
-    <!-- Volunteering -->
     <div class="volunteering-list row row-cols-1 row-cols-md-3 g-4 container-fluid py-5">
-        <!-- Card 1 -->
         <div class="col">
             <div class="card border-0 shadow-sm h-100 text-center">
                 <div class="card-body py-5">
                     <i class="bi bi-cash-coin mb-3" style="font-size: 60px; color:#1d4d4f;"></i>
-                    <h5 class="fw-bold text-dark">FUND RAISING</h5>
+                    <h5 class="fw-bold text-dark">{{ __('events.fund_raising_title') }}</h5>
                 </div>
                 <div class="px-0 py-3 text-white" style="background-color: #1d4d4f;">
-                    <p class="my-5 large">Help us raise funds to empower community-driven solutions against food
-                        waste and hunger. Every donation goes directly to impactful programs, from food redistribution
-                        to sustainable education. By contributing, you're not only giving — you're creating long-term
-                        change.</p>
+                    <p class="my-5 large">{{ __('events.fund_raising_description') }}</p>
                 </div>
             </div>
         </div>
 
-        <!-- Card 2 (Orange) -->
         <div class="col">
             <div class="card border-0 shadow-sm h-100 text-center">
                 <div class="card-body py-5">
                     <i class="bi bi-recycle mb-3" style="font-size: 60px; color:#1d4d4f;"></i>
-                    <h5 class="fw-bold text-dark">REDUCE FOOD WASTE</h5>
+                    <h5 class="fw-bold text-dark">{{ __('events.reduce_food_waste_title') }}</h5>
                 </div>
                 <div class="px-0 py-3 text-white" style="background-color: #f48b3b;">
-                    <p class="my-5 large">Our platform connects food providers with charities to ensure excess food is
-                        redirected to those in need. By joining, you help reduce landfill waste and fight hunger — all
-                        while supporting a more sustainable ecosystem.</p>
+                    <p class="my-5 large">{{ __('events.reduce_food_waste_description') }}</p>
                 </div>
             </div>
         </div>
 
-        <!-- Card 3 -->
         <div class="col">
             <div class="card border-0 shadow-sm h-100 text-center">
                 <div class="card-body py-5">
                     <i class="bi bi-megaphone-fill mb-3" style="font-size: 60px; color:#1d4d4f;"></i>
-                    <h5 class="fw-bold text-dark">CHARITY EVENT</h5>
+                    <h5 class="fw-bold text-dark">{{ __('events.charity_event_title') }}</h5>
                 </div>
                 <div class="px-0 py-3 text-white" style="background-color: #1d4d4f;">
-                    <p class="my-5 large">Be part of our regular charity events — from food drives to awareness
-                        campaigns. Participate or volunteer to make a real impact while building a more compassionate
-                        community. Every event is a chance to give back and connect.</p>
+                    <p class="my-5 large">{{ __('events.charity_event_description') }}</p>
                 </div>
             </div>
         </div>

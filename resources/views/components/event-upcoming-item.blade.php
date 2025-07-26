@@ -2,18 +2,17 @@
 
 <div class="event-cards-wrapper">
     @foreach($upcomingEvents as $index => $event)
-        <div class="event-card-upcoming " data-bs-toggle="modal" data-bs-target="#eventModal{{ $index }}">
+        <div class="event-card-upcoming" data-bs-toggle="modal" data-bs-target="#eventModal{{ $index }}">
             <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}" class="event-background-image">
             <div class="overlay-area d-flex flex-row">
                 <div class="circle d-flex flex-column">
                     <img src="{{ asset('assets/icon_participants.png') }}" alt="Participants icon">
                     <p class="total-participants">{{ $event->participants_count }}</p>
-                    <p>Participants</p>
+                    <p>{{ __('activity.participants2') }}</p>
                 </div>
                 <div class="box event-main-details">
                     <h5>{{ $event->title }}</h5>
-                    <p>by {{ $event->organizer }}</p>
-
+                    <p>{{ __('activity.by') }} {{ $event->organizer }}</p>
                 </div>
             </div>
         </div>
@@ -29,19 +28,19 @@
                                 {{-- Gambar Kiri --}}
                                 <div class="event-modal-image">
                                     <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}" class="img-fluid rounded"
-                                        style=" width: 100%; aspect-ratio: 16 / 9">
+                                        style="width: 100%; aspect-ratio: 16 / 9">
                                 </div>
 
                                 {{-- Judul & Deskripsi --}}
                                 <div class="event-modal-info d-flex flex-column align-items-start"
                                     style="text-align: left;">
                                     <h4 class="event-title">{{ $event->title }}</h4>
-                                    <p class="event-organizer mt-1">by {{ $event->organizer }}</p>
+                                    <p class="event-organizer mt-1">{{ __('activity.by') }} {{ $event->organizer }}</p>
                                     <p class="event-description" style="text-align: left">{{ $event->description }}</p>
                                 </div>
                             </div>
 
-                            {{-- Info Grid: Lokasi, Tanggal, Peserta, Durasi --}}
+                            {{-- Info Grid --}}
                             <div class="event-info-grid mt-3">
                                 <div class="info-box">
                                     <img src="{{ asset('assets/icon_location.svg') }}" class="event-info-icon"
@@ -55,17 +54,16 @@
                                 <div class="info-box">
                                     <img src="{{ asset('assets/icon_person.svg') }}" class="event-info-icon"
                                         alt="Participants">
-                                    <span>{{ $event->participants_count }} participants</span>
+                                    <span>{{ $event->participants_count }} {{ __('activity.participants') }}</span>
                                 </div>
                                 <div class="info-box">
                                     <img src="{{ asset('assets/icon_clock.svg') }}" class="event-info-icon" alt="Duration">
-                                    <span>{{ $event->duration }} hours</span>
+                                    <span>{{ $event->duration }} {{ __('activity.hours') }}</span>
                                 </div>
                             </div>
 
                             <div class="participant-section mb-3 d-flex align-items-center">
-                                <strong class="me-3">Participants:</strong>
-
+                                <strong class="me-3">{{ __('activity.participants2') }}:</strong>
                                 <div class="participant-avatars overflow-auto">
                                     <div class="d-flex flex-nowrap gap-3">
                                         @foreach($event->participant_details as $participant)
@@ -77,12 +75,10 @@
                                         @endforeach
                                     </div>
                                 </div>
-
                             </div>
 
-
                             <div class="community-link d-flex align-items-center">
-                                <strong>Community:</strong>
+                                <strong>{{ __('activity.community') }}:</strong>
                                 <a href="{{ $event->group_link }}" target="_blank" class="link-whatsapp"
                                     style="margin-left: 10px">
                                     {{ $event->group_link }}
