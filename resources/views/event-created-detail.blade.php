@@ -104,22 +104,6 @@
                 <i class="fas fa-arrow-left me-1"></i> {{ __('activity.back') }}
             </a>
         </div>
-        <div class="header-section">
-            <h1 class="event-title">{{ $event->name }}</h1>
-
-            @if ($event->status == 'Pending')
-                <div class="action-buttons">
-                    <form action="{{ route('admin.reject.event', $event->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-times-circle me-1"></i> {{ __('activity.reject_button') }}</button>
-                    </form>
-                    <form action="{{ route('admin.approve.event', $event->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle me-1"></i> {{ __('activity.approve_button') }}</button>
-                    </form>
-                </div>
-            @endif
-        </div>
 
         <div class="row">
             <div class="col-lg-8">

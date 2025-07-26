@@ -159,11 +159,11 @@
 <div class="modal fade" id="proposeEventModal" tabindex="-1" aria-labelledby="proposeEventModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content rounded-" style="background-color: #FDC87A; padding: 30px 40px;">
+        <div class="modal-content rounded" style="background-color: #FDC87A; padding: 30px 40px;">
             <div class="modal-header border-0 d-flex justify-content-end">
                 <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close"
-                    style="background: none; border: none;">
-                    <i class="bi bi-x-lg text-white fs-4 p-2""></i>
+                    style="background: red; border-radius: 50px; height: 32px;">
+                    <i class="bi bi-x-lg text-white fs-4 p-2"></i>
                 </button>
             </div>
             <div class=" modal-body">
