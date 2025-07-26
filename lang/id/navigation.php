@@ -5,6 +5,7 @@ return [
     'foods' => 'MAKANAN',
     'events' => 'ACARA',
     'activity' => 'AKTIVITAS',
+    'report' => 'LAPORAN',
     'profile' => 'PROFIL',
 
     'admin' => 'ADMIN',

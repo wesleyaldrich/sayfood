@@ -5,6 +5,7 @@ return [
     'foods' => 'FOODS', 
     'events' => 'EVENTS', 
     'activity' => 'ACTIVITY', 
+    'report' => 'REPORT',
     'profile' => 'PROFILE', 
 
     'admin' => 'ADMIN', 
