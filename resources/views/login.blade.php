@@ -19,13 +19,13 @@
                 <a href=" {{ route('show.login') }}">
                     <div class="auth-box d-flex justify-content-center align-items-center flex-column">
                         <img src="{{ asset('assets/login_customer_icon.png') }}" alt="customer login icon">
-                        <h3 class="text-center oswald">Login as a Customer</h3>
+                        <h3 class="text-center oswald">{{ __('profile.login_as_customer') }}</h3>
                     </div>
                 </a>
                 <a href=" {{ route('show.login.restaurant') }}">
                     <div class="auth-box d-flex justify-content-center align-items-center flex-column">
                         <img src="{{ asset('assets/login_restaurant_icon.png') }}" alt="restaurant login icon">
-                        <h3 class="text-center oswald">Login as a Restaurant</h3>
+                        <h3 class="text-center oswald">{{ __('profile.login_as_restaurant') }}</h3>
                     </div>
                 </a>
             </div>

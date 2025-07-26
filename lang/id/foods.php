@@ -64,4 +64,13 @@ return [
     'cart_na' => 'Tidak tersedia',
     'cart_note_label' => 'Catatan',
     'cart_notes' => 'Catatan',
+
+    'report_title' => 'Laporkan Restoran',
+    'report_question' => 'Mengapa Anda ingin melaporkan restoran ini?',
+    'reason_expired' => 'Mereka menjual makanan kedaluwarsa',
+    'reason_scam' => 'Restoran ini adalah penipuan',
+    'reason_hygiene' => 'Kebersihannya buruk',
+    'report_other' => 'Lainnya:',
+    'report_placeholder' => 'Tulis sesuatu...',
+    'submit' => 'Kirim',
 ];

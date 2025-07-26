@@ -29,4 +29,10 @@ return [
     'age' => 'Usia',
     'address' => 'Alamat',
     'submit_form' => 'Kirim Formulir',
+
+    'host' => 'Penyelenggara',
+    'location' => 'Lokasi',
+    'date' => 'Tanggal',
+    'hours' => 'Jam', 
+    'by' => 'oleh'
 ];

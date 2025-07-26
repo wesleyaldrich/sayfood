@@ -1,6 +1,6 @@
 @extends('layout.app')
-@section('title', 'Sayfood | Restaurant Profile Page')
-@section('content')	
+@section('title', __('profile.restaurant_profile_page_title'))
+@section('content')
     {{-- {{$user}} --}}
 
     <div class="d-flex flex-column mb-5">
@@ -10,7 +10,7 @@
                 <form action="{{ route('update.profile.image') }}" method="POST" enctype="multipart/form-data" id="profile-image-form">
                     @csrf
                     <label for="profile-image-input" style="cursor:pointer;">
-                        <img class="profile-image" src="{{ $user->profile_image ? asset('' . $user->profile_image) : asset('assets/example/profile.jpg') }}" alt="profile image" id="profile-image-preview">
+                        <img class="profile-image" src="{{ $user->profile_image ? asset('' . $user->profile_image) : asset('assets/example/profile.jpg') }}" alt="{{ __('profile.profile_image_alt') }}" id="profile-image-preview">
                         <input type="file" name="profile_image" id="profile-image-input" accept="image/*" style="display:none;" onchange="document.getElementById('profile-image-form').submit();">
                     </label>
                 </form>
@@ -20,9 +20,9 @@
                     <div class="text-danger text-center">{{ $message }}</div>
                 @enderror
                 <form action=" {{ route('update.profile.restaurant') }} " method="POST" class="d-flex flex-column justify-content-between align-items-center">
-                    @csrf   
+                    @csrf
                     <div class="form-group mb-3">
-                        <label for="username" class="oswald">Username</label>
+                        <label for="username" class="oswald">{{ __('profile.username_label') }}</label>
                         <input type="text" class="oswald form-control" id="username" name="username" autocomplete="on" required value="{{ $user->username }}">
                         @error('username')
                             <div class="text-danger">{{ $message }}</div>
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="restaurant_name" class="oswald">Restaurant Name</label>
+                        <label for="restaurant_name" class="oswald">{{ __('profile.restaurant_name_field_label') }}</label>
                         <input type="text" class="oswald form-control" id="restaurant_name" name="restaurant_name" autocomplete="on" required value="{{ $user->restaurant->name }}">
                         @error('restaurant_name')
                             <div class="text-danger">{{ $message }}</div>
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="address" class="oswald">Address</label>
+                        <label for="address" class="oswald">{{ __('profile.address_label') }}</label>
                         <input type="text" class="oswald form-control" id="address" name="address" autocomplete="on" value="{{ $user->restaurant->address }}">
                         @error('address')
                             <div class="text-danger">{{ $message }}</div>
@@ -51,8 +51,8 @@
 
                     <div class="profile-update-btn-container d-flex flex-row justify-content-center align-items-center py-3">
                         <div class="row justify-content-around">
-                            <a href="{{ route('profile') }}" class="col-sm-5 btn oswald profile-update-btn">CANCEL CHANGES</a>
-                            <button type="submit" class="col-sm-5 btn oswald profile-update-btn">SAVE CHANGES</button>
+                            <a href="{{ route('profile') }}" class="col-sm-5 btn oswald profile-update-btn">{{ __('profile.cancel_changes_button') }}</a>
+                            <button type="submit" class="col-sm-5 btn oswald profile-update-btn">{{ __('profile.save_changes_button') }}</button>
                         </div>
                     </div>
                 </form>
@@ -70,7 +70,7 @@
                         document.getElementById('login-as-customer-form').submit();"
                     class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
                         <img src="{{ asset('assets/profile_option_login_as_restaurant.png') }}" class="p-2" alt="icon">
-                        <p class="oswald">LOG IN AS CUSTOMER</p>
+                        <p class="oswald">{{ __('profile.login_as_customer_button') }}</p>
                     </a>
                     <a href="{{ route('logout') }}"
                     onclick="
@@ -78,12 +78,12 @@
                         document.getElementById('logout-form').submit();"
                     class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
                         <img src="{{ asset('assets/profile_option_logout.png') }}" class="p-2" alt="icon">
-                        <p class="oswald">LOG OUT</p>
+                        <p class="oswald">{{ __('profile.logout_button') }}</p>
                     </a>
-                    <a href="{{ route('password.request') }}" 
+                    <a href="{{ route('password.request') }}"
                     class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
                         <img src="{{ asset('assets/profile_option_reset_password.png') }}" class="p-2" alt="icon">
-                        <p class="oswald">RESET PASSWORD</p>
+                        <p class="oswald">{{ __('profile.reset_password_button') }}</p>
                     </a>
                     <a href="{{ route('delete.account') }}"
                     onclick="
@@ -91,7 +91,7 @@
                         document.getElementById('delete-account-form').submit()"
                     class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
                         <img src="{{ asset('assets/profile_option_delete.png') }}" class="p-2" alt="icon">
-                        <p class="oswald">DELETE ACCOUNT</p>
+                        <p class="oswald">{{ __('profile.delete_account_button') }}</p>
                     </a>
                 </div>
             </div>

@@ -28,6 +28,11 @@ return [
     'only_number' => 'Please enter a valid phone number (only numbers, 10-15 digits)', 
     'age' => 'Age', 
     'address' => 'Address', 
-    'submit_form' => 'Submit Form'
+    'submit_form' => 'Submit Form', 
 
+    'host' => 'Host', 
+    'location' => 'Location', 
+    'date' => 'Date', 
+    'hours' => 'Hours', 
+    'by' => 'by'
 ];
