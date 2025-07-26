@@ -49,16 +49,16 @@
     </style>
     <div class="container-fluid px-5 mb-5">
 
-        <div class="d-flex flex-row mb-4 align-items-center">
+        <div class="row mx-0 mb-4 align-items-center gap-3">
             <a href="javascript:history.back()" class="back-button">
                 <
             </a>
-            <h2 class="ms-3 oswald" style="font-size: 40px; font-weight: 600; color: #063434;">TRANSACTION REPORT</h2>
+            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">TRANSACTION REPORT</h2>
         </div>
 
         <div class="mb-4">
-            <div class="d-flex flex-row w-100">
-                <form action="{{ route('restaurant-transactions.filter') }}" method="GET" class="d-flex flex-row">
+            <form action="{{ route('restaurant-transactions.filter') }}" method="GET" class="d-flex flex-row">
+                <div class="row mx-0 w-100">
                     @php
                         $startDate = request('start_date') ?? \Carbon\Carbon::now()->subWeek()->format('Y-m-d');
                         $endDate = request('end_date') ?? \Carbon\Carbon::now()->format('Y-m-d');
@@ -74,40 +74,42 @@
                     <div class="ml-3 d-flex flex-column align-items-center justify-content-end">
                         <button type="submit" class="filter-button btn btn-primary d-flex justify-content-center align-items-center">Filter</button>
                     </div>
-                </form>
-                <div class="d-flex ms-auto mt-auto">
-                    <a href="{{ route('restaurant-transactions.download', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="download-button btn btn-primary d-flex justify-content-center align-items-center">Download Report</a>
+                    <div class="ms-auto mt-auto pt-4">
+                        <a href="{{ route('restaurant-transactions.download', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="download-button btn btn-primary d-flex justify-content-center align-items-center">Download Report</a>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
 
-        <table class="table w-100">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Customer Name</th>
-                    <th scope="col">Food Name</th>
-                    <th scope="col">Qty</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($transactions as $i)
+        <div style="overflow-x: auto;">
+            <table class="table w-100">
+                <thead>
                     <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $i->order_id }}</td>
-                        <td>{{ $i->created_at }}</td>
-                        <td>{{ $i->order->customer->user->username }}</td>
-                        <td>{{ $i->food->name }}</td>
-                        <td>{{ $i->qty }}</td>
-                        <td>{{ 'Rp' . $i->food->price . ',00'}}</td>
-                        <td>{{ 'Rp' . $i->qty * $i->food->price . ',00'}}</td>
+                        <th scope="col">No</th>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Food Name</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total Price</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($transactions as $i)
+                        <tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $i->order_id }}</td>
+                            <td>{{ $i->created_at }}</td>
+                            <td>{{ $i->order->customer->user->username }}</td>
+                            <td>{{ $i->food->name }}</td>
+                            <td>{{ $i->qty }}</td>
+                            <td>{{ 'Rp' . $i->food->price . ',00'}}</td>
+                            <td>{{ 'Rp' . $i->qty * $i->food->price . ',00'}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 @endsection
