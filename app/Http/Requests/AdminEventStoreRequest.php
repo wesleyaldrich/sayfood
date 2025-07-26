@@ -32,13 +32,8 @@ class AdminEventStoreRequest extends FormRequest
             'event_category_id' => 'required|integer|exists:event_categories,id',
             'date' => 'required|date|after_or_equal:today',
             'location' => 'required|string|max:255',
-            'status' => [
-                'required',
-                'string',
-                Rule::in(['Pending', 'Coming Soon', 'On Going', 'Completed', 'Canceled']),
-            ],
             'group_link' => 'nullable|url|max:255',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
             'files.*' => ['nullable', 'file', 'max:5120'], // per file max 5MB
 
             'estimated_participants' => ['required', 'integer', 'min:1'],

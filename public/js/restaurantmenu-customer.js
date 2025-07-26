@@ -72,3 +72,59 @@ function closePopup() {
         modal.hide();
     }
 }
+
+
+const expiredBtn = document.getElementById('expiredFoodBtn');
+const textarea = document.getElementById('otherTextarea');
+const descInput = document.getElementById('descriptionInput');
+
+const modal = document.getElementById('reportModal');
+modal.addEventListener('show.bs.modal', () => {
+    expiredBtn.classList.remove('btn-secondary');
+    expiredBtn.classList.add('btn-light');
+    textarea.disabled = false;
+    textarea.value = '';
+    descInput.value = '';
+});
+
+  let isExpiredSelected = false;
+
+    function chooseExpiredFood() {
+        const btn = document.getElementById('expiredFoodBtn');
+        const otherTextarea = document.getElementById('otherTextarea');
+        const descInput = document.getElementById('descriptionInput');
+
+        if (isExpiredSelected) {
+            isExpiredSelected = false;
+            btn.classList.remove('active', 'btn-secondary');
+            btn.classList.add('btn-light', 'border');
+
+            otherTextarea.disabled = false;
+            descInput.value = '';
+        } else {
+            isExpiredSelected = true;
+            btn.classList.remove('btn-light', 'border');
+            btn.classList.add('active', 'btn-secondary');
+
+            otherTextarea.value = '';
+            otherTextarea.disabled = true;
+            descInput.value = 'They sell expired foods';
+        }
+    }
+
+    function chooseOther() {
+        const btn = document.getElementById('expiredFoodBtn');
+        const otherTextarea = document.getElementById('otherTextarea');
+        const descInput = document.getElementById('descriptionInput');
+
+        // Unselect tombol jika textarea diisi
+        if (otherTextarea.value.trim() !== '') {
+            isExpiredSelected = false;
+            btn.classList.remove('active', 'btn-danger');
+            btn.classList.add('btn-light', 'border');
+            otherTextarea.disabled = false;
+            descInput.value = otherTextarea.value;
+        } else {
+            descInput.value = '';
+        }
+    }

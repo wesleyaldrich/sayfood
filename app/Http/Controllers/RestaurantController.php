@@ -24,6 +24,7 @@ class RestaurantController extends Controller
         $snacks      = Food::where('restaurant_id', $id)->where('category_id', 4)->get();
         return view('restaurantmenu-customer', compact('restaurant', 'mainCourses', 'desserts', 'snacks', 'drinks'));
     }
+    
     public function manageFood()
     {
         $restaurantId = Auth::user()->restaurant->id;
