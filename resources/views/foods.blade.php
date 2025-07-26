@@ -13,19 +13,23 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
     const categoryTranslations = @json(__('foods'));
 </script>
 
-<div class="container-fluid my-2 px-4 d-flex flex-row justify-content-between">
+<div class="container-fluid my-2 px-4 d-flex flex-row justify-content-between align-items-center flex-wrap gap-2">
     @if(Auth::check())
-        <div class="badge-location badge rounded-pill">
-            <img class="location-icon" src="assets/icon_location.png" alt="Location">
-            {{ Auth::user()->customer->address ?? __('foods.not_set') }}
+        <div class="badge-location badge rounded-pill text-truncate mb-0">
+            <img class="location-icon me-1" src="assets/icon_location.png" alt="Location">
+            <span class="d-inline-block text-truncate location-text">
+                {{ Auth::user()->customer->address ?? __('foods.not_set') }}
+            </span>
         </div>
     @else
-        <div class="badge-location badge rounded-pill">
-            <img class="location-icon" src="assets/icon_location.png" alt="Location">
-            {{ __('foods.not_logged_in') }}
+        <div class="badge-location badge rounded-pill text-truncate mb-0">
+            <img class="location-icon me-1" src="assets/icon_location.png" alt="Location">
+            <span class="d-inline-block text-truncate location-text">
+                {{ __('foods.not_logged_in') }}
+            </span>
         </div>
     @endif
-    <a href="{{ route('foods') }}" class="btn-clear-all">{{ __('foods.clear_filters') }}</a>
+    <a href="{{ route('foods') }}" class="btn-clear-all ms-auto">{{ __('foods.clear_filters') }}</a>
 </div>
 
 <div class="container-fluid my-2 px-4">
