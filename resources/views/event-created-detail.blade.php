@@ -106,22 +106,6 @@
             
         </div>
         <!-- Header: Event Name and Action Buttons -->
-        <div class="header-section">
-            <h1 class="event-title">{{ $event->name }}</h1>
-
-            @if ($event->status == 'Pending')
-                <div class="action-buttons">
-                    <form action="{{ route('admin.reject.event', $event->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-times-circle me-1"></i> Reject</button>
-                    </form>
-                    <form action="{{ route('admin.approve.event', $event->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle me-1"></i> Approve</button>
-                    </form>
-                </div>
-            @endif
-        </div>
 
         <div class="row">
             <!-- Left Column: Event Details -->
