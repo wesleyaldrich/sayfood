@@ -68,6 +68,7 @@
         .right-detail-section {
             flex: 1;
             overflow-x: auto;
+            min-width: 20vw;
         }
         .btn-reject {
             background-color: #c94c4c;
@@ -106,7 +107,7 @@
                 Back
             </a>
         </div>
-        <div class="d-flex flex-row mt-4 align-items-center">
+        <div class="d-flex row mt-4 align-items-center mx-0">
             @if ($restaurant_registration->status == 'operational')
                 @if ($restaurant_registration->restaurant && $restaurant_registration->restaurant->image_url_resto)
                     <img src="{{ asset($restaurant_registration->restaurant->image_url_resto) }}" class="restaurant-image" alt="restaurant image">
@@ -146,7 +147,7 @@
                 @endif
             </div>
         </div>
-        <div class="d-flex flex-row mt-4">
+        <div class="row mt-4 mx-0 gap-5">
             <div class="left-detail-section d-flex flex-column">
                 <h3 class="detail-header oswald">Restaurant Details</h3>
                 <div class="detail-group d-flex flex-column mt-4">

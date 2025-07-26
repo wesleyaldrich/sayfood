@@ -38,13 +38,13 @@
         }
         .btn-suspend {
             background-color: #c94c4c;
-            padding: 16px 20px;
+            padding: 10px 20px;
             color: rgb(255, 255, 255, 0.7);
             font-family: 'Lato';
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 50%;
+            min-height: 80%;
         }
         .btn-suspend:hover {
             text-decoration: none;
@@ -53,13 +53,13 @@
         }
         .btn-safe {
             background-color: #234C4C;
-            padding: 16px 20px;
+            padding: 10px 20px;
             color: rgb(255, 255, 255, 0.7);
             font-family: 'Lato';
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 50%;
+            min-height: 80%;
         }
         .btn-safe:hover {
             text-decoration: none;
@@ -73,28 +73,21 @@
                 <i class="fas fa-arrow-left"></i>
             </a>
         </div>
-        <div class="d-flex flex-row mt-4 align-items-center">
-            {{-- @if ($restaurant_registration->status == 'operational')
-                @if ($restaurant_registration->restaurant && $restaurant_registration->restaurant->image_url_resto)
-                    <img src="{{ asset($restaurant_registration->restaurant->image_url_resto) }}" class="restaurant-image" alt="restaurant image">
-                @else
-                    <img src="{{ asset('assets/example/profile.jpg') }}" class="restaurant-image" alt="restaurant image">
-                @endif
-            @endif --}}
-            <div class="d-flex flex-column">
+        <div class="row mt-4 align-items-center gap-4 mx-0">
+            <div class="d-flex flex-column p-0" style="width: fit-content;">
                 <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">{{ 'Report ID: ' . $report->id }}</h2>
                 <h2 class="oswald" style="font-size: 32px; font-weight: 400; color: #063434;">{{ $report->customer->user->username . ' to ' . $report->restaurant->name }}</h2>
             </div>
-            <div class="side d-flex flex-row ms-auto gap-4">
+            <div class="side d-flex flex-row ms-auto gap-4 p-0" style="min-height: 60px; width: fit-content;">
                 {{-- ITEM --}}
                 @if ($report->status == 'Pending')
                     <form id="suspend-btn" action="{{ route('show.manage.reports.detail.suspend', $report->id) }}" method="POST" hidden>@csrf</form>
                     <form id="safe-btn" action="{{ route('show.manage.reports.detail.safe', $report->id) }}" method="POST" hidden>@csrf</form>
-                    <a href="{{ route('show.manage.reports.detail.suspend', $report->id) }}" class="btn btn-suspend my-auto" onclick="
+                    <a href="{{ route('show.manage.reports.detail.suspend', $report->id) }}" class="btn btn-suspend" onclick="
                         event.preventDefault();
                         document.getElementById('suspend-btn').submit();
                     ">Suspend Restaurant</a>
-                    <a href="{{ route('show.manage.reports.detail.safe', $report->id) }}" class="btn btn-safe my-auto" onclick="
+                    <a href="{{ route('show.manage.reports.detail.safe', $report->id) }}" class="btn btn-safe" onclick="
                         event.preventDefault();
                         document.getElementById('safe-btn').submit();
                     ">Mark as Safe</a>

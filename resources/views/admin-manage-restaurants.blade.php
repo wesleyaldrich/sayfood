@@ -36,13 +36,15 @@
         </div>
 
         <div class="mb-4">
-            <div class="d-flex flex-row w-100" style="gap: 6px;">
-                <a href="{{ route('show.manage.restaurants') }}"
-                    class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">Operational</a>
-                <a href="{{ route('show.manage.restaurants', ['status' => 'pending']) }}"
-                    class="oswald filter-button {{ (request()->query('status') == 'pending') ? 'active' : '' }}">Pending</a>
-                <a href="{{ route('show.manage.restaurants', ['status' => 'rejected']) }}"
-                    class="oswald filter-button {{ (request()->query('status') == 'rejected') ? 'active' : '' }}">Rejected</a>
+            <div class="d-flex row w-100 gap-4 mx-0">
+                <div class="row mx-0" style="gap: 6px;">
+                    <a href="{{ route('show.manage.restaurants') }}" style="height: 40px;"
+                        class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">Operational</a>
+                    <a href="{{ route('show.manage.restaurants', ['status' => 'pending']) }}" style="height: 40px;"
+                        class="oswald filter-button {{ (request()->query('status') == 'pending') ? 'active' : '' }}">Pending</a>
+                    <a href="{{ route('show.manage.restaurants', ['status' => 'rejected']) }}" style="height: 40px;"
+                        class="oswald filter-button {{ (request()->query('status') == 'rejected') ? 'active' : '' }}">Rejected</a>
+                </div>
                 <div class="d-flex ms-auto mt-auto">
                     <form class="d-flex" role="search">
                         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
@@ -54,28 +56,30 @@
             </div>
         </div>
 
-        <table class="table w-100">
-            <thead>
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($restaurant_registrations as $i)
-                    <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.restaurants.detail', $i->id) }}'" style="cursor: pointer;">
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $i->id }}</td>
-                        <td>{{ $i->name }}</td>
-                        <td>{{ $i->email }}</td>
-                        <td>{{ $i->status }}</td>
+        <div style="overflow-x: auto;">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Status</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($restaurant_registrations as $i)
+                        <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.restaurants.detail', $i->id) }}'" style="cursor: pointer;">
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $i->id }}</td>
+                            <td>{{ $i->name }}</td>
+                            <td>{{ $i->email }}</td>
+                            <td>{{ $i->status }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="mt-4">
             {{ $restaurant_registrations->links() }}
         </div>

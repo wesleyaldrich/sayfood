@@ -30,17 +30,19 @@
             background-color: #00eeff15;
         }
     </style>
-    <div class="container-fluid px-5 mb-5">
+<div class="container-fluid px-5 mb-5">
         <div class="d-flex flex-row my-4 align-items-center">
             <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">REPORTS</h2>
         </div>
 
         <div class="mb-4">
-            <div class="d-flex flex-row w-100" style="gap: 6px;">
-                <a href="{{ route('show.manage.reports') }}"
-                    class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">Pending</a>
-                <a href="{{ route('show.manage.reports', ['status' => 'Resolved']) }}"
-                    class="oswald filter-button {{ (request()->query('status') == 'Resolved') ? 'active' : '' }}">Resolved</a>
+            <div class="row w-100 gap-4 mx-0">
+                <div class="d-flex flex-row" style="gap: 6px; height: 40px;">
+                    <a href="{{ route('show.manage.reports') }}"
+                        class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">Pending</a>
+                    <a href="{{ route('show.manage.reports', ['status' => 'Resolved']) }}"
+                        class="oswald filter-button {{ (request()->query('status') == 'Resolved') ? 'active' : '' }}">Resolved</a>
+                </div>  
                 <div class="d-flex ms-auto mt-auto">
                     <form class="d-flex" role="search">
                         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
@@ -52,30 +54,32 @@
             </div>
         </div>
 
-        <table class="table w-100">
-            <thead>
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Customer ID</th>
-                    <th scope="col">Customer Name</th>
-                    <th scope="col">Restaurant ID</th>
-                    <th scope="col">Restaurant Name</th>
-                    <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($reports as $i)
-                    <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.reports.detail', $i->id) }}'" style="cursor: pointer;">
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $i->customer->id }}</td>
-                        <td>{{ $i->customer->user->username }}</td>
-                        <td>{{ $i->restaurant->id }}</td>
-                        <td>{{ $i->restaurant->name }}</td>
-                        <td>{{ $i->status }}</td>
+        <div style="overflow-x: auto;">
+            <table class="table w-100" style="max-width: 100%;">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Customer ID</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Restaurant ID</th>
+                        <th scope="col">Restaurant Name</th>
+                        <th scope="col">Status</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($reports as $i)
+                        <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.reports.detail', $i->id) }}'" style="cursor: pointer;">
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $i->customer->id }}</td>
+                            <td>{{ $i->customer->user->username }}</td>
+                            <td>{{ $i->restaurant->id }}</td>
+                            <td>{{ $i->restaurant->name }}</td>
+                            <td>{{ $i->status }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="mt-4">
             {{-- {{ $restaurant_registrations->links() }} --}}
         </div>

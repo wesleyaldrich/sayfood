@@ -18,8 +18,14 @@ use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity;
 
-// UNPROTECTED ROUTES
+// HOME
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
+
+// FORGOT PASSWORD
+Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
 Route::middleware('twofactor')->group(function () {
 
@@ -32,11 +38,6 @@ Route::middleware('twofactor')->group(function () {
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
     Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
 
-    // FORGOT PASSWORD
-    Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
-    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
-    Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
-    Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
     
     // CUSTOMER & ADMIN ROUTES
     Route::middleware('role:admincustomer')->group(function(){
