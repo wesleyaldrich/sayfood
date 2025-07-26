@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', "Sayfood | Restaurant Transaction Report")
+@section('title', __('restaurant.transaction_report_title'))
 
 @section('content')
     <style>
@@ -15,7 +15,7 @@
         }
         .filter-button:hover {
             background-color: #347171;
-        } 
+        }
         .download-button {
             height: 30px;
             padding: 0 1.2rem;
@@ -53,7 +53,7 @@
             <a href="javascript:history.back()" class="back-button">
                 <
             </a>
-            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">TRANSACTION REPORT</h2>
+            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">{{ __('restaurant.transaction_report_heading') }}</h2>
         </div>
 
         <div class="mb-4">
@@ -64,18 +64,18 @@
                         $endDate = request('end_date') ?? \Carbon\Carbon::now()->format('Y-m-d');
                     @endphp
                     <div class="d-flex flex-column mr-3">
-                        <h6 class="oswald mb-1" style="font-weight: 500; font-size: 1.2rem; color: #063434">Date Start</h6>
+                        <h6 class="oswald mb-1" style="font-weight: 500; font-size: 1.2rem; color: #063434">{{ __('restaurant.date_start_label') }}</h6>
                         <input type="date" name="start_date" id="start_date" value="{{ $startDate }}">
                     </div>
                     <div class="d-flex flex-column">
-                        <h6 class="oswald mb-1" style="font-weight: 500; font-size: 1.2rem; color: #063434">Date End</h6>
+                        <h6 class="oswald mb-1" style="font-weight: 500; font-size: 1.2rem; color: #063434">{{ __('restaurant.date_end_label') }}</h6>
                         <input type="date" name="end_date" id="end_date" value="{{ $endDate }}">
                     </div>
                     <div class="ml-3 d-flex flex-column align-items-center justify-content-end">
-                        <button type="submit" class="filter-button btn btn-primary d-flex justify-content-center align-items-center">Filter</button>
+                        <button type="submit" class="filter-button btn btn-primary d-flex justify-content-center align-items-center">{{ __('restaurant.filter_button') }}</button>
                     </div>
                     <div class="ms-auto mt-auto pt-4">
-                        <a href="{{ route('restaurant-transactions.download', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="download-button btn btn-primary d-flex justify-content-center align-items-center">Download Report</a>
+                        <a href="{{ route('restaurant-transactions.download', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="download-button btn btn-primary d-flex justify-content-center align-items-center">{{ __('restaurant.download_report_button') }}</a>
                     </div>
                 </div>
             </form>
@@ -85,14 +85,14 @@
             <table class="table w-100">
                 <thead>
                     <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Customer Name</th>
-                        <th scope="col">Food Name</th>
-                        <th scope="col">Qty</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Total Price</th>
+                        <th scope="col">{{ __('restaurant.table_header_no') }}</th>
+                        <th scope="col">{{ __('restaurant.table_header_id') }}</th>
+                        <th scope="col">{{ __('restaurant.date_label') }}</th>
+                        <th scope="col">{{ __('restaurant.table_header_customer_name') }}</th>
+                        <th scope="col">{{ __('restaurant.table_header_food_name') }}</th>
+                        <th scope="col">{{ __('restaurant.table_header_qty') }}</th>
+                        <th scope="col">{{ __('restaurant.table_header_price') }}</th>
+                        <th scope="col">{{ __('restaurant.table_header_total_price') }}</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', "Sayfood Admin | Manage Restaurants")
+@section('title', __("admin.manage_restaurants_title"))
 
 @section('content')
     <style>
@@ -32,22 +32,22 @@
     </style>
     <div class="container-fluid px-5 mb-5">
         <div class="d-flex flex-row my-4 align-items-center">
-            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">RESTAURANTS</h2>
+            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">{{ __('admin.restaurants_heading') }}</h2>
         </div>
 
         <div class="mb-4">
             <div class="d-flex row w-100 gap-4 mx-0">
                 <div class="row mx-0" style="gap: 6px;">
                     <a href="{{ route('show.manage.restaurants') }}" style="height: 40px;"
-                        class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">Operational</a>
+                        class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">{{ __('admin.filter_operational_button') }}</a>
                     <a href="{{ route('show.manage.restaurants', ['status' => 'pending']) }}" style="height: 40px;"
-                        class="oswald filter-button {{ (request()->query('status') == 'pending') ? 'active' : '' }}">Pending</a>
+                        class="oswald filter-button {{ (request()->query('status') == 'pending') ? 'active' : '' }}">{{ __('admin.filter_pending_restaurants_button') }}</a>
                     <a href="{{ route('show.manage.restaurants', ['status' => 'rejected']) }}" style="height: 40px;"
-                        class="oswald filter-button {{ (request()->query('status') == 'rejected') ? 'active' : '' }}">Rejected</a>
+                        class="oswald filter-button {{ (request()->query('status') == 'rejected') ? 'active' : '' }}">{{ __('admin.filter_rejected_restaurants_button') }}</a>
                 </div>
                 <div class="d-flex ms-auto mt-auto">
                     <form class="d-flex" role="search">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control" type="search" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}">
                         <button class="btn btn-warning" type="submit">
                             <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                         </button>
@@ -60,11 +60,11 @@
             <table class="table w-100">
                 <thead>
                     <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">{{ __('admin.no_label') }}</th>
+                        <th scope="col">{{ __('admin.id_label') }}</th>
+                        <th scope="col">{{ __('admin.name_label') }}</th>
+                        <th scope="col">{{ __('admin.email_label') }}</th>
+                        <th scope="col">{{ __('admin.status_label') }}</th>
                     </tr>
                 </thead>
                 <tbody>

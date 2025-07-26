@@ -267,11 +267,11 @@
                 </div>
 
                 <div class="modal-body">
-                    <label class="form-label text-[#234C4C] text-xl">Host</label>
+                    <label class="form-label text-[#234C4C] text-xl">{{ __('home.host') }}</label>
                     <p class="lato-light-italic" id="modalEventHost"></p>
-                    <label class="form-label text-[#234C4C] text-xl">Location</label>
+                    <label class="form-label text-[#234C4C] text-xl">{{ __('home.location') }}</label>
                     <p class="lato-regular" id="modalEventLocation"></p>
-                    <label class="form-label text-[#234C4C] text-xl">Date</label>
+                    <label class="form-label text-[#234C4C] text-xl">{{ __('home.date') }}</label>
                     <p class="lato-regular" id="modalEventDate"></p>
                     <!-- Form Join -->
                     <form method="POST" action="{{ route('event.join') }}">
@@ -315,7 +315,7 @@
                     @foreach ($slides as $index => $slide)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                             <div class="carousel-header">{{ $slide['title'] }}</div>
-                            <div class="carousel-sub">by {{ $slide['author'] }}</div>
+                            <div class="carousel-sub">{{__('home.by')}} {{ $slide['author'] }}</div>
                             <div class="carousel-body">
                                 <img src="{{ asset('storage/' . $slide['image']) }}" alt="{{ $slide['title'] }}">
                                 <div class="carousel-text" id="text-{{ $index }}">
@@ -325,7 +325,7 @@
                                             {{ Str::limit($slide['location'], 23, '...') }}</div>
                                         <div><i class="fa-solid fa-user"></i> {{ $slide['people'] }}</div>
                                         <div><i class="fa-solid fa-calendar"></i> {{ $slide['date'] }}</div>
-                                        <div><i class="fa-solid fa-clock"></i> {{ $slide['duration'] }} Hours</div>
+                                        <div><i class="fa-solid fa-clock"></i> {{ $slide['duration'] }} {{__('home.hours')}}</div>
                                     </div>
                                 </div>
                             </div>

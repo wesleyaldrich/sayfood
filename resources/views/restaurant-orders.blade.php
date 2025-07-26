@@ -1,25 +1,25 @@
 @extends('layout.app')
 
-@section('title', 'Orders Page')
+@section('title', __('restaurant.orders_page_title'))
 
 @section('content')
 <div class="container-fluid my-2 px-4">
     <div class="header">
-        <h1>LETS MANAGE YOUR ORDERS!</h1>
+        <h1>{{ __('restaurant.manage_orders_heading') }}</h1>
     </div>
 
     <div class="body mt-3">
         <table class="table table-bordered text-center align-middle custom-table">
             <thead class="custom-thead">
                 <tr>
-                    <th>No</th>
-                    <th>ID</th>
-                    <th>Customer Name</th>
-                    <th>Food Name</th>
-                    <th>Qty</th>
-                    <th>Notes</th>
-                    <th>Order Date</th>
-                    <th>Action</th>
+                    <th>{{ __('restaurant.table_header_no') }}</th>
+                    <th>{{ __('restaurant.table_header_id') }}</th>
+                    <th>{{ __('restaurant.table_header_customer_name') }}</th>
+                    <th>{{ __('restaurant.table_header_food_name') }}</th>
+                    <th>{{ __('restaurant.table_header_qty') }}</th>
+                    <th>{{ __('restaurant.table_header_notes') }}</th>
+                    <th>{{ __('restaurant.table_header_order_date') }}</th>
+                    <th>{{ __('restaurant.table_header_action') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,16 +49,14 @@
                                     <form action="{{ route('restaurant-orders.update-status', $order->id) }}" method="POST">
                                         @csrf
                                         @if ($order->status === 'Order Created')
-                                            <button class="btn btn-sm" style="background-color: #007771;">Accept</button>
+                                            <button class="btn btn-sm" style="background-color: #007771;">{{ __('restaurant.order_created_button') }}</button>
                                         @elseif ($order->status === 'Ready to Pickup')
-                                            <button class="btn btn-warning btn-sm" style="background-color: #FEA322;">Accepted</button>
+                                            <button class="btn btn-warning btn-sm" style="background-color: #FEA322;">{{ __('restaurant.ready_to_pickup_button') }}</button>
                                         @elseif ($order->status === 'Order Completed' || $order->status === 'Order Reviewed')
-                                            <button class="btn btn-secondary btn-sm" disabled style="background-color: #4D4D4C;">Completed</button>
+                                            <button class="btn btn-secondary btn-sm" disabled style="background-color: #4D4D4C;">{{ __('restaurant.order_completed_button') }}</button>
                                         @endif
                                     </form>
                                 </td>
-
-
                             @endif
                         </tr>
                     @endforeach

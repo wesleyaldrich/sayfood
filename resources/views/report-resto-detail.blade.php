@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', "Sayfood Admin | Manage Reports")
+@section('title', __("admin.report_detail_title"))
 
 @section('content')
     <style>
@@ -75,8 +75,8 @@
         </div>
         <div class="row mt-4 align-items-center gap-4 mx-0">
             <div class="d-flex flex-column p-0" style="width: fit-content;">
-                <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">{{ 'Report ID: ' . $report->id }}</h2>
-                <h2 class="oswald" style="font-size: 32px; font-weight: 400; color: #063434;">{{ $report->customer->user->username . ' to ' . $report->restaurant->name }}</h2>
+                <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">{{ __('admin.report_id_prefix') }} {{ $report->id }}</h2>
+                <h2 class="oswald" style="font-size: 32px; font-weight: 400; color: #063434;">{{ $report->customer->user->username . ' ' . __('admin.to_label') . ' ' . $report->restaurant->name }}</h2>
             </div>
             <div class="side d-flex flex-row ms-auto gap-4 p-0" style="min-height: 60px; width: fit-content;">
                 {{-- ITEM --}}
@@ -86,134 +86,52 @@
                     <a href="{{ route('show.manage.reports.detail.suspend', $report->id) }}" class="btn btn-suspend" onclick="
                         event.preventDefault();
                         document.getElementById('suspend-btn').submit();
-                    ">Suspend Restaurant</a>
+                    ">{{ __('admin.suspend_restaurant_button') }}</a>
                     <a href="{{ route('show.manage.reports.detail.safe', $report->id) }}" class="btn btn-safe" onclick="
                         event.preventDefault();
                         document.getElementById('safe-btn').submit();
-                    ">Mark as Safe</a>
+                    ">{{ __('admin.mark_as_safe_button') }}</a>
                 @endif
             </div>
         </div>
         <div class="d-flex flex-row mt-4">
             <div class="left-detail-section d-flex flex-column">
-                <h3 class="detail-header oswald">Report Details</h3>
+                <h3 class="detail-header oswald">{{ __('admin.report_details_heading') }}</h3>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Status</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.status_label') }}</h3>
                     <h3 class="oswald status-label {{ $report->status }}">{{ $report->status }}</h3>
                 </div>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Description</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.description_label') }}</h3>
                     <h3 class="oswald">{{ $report->description}}</h3>
                 </div>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Customer ID</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.customer_id_label') }}</h3>
                     <h3 class="oswald">{{ $report->customer->id }}</h3>
                 </div>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Customer Name</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.customer_name_label') }}</h3>
                     <h3 class="oswald">{{ $report->customer->user->username }}</h3>
                 </div>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Customer Email</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.customer_email_label') }}</h3>
                     <h3 class="oswald">{{ $report->customer->user->email }}</h3>
                 </div>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Restaurant ID</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_id_label') }}</h3>
                     <h3 class="oswald">{{ $report->restaurant->id }}</h3>
                 </div>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Restaurant Name</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_name_label') }}</h3>
                     <h3 class="oswald">{{ $report->restaurant->name }}</h3>
                 </div>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Restaurant Email</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_email_label') }}</h3>
                     <h3 class="oswald">{{ $report->restaurant->user->email }}</h3>
                 </div>
             </div>
         </div>
     </div>
-    {{-- <div class="container mx-4 mb-5">
-        <div class="row align-items-center">
-            <div class="navigation-buttons mb-3">
-                <a href="javascript:history.back()" class="nav-btn">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <button class="nav-btn ms-3" onclick="goUp()">
-                    <i class="fas fa-chevron-up"></i>
-                </button>
-                <button class="nav-btn" onclick="goDown()">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-            </div> --}}
-
-            {{-- Kolom Kiri: Profile --}}
-            {{-- <div class="col-md-9 d-flex align-items-center">
-                <div class="profile-report">
-                    <img src="{{ asset('assets/icon_profile.png') }}" alt="profile_img"
-                        style="width: 100px; height: 100px;">
-                </div>
-                <div class="ms-3">
-                    <h1 class="fw-bold mb-0" style="color: #234C4C;">Upin Cucu Opah</h1>
-                    <h5 class="text-muted mb-0 my-1">123455678</h5>
-                </div>
-            </div> --}}
-
-            {{-- Kolom Kanan: Tombol --}}
-            {{-- <div class="col-md-3 text-md-end text-start mt-3 mt-md-0">
-                <button class="btn"
-                    style="background-color: #234C4C; color: white; border-radius: 6px; padding: 6px 12px;">
-                    <i class="bi bi-check-lg me-2"></i> In Review
-                </button>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="mx-5 mt-5">
-        <h3 class="report-details fw-bold" style="color: #234C4C; font-size: 20px;">Report Details</h3>
-        <div class="row mt-3">
-            <div class="col-12">
-                <div class="row mb-3">
-                    <div class="col">
-                        <p class="mb-1">
-                            <strong><i class="fas fa-bell me-2" style="color: #234C4C;"></i>Status:</strong>
-                        </p>
-                        <span class="badge text-white"
-                            style="background: #FEA322; width: 100px; height: 25px;">Pending</span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <p class="mb-1">
-                            <strong><i class="fas fa-envelope me-2" style="color: #234C4C;"></i>Email:</strong>
-                        </p>
-                        <p>upin123@gmail.com</p>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col">
-                        <p class="mb-1">
-                            <strong><i class="fas fa-circle-info me-2" style="color: #234C4C;"></i>Description:</strong>
-                        </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pulvinar urna eu ante
-                            dignissim aliquet. Nam orci erat, laoreet ut laoreet vitae, elementum vitae lectus. Aliquam
-                            et
-                            tincidunt tellus. Nulla mollis viverra consectetur. Aliquam luctus maximus felis, vel
-                            placerat augue
-                            auctor ac. Donec hendrerit dolor in ante condimentum vestibulum. Quisque scelerisque, erat
-                            sed
-                            vehicula gravida, nisl lorem volutpat lectus, in aliquam odio diam nec massa. Suspendisse
-                            tempus
-                            viverra fermentum. Fusce fermentum enim quam, quis scelerisque metus lacinia vel. Morbi
-                            placerat mi
-                            in nulla ultricies feugiat.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 
 @push('styles')

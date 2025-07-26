@@ -101,14 +101,11 @@
     <div class="container-fluid main-content">
         <div class="mb-3">
             <a href="{{ route('activity', ['tab' => 'eventactivity']) }}" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left me-1"></i> Back
+                <i class="fas fa-arrow-left me-1"></i> {{ __('activity.back') }}
             </a>
-            
         </div>
-        <!-- Header: Event Name and Action Buttons -->
 
         <div class="row">
-            <!-- Left Column: Event Details -->
             <div class="col-lg-8">
                 <div class="details-card">
                     @if($event->image_url)
@@ -117,14 +114,16 @@
                     @endif
 
                     <div class="card-body">
-                        <h5>Event Details</h5>
+                        <h5>{{ __('activity.event_details_title') }}</h5>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="detail-item">
                                     <i class="fas fa-flag"></i>
-                                    <div><strong>Status</strong><br>
+                                    <div><strong>{{ __('activity.status_label') }}</strong><br>
                                         @php
                                             $statusClass = 'bg-secondary';
+                                            // The status values themselves (Pending, Coming Soon, etc.) are likely stored
+                                            // directly in the database as English strings.
                                             if ($event->status == 'Pending')
                                                 $statusClass = 'bg-warning text-dark';
                                             if ($event->status == 'Coming Soon')
@@ -136,53 +135,54 @@
                                             if ($event->status == 'Rejected')
                                                 $statusClass = 'bg-danger';
                                         @endphp
-                                        <span class="badge {{ $statusClass }}">{{ $event->status }}</span>
+                                        {{-- Using the dynamic key for status, e.g., activity.status_Pending --}}
+                                        <span class="badge {{ $statusClass }}">{{ __('activity.status_' . str_replace(' ', '', $event->status)) }}</span>
                                     </div>
                                 </div>
                                 <div class="detail-item">
                                     <i class="fas fa-user-edit"></i>
-                                    <div><strong>Creator</strong><br>
-                                        {{ $event->creator->user->username ?? 'Creator Name' }} (ID:
+                                    <div><strong>{{ __('activity.creator_label') }}</strong><br>
+                                        {{ $event->creator->user->username ?? __('activity.unknown_creator') }} (ID:
                                         {{ $event->creator_id }})
                                     </div>
                                 </div>
                                 <div class="detail-item">
                                     <i class="fas fa-envelope"></i>
-                                    <div><strong>Creator Email</strong><br>{{ $event->creator->user->email ?? 'N/A' }}</div>
+                                    <div><strong>{{ __('activity.creator_email_label') }}</strong><br>{{ $event->creator->user->email ?? __('activity.not_available_short') }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="detail-item">
                                     <i class="fas fa-calendar-alt"></i>
                                     <div>
-                                        <strong>Date</strong><br>{{ $event->date}} | {{ $event->start_time}} - {{ $event->end_time}}
+                                        <strong>{{ __('activity.date_label') }}</strong><br>{{ $event->date}} | {{ $event->start_time}} - {{ $event->end_time}}
                                     </div>
                                 </div>
                                 <div class="detail-item">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    <div><strong>Address</strong><br>{{ $event->location }}</div>
+                                    <div><strong>{{ __('activity.address_label') }}</strong><br>{{ $event->location }}</div>
                                 </div>
                                 <div class="detail-item">
                                     <i class="fas fa-tag"></i>
-                                    <div><strong>Category</strong><br>{{ $event->category->name }}</div>
+                                    <div><strong>{{ __('activity.category_label') }}</strong><br>{{ $event->category->name }}</div>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class="detail-item">
                             <i class="fas fa-align-left"></i>
-                            <div><strong>Description</strong><br>{{ $event->description }}</div>
+                            <div><strong>{{ __('activity.description_label') }}</strong><br>{{ $event->description }}</div>
                         </div>
 
                         @if(in_array($event->status, ['Coming Soon', 'On Going', 'Completed']))
                             <div class="detail-item">
                                 <i class="fas fa-users"></i>
-                                <div><strong>Group Link</strong><br>
+                                <div><strong>{{ __('activity.group_link_label') }}</strong><br>
                                     @if($event->group_link)
                                         <a href="{{ $event->group_link }}" target="_blank"
                                             rel="noopener noreferrer">{{ $event->group_link }}</a>
                                     @else
-                                        <span class="text-muted">Not available yet.</span>
+                                        <span class="text-muted">{{ __('activity.group_link_not_available') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -192,35 +192,34 @@
                 </div>
             </div>
 
-            <!-- Right Column: Participants -->
             <div class="col-lg-4">
                 @if(in_array($event->status, ['Coming Soon', 'On Going', 'Completed']))
                     <div class="participants-card">
                         <div class="card-body">
-                            <h5>Participants</h5>
+                            <h5>{{ __('activity.participants_heading') }}</h5>
                             <div class="participants-count">
                                 <div class="count">{{ $event->participants->count() }}</div>
-                                <div>Total Participants</div>
+                                <div>{{ __('activity.total_participants') }}</div>
                             </div>
                             <div class="participants-list">
                                 <table class="table table-borderless table-sm">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</td>
-                                            <th scope="col">Username</td>
-                                            <th scope="col">Phone Number</td>
+                                            <th scope="col">{{ __('activity.table_id') }}</th>
+                                            <th scope="col">{{ __('activity.table_username') }}</th>
+                                            <th scope="col">{{ __('activity.table_phone_number') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse($event->participants as $participant)
                                             <tr>
                                                 <td>{{ $participant->id }}</td>
-                                                <td>{{ $participant->user->username ?? 'Participant Name' }}</td>
-                                                <td>{{ $participant->pivot->phone_number ?? 'N/A' }}</td>
+                                                <td>{{ $participant->user->username ?? __('activity.participant_name_unavailable') }}</td>
+                                                <td>{{ $participant->pivot->phone_number ?? __('activity.not_available_short') }}</td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="2" class="text-center">No participants yet.</td>
+                                                <td colspan="3" class="text-center">{{ __('activity.no_participants_yet') }}</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

@@ -2,7 +2,6 @@
 @section('title', 'Restaurant Menu Page')
 @section('content')
 
-    <!-- Modal Report Restaurant -->
     <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <form action="{{ route('report.store') }}" method="POST" class="modal-content p-4 shadow position-relative"
@@ -10,28 +9,26 @@
                 @csrf
 
                 <div class="modal-header border-0 d-flex justify-content-end">
-                <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close"
-                    style="background: red; border-radius: 50px; width: 35px; height: 35px;">
-                    <h1 style="font-weight: bold; color: white;">X</h1>
-                </button>
-            </div>
+                    <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close"
+                        style="background: red; border-radius: 50px; width: 35px; height: 35px;">
+                        <h1 style="font-weight: bold; color: white;">X</h1>
+                    </button>
+                </div>
 
                 <div class="modal-body text-center">
-                    <h1 class="fw-bold mb-3" style="font-size: 28px; font-family: 'Oswald'; font-weight: bold;">Report Restaurant</h1>
+                    <h1 class="fw-bold mb-3" style="font-size: 28px; font-family: 'Oswald'; font-weight: bold;">{{ __('restaurant.report_restaurant_modal_title') }}</h1>
 
-                    <p class="mb-3" style="font-family: font-family: 'Lato';">Why do you want to report this restaurant?</p>
+                    <p class="mb-3" style="font-family: font-family: 'Lato';">{{ __('restaurant.report_restaurant_question') }}</p>
 
-                    <!-- Tombol pilihan -->
                     <div class="d-grid gap-2 mb-3">
                         <button type="button" id="expiredFoodBtn" class="btn btn-light border" onclick="chooseExpiredFood()"
-                            style="font-family: font-family: 'Lato';">They sell expired foods</button>
+                            style="font-family: font-family: 'Lato';">{{ __('restaurant.reason_expired_foods') }}</button>
                     </div>
 
-                    <!-- Textarea others -->
                     <div class="mb-3 text-start">
-                        <label class="form-label fw-semibold" style="font-family: font-family: 'Lato';">Others:</label>
+                        <label class="form-label fw-semibold" style="font-family: font-family: 'Lato';">{{ __('restaurant.reason_others_label') }}</label>
                         <textarea id="otherTextarea" class="form-control @error('description') is-invalid @enderror"
-                            name="other_reason" rows="3" placeholder="Write something..." oninput="chooseOther()"
+                            name="other_reason" rows="3" placeholder="{{ __('restaurant.reason_others_placeholder') }}" oninput="chooseOther()"
                             style="font-family: font-family: 'Lato';">{{ old('other_reason') }}</textarea>
                     </div>
 
@@ -48,7 +45,7 @@
                     @enderror
                     <button type="submit" class="btn btn-success rounded-pill px-5 py-1 mt-3"
                         style="background-color: #1d4d4f; font-family: 'Lato';">
-                        Submit
+                        {{ __('restaurant.submit_report_button') }}
                     </button>
                 </div>
             </form>

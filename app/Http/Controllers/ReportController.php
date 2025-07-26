@@ -13,7 +13,7 @@ class ReportController extends Controller
     {
         $query = $request->query('status', 'Pending');
 
-        $reports = Report::query()->where('status', $query)->get();
+        $reports = Report::query()->where('status', $query)->paginate(10);
 
         return view('report-resto-admin', compact('reports'));
     }

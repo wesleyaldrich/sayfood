@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', "Sayfood Admin | Manage Restaurants")
+@section('title', __("admin.manage_reports_title"))
 
 @section('content')
     <style>
@@ -32,20 +32,20 @@
     </style>
 <div class="container-fluid px-5 mb-5">
         <div class="d-flex flex-row my-4 align-items-center">
-            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">REPORTS</h2>
+            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">{{ __('admin.reports_heading') }}</h2>
         </div>
 
         <div class="mb-4">
             <div class="row w-100 gap-4 mx-0">
                 <div class="d-flex flex-row" style="gap: 6px; height: 40px;">
                     <a href="{{ route('show.manage.reports') }}"
-                        class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">Pending</a>
+                        class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">{{ __('admin.filter_pending_button') }}</a>
                     <a href="{{ route('show.manage.reports', ['status' => 'Resolved']) }}"
-                        class="oswald filter-button {{ (request()->query('status') == 'Resolved') ? 'active' : '' }}">Resolved</a>
+                        class="oswald filter-button {{ (request()->query('status') == 'Resolved') ? 'active' : '' }}">{{ __('admin.filter_resolved_button') }}</a>
                 </div>  
                 <div class="d-flex ms-auto mt-auto">
                     <form class="d-flex" role="search">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control" type="search" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}">
                         <button class="btn btn-warning" type="submit">
                             <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                         </button>
@@ -58,12 +58,12 @@
             <table class="table w-100" style="max-width: 100%;">
                 <thead>
                     <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Customer ID</th>
-                        <th scope="col">Customer Name</th>
-                        <th scope="col">Restaurant ID</th>
-                        <th scope="col">Restaurant Name</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">{{ __('admin.no_label') }}</th>
+                        <th scope="col">{{ __('admin.customer_id_label') }}</th>
+                        <th scope="col">{{ __('admin.customer_name_label') }}</th>
+                        <th scope="col">{{ __('admin.restaurant_id_label') }}</th>
+                        <th scope="col">{{ __('admin.restaurant_name_label') }}</th>
+                        <th scope="col">{{ __('admin.status_label') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,7 +81,11 @@
             </table>
         </div>
         <div class="mt-4">
-            {{-- {{ $restaurant_registrations->links() }} --}}
+            {{ $reports->links() }}
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}"> {{-- Assuming profile.css is still relevant here --}}
+@endpush
