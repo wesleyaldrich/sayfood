@@ -38,14 +38,22 @@
         <div class="mb-4">
             <div class="row w-100 gap-4 mx-0">
                 <div class="d-flex flex-row" style="gap: 6px; height: 40px;">
-                    <a href="{{ route('show.manage.reports') }}"
-                        class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">{{ __('admin.filter_pending_button') }}</a>
-                    <a href="{{ route('show.manage.reports', ['status' => 'Resolved']) }}"
-                        class="oswald filter-button {{ (request()->query('status') == 'Resolved') ? 'active' : '' }}">{{ __('admin.filter_resolved_button') }}</a>
+                    <a href="{{ route('show.manage.reports', array_merge(request()->query(), ['status' => null])) }}"
+                    class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">
+                        {{ __('admin.filter_pending_button') }}
+                    </a>
+                    <a href="{{ route('show.manage.reports', array_merge(request()->query(), ['status' => 'Resolved'])) }}"
+                    class="oswald filter-button {{ request()->query('status') == 'Resolved' ? 'active' : '' }}">
+                        {{ __('admin.filter_resolved_button') }}
+                    </a>
                 </div>  
                 <div class="d-flex ms-auto mt-auto">
                     <form class="d-flex" role="search">
-                        <input class="form-control" type="search" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}">
+                        {{-- Preserve the current status filter --}}
+                        @if(request()->has('status'))
+                            <input type="hidden" name="status" value="{{ request()->query('status') }}">
+                        @endif
+                        <input class="form-control" name="query" type="search" value="{{ request('query') }}" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}">
                         <button class="btn btn-warning" type="submit">
                             <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                         </button>

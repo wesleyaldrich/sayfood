@@ -11,9 +11,23 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
-        $query = $request->query('status', 'Pending');
+        $status = $request->query('status', 'Pending');
+        $search = $request->query('query');
 
-        $reports = Report::query()->where('status', $query)->paginate(10);
+        $reports = Report::with(['customer.user', 'restaurant'])
+            ->where('status', $status);
+
+        if ($search) {
+            $reports->where(function ($q) use ($search) {
+                $q->whereHas('customer.user', function ($userQuery) use ($search) {
+                    $userQuery->where('username', 'like', "%{$search}%");
+                })->orWhereHas('restaurant', function ($restoQuery) use ($search) {
+                    $restoQuery->where('name', 'like', "%{$search}%");
+                });
+            });
+        }
+
+        $reports = $reports->paginate(10)->appends($request->query());
 
         return view('report-resto-admin', compact('reports'));
     }
@@ -45,25 +59,6 @@ class ReportController extends Controller
 
         return redirect()->route('show.manage.reports')->with('status', 'Successfully mark report as safe!');
     }
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'restaurant_id' => 'required|exists:restaurants,id',
-    //         'description' => 'required|string|max:1000',
-    //     ]);
-
-    //     // dd(auth()->user());
-    //     Report::create([
-    //         // 'customer_id' => auth()->id(),
-    //         'restaurant_id' => $request->restaurant_id,
-    //         'description' => $request->description,
-    //         'status' => 'pending',
-    //         'note' => null,
-    //     ]);
-
-    //     return redirect()->back()->with('success', 'Laporan telah dikirim.');
-    // }
 
     public function store(Request $request)
     {

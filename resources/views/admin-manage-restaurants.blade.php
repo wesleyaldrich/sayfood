@@ -38,16 +38,19 @@
         <div class="mb-4">
             <div class="d-flex row w-100 gap-4 mx-0">
                 <div class="row mx-0" style="gap: 6px;">
-                    <a href="{{ route('show.manage.restaurants') }}" style="height: 40px;"
+                    <a href="{{ route('show.manage.restaurants', array_merge(request()->query(), ['status' => null])) }}" style="height: 40px;"
                         class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">{{ __('admin.filter_operational_button') }}</a>
-                    <a href="{{ route('show.manage.restaurants', ['status' => 'pending']) }}" style="height: 40px;"
+                    <a href="{{ route('show.manage.restaurants', array_merge(request()->query(), ['status' => 'pending'])) }}" style="height: 40px;"
                         class="oswald filter-button {{ (request()->query('status') == 'pending') ? 'active' : '' }}">{{ __('admin.filter_pending_restaurants_button') }}</a>
-                    <a href="{{ route('show.manage.restaurants', ['status' => 'rejected']) }}" style="height: 40px;"
+                    <a href="{{ route('show.manage.restaurants', array_merge(request()->query(), ['status' => 'rejected'])) }}" style="height: 40px;"
                         class="oswald filter-button {{ (request()->query('status') == 'rejected') ? 'active' : '' }}">{{ __('admin.filter_rejected_restaurants_button') }}</a>
                 </div>
                 <div class="d-flex ms-auto mt-auto">
                     <form class="d-flex" role="search">
-                        <input class="form-control" type="search" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}">
+                        @if(request()->has('status'))
+                            <input type="hidden" name="status" value="{{ request()->query('status') }}">
+                        @endif
+                        <input class="form-control" name="search" type="search" value="{{ request('search') }}" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}">
                         <button class="btn btn-warning" type="submit">
                             <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                         </button>
