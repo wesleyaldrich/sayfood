@@ -8,11 +8,11 @@
             @csrf
 
             <!-- Hidden Inputs -->
-            <input type="hidden" name="customer_id" value="{{ auth()->user()->id }}">
+            <input type="hidden" name="customer_id" value="{{ auth()->user()->customer->id }}">
             <input type="hidden" name="restaurant_id" value="{{ $restaurant->id }}">
 
             <!-- Tombol Close Kustom -->
-            <button type="button" onclick="closePopup()" style="background: none; border: none; position: absolute; top: 10px; right: 10px;">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#reportModal" style="background: none; border: none; position: absolute; top: 10px; right: 10px;">
                 <img src="{{ asset('assets/btn_exit.png') }}" alt="exit-button" style="width: 35px; height: 35px;">
             </button>
 

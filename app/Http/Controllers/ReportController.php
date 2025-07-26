@@ -44,22 +44,22 @@ class ReportController extends Controller
         return redirect()->route('show.manage.reports')->with('status', 'Successfully mark report as safe!');
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'restaurant_id' => 'required|exists:restaurants,id',
-            'description' => 'required|string|max:1000',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'restaurant_id' => 'required|exists:restaurants,id',
+    //         'description' => 'required|string|max:1000',
+    //     ]);
 
-        // dd(auth()->user());
-        Report::create([
-            // 'customer_id' => auth()->id(),
-            'restaurant_id' => $request->restaurant_id,
-            'description' => $request->description,
-            'status' => 'pending',
-            'note' => null,
-        ]);
+    //     // dd(auth()->user());
+    //     Report::create([
+    //         // 'customer_id' => auth()->id(),
+    //         'restaurant_id' => $request->restaurant_id,
+    //         'description' => $request->description,
+    //         'status' => 'pending',
+    //         'note' => null,
+    //     ]);
 
-        return redirect()->back()->with('success', 'Laporan telah dikirim.');
-    }
+    //     return redirect()->back()->with('success', 'Laporan telah dikirim.');
+    // }
 }

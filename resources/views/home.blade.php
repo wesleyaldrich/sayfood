@@ -281,7 +281,7 @@
                         <div class="mb-3">
                             <label for="phoneNumber"
                                 class="form-label text-[#234C4C] text-xl">{{ __('home.phone_number') }}</label>
-                            <input type="tel" class="form-control @error('phoneNumber') is-invalid @enderror"
+                            <input type="tel" class="form-control"
                                 id="phoneNumber" name="phoneNumber" value="{{ old('phoneNumber') }}">
                             @error('phoneNumber')
                                 <span class="invalid-feedback">{{ $message }}</span>

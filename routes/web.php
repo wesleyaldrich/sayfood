@@ -65,15 +65,16 @@ Route::middleware('twofactor')->group(function () {
         Route::post('/cart/cancel', [CartController::class, 'cancelCart'])->name('cart.cancel');
 
         Route::post('/orders/{id}/rate', [TransactionController::class, 'rate'])->name('orders.rate');
-        
-        Route::post('/', [HomeDishesController::class, 'store'])->name('event.join');;
+    
+        Route::post('/post-event', [HomeDishesController::class, 'store'])->name('event.join');;
 
         Route::get('/events', [EventCustController::class, 'index'])->name('events');
 
         Route::get('/foods', [FoodController::class, 'index'])->name('foods');
         Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
       
-        Route::post('/report', [ReportController::class, 'store'])->name('report.store')->middleware('auth');
+        Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+
 
     });
 

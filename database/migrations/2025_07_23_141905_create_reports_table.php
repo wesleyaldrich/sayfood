@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('restaurant_id')->nullable()->constrained('restaurants', 'id')->nullOnDelete()->cascadeOnUpdate();
             $table->text('description');
             $table->enum('status', ['Pending', 'Resolved'])->default('Pending');
-            $table->text(column: 'note')->nullable();
             $table->timestamps();
         });
     }
