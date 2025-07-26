@@ -120,6 +120,7 @@ header .right .icons a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 header .right .icons a .notif-icon-img {
@@ -306,6 +307,11 @@ h4 {
 .admin-nav-item .dropdown-item:focus {
     background: #234C4C;
     color: white;
+}
+
+.admin-nav-item .active {
+    background: #234C4C;
+    color: white !important;
 }
 
 .admin-nav-item .admin-nav-link:hover {

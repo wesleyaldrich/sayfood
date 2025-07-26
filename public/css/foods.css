@@ -17,6 +17,14 @@ body {
     font-size: 1.25rem;
     display: flex;
     width: fit-content;
+    max-width: 100%;
+}
+
+.location-text {
+    max-width:1000px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .location-icon {
