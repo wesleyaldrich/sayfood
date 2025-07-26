@@ -46,4 +46,14 @@ return [
     'restaurant_profile_page_title' => 'Sayfood | Restaurant Profile Page',
     'restaurant_name_field_label' => 'Restaurant Name',
     'login_as_customer_button' => 'LOG IN AS CUSTOMER',
+
+    'forgot_password_title' => 'Sayfood | Forgot Password Page',
+    'password_reset_form_heading' => 'PASSWORD RESET FORM',
+    'new_password_label' => 'New Password',
+    'confirm_password_label' => 'Confirm Password',
+    'reset_password_button' => 'Reset Password',
+
+    'register_otp_page_title' => 'Sayfood | Register Page',
+    'otp_code_label' => 'OTP CODE',
+    'resend_otp_link' => 'Resend OTP',
 ];

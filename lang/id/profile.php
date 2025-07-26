@@ -46,4 +46,14 @@ return [
     'restaurant_profile_page_title' => 'Sayfood | Halaman Profil Restoran',
     'restaurant_name_field_label' => 'Nama Restoran',
     'login_as_customer_button' => 'LOGIN PELANGGAN',
+
+    'forgot_password_title' => 'Sayfood | Halaman Lupa Kata Sandi',
+    'password_reset_form_heading' => 'FORMULIR PENGATURAN ULANG KATA SANDI',
+    'new_password_label' => 'Kata Sandi Baru',
+    'confirm_password_label' => 'Konfirmasi Kata Sandi',
+    'reset_password_button' => 'Atur Ulang Kata Sandi',
+
+    'register_otp_page_title' => 'Sayfood | Halaman Daftar',
+    'otp_code_label' => 'KODE OTP',
+    'resend_otp_link' => 'Kirim Ulang OTP',
 ];
