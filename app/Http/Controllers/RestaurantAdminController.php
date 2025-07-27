@@ -15,13 +15,22 @@ use Illuminate\Support\Str;
 
 class RestaurantAdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $targetStatus = request()->query('status', 'operational');
+        $targetStatus = $request->query('status', 'operational');
+        $search = $request->query('search');
 
-        $restaurant_registrations = RestaurantRegistration::query()->where('status', $targetStatus)
+        $restaurant_registrations = RestaurantRegistration::query()
+            ->where('status', $targetStatus)
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
+                });
+            })
             ->orderBy('created_at', 'asc')
-            ->paginate(10);
+            ->paginate(10)
+            ->appends($request->only('status', 'search'));  
 
         return view('admin-manage-restaurants', compact('restaurant_registrations'));
     }

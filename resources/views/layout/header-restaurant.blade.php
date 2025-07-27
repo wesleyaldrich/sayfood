@@ -8,12 +8,14 @@
         <img src="{{ asset('assets/icon_hamburgermenu.png') }}" alt="Hamburger Icon" class="hamburger-icon-img">
     </div>
     <div class="right">
+        {{-- DESKTOP NAVBAR --}}
         <nav>
             <ul class="oswald">
                 <li><a href="{{ route('restaurant-home') }}" class="oswald nav-button {{ request()->routeIs('restaurant-home') ? 'nav-active' : '' }}">{{ __('navigation.home') }}</a></li>
                 <li><a href="{{ route('manage.food.restaurant') }}" class="oswald nav-button {{ request()->routeIs('manage.food.restaurant') ? 'nav-active' : '' }}">{{ __('navigation.foods') }}</a></li>
                 <li><a href="{{ route('restaurant-orders') }}" class="oswald nav-button {{ request()->routeIs('restaurant-orders') ? 'nav-active' : '' }}">{{ __('navigation.orders') }}</a></li>
                 <li><a href="{{ route('restaurant-activity') }}" class="oswald nav-button {{ request()->routeIs('restaurant-activity') ? 'nav-active' : '' }}">{{ __('navigation.activity') }}</a></li>
+                <li><a href="{{ route('restaurant-transactions') }}" class="oswald nav-button {{ request()->routeIs('restaurant-transactions') ? 'nav-active' : '' }}">{{ __('navigation.report') }}</a></li>
                 <li class="nav-hide"><a href="{{ route('profile') }}" class="oswald nav-button {{ request()->routeIs('profile') ? 'nav-active' : '' }}">{{ __('navigation.profile') }}</a></li>
             </ul>
         </nav>
@@ -37,25 +39,26 @@
         </div>
     </div>
 
+    {{-- MOBILE NAVBAR --}}
     <nav class="dropdown-nav">
         <ul>
             <li class="{{ request()->routeIs('restaurant-home') ? 'nav-active' : '' }}">
-                <a href="{{ route('restaurant-home') }}" class="oswald nav-button">HOME</a>
+                <a href="{{ route('restaurant-home') }}" class="oswald nav-button">{{ __('navigation.home') }}</a>
             </li>
             <li class="{{ request()->routeIs('manage.food.restaurant') ? 'nav-active' : '' }}">
-                <a href="{{ route('manage.food.restaurant') }}" class="oswald nav-button">FOODS</a>
+                <a href="{{ route('manage.food.restaurant') }}" class="oswald nav-button">{{ __('navigation.foods') }}</a>
             </li>
-            <li class="{{ request()->routeIs('foods') ? 'nav-active' : '' }}">
-                <a href="{{ route('foods') }}" class="oswald nav-button">ORDERS</a>
+            <li class="{{ request()->routeIs('restaurant-orders') ? 'nav-active' : '' }}">
+                <a href="{{ route('restaurant-orders') }}" class="oswald nav-button">{{ __('navigation.orders') }}</a>
             </li>
-            <li class="{{ request()->routeIs('events') ? 'nav-active' : '' }}">
-                <a href="{{ route('events') }}" class="oswald nav-button">EVENTS</a>
+            <li class="{{ request()->routeIs('restaurant-activity') ? 'nav-active' : '' }}">
+                <a href="{{ route('restaurant-activity') }}" class="oswald nav-button">{{ __('navigation.activity') }}</a>
             </li>
-            <li class="{{ request()->routeIs('activity') ? 'nav-active' : '' }}">
-                <a href="{{ route('activity') }}" class="oswald nav-button">ACTIVITY</a>
+            <li class="{{ request()->routeIs('restaurant-transactions') ? 'nav-active' : '' }}">
+                <a href="{{ route('restaurant-transactions') }}" class="oswald nav-button">{{ __('navigation.report') }}</a>
             </li>
             <li class="{{ request()->routeIs('profile') ? 'nav-active' : '' }}">
-                <a href="{{ route('profile') }}" class="oswald nav-button">PROFILE</a>
+                <a href="{{ route('profile') }}" class="oswald nav-button">{{ __('navigation.profile') }}</a>
             </li>
         </ul>
     </nav>

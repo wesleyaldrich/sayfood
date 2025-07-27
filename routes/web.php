@@ -18,17 +18,14 @@ use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity;
 
-Route::get('/testing', function(){
-    return Auth::user()->customer;
-});
-
-// UNPROTECTED ROUTES
+// HOME
 Route::get('/', [HomeDishesController::class, 'show'])->name('home');
-Route::get('/events', [EventCustController::class, 'index'])->name('events');
 
-
-Route::get('/foods', [FoodController::class, 'index'])->name('foods');
-Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
+// FORGOT PASSWORD
+Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
 Route::middleware('twofactor')->group(function () {
 
@@ -41,20 +38,23 @@ Route::middleware('twofactor')->group(function () {
     Route::post('/delete-account', [AuthController::class, 'deleteAccount'])->name('delete.account');
     Route::post('/profile-image', [AuthController::class, 'updateProfileImage'])->name('update.profile.image');
 
-    // FORGOT PASSWORD
-    Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
-    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
-    Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
-    Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
     
     // CUSTOMER & ADMIN ROUTES
-    Route::middleware('role:customer')->group(function(){
+    Route::middleware('role:admincustomer')->group(function(){
 
         Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
+
+    });
+
+    // CUSTOMER ROUTES
+    Route::middleware('role:customer')->group(function(){
+
         Route::post('/login-as-restaurant', [AuthController::class, 'redirectToRestaurantLogin'])->name('login.as.restaurant');
 
         Route::get('/activity', [TransactionController::class, 'customerActivities'])->name('activity');
         Route::post('/events/propose', [EventController::class, 'store'])->name('events.store');
+
+        Route::get('/created-event/{id}', [EventController::class, 'showCreatedEvent'])->name('show.created-event');
 
         Route::get('/cart', [CartController::class,'show'])->name('show.cart')->middleware('auth');
         Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart')->middleware('auth');
@@ -66,8 +66,17 @@ Route::middleware('twofactor')->group(function () {
         Route::post('/cart/cancel', [CartController::class, 'cancelCart'])->name('cart.cancel');
 
         Route::post('/orders/{id}/rate', [TransactionController::class, 'rate'])->name('orders.rate');
-        
-        Route::post('/', [HomeDishesController::class, 'store'])->name('event.join');;
+    
+        Route::post('/post-event', [HomeDishesController::class, 'store'])->name('event.join');;
+
+        Route::get('/events', [EventCustController::class, 'index'])->name('events');
+
+        Route::get('/foods', [FoodController::class, 'index'])->name('foods');
+        Route::get('/foods/resto/{id}', [RestaurantController::class, 'show'])->name('resto.show');
+      
+        Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+
+
     });
 
 
@@ -98,6 +107,7 @@ Route::middleware('twofactor')->group(function () {
 
     });
 
+
     // ADMIN ROUTES
     Route::middleware('role:admin')->group(function(){
 
@@ -106,7 +116,6 @@ Route::middleware('twofactor')->group(function () {
 
         Route::get('/admin/manage-events', [EventController::class,'index'])->name('show.manage.events');
         Route::get('/admin/manage-events/{event}', [EventController::class, 'show'])->name('show.manage.events.detail');
-
         
         Route::post('/admin/manage-events/approve/{event}', [EventController::class,'approve'])->name('admin.approve.event');
         Route::post('/admin/manage-events/reject/{event}', [EventController::class,'reject'])->name('admin.reject.event');
@@ -124,11 +133,9 @@ Route::middleware('twofactor')->group(function () {
         Route::post('/admin/manage-reports/suspend/{report}', [ReportController::class, 'suspend'])->name('show.manage.reports.detail.suspend');
         Route::post('/admin/manage-reports/safe/{report}', [ReportController::class, 'safe'])->name('show.manage.reports.detail.safe');
         
-        
         Route::get('/admin/logs', function(){
             return Activity::all();
         });
-
 
         Route::get('/popup-report-resto', function () {
             return view('popup-report-resto');

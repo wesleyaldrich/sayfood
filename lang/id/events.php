@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'event_categories' => 'KATEGORI ACARA',
+    'cooking_workshop' => 'Lokakarya Memasak',
+    'food_donation' => 'Donasi Makanan',
+    'education' => 'Edukasi',
+    'recommended_for_you' => 'REKOMENDASI UNTUK ANDA',
+    'joined' => 'bergabung',
+    'by' => 'oleh',
+    'coming_soon' => 'SEGERA HADIR',
+    'hours' => 'jam',
+    'participants' => 'peserta',
+    'join_event' => 'Ikuti Acara',
+    'host' => 'Penyelenggara',
+    'location' => 'Lokasi',
+    'date' => 'Tanggal',
+    'phone_number' => 'Nomor Telepon',
+    'submit_form' => 'Kirim',
+    'fund_raising_title' => 'PENGGALANGAN DANA',
+    'fund_raising_description' => 'Bantu kami menggalang dana untuk memberdayakan solusi berbasis komunitas dalam mengatasi limbah makanan dan kelaparan. Setiap donasi langsung disalurkan ke program-program berdampak, mulai dari redistribusi makanan hingga edukasi berkelanjutan. Dengan berkontribusi, Anda tidak hanya memberi — Anda menciptakan perubahan jangka panjang.',
+    'reduce_food_waste_title' => 'KURANGI LIMBAH MAKANAN',
+    'reduce_food_waste_description' => 'Platform kami menghubungkan penyedia makanan dengan badan amal untuk memastikan kelebihan makanan disalurkan kepada mereka yang membutuhkan. Dengan bergabung, Anda membantu mengurangi limbah TPA dan melawan kelaparan — sambil mendukung ekosistem yang lebih berkelanjutan.',
+    'charity_event_title' => 'ACARA AMAL',
+    'charity_event_description' => 'Jadilah bagian dari acara amal rutin kami — mulai dari penggalangan makanan hingga kampanye kesadaran. Berpartisipasi atau menjadi sukarelawan untuk membuat dampak nyata sambil membangun komunitas yang lebih berbelas kasih. Setiap acara adalah kesempatan untuk memberi kembali dan terhubung.',
+];

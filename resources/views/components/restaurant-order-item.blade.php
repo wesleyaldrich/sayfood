@@ -6,7 +6,7 @@
         <img class="profpic" src="{{ $profile }}" alt="">
         <div class="name-role">
             <p class="customer-name">{{ $name }}</p>
-            <p>Customer</p>
+            <p>{{ __('restaurant.customer_role') }}</p>
         </div>
     </div>
 
@@ -27,11 +27,11 @@
     <form class="buttons d-flex mt-2" action="{{ route('restaurant-orders.update-status', $id) }}" method="POST">
         @csrf
         @if ($status === 'Order Created')
-            <button class="btn-accept" style="background-color: #007771;">Accept</button>
+            <button class="btn-accept" style="background-color: #007771;">{{ __('restaurant.order_created_status_button') }}</button>
         @elseif ($status === 'Ready to Pickup')
-            <button class="btn-accept" style="background-color: #FEA322;">Accepted</button>
+            <button class="btn-accept" style="background-color: #FEA322;">{{ __('restaurant.ready_to_pickup_status_button') }}</button>
         @elseif ($status === 'Order Completed' || $order->status === 'Order Reviewed')
-            <button class="btn-accept" style="background-color: #4D4D4C;">Completed</button>
+            <button class="btn-accept" style="background-color: #4D4D4C;">{{ __('restaurant.completed_status_button') }}</button>
         @endif
     </form>
 </div>

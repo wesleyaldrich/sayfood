@@ -120,6 +120,7 @@ header .right .icons a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 header .right .icons a .notif-icon-img {
@@ -308,6 +309,11 @@ h4 {
     color: white;
 }
 
+.admin-nav-item .active {
+    background: #234C4C;
+    color: white !important;
+}
+
 .admin-nav-item .admin-nav-link:hover {
     text-decoration: underline; 
     color: #FEA322 !important;
@@ -399,4 +405,14 @@ h4 {
     margin-bottom: 1rem; /* Beri jarak dengan konten di bawahnya */
     border-width: 1px;
     opacity: 1;
+}
+
+.unavailable {
+    color: #999;
+    cursor: not-allowed;
+}
+
+.unavailable:hover {
+    text-decoration: none;
+    color: #999;
 }

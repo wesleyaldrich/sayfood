@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', "Sayfood Admin | Manage Restaurants")
+@section('title', __("admin.manage_reports_title"))
 
 @section('content')
     <style>
@@ -30,20 +30,30 @@
             background-color: #00eeff15;
         }
     </style>
-    <div class="container-fluid px-5 mb-5">
+<div class="container-fluid px-5 mb-5">
         <div class="d-flex flex-row my-4 align-items-center">
-            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">REPORTS</h2>
+            <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">{{ __('admin.reports_heading') }}</h2>
         </div>
 
         <div class="mb-4">
-            <div class="d-flex flex-row w-100" style="gap: 6px;">
-                <a href="{{ route('show.manage.reports') }}"
-                    class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">Pending</a>
-                <a href="{{ route('show.manage.reports', ['status' => 'Resolved']) }}"
-                    class="oswald filter-button {{ (request()->query('status') == 'Resolved') ? 'active' : '' }}">Resolved</a>
+            <div class="row w-100 gap-4 mx-0">
+                <div class="d-flex flex-row" style="gap: 6px; height: 40px;">
+                    <a href="{{ route('show.manage.reports', array_merge(request()->query(), ['status' => null])) }}"
+                    class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">
+                        {{ __('admin.filter_pending_button') }}
+                    </a>
+                    <a href="{{ route('show.manage.reports', array_merge(request()->query(), ['status' => 'Resolved'])) }}"
+                    class="oswald filter-button {{ request()->query('status') == 'Resolved' ? 'active' : '' }}">
+                        {{ __('admin.filter_resolved_button') }}
+                    </a>
+                </div>  
                 <div class="d-flex ms-auto mt-auto">
                     <form class="d-flex" role="search">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        {{-- Preserve the current status filter --}}
+                        @if(request()->has('status'))
+                            <input type="hidden" name="status" value="{{ request()->query('status') }}">
+                        @endif
+                        <input class="form-control" name="query" type="search" value="{{ request('query') }}" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}">
                         <button class="btn btn-warning" type="submit">
                             <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                         </button>
@@ -52,32 +62,38 @@
             </div>
         </div>
 
-        <table class="table w-100">
-            <thead>
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Customer ID</th>
-                    <th scope="col">Customer Name</th>
-                    <th scope="col">Restaurant ID</th>
-                    <th scope="col">Restaurant Name</th>
-                    <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($reports as $i)
-                    <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.reports.detail', $i->id) }}'" style="cursor: pointer;">
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $i->customer->id }}</td>
-                        <td>{{ $i->customer->user->username }}</td>
-                        <td>{{ $i->restaurant->id }}</td>
-                        <td>{{ $i->restaurant->name }}</td>
-                        <td>{{ $i->status }}</td>
+        <div style="overflow-x: auto;">
+            <table class="table w-100" style="max-width: 100%;">
+                <thead>
+                    <tr>
+                        <th scope="col">{{ __('admin.no_label') }}</th>
+                        <th scope="col">{{ __('admin.customer_id_label') }}</th>
+                        <th scope="col">{{ __('admin.customer_name_label') }}</th>
+                        <th scope="col">{{ __('admin.restaurant_id_label') }}</th>
+                        <th scope="col">{{ __('admin.restaurant_name_label') }}</th>
+                        <th scope="col">{{ __('admin.status_label') }}</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($reports as $i)
+                        <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.reports.detail', $i->id) }}'" style="cursor: pointer;">
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $i->customer->id }}</td>
+                            <td>{{ $i->customer->user->username }}</td>
+                            <td>{{ $i->restaurant->id }}</td>
+                            <td>{{ $i->restaurant->name }}</td>
+                            <td>{{ $i->status }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="mt-4">
-            {{-- {{ $restaurant_registrations->links() }} --}}
+            {{ $reports->links() }}
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}"> {{-- Assuming profile.css is still relevant here --}}
+@endpush

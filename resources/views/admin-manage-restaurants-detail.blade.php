@@ -1,11 +1,11 @@
 @extends('layout.app')
 
-@section('title', "Sayfood Admin | Manage Restaurants")
+@section('title', __("admin.manage_restaurants_title"))
 
 @section('content')
     <style>
         .back-button {
-            border: 2px solid #4dabab;  
+            border: 2px solid #4dabab;
             background-color: #234C4C;
             padding: 4px 32px;
             border-radius: 8px;
@@ -68,6 +68,7 @@
         .right-detail-section {
             flex: 1;
             overflow-x: auto;
+            min-width: 20vw;
         }
         .btn-reject {
             background-color: #c94c4c;
@@ -103,10 +104,10 @@
     <div class="container-fluid px-5 mb-5">
         <div class="d-flex flex-row mt-3">
             <a href="javascript:history.back()" class="back-button oswald">
-                Back
+                {{ __('admin.back_button') }}
             </a>
         </div>
-        <div class="d-flex flex-row mt-4 align-items-center">
+        <div class="d-flex row mt-4 align-items-center mx-0">
             @if ($restaurant_registration->status == 'operational')
                 @if ($restaurant_registration->restaurant && $restaurant_registration->restaurant->image_url_resto)
                     <img src="{{ asset($restaurant_registration->restaurant->image_url_resto) }}" class="restaurant-image" alt="restaurant image">
@@ -120,54 +121,53 @@
                 @else
                     <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">{{ $restaurant_registration->name }}</h2>
                 @endif
-                <h2 class="oswald" style="font-size: 32px; font-weight: 400; color: #063434;">{{ 'ID: ' . $restaurant_registration->id }}</h2>
+                <h2 class="oswald" style="font-size: 32px; font-weight: 400; color: #063434;">{{ __('admin.restaurant_id_prefix') }} {{ $restaurant_registration->id }}</h2>
             </div>
             <div class="side d-flex flex-row ms-auto gap-4">
-                {{-- ITEM --}}
                 @if ($restaurant_registration->status != 'rejected')
                     @if ($restaurant_registration->status == 'operational')
                         <form id="download-btn" action="{{ route('show.manage.restaurants.detail.export', $restaurant_registration->id) }}" method="POST" hidden>@csrf</form>
                         <a href="{{ route('show.manage.restaurants.detail.export', $restaurant_registration->id) }}" class="btn btn-export my-auto" onclick="
                             event.preventDefault();
                             document.getElementById('download-btn').submit();
-                        ">Export</a>
+                        ">{{ __('admin.export_button') }}</a>
                     @else
                         <form id="approve-btn" action="{{ route('show.manage.restaurants.detail.approve', $restaurant_registration->id) }}" method="POST" hidden>@csrf</form>
                         <form id="reject-btn" action="{{ route('show.manage.restaurants.detail.reject', $restaurant_registration->id) }}" method="POST" hidden>@csrf</form>
                         <a href="{{ route('show.manage.restaurants.detail.reject', $restaurant_registration->id) }}" class="btn btn-reject my-auto" onclick="
                             event.preventDefault();
                             document.getElementById('reject-btn').submit();
-                        ">Reject</a>
+                        ">{{ __('admin.reject_button') }}</a>
                         <a href="{{ route('show.manage.restaurants.detail.approve', $restaurant_registration->id) }}" class="btn btn-export my-auto" onclick="
                             event.preventDefault();
                             document.getElementById('approve-btn').submit();
-                        ">Approve</a>
+                        ">{{ __('admin.approve_button') }}</a>
                     @endif
                 @endif
             </div>
         </div>
-        <div class="d-flex flex-row mt-4">
+        <div class="row mt-4 mx-0 gap-5">
             <div class="left-detail-section d-flex flex-column">
-                <h3 class="detail-header oswald">Restaurant Details</h3>
+                <h3 class="detail-header oswald">{{ __('admin.restaurant_details_heading') }}</h3>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Status</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.status_label') }}</h3>
                     <h3 class="oswald status-label {{ $restaurant_registration->status }}">{{ $restaurant_registration->status }}</h3>
                 </div>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Email</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.email_label') }}</h3>
                     <h3 class="oswald">{{ $restaurant_registration->email }}</h3>
                 </div>
                 <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">Address</h3>
+                    <h3 class="detail-header oswald mb-1">{{ __('admin.address_label') }}</h3>
                     <h4 class="oswald">{{ $restaurant_registration->restaurant->address ?? $restaurant_registration->address }}</h4>
                 </div>
                 @if ($restaurant_registration->status == 'operational')
                     <div class="detail-group d-flex flex-column mt-4">
-                        <h3 class="detail-header oswald mb-1">Description</h3>
+                        <h3 class="detail-header oswald mb-1">{{ __('admin.description_label') }}</h3>
                         <h4 class="oswald">{{ $restaurant_registration->restaurant->description }}</h4>
                     </div>
                     <div class="detail-group d-flex flex-column mt-4">
-                        <h3 class="detail-header oswald mb-1">Average Rating</h3>
+                        <h3 class="detail-header oswald mb-1">{{ __('admin.avg_rating_label') }}</h3>
                         <h3 class="oswald">{{ $restaurant_registration->restaurant->avg_rating . ' / 5' }}</h3>
                     </div>
                 @endif
@@ -177,12 +177,12 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Order ID</th>
-                                <th scope="col">Customer Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Total</th>
-                                <th scope="col">Date</th>
+                                <th scope="col">{{ __('admin.no_label') }}</th>
+                                <th scope="col">{{ __('admin.order_id_label') }}</th>
+                                <th scope="col">{{ __('admin.customer_name_label') }}</th>
+                                <th scope="col">{{ __('admin.status_label') }}</th>
+                                <th scope="col">{{ __('admin.total_label') }}</th>
+                                <th scope="col">{{ __('admin.date_label') }}</th>
                             </tr>
                         </thead>
                         <tbody>

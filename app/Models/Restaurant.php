@@ -49,7 +49,8 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function foods(){
+    public function foods()
+    {
         return $this->hasMany(Food::class);
     }
 
@@ -80,6 +81,7 @@ class Restaurant extends Model
             ->count();
     }
 
+
     public function getAvgRatingAttribute()
     {
         return $this->orders()
@@ -91,4 +93,5 @@ class Restaurant extends Model
     {
         return $this->hasMany(Report::class);
     }
+
 }

@@ -1,11 +1,10 @@
 @props(['events'])
 
-<div class="event-grid">
     @foreach ($events as $event)
         <div class="event-card d-flex align-items-center">
             <div class="event-card-header">
                 <h3>{{ $event->title }}</h3>
-                <p>by {{ $event->organizer }}</p>
+                <p>{{ __('activity.by') }} {{ $event->organizer }}</p>
             </div>
             <div class="event-card-body d-flex">
                 <img src="{{ asset('storage/'.$event->image) }}" class="event-card-body-img" alt="{{ $event->title }}">
@@ -18,7 +17,7 @@
                         </div>
                         <div>
                             <img src="{{ asset('assets/icon_person.svg') }}" alt="Time icon">
-                            <span>{{ $event->participants_count }} participants</span>
+                            <span>{{ $event->participants_count }} {{__('activity.participants')}}</span>
                         </div>
                         <div>
                             <img src="{{ asset('assets/icon_calendar.svg') }}" alt="Date icon">
@@ -33,5 +32,3 @@
             </div>
         </div>
     @endforeach
-
-</div>

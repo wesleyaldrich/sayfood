@@ -29,7 +29,7 @@
                 <h7 class="resto-name">{{ $restoName }}</h7>
                 <div class="rating d-flex">
                     <img class="star" src="{{ asset('assets/icon_star.png') }}" alt="star">
-                    <p class="rating-num ml-1 mb-0"><span class="rating-numm">{{ $rating }}</span>/5</p>
+                    <p class="rating-num ml-1 mb-0"><span class="rating-numm">{{ number_format($rating, 1) }}</span>/5</p>
                 </div>
                 <div class="location d-flex">
                     <img class="location-red" src="{{ asset('assets/icon_location_red.png') }}" alt="star">
