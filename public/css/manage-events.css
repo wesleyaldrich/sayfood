@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* --- General & Modal Styles --- */
+.modal-content.popupmodal {
+    background-color: white;
+    border-radius: 1.5rem;
+}
+.modal-title {
+    font-family: "Oswald";
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+.modal-header {
+    background-color: #234C4C;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+}
+.modal-body {
+    font-family: "Lato";
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* --- Page Structure --- */
+.upper-section {
+    justify-content: space-between;
+    margin: 24px 16px 10px 16px;
+    align-items: center;
+}
+.middle-section {
+    padding: 0 16px 24px 16px;
+}
+
+/* --- Header Elements --- */
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #234C4C;
+    font-family: "Oswald";
+}
+.header-actions {
+    font-family: "Lato";
+}
+
+/* --- Filter Tabs --- */
+.tab-control .nav-tabs {
+    border-bottom: none;
+    gap: 0.5rem;
+}
+.tab-control .nav-link {
+    font-family: oswald;
+    color: white;
+    background-color: #234C4C;
+    border-radius: 1rem;
+    border: 2px solid #234C4C;
+    padding: 0.5rem 1.5rem;
+    opacity: 0.8;
+}
+.tab-control .nav-link.active {
+    background-color: orange;
+    color: black;
+    font-weight: bold;
+    border-color: darkorange;
+    opacity: 1;
+}
+
+/* --- Table Styles --- */
+.table-responsive-wrapper {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
+}
+.table {
+    text-align: center;
+    vertical-align: middle;
+}
+.table thead {
+    font-size: 15px;
+    font-family: "Oswald";
+}
+.table tbody {
+    font-family: "Lato";
+    font-size: 13px;
+}
+.table-hover tbody tr:hover {
+    cursor: pointer;
+    background-color: #f8f9fa;
+}
+.status-badge .badge {
+    font-size: 14px;
+    padding: 0.5em 0.8em;
+}
+
+@media (max-width: 768px) {
+
+    .d-flex.justify-content-between.align-items-center {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 1rem;
+    }
+
+    .d-flex.justify-content-between.align-items-center > .title {
+        text-align: center;
+        font-size: 26px;
+    }
+    
+    .d-flex.justify-content-between.align-items-center > .d-flex {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+    
+    .d-flex.justify-content-between.align-items-center > .d-flex .create-btn a {
+        width: 100%;
+    }
+
+    .tab-control .nav-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.25rem;
+    }
+
+    .table {
+        font-size: 12px;
+    }
+
+    .status-badge {
+        font-size: 14px;
+    }
+    
+    .table-responsive-wrapper {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Ini akan memunculkan scrollbar horizontal */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .table {
+        min-width: 900px; /* Paksa tabel agar tetap lebar */
+        font-size: 12px;
+    }
+
+}
