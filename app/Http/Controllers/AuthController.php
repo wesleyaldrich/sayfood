@@ -415,12 +415,21 @@ class AuthController extends Controller
 
             $image = $request->file('profile_image');
             $imageName = 'profile_' . $currentUser->id . '_' . time() . '.' . $image->getClientOriginalExtension();
-            // $imagePath = $image->storeAs('public/profile_images', $imageName);
-            $imagePath = $image->storeAs('profile_images', $imageName, 'public');
+            
+            if ($currentUser->role == 'restaurant') {
+                $image->move(public_path('assets/resto_images'), $imageName);
 
-            // Save the image path to the user (assuming a 'profile_image' column exists)
-            $currentUser->profile_image = 'storage/profile_images/' . $imageName;
-            $currentUser->save();
+                $restaurant = $currentUser->restaurant;
+                $restaurant->image_url_resto = 'assets/resto_images/' . $imageName;
+                $restaurant->save();
+            }
+            else {
+                $imagePath = $image->storeAs('profile_images', $imageName, 'public');
+
+                // Save the image path to the user (assuming a 'profile_image' column exists)
+                $currentUser->profile_image = 'storage/profile_images/' . $imageName;
+                $currentUser->save();
+            }
 
             return redirect()->route('profile')->with(
                 'status', 'Successfully updated profile image!'
