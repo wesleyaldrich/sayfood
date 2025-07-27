@@ -8,15 +8,22 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerSeeder extends Seeder
 {
-    public function run(): void
+     public function run(): void
     {
         $customers = [];
 
-        // User dengan role customer biasanya dimulai dari ID 2
-        for ($i = 1; $i <= 9; $i++) {
+        //  customer dengan id 1 = admin
+        $customers[] = [
+            'id'         => 1, 
+            'user_id'    => 1, 
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+        for ($i = 2; $i <= 9; $i++) {
             $customers[] = [
-                'id' => $i,
-                'user_id' => $i + 1,
+                'id'         => $i,
+                'user_id'    => $i,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
