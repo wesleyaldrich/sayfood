@@ -119,10 +119,10 @@ class HomeDishesController extends Controller
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Berhasil bergabung ke event!'
+                'message' => 'Successfully joined the event!'
             ]);
         }
 
-        return redirect()->back()->with('success', 'Berhasil bergabung ke event!');
+        return redirect()->back()->with('success', 'Successfully joined the event!');
     }
 }
