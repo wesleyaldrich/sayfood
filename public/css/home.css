@@ -1422,3 +1422,11 @@ input.error {
         height: 25px;
     }
 }
+.truncate-text {
+    display: -webkit-box;           /* Gunakan flexbox lama dari Webkit */
+    -webkit-box-orient: vertical;   /* Atur orientasi vertikal */
+    -webkit-line-clamp: 3;          /* Jumlah baris maksimum (ubah sesuai kebutuhan) */
+    overflow: hidden;               /* Sembunyikan teks berlebih */
+    text-overflow: ellipsis;        /* Tambahkan "..." */
+    max-width: 200px;               /* Tentukan lebar */
+}

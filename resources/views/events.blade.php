@@ -189,7 +189,8 @@
                             <button class="btn btn-success rounded-pill px-5 py-1" style="background-color: #1d4d4f;"
                                 data-bs-toggle="modal" data-bs-target="#joinFormModal"
                                 data-event-title="{{ $slide['title'] }}" data-event-host="{{ $slide['author'] }}"
-                                data-event-location="{{ $slide['location'] }}" data-event-id="{{ $slide['id'] }}">
+                                data-event-location="{{ $slide['location'] }}" data-event-id="{{ $slide['id'] }}"
+                                data-event-date="{{ $slide['date'] }}">
                                 {{ __('events.join_event') }}
                             </button>
                         </div>
