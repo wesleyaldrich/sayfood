@@ -80,8 +80,13 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $i->customer->id }}</td>
                             <td>{{ $i->customer->user->username }}</td>
-                            <td>{{ $i->restaurant->id }}</td>
-                            <td>{{ $i->restaurant->name }}</td>
+                            @if ($i->restaurant)
+                                <td>{{ $i->restaurant->id }}</td>
+                                <td>{{ $i->restaurant->name }}</td>
+                            @else
+                                <td>{{ $i->suspended_restaurant->id }}</td>
+                                <td>{{ $i->suspended_restaurant->name }}</td>
+                            @endif
                             <td>{{ $i->status }}</td>
                         </tr>
                     @endforeach
