@@ -69,6 +69,51 @@
         font-size: 15px;
         font-weight: bold;
     }
+
+    /* --- KODE RESPONSIVE --- */
+@media (max-width: 768px) {
+
+    /* --- Header (Judul & Tombol) --- */
+    .d-flex.justify-content-between.align-items-center {
+        flex-direction: column; /* Tumpuk Judul dan grup tombol secara vertikal */
+        align-items: stretch !important; /* Buat elemen jadi selebar kontainer */
+        gap: 1rem; /* Beri jarak antara judul dan grup tombol */
+    }
+
+    .d-flex.justify-content-between.align-items-center > .title {
+        text-align: center; /* Pusatkan judul */
+        font-size: 26px; /* Kecilkan sedikit font judul */
+    }
+    
+    /* Atur grup tombol Search dan Create */
+    .d-flex.justify-content-between.align-items-center > .d-flex {
+        flex-direction: column; /* Tumpuk juga tombol search dan create */
+        width: 100%;
+        gap: 0.5rem;
+    }
+    
+    .d-flex.justify-content-between.align-items-center > .d-flex .create-btn a {
+        width: 100%; /* Buat tombol create jadi lebar penuh */
+    }
+
+
+    /* --- Filter Tabs --- */
+    .tab-control .nav-tabs {
+        flex-wrap: wrap; /* Izinkan tombol untuk pindah ke baris baru */
+        justify-content: center; /* Pusatkan tombol-tombolnya */
+        gap: 0.25rem;
+    }
+
+
+    /* --- Ukuran Font & Badge --- */
+    .table {
+        font-size: 12px; /* Kecilkan font di dalam tabel */
+    }
+
+    .status-badge {
+        font-size: 14px; /* Sesuaikan ukuran badge status */
+    }
+}
 </style>
 
 @section('content')
@@ -112,52 +157,54 @@
     </div>
 
     <div class="container-fluid px-4">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Event Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Creator</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($events as $event)
-                    <tr onclick="window.location='{{ route('show.manage.events.detail', $event->id) }}';">
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $event->id }}</td>
-                        <td>{{ $event->name }}</td>
-                        <td>{{ Str::limit($event->description, 90) }}</td>
-                        <td>{{ $event->creator->user->username ?? 'N/A' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($event->date)->format('d F Y') }}</td>
-                        <td>{{ $event->location ?? 'N/A' }}</td>
-                        <td>{{ $event->category->name ?? 'N/A' }}</td>
-                        <td class="status-badge">
-                            @php
-                                $statusClass = 'bg-secondary'; // Default color
-                                if ($event->status == 'Pending')
-                                    $statusClass = 'bg-warning text-dark';
-                                if ($event->status == 'Coming Soon')
-                                    $statusClass = 'bg-info text-light';
-                                if ($event->status == 'On Going')
-                                    $statusClass = 'bg-primary text-light';
-                                if ($event->status == 'Completed')
-                                    $statusClass = 'bg-success text-light';
-                            @endphp
-                            <span class="badge {{ $statusClass }}">{{ $event->status }}</span>
-                        </td>
-                    </tr>
-                @empty
+        <table class="table-responsive">
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td colspan="7" class="text-center">No events found.</td>
+                        <th scope="col">No.</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Event Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Creator</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Status</th>
                     </tr>
-                @endforelse
-            </tbody>
+                </thead>
+                <tbody>
+                    @forelse ($events as $event)
+                        <tr onclick="window.location='{{ route('show.manage.events.detail', $event->id) }}';">
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $event->id }}</td>
+                            <td>{{ $event->name }}</td>
+                            <td>{{ Str::limit($event->description, 90) }}</td>
+                            <td>{{ $event->creator->user->username ?? 'N/A' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($event->date)->format('d F Y') }}</td>
+                            <td>{{ $event->location ?? 'N/A' }}</td>
+                            <td>{{ $event->category->name ?? 'N/A' }}</td>
+                            <td class="status-badge">
+                                @php
+                                    $statusClass = 'bg-secondary'; // Default color
+                                    if ($event->status == 'Pending')
+                                        $statusClass = 'bg-warning text-dark';
+                                    if ($event->status == 'Coming Soon')
+                                        $statusClass = 'bg-info text-light';
+                                    if ($event->status == 'On Going')
+                                        $statusClass = 'bg-primary text-light';
+                                    if ($event->status == 'Completed')
+                                        $statusClass = 'bg-success text-light';
+                                @endphp
+                                <span class="badge {{ $statusClass }}">{{ $event->status }}</span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center">No events found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </table>
     </div>
 
