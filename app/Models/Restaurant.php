@@ -19,7 +19,8 @@ class Restaurant extends Model
         'name',
         'description',
         'address',
-        'user_id'
+        'user_id',
+        'image_url_resto'
     ];
     /**
      * The attributes that aren't mass assignable.

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Report;
+use App\Models\SuspendedRestaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,12 +40,24 @@ class ReportController extends Controller
 
     public function suspend(Report $report)
     {
-        $report->update([
-            'status' => 'Resolved'
-        ]);
-
         $restaurant = $report->restaurant;
         $user = $restaurant->user;
+
+        $suspended_restaurant = SuspendedRestaurant::create([
+            'id' => $restaurant->id,
+            'name' => $restaurant->name,
+            'email' => $user->email,
+            'address' => $restaurant->address,
+            'description' => $restaurant->description,
+            'image_url_resto' => $restaurant->image_url_resto
+        ]);
+
+        Report::where('restaurant_id', $restaurant->id)->update([
+            'status' => 'Resolved',
+            'restaurant_id' => null,
+            'suspended_restaurant_id' => $suspended_restaurant->id
+        ]);
+        
         $restaurant->delete();
         $user->delete();
 

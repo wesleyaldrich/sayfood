@@ -24,7 +24,7 @@ return new class extends Migration
             ->nullable()
             ->constrained('restaurants')
             ->onUpdate('cascade')
-            ->onDelete('set null');
+            ->onDelete('cascade');
             
             $table->string('name')->nullable();
             $table->string('description')->nullable();
