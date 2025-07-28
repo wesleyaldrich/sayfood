@@ -87,7 +87,7 @@
                     <tr>
                         <th scope="col">{{ __('restaurant.table_header_no') }}</th>
                         <th scope="col">{{ __('restaurant.table_header_id') }}</th>
-                        <th scope="col">{{ __('restaurant.date_label') }}</th>
+                        <th scope="col">{{ __('admin.date_label') }}</th>
                         <th scope="col">{{ __('restaurant.table_header_customer_name') }}</th>
                         <th scope="col">{{ __('restaurant.table_header_food_name') }}</th>
                         <th scope="col">{{ __('restaurant.table_header_qty') }}</th>

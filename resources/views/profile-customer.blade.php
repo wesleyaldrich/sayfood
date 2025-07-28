@@ -53,8 +53,8 @@
 
                     <div class="profile-update-btn-container d-flex flex-row justify-content-center align-items-center py-3">
                         <div class="row justify-content-around">
-                            <a href="{{ route('profile') }}" class="col-sm-5 btn oswald profile-update-btn">{{ __('profile.cancel_changes_button') }}</a>
-                            <button type="submit" class="col-sm-5 btn oswald profile-update-btn">{{ __('profile.save_changes_button') }}</button>
+                            <a href="{{ route('profile') }}" class="col-sm-5 btn oswald profile-update-btn" dusk="cancel-changes-btn">{{ __('profile.cancel_changes_button') }}</a>
+                            <button type="submit" class="col-sm-5 btn oswald profile-update-btn" dusk="save-changes-btn">{{ __('profile.save_changes_button') }}</button>
                         </div>
                     </div>
                 </form>
@@ -79,7 +79,7 @@
                         onclick="
                             event.preventDefault();
                             document.getElementById('logout-form').submit();"
-                        class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
+                        class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0" dusk="logout-btn">
                             <img src="{{ asset('assets/profile_option_logout.png') }}" class="p-2" alt="icon">
                             <p class="oswald">{{ __('profile.logout_button') }}</p>
                         </a>
@@ -93,7 +93,7 @@
                             event.preventDefault();
                             document.getElementById('delete-account-form').submit()"
                         class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0">
-                            <img src="{{ asset('assets/profile_option_delete.png') }}" class="p-2" alt="icon">
+                            <img src="{{ asset('assets/profile_option_delete.png') }}" class="p-2" alt="icon" dusk="delete-account-btn">
                             <p class="oswald">{{ __('profile.delete_account_button') }}</p>
                         </a>
                     </div>

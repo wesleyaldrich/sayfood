@@ -190,7 +190,7 @@
                                 data-bs-toggle="modal" data-bs-target="#joinFormModal"
                                 data-event-title="{{ $slide['title'] }}" data-event-host="{{ $slide['author'] }}"
                                 data-event-location="{{ $slide['location'] }}" data-event-id="{{ $slide['id'] }}"
-                                data-event-date="{{ $slide['date'] }}">
+                                data-event-date="{{ $slide['date'] }}" dusk="join-event-btn">
                                 {{ __('events.join_event') }}
                             </button>
                         </div>
@@ -228,7 +228,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-success w-100">
+                        <button type="submit" class="btn btn-success w-100" dusk="submit-join-event-btn">
                             {{ __('events.submit_form') }}
                         </button>
                     </form>
