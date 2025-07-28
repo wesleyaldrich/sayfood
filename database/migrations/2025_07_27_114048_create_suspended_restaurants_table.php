@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('suspended_restaurants', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('description')->nullable();
+            $table->string('image_url_resto')->nullable();
             $table->timestamps();
-
-            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
-            $table->foreignId('food_id')->constrained('foods')->cascadeOnDelete();
-            $table->integer('qty');
-            $table->string('notes')->nullable();
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('suspended_restaurants');
     }
 };

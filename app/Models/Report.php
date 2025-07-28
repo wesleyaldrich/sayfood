@@ -12,6 +12,7 @@ class Report extends Model
         'status',
         'description',
         'note',
+        'suspended_restaurant_id'
     ];
 
     public function restaurant()
@@ -22,5 +23,10 @@ class Report extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function suspended_restaurant()
+    {
+        return $this->belongsTo(SuspendedRestaurant::class);
     }
 }

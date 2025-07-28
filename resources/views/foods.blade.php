@@ -100,12 +100,15 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
 
     <button type="button"
         class="btn-filter btn btn-primary rounded-pill d-flex align-items-center {{ request('sort') === 'nearby' ? 'active' : '' }}"
-        id="btnNearby">{{ __('foods.nearby') }}</button>
+        id="btnNearby" dusk="sort-nearby-button">{{ __('foods.nearby') }}</button>
 
     <button type="button"
         class="btn-filter btn btn-primary rounded-pill d-flex align-items-center {{ request('sort') === 'popular' ? 'active' : '' }}"
-        id="btnMostPopular">{{ __('foods.most_popular') }}</button>
+        id="btnMostPopular" dusk="sort-popular-button">{{ __('foods.most_popular') }}</button>
 </form>
+@if ($mainCourses->count() <= 0 && $desserts->count() <= 0 && $drinks->count() <= 0 && $snacks->count() <= 0)
+    <h1 class="px-5 my-5" style="font-size: 1.5rem;">No food items found.</h1>
+@endif
 
 @if (!request()->has('q') && !request()->has('price') && !request()->has('rating') && !request()->has('sort'))
     <div class="container-today container-fluid my-4 px-4 py-4 d-flex">
@@ -152,7 +155,7 @@ d-flex (justify-content, align-items, flex-{row|column}) --}}
             @endforeach
 
             @if ($mainCourses->count() > 4)
-                <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses">
+                <div class="viewmore" data-bs-toggle="modal" data-bs-target="#moreModal" data-category="mainCourses" dusk="main-course-view-more">
                     <h3 class="viewmore-text">{{ __('foods.view') }}<br>{{ __('foods.more') }}</h3>
                 </div>
             @endif

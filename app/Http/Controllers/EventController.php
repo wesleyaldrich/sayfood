@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminEventStoreRequest;
-
+use App\Http\Requests\CustomerEventStoreRequest;
 use App\Models\Event;
 use App\Models\EventCategory;
 use Carbon\Carbon;
@@ -60,7 +60,45 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminEventStoreRequest $request)
+    public function adminStoreEvent(AdminEventStoreRequest $request)
+    {
+        $validated = $request->validated();
+        // dd($validated->errors()->all());
+
+        try {
+            $start = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $validated['start_hour'], $validated['start_minute'], $validated['start_ampm']));
+            $end = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $validated['end_hour'], $validated['end_minute'], $validated['end_ampm']));
+            $durationInHours = ceil($start->diffInMinutes($end) / 60);
+
+            $imagePath = null;
+            if ($request->hasFile('image_url')) {
+                $imagePath = $request->file('image_url')->store('events', 'public');
+            }
+
+            Event::create([
+                'name' => $validated['name'],
+                'description' => $validated['description'],
+                'event_category_id' => $validated['event_category_id'],
+                'status' => $validated['status'],
+                'date' => $validated['date'],
+                'location' => $validated['location'],
+                'group_link' => $validated['group_link'] ?? null,
+                'image_url' => $imagePath,
+                'creator_id' => 1, 
+
+                'duration' => $durationInHours,
+                'start_time' => $start->format('H:i:s'),
+                'end_time' => $end->format('H:i:s'),
+            ]);
+
+            return redirect()->route('show.manage.events')->with('success', 'Event has been created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withErrors(['error' => 'An error occurred while saving the event: ' . $e->getMessage()])
+                ->withInput();
+        }
+    }
+    public function store(CustomerEventStoreRequest $request)
     {
         try {
             $start = Carbon::createFromFormat('g:i A', sprintf('%02d:%02d %s', $request->start_hour, $request->start_minute, $request->start_ampm));
