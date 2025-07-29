@@ -61,7 +61,7 @@
 
         <div class="carousel-track-container">
             <div class="carousel-track" id="carouselTrack">
-                @foreach ($restaurant->take(7) as $resto)
+                @foreach ($restaurants->take(7) as $resto)
                     <a href="{{ route('resto.show', $resto['id']) }}">
                         <div class="carousel-item-wrapper">
                             <div class="card-frame">
@@ -73,10 +73,17 @@
                                             <h5 class="card-title-text oswald">{{ $resto['name'] }}</h5>
                                             <div class="rating-stars">
                                                 <i class="fas fa-star"></i>
-                                                <p class="font-bold oswald">{{ $resto['avg_rating'] }}</p>
+                                                <p class="font-bold oswald">
+                                                    @if ($resto->avg_rating !== null)
+                                                        {{ number_format((float) $resto->avg_rating, 1, '.', '') }}
+                                                    @else
+                                                        No Rating
+                                                    @endif
+                                                </p>
                                             </div>
                                         </div>
-                                        <p class="cuisine-tags-text lato-regular">{{ $resto['description'] }}</p>
+                                        <p class="cuisine-tags-text lato-regular truncate-text">{{ $resto['description'] }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +197,7 @@
     </div>
     <div class="on_going_event text-center container-fluid">
         <div class="cards-container">
-            @foreach ($events as $event)
+            @foreach ($finalEvents as $event)
                 <div class="event-card m-5" data-bs-toggle="modal" data-bs-target="#joinFormModal"
                     data-event-id="{{ $event['id'] }}" data-event-title="{{ $event['name'] }}"
                     data-event-host="{{ $event['host'] }}" data-event-location="{{ $event['location'] }}"
@@ -281,8 +288,8 @@
                         <div class="mb-3">
                             <label for="phoneNumber"
                                 class="form-label text-[#234C4C] text-xl">{{ __('home.phone_number') }}</label>
-                            <input type="tel" class="form-control"
-                                id="phoneNumber" name="phoneNumber" value="{{ old('phoneNumber') }}">
+                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
+                                value="{{ old('phoneNumber') }}">
                             @error('phoneNumber')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -315,7 +322,7 @@
                     @foreach ($slides as $index => $slide)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                             <div class="carousel-header">{{ $slide['title'] }}</div>
-                            <div class="carousel-sub">{{__('home.by')}} {{ $slide['author'] }}</div>
+                            <div class="carousel-sub">{{ __('home.by') }} {{ $slide['author'] }}</div>
                             <div class="carousel-body">
                                 <img src="{{ asset('storage/' . $slide['image']) }}" alt="{{ $slide['title'] }}">
                                 <div class="carousel-text" id="text-{{ $index }}">
@@ -325,7 +332,8 @@
                                             {{ Str::limit($slide['location'], 23, '...') }}</div>
                                         <div><i class="fa-solid fa-user"></i> {{ $slide['people'] }}</div>
                                         <div><i class="fa-solid fa-calendar"></i> {{ $slide['date'] }}</div>
-                                        <div><i class="fa-solid fa-clock"></i> {{ $slide['duration'] }} {{__('home.hours')}}</div>
+                                        <div><i class="fa-solid fa-clock"></i> {{ $slide['duration'] }}
+                                            {{ __('home.hours') }}</div>
                                     </div>
                                 </div>
                             </div>

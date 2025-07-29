@@ -51,7 +51,7 @@ return [
     'password_reset_form_heading' => 'PASSWORD RESET FORM',
     'new_password_label' => 'New Password',
     'confirm_password_label' => 'Confirm Password',
-    'reset_password_button' => 'Reset Password',
+    'reset_password_button' => 'RESET PASSWORD',
 
     'register_otp_page_title' => 'Sayfood | Register Page',
     'otp_code_label' => 'OTP CODE',

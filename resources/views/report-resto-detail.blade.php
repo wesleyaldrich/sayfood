@@ -76,7 +76,7 @@
         <div class="row mt-4 align-items-center gap-4 mx-0">
             <div class="d-flex flex-column p-0" style="width: fit-content;">
                 <h2 class="oswald" style="font-size: 40px; font-weight: 600; color: #063434;">{{ __('admin.report_id_prefix') }} {{ $report->id }}</h2>
-                <h2 class="oswald" style="font-size: 32px; font-weight: 400; color: #063434;">{{ $report->customer->user->username . ' ' . __('admin.to_label') . ' ' . $report->restaurant->name }}</h2>
+                <h2 class="oswald" style="font-size: 32px; font-weight: 400; color: #063434;">{{ $report->customer->user->username . ' ' . __('admin.to_label') . ' ' . ($report->restaurant->name ?? $report->suspended_restaurant->name) }}</h2>
             </div>
             <div class="side d-flex flex-row ms-auto gap-4 p-0" style="min-height: 60px; width: fit-content;">
                 {{-- ITEM --}}
@@ -117,18 +117,33 @@
                     <h3 class="detail-header oswald mb-1">{{ __('admin.customer_email_label') }}</h3>
                     <h3 class="oswald">{{ $report->customer->user->email }}</h3>
                 </div>
-                <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_id_label') }}</h3>
-                    <h3 class="oswald">{{ $report->restaurant->id }}</h3>
-                </div>
-                <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_name_label') }}</h3>
-                    <h3 class="oswald">{{ $report->restaurant->name }}</h3>
-                </div>
-                <div class="detail-group d-flex flex-column mt-4">
-                    <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_email_label') }}</h3>
-                    <h3 class="oswald">{{ $report->restaurant->user->email }}</h3>
-                </div>
+                @if ($report->restaurant)
+                    <div class="detail-group d-flex flex-column mt-4">
+                        <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_id_label') }}</h3>
+                        <h3 class="oswald">{{ $report->restaurant->id }}</h3>
+                    </div>
+                    <div class="detail-group d-flex flex-column mt-4">
+                        <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_name_label') }}</h3>
+                        <h3 class="oswald">{{ $report->restaurant->name }}</h3>
+                    </div>
+                    <div class="detail-group d-flex flex-column mt-4">
+                        <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_email_label') }}</h3>
+                        <h3 class="oswald">{{ $report->restaurant->user->email }}</h3>
+                    </div>
+                @else
+                    <div class="detail-group d-flex flex-column mt-4">
+                        <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_id_label') }}</h3>
+                        <h3 class="oswald">{{ $report->suspended_restaurant->id }}</h3>
+                    </div>
+                    <div class="detail-group d-flex flex-column mt-4">
+                        <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_name_label') }}</h3>
+                        <h3 class="oswald">{{ $report->suspended_restaurant->name }}</h3>
+                    </div>
+                    <div class="detail-group d-flex flex-column mt-4">
+                        <h3 class="detail-header oswald mb-1">{{ __('admin.restaurant_email_label') }}</h3>
+                        <h3 class="oswald">{{ $report->suspended_restaurant->email }}</h3>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

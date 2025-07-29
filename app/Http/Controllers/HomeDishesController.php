@@ -17,34 +17,74 @@ class HomeDishesController extends Controller
     public function show(): View
     {
         // Sample product data (you would typically fetch this from a database)
-        $restaurant = Restaurant::all();
-        $badges = [
-            ['label' => 'Newest Event', 'color' => 'New'],
-            ['label' => 'Most Popular', 'color' => 'Popular'],
-            ['label' => 'Seasonal Specials', 'color' => 'Trending'],
-        ];
-
-        $events = Event::with(['creator.user', 'customers'])
-            ->latest()
-            ->take(3)
+        $restaurants = Restaurant::withAvg(['orders as avg_rating' => function ($query) {
+            $query->whereNotNull('rating');
+        }], 'rating')
+            ->orderByDesc('avg_rating')
             ->get()
-            ->values() // biar index rapi dari 0
-            ->map(function ($event, $index) use ($badges) {
-                // Ambil badge sesuai urutan (jika index > 2, ulang dari awal)
-                $badge = $badges[$index % count($badges)];
-                $author = $event->creator?->user?->username ?? 'Unknown';
-                return [
-                    'id' => $event->id,
-                    'name' => $event->name,
-                    'host' => $author,
-                    'location' => $event->location,
-                    'badge' => $badge['label'],
-                    'badge_color' => $badge['color'],
-                    'image_url' => $event->image_url,
-                    'participants' => $event->customers->count(),
-                    'date' => $event->date,
-                ];
+            ->map(function ($restaurant) {
+                // Jika null → "No Rating"
+                if (is_null($restaurant->avg_rating)) {
+                    $restaurant->avg_rating = 'No Rating';
+                } else {
+                    // Bulatkan ke 1 angka di belakang koma
+                    $restaurant->avg_rating = number_format($restaurant->avg_rating, 1);
+                }
+                return $restaurant;
             });
+        $events = Event::with(['creator.user', 'customers'])->get();
+
+        // Ambil 3 kategori utama
+        $newestEvent = $events->sortByDesc('date')->first();
+        $mostPopularEvent = $events->sortByDesc(fn($e) => $e->customers->count())->first();
+        $seasonalEvent = $events->filter(fn($e) => Carbon::parse($e->date)->isCurrentMonth())
+            ->sortBy('date')->first();
+
+        // Gabungkan & pastikan tidak duplikat
+        $finalEvents = collect([$newestEvent, $mostPopularEvent, $seasonalEvent])
+            ->filter()        // hapus null (kalau tidak ada event seasonal misalnya)
+            ->unique('id');   // hapus duplikat (kalau 1 event memenuhi 2 kategori)
+
+        // Jika hasilnya kurang dari 3, tambah event lain (tanpa badge) supaya tetap 3
+        if ($finalEvents->count() < 3) {
+            $remaining = $events->whereNotIn('id', $finalEvents->pluck('id'))
+                ->sortByDesc('date')
+                ->take(3 - $finalEvents->count());
+            $finalEvents = $finalEvents->merge($remaining);
+        }
+
+        // Format final untuk Blade (selalu 3 item)
+        $finalEvents = $finalEvents->take(3)->values()->map(function ($event) use ($newestEvent, $mostPopularEvent, $seasonalEvent) {
+            $author = $event->creator?->user?->username ?? 'Unknown';
+
+            // Tentukan badge
+            if ($event->id === $newestEvent?->id) {
+                $badgeLabel = 'Newest Event';
+                $badgeColor = 'New';
+            } elseif ($event->id === $mostPopularEvent?->id) {
+                $badgeLabel = 'Most Popular';
+                $badgeColor = 'Popular';
+            } elseif ($event->id === $seasonalEvent?->id) {
+                $badgeLabel = 'Seasonal Specials';
+                $badgeColor = 'Trending';
+            } else {
+                $badgeLabel = null; // Event tambahan tidak dapat badge
+                $badgeColor = null;
+            }
+
+            return [
+                'id' => $event->id,
+                'name' => $event->name,
+                'host' => $author,
+                'location' => $event->location,
+                'badge' => $badgeLabel,
+                'badge_color' => $badgeColor,
+                'image_url' => $event->image_url,
+                'participants' => $event->customers->count(),
+                'date' => $event->date,
+            ];
+        });
+
         // dd($events);
         $slides = Event::with(['creator.user', 'customers']) // eager load relasi
             ->where('status', 'Completed')
@@ -72,7 +112,7 @@ class HomeDishesController extends Controller
                 ];
             });
 
-        return view('home', compact('restaurant', 'events', 'slides'));
+        return view('home', compact('restaurants', 'finalEvents', 'slides'));
     }
 
     public function store(HomeStoreRequest $request)
@@ -112,17 +152,16 @@ class HomeDishesController extends Controller
         // Simpan ke pivot table
         $event->participants()->attach($customerId, [
             'phone_number' => $request->phoneNumber,
-        ]);
-;
+        ]);;
 
         // Balikan respon sesuai request
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Berhasil bergabung ke event!'
+                'message' => 'Successfully joined the event!'
             ]);
         }
 
-        return redirect()->back()->with('success', 'Berhasil bergabung ke event!');
+        return redirect()->back()->with('success', 'Successfully joined the event!');
     }
 }
