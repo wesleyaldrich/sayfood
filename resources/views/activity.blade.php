@@ -221,7 +221,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label">{{ __('activity.whatsapp_group_link_label') }}</label>
+                                            <label class="form-label">{{ __('activity.group_link_label') }}</label>
                                             <input type="url"
                                                 class="form-control @error('group_link') is-invalid @enderror"
                                                 name="group_link" value="{{ old('group_link') }}" />

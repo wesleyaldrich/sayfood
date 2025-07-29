@@ -25,7 +25,7 @@ return [
     'education_option' => 'Edukasi',
     'event_description_label' => 'Deskripsi Acara',
     'estimated_participants_label' => 'Estimasi Peserta',
-    'whatsapp_group_link_label' => 'Tautan Grup WhatsApp',
+    'whatsapp_group_link_label' => 'Tautan Grup',
     'uploads_title' => 'Unggahan',
     'cover_image_label' => 'Gambar Sampul',
     'supporting_files_label' => 'File Pendukung',

@@ -25,7 +25,7 @@ return [
     'education_option' => 'Education',
     'event_description_label' => 'Event Description',
     'estimated_participants_label' => 'Estimated Participants',
-    'whatsapp_group_link_label' => 'WhatsApp Group Link',
+    'whatsapp_group_link_label' => 'Group Link',
     'uploads_title' => 'Uploads',
     'cover_image_label' => 'Cover Image',
     'supporting_files_label' => 'Supporting Files',
