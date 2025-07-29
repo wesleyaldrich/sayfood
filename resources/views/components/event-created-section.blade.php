@@ -9,7 +9,7 @@
     </div>
 
     <!-- Isi Event -->
-    <div class="created p-3 flex-grow flex flex-col justify-between">
+    <div class="created p-3 flex-grow flex flex-col">
         <div>
             <div class="created-detail flex items-center space-x-1 text-sm text-gray-600">
                 <p>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l, d F') }}</p>
