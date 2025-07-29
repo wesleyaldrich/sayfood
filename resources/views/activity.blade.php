@@ -76,7 +76,7 @@
                                 <p class="text-muted" style="font-size: 1.25rem">{{ __('activity.no_created_events_yet') }}</p>
                             @else
                                 @foreach ($createdEvents as $event)
-                                    <a href="{{ route('show.created-event', $event->id) }}" class="block">
+                                    <a href="{{ route('show.created-event', $event->id) }}" class="block created-events-card">
                                         <x-event-created-section :event="$event" />
                                     </a>
                                 @endforeach
@@ -179,14 +179,14 @@
                                         <div class="mb-3">
                                             <label class="form-label">{{ __('activity.event_name_label') }}</label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                                name="name" value="{{ old('name') }}" />
+                                                name="name" value="{{ old('name') }}" dusk="event-name-input"/>
                                             @error('name') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
 
                                         <div class="mb-3">
                                             <label class="form-label">{{ __('activity.event_category_label') }}</label>
                                             <select class="form-select @error('event_category_id') is-invalid @enderror"
-                                                name="event_category_id">
+                                                name="event_category_id" dusk="event-category-input">
                                                 <option value="" disabled {{ old('event_category_id') ? '' : 'selected' }}>
                                                     {{ __('activity.select_type_option') }}</option>
                                                 <option value="1" {{ old('event_category_id') == 1 ? 'selected' : '' }}>
@@ -204,7 +204,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">{{ __('activity.event_description_label') }}</label>
                                             <textarea class="form-control @error('description') is-invalid @enderror"
-                                                name="description" rows="3">{{ old('description') }}</textarea>
+                                                name="description" rows="3" dusk="event-description-input">{{ old('description') }}</textarea>
                                             @error('description') <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -214,7 +214,7 @@
                                             <input type="number"
                                                 class="form-control @error('estimated_participants') is-invalid @enderror"
                                                 name="estimated_participants"
-                                                value="{{ old('estimated_participants') }}" min="1" />
+                                                value="{{ old('estimated_participants') }}" min="1" dusk="event-participants-input"/>
                                             @error('estimated_participants') <div class="text-danger">{{ $message }}
                                                 </div>
                                             @enderror
@@ -224,7 +224,7 @@
                                             <label class="form-label">{{ __('activity.whatsapp_group_link_label') }}</label>
                                             <input type="url"
                                                 class="form-control @error('group_link') is-invalid @enderror"
-                                                name="group_link" value="{{ old('group_link') }}" />
+                                                name="group_link" value="{{ old('group_link') }}" dusk="event-link-input"/>
                                             @error('group_link') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
                                     </div>
@@ -236,14 +236,14 @@
                                             <label class="form-label">{{ __('activity.cover_image_label') }}</label>
                                             <input type="file"
                                                 class="form-control @error('image_url') is-invalid @enderror"
-                                                name="image_url" />
+                                                name="image_url" dusk="event-cover-input" />
                                             @error('image_url') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
 
                                         <div class="mb-3">
                                             <label class="form-label">{{ __('activity.supporting_files_label') }} <small><em>{{ __('activity.supporting_files_hint') }}</em></small></label>
                                             <input type="file" class="form-control @error('files') is-invalid @enderror"
-                                                name="files[]" multiple />
+                                                name="files[]" multiple dusk="event-proposal-input" />
                                             @error('files') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
                                     </div>
@@ -257,14 +257,14 @@
                                             <label class="form-label">{{ __('activity.event_location_label') }}</label>
                                             <input type="text"
                                                 class="form-control @error('location') is-invalid @enderror"
-                                                name="location" value="{{ old('location') }}" />
+                                                name="location" value="{{ old('location') }}" dusk="event-location-input"/>
                                             @error('location') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
 
                                         <div class="mb-3">
                                             <label class="form-label">{{ __('activity.event_date_label') }}</label>
                                             <input type="date" class="form-control @error('date') is-invalid @enderror"
-                                                name="date" value="{{ old('date') }}" />
+                                                name="date" value="{{ old('date') }}" dusk="event-date-input" />
                                             @error('date') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
 
@@ -365,7 +365,7 @@
                                     <div class="text-danger text-center">{{ $message }}</div>
                                 @enderror
 
-                                <button type="submit" class="btn btn-submit w-100 mt-4">{{ __('activity.propose_event_button') }}</button>
+                                <button type="submit" class="btn btn-submit w-100 mt-4" dusk="submit-propose-btn">{{ __('activity.propose_event_button') }}</button>
 
                             </div>
                         </form>

@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('customer_event', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('customers');
-            $table->foreignId('event_id')->constrained('events');
+            $table->foreignId('customer_id')
+                ->constrained('customers')
+                ->onDelete('cascade');
+
+            $table->foreignId('event_id')
+                ->constrained('events')
+                ->onDelete('cascade');
+
             $table->string('phone_number');
             $table->timestamps();
         });

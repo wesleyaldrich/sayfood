@@ -44,7 +44,7 @@
                         <div class="text-danger small mt-1">{{ $message }}</div>
                     @enderror
                     <button type="submit" class="btn btn-success rounded-pill px-5 py-1 mt-3"
-                        style="background-color: #1d4d4f; font-family: 'Lato';">
+                        style="background-color: #1d4d4f; font-family: 'Lato';" dusk="submit-report-button">
                         {{ __('restaurant.submit_report_button') }}
                     </button>
                 </div>
