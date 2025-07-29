@@ -106,9 +106,12 @@
                 <section class="upcoming-events d-flex flex-column gap-2">
                     <h2>{{ __('activity.your_upcoming_events') }}</h2>
                     <div class="event-cards-wrapper">
-
-                        <x-event-upcoming-item :upcomingEvents="$upcomingEvents" />
-
+                        
+                        @if ($upcomingEvents->isEmpty())
+                            <p class="text-muted" style="font-size: 1.25rem">{{ __('activity.no_upcoming_events_yet') }}</p>
+                        @else
+                            <x-event-upcoming-item :upcomingEvents="$upcomingEvents" />
+                        @endif  
                     </div>
                 </section>
 
