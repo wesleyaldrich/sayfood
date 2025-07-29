@@ -57,7 +57,7 @@ return [
     'pickUpLocation' => 'LOKASI PENGAMBILAN',
     'seeDetails' => 'Lihat Detail',
     'detailsTitle' => 'DETAIL:',
-    'note' => 'Catatan:',
+    'note' => 'Catatan',
     'waiting_confirmation' => 'Menunggu Konfirmasi',
     'ready_to_pick_up' => 'Siap Diambil',
     'completed' => 'Pesanan Selesai',

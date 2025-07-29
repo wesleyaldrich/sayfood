@@ -57,7 +57,7 @@ return [
     'pickUpLocation' => 'PICK UP LOCATION',
     'seeDetails' => 'See Details',
     'detailsTitle' => 'DETAILS:',
-    'note' => 'Note:',
+    'note' => 'Note',
     'waiting_confirmation' => 'Waiting for Confirmation',
     'ready_to_pick_up' => 'Ready to Pick Up',
     'completed' => 'Order Completed',
