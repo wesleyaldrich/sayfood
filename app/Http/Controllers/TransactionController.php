@@ -187,7 +187,7 @@ class TransactionController extends Controller
 
         $upcomingEvents = $user->customer->joinedEvents()
             ->with(['creator.user', 'participants.user'])
-            ->whereIn('status', ['Coming Soon', 'On Going'])
+            ->whereIn('status', ['Coming Soon'])
             ->orderBy('date')
             ->get()
             ->map(function ($event) {
