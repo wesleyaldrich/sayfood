@@ -49,11 +49,11 @@
                                     <form action="{{ route('restaurant-orders.update-status', $order->id) }}" method="POST">
                                         @csrf
                                         @if ($order->status === 'Order Created')
-                                            <button class="btn btn-sm" style="background-color: #007771;">{{ __('restaurant.order_created_button') }}</button>
+                                            <button class="btn btn-sm" style="background-color: #007771;" dusk="accept-btn-{{ $order->id }}">{{ __('restaurant.order_created_button') }}</button>
                                         @elseif ($order->status === 'Ready to Pickup')
-                                            <button class="btn btn-warning btn-sm" style="background-color: #FEA322;">{{ __('restaurant.ready_to_pickup_button') }}</button>
+                                            <button class="btn btn-warning btn-sm" style="background-color: #FEA322;" dusk="accepted-btn-{{ $order->id }}">{{ __('restaurant.ready_to_pickup_button') }}</button>
                                         @elseif ($order->status === 'Order Completed' || $order->status === 'Order Reviewed')
-                                            <button class="btn btn-secondary btn-sm" disabled style="background-color: #4D4D4C;">{{ __('restaurant.order_completed_button') }}</button>
+                                            <button class="btn btn-secondary btn-sm" disabled style="background-color: #4D4D4C;"dusk="completed-btn-{{ $order->id }}">{{ __('restaurant.order_completed_button') }}</button>
                                         @endif
                                     </form>
                                 </td>

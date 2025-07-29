@@ -19,7 +19,7 @@
 
             @for ($i = 1; $i <= 5; $i++)
                 <a href="{{ route('restaurant-activity', ['rating' => $i]) }}"
-                class="btn {{ $selectedRating == $i ? 'btn-active' : 'btn-tab' }}">
+                class="btn {{ $selectedRating == $i ? 'btn-active' : 'btn-tab' }}" dusk="filter-rating-{{ $i }}">
                     <i class="fas fa-star text-warning"></i> {{ $i }}
                 </a>
             @endfor
@@ -44,9 +44,9 @@
                             <td>
                                 @for ($i = 1; $i <= 5; $i++)
                                     @if ($i <= $order->rating)
-                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning" dusk="star-{{ $i }}"></i>
                                     @else
-                                        <i class="far fa-star text-muted"></i>
+                                        <i class="far fa-star text-muted" dusk="nostar-{{ $i }}"></i>
                                     @endif
                                 @endfor
                             </td>

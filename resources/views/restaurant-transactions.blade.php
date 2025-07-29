@@ -72,10 +72,10 @@
                         <input type="date" name="end_date" id="end_date" value="{{ $endDate }}">
                     </div>
                     <div class="ml-3 d-flex flex-column align-items-center justify-content-end">
-                        <button type="submit" class="filter-button btn btn-primary d-flex justify-content-center align-items-center">{{ __('restaurant.filter_button') }}</button>
+                        <button type="submit" class="filter-button btn btn-primary d-flex justify-content-center align-items-center" dusk="filter-button">{{ __('restaurant.filter_button') }}</button>
                     </div>
                     <div class="ms-auto mt-auto pt-4">
-                        <a href="{{ route('restaurant-transactions.download', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="download-button btn btn-primary d-flex justify-content-center align-items-center">{{ __('restaurant.download_report_button') }}</a>
+                        <a href="{{ route('restaurant-transactions.download', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="download-button btn btn-primary d-flex justify-content-center align-items-center" dusk="download-button">{{ __('restaurant.download_report_button') }}</a>
                     </div>
                 </div>
             </form>
