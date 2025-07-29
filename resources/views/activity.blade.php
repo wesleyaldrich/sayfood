@@ -126,6 +126,7 @@
             </div>
         </div>
     </div>
+    
 
     @php
         $showModal = session()->pull('show_modal'); // hanya sekali baca dan langsung hilang
@@ -166,6 +167,42 @@
             });
         </script>
     @endif
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeTab = urlParams.get('tab');
+
+        // Peta ID tab sesuai dengan nilai 'tab' di URL
+        const tabMapping = {
+            foodactivity: '#food-tab',
+            eventactivity: '#charity-tab'
+        };
+
+        // 1. Kalau ada parameter 'tab', klik tab-nya
+        if (tabMapping[activeTab]) {
+            const tabTrigger = new bootstrap.Tab(document.querySelector(tabMapping[activeTab]));
+            tabTrigger.show();
+        }
+
+        // 2. Update URL setiap kali tab diklik
+        document.querySelectorAll('#activityTabs .nav-link').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', function (e) {
+                const tabId = this.id;
+                let tabValue = 'foodactivity'; // default
+
+                if (tabId === 'charity-tab') {
+                    tabValue = 'eventactivity';
+                }
+
+                const newUrl = new URL(window.location.href);
+                newUrl.searchParams.set('tab', tabValue);
+                history.replaceState(null, '', newUrl);
+            });
+        });
+    });
+</script>
+
 
 @endsection
 
