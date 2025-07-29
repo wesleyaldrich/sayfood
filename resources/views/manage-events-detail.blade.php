@@ -100,7 +100,7 @@
 
     <div class="container-fluid main-content">
         <div class="mb-3">
-            <a href="{{ route('show.manage.events') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('show.manage.events') }}" class="btn btn-outline-secondary" dusk="btn-back">
                 <i class="fas fa-arrow-left me-1"></i> {{ __('admin.back_to_list_button') }}
             </a>
         </div>
@@ -111,11 +111,11 @@
                 <div class="action-buttons">
                     <form action="{{ route('admin.reject.event', $event->id) }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-times-circle me-1"></i> {{ __('admin.reject_event_button') }}</button>
+                        <button type="submit" class="btn btn-danger" dusk="btn-reject"><i class="fas fa-times-circle me-1"></i> {{ __('admin.reject_event_button') }}</button>
                     </form>
                     <form action="{{ route('admin.approve.event', $event->id) }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle me-1"></i> {{ __('admin.approve_event_button') }}</button>
+                        <button type="submit" class="btn btn-success" dusk="btn-approve"><i class="fas fa-check-circle me-1"></i> {{ __('admin.approve_event_button') }}</button>
                     </form>
                 </div>
             @endif
