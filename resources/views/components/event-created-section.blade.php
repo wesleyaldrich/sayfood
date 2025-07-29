@@ -12,7 +12,7 @@
     <div class="created p-3 flex-grow flex flex-col">
         <div>
             <div class="created-detail flex items-center space-x-1 text-sm text-gray-600">
-                <p>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l, d F') }}</p>
+                <p>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l, d F Y') }}</p>
                 <p>|</p>
                 <p>{{ \Carbon\Carbon::parse($event->start_time)->format('H:i') }}</p>
             </div>

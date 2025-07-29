@@ -69,7 +69,7 @@ return [
     'participants2' => 'Peserta',
     'by' => 'oleh',
     'hours' => 'jam',
-    'community' => 'Komunitas',
+    'community' => 'Tautan Grup',
 
     // --- Event Detail Specific Keys ---
     'back' => 'Kembali',

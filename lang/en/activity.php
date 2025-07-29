@@ -69,7 +69,7 @@ return [
     'participants2' => 'Participants',
     'by' => 'by',
     'hours' => 'hours',
-    'community' => 'Community',
+    'community' => 'Group Link',
 
     // --- Event Detail Specific Keys ---
     'back' => 'Back', // This was already in your list, but I've kept it specific for clarity.

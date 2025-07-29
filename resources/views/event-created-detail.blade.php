@@ -152,7 +152,7 @@
                                 <div class="detail-item">
                                     <i class="fas fa-calendar-alt"></i>
                                     <div>
-                                        <strong>{{ __('activity.date_label') }}</strong><br>{{ $event->date}} | {{ $event->start_time}} - {{ $event->end_time}}
+                                        <strong>{{ __('activity.date_label') }}</strong><br>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l, d F Y') }} | {{ $event->start_time}} - {{ $event->end_time}}
                                     </div>
                                 </div>
                                 <div class="detail-item">
