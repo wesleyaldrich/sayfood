@@ -29,7 +29,7 @@
         @csrf
         <input type="hidden" name="quantity" value="1">
 
-        <button type="submit" class="cart-icon-button">
+        <button type="submit" class="cart-icon-button" dusk="add-to-cart-{{ $id }}">
             <img src="{{ asset('assets/icon_cart.png') }}" alt="cart" class="cart-icon">
         </button>
     </form>

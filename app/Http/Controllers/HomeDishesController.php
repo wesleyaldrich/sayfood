@@ -143,10 +143,10 @@ class HomeDishesController extends Controller
             if ($request->ajax()) {
                 return response()->json([
                     'success' => false,
-                    'errors' => ['general' => ['Anda sudah bergabung di event ini.']]
+                    'errors' => ['general' => ['You have already joined this event.']]
                 ], 422);
             }
-            return back()->with('info', 'Anda sudah bergabung di event ini.');
+            return back()->with('info', 'You have already joined this event.');
         }
 
         // Simpan ke pivot table

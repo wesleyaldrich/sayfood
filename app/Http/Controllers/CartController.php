@@ -42,7 +42,7 @@ class CartController extends Controller
             $currentRestaurantId = $existingCartItems->first()->food->restaurant_id;
 
             if ($food->restaurant_id !== $currentRestaurantId) {
-                return redirect()->back()->withErrors(['error'=> 'Anda hanya bisa memesan dari satu restoran dalam satu waktu. Silakan kosongkan keranjang Anda terlebih dahulu.']);
+                return redirect()->back()->withErrors(['error'=> 'You can only order from one restaurant at a time. Please clear your cart first.']);
             }
         }
         

@@ -38,7 +38,7 @@
             </div>
             <div class="visit-resto">
                 <a href="{{ route('resto.show', $resto_id) }}">    
-                    <button class="btn-visit-resto btn btn-primary d-flex align-items-center">{{ __('foods.visit') }}<br>RESTO</button>
+                    <button class="btn-visit-resto btn btn-primary d-flex align-items-center" dusk="visit-resto-{{ $id }}">{{ __('foods.visit') }}<br>RESTO</button>
                 </a>
             </div>
         </div>
@@ -49,7 +49,7 @@
         @csrf
         <input type="hidden" name="quantity" value="1">
 
-        <button type="submit" class="cart-icon-button">
+        <button type="submit" class="cart-icon-button" dusk="add-to-cart-{{ $id }}">
             <img src="{{ asset('assets/icon_cart.png') }}" alt="cart" class="cart-icon">
         </button>
     </form>

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->date('date');
             $table->string('location');
-            $table->enum('status', ['Pending', 'Coming Soon', 'On Going', 'Completed', 'Canceled']);
+            $table->enum('status', ['Pending', 'Coming Soon', 'Completed', 'Canceled']);
 
             // Tambahan kolom
             $table->integer('estimated_participants')->nullable();
