@@ -37,10 +37,15 @@
                 @foreach ($statuses as $status)
                     <li class="nav-item m-1">
                         <a class="nav-link {{ request('status') == $status ? 'active' : '' }}"
+<<<<<<< HEAD
                             href="{{ route('show.manage.events', ['status' => $status]) }}" dusk="filter-{{ Str::slug($status, '-') }}">
                             @if ($status === 'On Going')
                                 {{ __('admin.on_going') }}
                             @elseif ($status === 'Pending')
+=======
+                            href="{{ route('show.manage.events', ['status' => $status]) }}">
+                            @if ($status === 'Pending')
+>>>>>>> ee0ba825ec060b87b2490307e8782c1d1ecdc2a3
                                 {{ __('admin.pending') }}
                             @elseif ($status === 'Coming Soon')
                                 {{ __('admin.coming_soon') }}
@@ -91,8 +96,6 @@
                                         $statusClass = 'bg-warning text-dark';
                                     if ($event->status == 'Coming Soon')
                                         $statusClass = 'bg-info text-light';
-                                    if ($event->status == 'On Going')
-                                        $statusClass = 'bg-primary text-light';
                                     if ($event->status == 'Completed')
                                         $statusClass = 'bg-success text-light';
                                 @endphp
@@ -149,7 +152,6 @@
                     <select class="form-select bordered" id="status" name="status" required>
                         <option value="Coming Soon" {{ old('status') == 'Coming Soon' ? 'selected' : '' }}>Coming Soon
                         </option>
-                        <option value="On Going" {{ old('status') == 'On Going' ? 'selected' : '' }}>On Going</option>
                         <option value="Completed" {{ old('status') == 'Completed' ? 'selected' : '' }}>Completed</option>
                         <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
                         <option value="Canceled" {{ old('status') == 'Canceled' ? 'selected' : '' }}>Canceled</option>

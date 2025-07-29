@@ -33,7 +33,7 @@
                 @enderror
 
                 <div class="container d-flex justify-content-center pt-3">
-                    <button type="submit" class="btn btn-primary oswald auth-button ">{{ __('profile.login_button') }}</button>
+                    <button type="submit" class="btn btn-primary oswald auth-button " name="login">{{ __('profile.login_button') }}</button>
                 </div>
 
                 <div class="container d-flex justify-content-center mt-3">
