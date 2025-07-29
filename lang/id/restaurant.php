@@ -101,7 +101,6 @@ return [
     'manage_orders_heading' => 'AYO KELOLA PESANANMU!',
     'table_header_no' => 'No', // Menggunakan kembali jika sudah didefinisikan, jika tidak tambahkan
     'table_header_id' => 'ID', // Menggunakan kembali jika sudah didefinisikan, jika tidak tambahkan
-    'table_header_order_id' => 'ID Pesanan',
     'table_header_customer_name' => 'Nama Pelanggan',
     'table_header_food_name' => 'Nama Makanan',
     'table_header_qty' => 'Jumlah',

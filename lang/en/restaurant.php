@@ -101,7 +101,6 @@ return [
     'manage_orders_heading' => 'LETS MANAGE YOUR ORDERS!',
     'table_header_no' => 'No', // Re-using if already defined, otherwise add
     'table_header_id' => 'ID', // Re-using if already defined, otherwise add
-    'table_header_order_id' => 'Order ID',
     'table_header_customer_name' => 'Customer Name',
     'table_header_food_name' => 'Food Name',
     'table_header_qty' => 'Qty',
