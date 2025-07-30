@@ -69,7 +69,8 @@
 
                 <div class="d-flex row">
                     <section class="created-event-section col-md-8">
-                        <h2 style="font-family: 'Oswald'; margin-bottom: 20px;">{{ __('activity.lets_take_a_look_at_created_events') }}</h2>
+                        <h2 style="font-family: 'Oswald'; margin-bottom: 20px;">
+                            {{ __('activity.lets_take_a_look_at_created_events') }}</h2>
                         <div class="created-event-wrapper d-flex flex-row flex-nowrap overflow-auto gap-4"
                             style="scrollbar-width: thin;">
                             @if ($createdEvents->isEmpty())
@@ -105,9 +106,12 @@
                 <section class="upcoming-events d-flex flex-column gap-2">
                     <h2>{{ __('activity.your_upcoming_events') }}</h2>
                     <div class="event-cards-wrapper">
-
-                        <x-event-upcoming-item :upcomingEvents="$upcomingEvents" />
-
+                        
+                        @if ($upcomingEvents->isEmpty())
+                            <p class="text-muted" style="font-size: 1.25rem">{{ __('activity.no_upcoming_events_yet') }}</p>
+                        @else
+                            <x-event-upcoming-item :upcomingEvents="$upcomingEvents" />
+                        @endif  
                     </div>
                 </section>
 
@@ -125,6 +129,7 @@
             </div>
         </div>
     </div>
+    
 
     @php
         $showModal = session()->pull('show_modal'); // hanya sekali baca dan langsung hilang
@@ -154,6 +159,54 @@
         });
     </script>
 
+    @php
+        $tab = session()->pull('tab');
+    @endphp
+
+    @if ($tab === 'eventactivity')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelector('#charity-tab')?.click();
+            });
+        </script>
+    @endif
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeTab = urlParams.get('tab');
+
+        // Peta ID tab sesuai dengan nilai 'tab' di URL
+        const tabMapping = {
+            foodactivity: '#food-tab',
+            eventactivity: '#charity-tab'
+        };
+
+        // 1. Kalau ada parameter 'tab', klik tab-nya
+        if (tabMapping[activeTab]) {
+            const tabTrigger = new bootstrap.Tab(document.querySelector(tabMapping[activeTab]));
+            tabTrigger.show();
+        }
+
+        // 2. Update URL setiap kali tab diklik
+        document.querySelectorAll('#activityTabs .nav-link').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', function (e) {
+                const tabId = this.id;
+                let tabValue = 'foodactivity'; // default
+
+                if (tabId === 'charity-tab') {
+                    tabValue = 'eventactivity';
+                }
+
+                const newUrl = new URL(window.location.href);
+                newUrl.searchParams.set('tab', tabValue);
+                history.replaceState(null, '', newUrl);
+            });
+        });
+    });
+</script>
+
+
 @endsection
 
 <div class="modal fade" id="proposeEventModal" tabindex="-1" aria-labelledby="proposeEventModalLabel"
@@ -168,13 +221,13 @@
             </div>
             <div class=" modal-body">
 
-                        <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
-                            @csrf
+                <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
+                    @csrf
 
-                            <div class="row g-4">
-                                <div class="col-md-6">
-                                    <div class="bg-white p-4 rounded-3">
-                                        <h5 class="fw-bold mb-4 fs-4">{{ __('activity.event_details_title') }}</h5>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="bg-white p-4 rounded-3">
+                                <h5 class="fw-bold mb-4 fs-4">{{ __('activity.event_details_title') }}</h5>
 
                                         <div class="mb-3">
                                             <label class="form-label">{{ __('activity.event_name_label') }}</label>
@@ -229,8 +282,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="bg-white p-4 rounded-3 mt-4">
-                                        <h5 class="fw-bold mb-4 fs-4">{{ __('activity.uploads_title') }}</h5>
+                            <div class="bg-white p-4 rounded-3 mt-4">
+                                <h5 class="fw-bold mb-4 fs-4">{{ __('activity.uploads_title') }}</h5>
 
                                         <div class="mb-3">
                                             <label class="form-label">{{ __('activity.cover_image_label') }}</label>
@@ -249,9 +302,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="bg-white p-4 rounded-3 mb-4">
-                                        <h5 class="fw-bold mb-4 fs-4">{{ __('activity.location_time_title') }}</h5>
+                        <div class="col-md-6">
+                            <div class="bg-white p-4 rounded-3 mb-4">
+                                <h5 class="fw-bold mb-4 fs-4">{{ __('activity.location_time_title') }}</h5>
 
                                         <div class="mb-3">
                                             <label class="form-label">{{ __('activity.event_location_label') }}</label>
@@ -268,107 +321,105 @@
                                             @error('date') <div class="text-danger">{{ $message }}</div> @enderror
                                         </div>
 
-                                        <div class="mb-3">
-                                            <label class="form-label">{{ __('activity.start_time_label') }}</label>
-                                            <div class="d-flex gap-2">
-                                                <input type="number"
-                                                    class="form-control time-box @error('start_hour') is-invalid @enderror"
-                                                    name="start_hour" placeholder="HH" min="1" max="12"
-                                                    value="{{ old('start_hour') }}">
-                                                <span class="fw-bold fs-5">:</span>
-                                                <input type="number"
-                                                    class="form-control time-box @error('start_minute') is-invalid @enderror"
-                                                    name="start_minute" placeholder="MM" min="0" max="59"
-                                                    value="{{ old('start_minute') }}">
-                                                <select
-                                                    class="form-select time-box @error('start_ampm') is-invalid @enderror"
-                                                    name="start_ampm">
-                                                    <option {{ old('start_ampm') == 'AM' ? 'selected' : '' }}>AM</option>
-                                                    <option {{ old('start_ampm') == 'PM' ? 'selected' : '' }}>PM</option>
-                                                </select>
-                                            </div>
-                                            @error('start_hour') <div class="text-danger">{{ $message }}</div> @enderror
-                                            @error('start_minute') <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                            @error('start_ampm') <div class="text-danger">{{ $message }}</div> @enderror
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label">{{ __('activity.end_time_label') }}</label>
-                                            <div class="d-flex gap-2">
-                                                <input type="number"
-                                                    class="form-control time-box @error('end_hour') is-invalid @enderror"
-                                                    name="end_hour" placeholder="HH" min="1" max="12"
-                                                    value="{{ old('end_hour') }}">
-                                                <span class="fw-bold fs-5">:</span>
-                                                <input type="number"
-                                                    class="form-control time-box @error('end_minute') is-invalid @enderror"
-                                                    name="end_minute" placeholder="MM" min="0" max="59"
-                                                    value="{{ old('end_minute') }}">
-                                                <select
-                                                    class="form-select time-box @error('end_ampm') is-invalid @enderror"
-                                                    name="end_ampm">
-                                                    <option {{ old('end_ampm') == 'AM' ? 'selected' : '' }}>AM</option>
-                                                    <option {{ old('end_ampm') == 'PM' ? 'selected' : '' }}>PM</option>
-                                                </select>
-                                            </div>
-                                            @error('end_hour') <div class="text-danger">{{ $message }}</div> @enderror
-                                            @error('end_minute') <div class="text-danger">{{ $message }}</div> @enderror
-                                            @error('end_ampm') <div class="text-danger">{{ $message }}</div> @enderror
-                                        </div>
+                                <div class="mb-3">
+                                    <label class="form-label">{{ __('activity.start_time_label') }}</label>
+                                    <div class="d-flex gap-2">
+                                        <input type="number"
+                                            class="form-control time-box @error('start_hour') is-invalid @enderror"
+                                            name="start_hour" placeholder="HH" min="1" max="12"
+                                            value="{{ old('start_hour') }}">
+                                        <span class="fw-bold fs-5">:</span>
+                                        <input type="number"
+                                            class="form-control time-box @error('start_minute') is-invalid @enderror"
+                                            name="start_minute" placeholder="MM" min="0" max="59"
+                                            value="{{ old('start_minute') }}">
+                                        <select class="form-select time-box @error('start_ampm') is-invalid @enderror"
+                                            name="start_ampm">
+                                            <option {{ old('start_ampm') == 'AM' ? 'selected' : '' }}>AM</option>
+                                            <option {{ old('start_ampm') == 'PM' ? 'selected' : '' }}>PM</option>
+                                        </select>
                                     </div>
+                                    @error('start_hour') <div class="text-danger">{{ $message }}</div> @enderror
+                                    @error('start_minute') <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                    @error('start_ampm') <div class="text-danger">{{ $message }}</div> @enderror
+                                </div>
 
-                                    <div class="bg-white p-4 rounded-3">
-                                        <h5 class="fw-bold mb-4 fs-4">{{ __('activity.contact_organizer_info_title') }}</h5>
-
-                                        <div class="mb-3">
-                                            <label class="form-label">{{ __('activity.organizer_name_label') }}</label>
-                                            <input type="text"
-                                                class="form-control @error('organizer_name') is-invalid @enderror"
-                                                name="organizer_name" value="{{ old('organizer_name') }}" />
-                                            @error('organizer_name') <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label">{{ __('activity.phone_whatsapp_label') }}</label>
-                                            <input type="text"
-                                                class="form-control @error('organizer_phone') is-invalid @enderror"
-                                                name="organizer_phone" value="{{ old('organizer_phone') }}" />
-                                            @error('organizer_phone') <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label">{{ __('activity.email_label') }}</label>
-                                            <input type="email"
-                                                class="form-control @error('organizer_email') is-invalid @enderror"
-                                                name="organizer_email" value="{{ old('organizer_email') }}" />
-                                            @error('organizer_email') <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+                                <div class="mb-3">
+                                    <label class="form-label">{{ __('activity.end_time_label') }}</label>
+                                    <div class="d-flex gap-2">
+                                        <input type="number"
+                                            class="form-control time-box @error('end_hour') is-invalid @enderror"
+                                            name="end_hour" placeholder="HH" min="1" max="12"
+                                            value="{{ old('end_hour') }}">
+                                        <span class="fw-bold fs-5">:</span>
+                                        <input type="number"
+                                            class="form-control time-box @error('end_minute') is-invalid @enderror"
+                                            name="end_minute" placeholder="MM" min="0" max="59"
+                                            value="{{ old('end_minute') }}">
+                                        <select class="form-select time-box @error('end_ampm') is-invalid @enderror"
+                                            name="end_ampm">
+                                            <option {{ old('end_ampm') == 'AM' ? 'selected' : '' }}>AM</option>
+                                            <option {{ old('end_ampm') == 'PM' ? 'selected' : '' }}>PM</option>
+                                        </select>
                                     </div>
+                                    @error('end_hour') <div class="text-danger">{{ $message }}</div> @enderror
+                                    @error('end_minute') <div class="text-danger">{{ $message }}</div> @enderror
+                                    @error('end_ampm') <div class="text-danger">{{ $message }}</div> @enderror
                                 </div>
                             </div>
 
-                            <div class="submit-section mt-4 d-flex flex-column align-items-center w-100">
-                                <button type="button"
-                                    class="btn btn-terms d-flex justify-content-center align-items-center gap-2 mb-2 w-100 text-center"
-                                    data-bs-target="#termsAndConditionsModal" data-bs-toggle="modal">
-                                    <i id="checkTC" class="bi bi-check-circle-fill d-none"></i>
-                                    <span class="text-center">{{ __('activity.read_terms_conditions_button') }}</span>
-                                </button>
+                            <div class="bg-white p-4 rounded-3">
+                                <h5 class="fw-bold mb-4 fs-4">{{ __('activity.contact_organizer_info_title') }}</h5>
 
-                                <input type="checkbox" name="agree_terms" id="hiddenAgreeCheckbox" hidden>
+                                <div class="mb-3">
+                                    <label class="form-label">{{ __('activity.organizer_name_label') }}</label>
+                                    <input type="text"
+                                        class="form-control @error('organizer_name') is-invalid @enderror"
+                                        name="organizer_name" value="{{ old('organizer_name') }}" />
+                                    @error('organizer_name') <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                                @error('agree_terms')
-                                    <div class="text-danger text-center">{{ $message }}</div>
-                                @enderror
+                                <div class="mb-3">
+                                    <label class="form-label">{{ __('activity.phone_whatsapp_label') }}</label>
+                                    <input type="text"
+                                        class="form-control @error('organizer_phone') is-invalid @enderror"
+                                        name="organizer_phone" value="{{ old('organizer_phone') }}" />
+                                    @error('organizer_phone') <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">{{ __('activity.email_label') }}</label>
+                                    <input type="email"
+                                        class="form-control @error('organizer_email') is-invalid @enderror"
+                                        name="organizer_email" value="{{ old('organizer_email') }}" />
+                                    @error('organizer_email') <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submit-section mt-4 d-flex flex-column align-items-center w-100">
+                        <button type="button"
+                            class="btn btn-terms d-flex justify-content-center align-items-center gap-2 mb-2 w-100 text-center"
+                            data-bs-target="#termsAndConditionsModal" data-bs-toggle="modal">
+                            <i id="checkTC" class="bi bi-check-circle-fill d-none"></i>
+                            <span class="text-center">{{ __('activity.read_terms_conditions_button') }}</span>
+                        </button>
+
+                        <input type="checkbox" name="agree_terms" id="hiddenAgreeCheckbox" hidden>
+
+                        @error('agree_terms')
+                            <div class="text-danger text-center">{{ $message }}</div>
+                        @enderror
 
                                 <button type="submit" class="btn btn-submit w-100 mt-4" dusk="submit-propose-btn">{{ __('activity.propose_event_button') }}</button>
 
-                            </div>
-                        </form>
+                    </div>
+                </form>
 
             </div>
         </div>
@@ -385,7 +436,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h3 class="fw-bold mb-4 text-white text-center" style="font-family: 'Oswald';">{{ __('activity.terms_conditions_modal_title') }}</h3>
+                <h3 class="fw-bold mb-4 text-white text-center" style="font-family: 'Oswald';">
+                    {{ __('activity.terms_conditions_modal_title') }}</h3>
                 <div class="terms-content bg-white p-4 rounded-3 text-start"
                     style="max-height: 300px; overflow-y: auto;">
                     <p>{{ __('activity.terms_intro') }}</p>

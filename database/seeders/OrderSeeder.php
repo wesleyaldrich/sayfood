@@ -78,8 +78,8 @@ class OrderSeeder extends Seeder
                 'updated_at' => now(),
                 'rating' => null
             ],
-                        [
-                'customer_id' => 1,
+            [
+                'customer_id' => 9,
                 'restaurant_id' => 1,
                 'status' => 'Order Reviewed',
                 'created_at' => now(),

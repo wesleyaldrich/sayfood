@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="info-box">
                                     <img src="{{ asset('assets/icon_calendar.svg') }}" class="event-info-icon" alt="Date">
-                                    <span>{{ $event->date }}</span>
+                                    <span>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l, d F Y') }}</span>
                                 </div>
                                 <div class="info-box">
                                     <img src="{{ asset('assets/icon_person.svg') }}" class="event-info-icon"
