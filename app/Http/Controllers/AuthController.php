@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRegisterRequest;
+use App\Http\Requests\AuthRegisterRestaurantRequest;
+use App\Http\Requests\AuthUpdateProfileRequest;
+use App\Http\Requests\AuthUpdateProfileRestaurantRequest;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Restaurant;
@@ -9,22 +13,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\RestaurantRegistration;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(AuthRegisterRequest $request)
     {
         // Validate the request data
-        $validatedData = $request->validate([
-            'username' => 'required|string|max:64',
-            'email' => 'required|email|max:320|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        $validatedData = $request->validated();
 
         $twofactorCode = random_int(100000, 999999);
         $validatedData['two_factor_code'] = $twofactorCode;
@@ -156,14 +154,10 @@ class AuthController extends Controller
         return redirect()->route('twofactor.verif')->with('status', 'A new two-factor authentication code has been sent to your email.');
     }
 
-    public function registerRestaurant(Request $request)
+    public function registerRestaurant(AuthRegisterRestaurantRequest $request)
     {
         // Validate the request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'email' => 'required|email|max:320|unique:users,email',
-        ]);
+        $validatedData = $request->validated();
 
         RestaurantRegistration::create($validatedData);
 
@@ -352,18 +346,9 @@ class AuthController extends Controller
         );
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(AuthUpdateProfileRequest $request)
     {
-        $validatedData = $request->validate([
-            'username' => 'required|string|max:64',
-            'dob' => [
-                'nullable',
-                'date',
-                'before_or_equal:' . Carbon::now()->subYears(18)->toDateString(), // at least 18
-                'after_or_equal:' . Carbon::now()->subYears(125)->toDateString(), // at most 125
-            ],
-            'address' => 'nullable|string|max:200'
-        ]);
+        $validatedData = $request->validated();
 
         $currentUser = Auth::user();
 
@@ -380,13 +365,9 @@ class AuthController extends Controller
         return redirect()->back()->with('status', 'Profile successfully updated!');
     }
 
-    public function updateProfileRestaurant(Request $request)
+    public function updateProfileRestaurant(AuthUpdateProfileRestaurantRequest $request)
     {
-        $validatedData = $request->validate([
-            'username' => 'required|string|max:64',
-            'restaurant_name' => 'required|string|max:64',
-            'address' => 'nullable|string|max:200'
-        ]);
+        $validatedData = $request->validated();
 
         $currentUser = Auth::user();
 
