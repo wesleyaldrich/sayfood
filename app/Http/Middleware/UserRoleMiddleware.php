@@ -26,6 +26,7 @@ class UserRoleMiddleware
             }
 
             Log::channel('sayfood')->warning('User tried to access customer routes.', [
+                'route' => $request->path(),
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
@@ -37,6 +38,7 @@ class UserRoleMiddleware
             }
 
             Log::channel('sayfood')->warning('User tried to access restaurant routes.', [
+                'route' => $request->path(),
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
@@ -48,6 +50,7 @@ class UserRoleMiddleware
             }
 
             Log::channel('sayfood')->warning('User tried to access admin routes.', [
+                'route' => $request->path(),
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
@@ -59,6 +62,7 @@ class UserRoleMiddleware
             }
 
             Log::channel('sayfood')->warning('User tried to access admincustomer routes.', [
+                'route' => $request->path(),
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);

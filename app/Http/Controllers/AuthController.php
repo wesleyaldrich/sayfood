@@ -46,7 +46,8 @@ class AuthController extends Controller
         Log::channel('auth')->info('User registered.', [
             'user_id' => $currentUser->id,
             'username' => $currentUser->username,
-            'email' => $currentUser->email
+            'email' => $currentUser->email,
+            
         ]);
 
         return redirect()->route('twofactor.verif');
