@@ -29,6 +29,8 @@
             <thead class="custom-thead">
                 <tr>
                     <th>{{ __('restaurant.table_header_no') }}</th>
+                    <th>{{ __('restaurant.table_header_id') }}</th>
+                    <th>{{ __('restaurant.table_header_order_date') }}</th>
                     <th>{{ __('restaurant.table_header_customer_name') }}</th>
                     <th>{{ __('restaurant.table_header_rating') }}</th>
                 </tr>
@@ -40,6 +42,8 @@
                     @if ($order->rating !== null && (request('rating') === null || $order->rating == request('rating')))
                         <tr>
                             <td>{{ $no++ }}</td>
+                            <td>{{ $order->id }}</td>
+                            <td>{{ $order->created_at->format('d/m/y') }}</td>
                             <td>{{ optional($order->customer)->user->username ?? __('restaurant.unknown_customer') }}</td>
                             <td>
                                 @for ($i = 1; $i <= 5; $i++)

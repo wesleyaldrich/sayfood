@@ -6,9 +6,10 @@ return [
     'food_activities_tab' => 'FOOD ACTIVITIES',
     'event_activities_tab' => 'EVENT ACTIVITIES',
     'youve_been_donating' => 'YOU\'VE BEEN DONATING',
-    'past_six_months_accumulated' => 'this past 6 months, accumulated from your orders!',
+    'past_six_months_accumulated' => 'accumulated from your orders!',
     'charity_quote' => '"Charity is love in action."',
     'no_created_events_yet' => 'No created events yet.',
+    'no_upcoming_events_yet' => 'No upcoming events yet.',
     'lets_take_a_look_at_created_events' => 'Let\'s take a look at the events you\'ve created!',
     'create_your_own_event_title' => 'CREATE YOUR OWN EVENT!',
     'create_event_quote' => 'Don\'t Just Join-Lead!<br>Propose Your Own Sayfood Gathering',
@@ -25,7 +26,7 @@ return [
     'education_option' => 'Education',
     'event_description_label' => 'Event Description',
     'estimated_participants_label' => 'Estimated Participants',
-    'whatsapp_group_link_label' => 'WhatsApp Group Link',
+    'whatsapp_group_link_label' => 'Group Link',
     'uploads_title' => 'Uploads',
     'cover_image_label' => 'Cover Image',
     'supporting_files_label' => 'Supporting Files',
@@ -56,7 +57,7 @@ return [
     'pickUpLocation' => 'PICK UP LOCATION',
     'seeDetails' => 'See Details',
     'detailsTitle' => 'DETAILS:',
-    'note' => 'Note:',
+    'note' => 'Note',
     'waiting_confirmation' => 'Waiting for Confirmation',
     'ready_to_pick_up' => 'Ready to Pick Up',
     'completed' => 'Order Completed',
@@ -68,7 +69,7 @@ return [
     'participants2' => 'Participants',
     'by' => 'by',
     'hours' => 'hours',
-    'community' => 'Community',
+    'community' => 'Group Link',
 
     // --- Event Detail Specific Keys ---
     'back' => 'Back', // This was already in your list, but I've kept it specific for clarity.

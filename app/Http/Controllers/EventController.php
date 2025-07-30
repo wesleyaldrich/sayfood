@@ -144,7 +144,7 @@ class EventController extends Controller
                 'end_time' => $end->format('H:i:s'),
             ]);
 
-            return redirect()->route('activity')->with('success', 'Event proposal submitted!');
+            return redirect()->route('activity', ['tab' => 'eventactivity'])->with('success', 'Event proposal submitted!')->with('tab', 'eventactivity');
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withErrors(['error' => 'An error occurred while saving the event.'])
