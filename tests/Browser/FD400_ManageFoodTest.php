@@ -79,7 +79,7 @@ class FD400_ManageFoodTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $restaurant = User::where('role', 'restaurant')->first();
-            $food = Food::where('name', 'Updated Food Name')->first();
+            $food = Food::where('name', 'Test Food')->first();
 
             $browser->loginAs($restaurant)
                 ->visit('/restaurant-foods')
@@ -88,7 +88,7 @@ class FD400_ManageFoodTest extends DuskTestCase
                 ->waitFor('#deleteFoodModal')
                 ->press('@submit-delete-food')
                 ->pause(500)
-                ->assertDontSee('Updated Food Name');
+                ->assertDontSee('Test Food');
         });
     }
 

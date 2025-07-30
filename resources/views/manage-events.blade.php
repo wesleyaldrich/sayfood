@@ -14,14 +14,14 @@
                 <form class="d-flex me-3" role="search">
                     <input type="hidden" name="status" value="{{ request('status', 'All') }}">
                     <input class="form-control" type="search" placeholder="{{ __('admin.search_event_placeholder') }}"
-                        name="search" value="{{ request('search') }}" aria-label="Search" />
+                        name="search" value="{{ request('search') }}" aria-label="Search" dusk="search-bar"/>
                     <button class="btn btn-warning" type="submit">
                         <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                     </button>
                 </form>
                 <div class="create-btn">
                     <a href="#" class="btn btn-success text-light" style="font-weight: bold; background-color: darkgreen;"
-                        data-bs-target="#createEventModal" data-bs-toggle="modal">{{ __('admin.create_button') }}</a>
+                        data-bs-target="#createEventModal" data-bs-toggle="modal" dusk="open-create-event-modal">{{ __('admin.create_button') }}</a>
                 </div>
             </div>
         </div>
@@ -37,8 +37,15 @@
                 @foreach ($statuses as $status)
                     <li class="nav-item m-1">
                         <a class="nav-link {{ request('status') == $status ? 'active' : '' }}"
+<<<<<<< HEAD
+                            href="{{ route('show.manage.events', ['status' => $status]) }}" dusk="filter-{{ Str::slug($status, '-') }}">
+                            @if ($status === 'On Going')
+                                {{ __('admin.on_going') }}
+                            @elseif ($status === 'Pending')
+=======
                             href="{{ route('show.manage.events', ['status' => $status]) }}">
                             @if ($status === 'Pending')
+>>>>>>> ee0ba825ec060b87b2490307e8782c1d1ecdc2a3
                                 {{ __('admin.pending') }}
                             @elseif ($status === 'Coming Soon')
                                 {{ __('admin.coming_soon') }}
@@ -71,9 +78,9 @@
                         <th scope="col">{{ __('admin.status_label') }}</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody dusk="event-table">
                     @forelse ($events as $event)
-                        <tr onclick="window.location='{{ route('show.manage.events.detail', $event->id) }}';">
+                        <tr onclick="window.location='{{ route('show.manage.events.detail', $event->id) }}';" dusk="event-{{ $event->id }}">
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $event->id }}</td>
                             <td>{{ $event->name }}</td>
@@ -214,7 +221,7 @@
             <x-slot name="footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-primary"
-                    style="background-color: darkgreen; border-color: darkgreen;">Create Event</button>
+                    style="background-color: darkgreen; border-color: darkgreen;" dusk="create-event-btn">Create Event</button>
             </x-slot>
         </x-popup-modal>
     </form>
