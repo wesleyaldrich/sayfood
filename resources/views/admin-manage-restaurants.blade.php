@@ -39,18 +39,18 @@
             <div class="d-flex row w-100 gap-4 mx-0">
                 <div class="row mx-0" style="gap: 6px;">
                     <a href="{{ route('show.manage.restaurants', array_merge(request()->query(), ['status' => null])) }}" style="height: 40px;"
-                        class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">{{ __('admin.filter_operational_button') }}</a>
+                        class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}" dusk="operational-filter">{{ __('admin.filter_operational_button') }}</a>
                     <a href="{{ route('show.manage.restaurants', array_merge(request()->query(), ['status' => 'pending'])) }}" style="height: 40px;"
-                        class="oswald filter-button {{ (request()->query('status') == 'pending') ? 'active' : '' }}">{{ __('admin.filter_pending_restaurants_button') }}</a>
+                        class="oswald filter-button {{ (request()->query('status') == 'pending') ? 'active' : '' }}" dusk="pending-filter">{{ __('admin.filter_pending_restaurants_button') }}</a>
                     <a href="{{ route('show.manage.restaurants', array_merge(request()->query(), ['status' => 'rejected'])) }}" style="height: 40px;"
-                        class="oswald filter-button {{ (request()->query('status') == 'rejected') ? 'active' : '' }}">{{ __('admin.filter_rejected_restaurants_button') }}</a>
+                        class="oswald filter-button {{ (request()->query('status') == 'rejected') ? 'active' : '' }}" dusk="rejected-filter">{{ __('admin.filter_rejected_restaurants_button') }}</a>
                 </div>
                 <div class="d-flex ms-auto mt-auto">
                     <form class="d-flex" role="search">
                         @if(request()->has('status'))
                             <input type="hidden" name="status" value="{{ request()->query('status') }}">
                         @endif
-                        <input class="form-control" name="search" type="search" value="{{ request('search') }}" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}">
+                        <input class="form-control" name="search" type="search" value="{{ request('search') }}" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}" dusk="search-bar">
                         <button class="btn btn-warning" type="submit">
                             <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                         </button>
@@ -70,9 +70,9 @@
                         <th scope="col">{{ __('admin.status_label') }}</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody dusk="table-content">
                     @foreach ($restaurant_registrations as $i)
-                        <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.restaurants.detail', $i->id) }}'" style="cursor: pointer;">
+                        <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.restaurants.detail', $i->id) }}'" style="cursor: pointer;" dusk="restaurant-{{ $i->id }}">
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $i->id }}</td>
                             <td>{{ $i->name }}</td>

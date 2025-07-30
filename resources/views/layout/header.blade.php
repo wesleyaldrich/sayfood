@@ -67,7 +67,7 @@
             <a id="openOffcanvasNotif" href="#" role="button">
                 <img src="{{ asset('assets/icon_notif.png') }}" alt="Notification Icon" class="notif-icon-img">
             </a>
-            <div class="icon-language">
+            <div class="icon-language" dusk="language">
                 <img src="{{ asset('assets/icon_globe.png') }}" alt="Language Icon" class="language-icon-img">
             </div>
             <a href="{{ route('profile') }}">
@@ -137,10 +137,10 @@
     <div class="dropdown-language">
         <ul>
             <li class="{{ app()->getLocale() == 'en' ? 'language-active' : '' }}">
-                <a href="{{ url('lang/en') }}" class="oswald">English</a>
+                <a href="{{ url('lang/en') }}" class="oswald" dusk="english">English</a>
             </li>
             <li class="{{ app()->getLocale() == 'id' ? 'language-active' : '' }}">
-                <a href="{{ url('lang/id') }}" class="oswald">Bahasa Indonesia</a>
+                <a href="{{ url('lang/id') }}" class="oswald" dusk="indonesia">Bahasa Indonesia</a>
             </li>
         </ul>
     </div>

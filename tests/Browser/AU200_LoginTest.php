@@ -73,6 +73,23 @@ class AU200_LoginTest extends DuskTestCase
                 ->assertPathIs('/login-customer')
                 ->waitForText('The provided credentials do not match our records.', 15)
                 ->assertSee('The provided credentials do not match our records.');
+
+             $browser->visit('/logout');
+        });
+    }
+
+    /** @test */
+    public function invalid_customer_cannot_login_to_restraurant()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/login-restaurant')
+                ->type('username', 'customer1')
+                ->type('password', 'customer1')
+                ->press('login')
+                ->waitForLocation('/login-restaurant')
+                ->assertPathIs('/login-restaurant')
+                ->waitForText('You do not have a restaurant account.')
+                ->assertSee('You do not have a restaurant account.');
         });
     }
 }

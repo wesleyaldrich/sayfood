@@ -182,6 +182,14 @@ class RestaurantRegistrationSeeder extends Seeder
                 'status' => 'pending',
                 'restaurant_id' => null
             ],
+            [
+                'id' => 22,
+                'name' => 'Warteg Sehat',
+                'address' => 'Jalan Jendral Sudirman No. 30',
+                'email' => 'wartegsehat@gmail.com',
+                'status' => 'pending',
+                'restaurant_id' => null
+            ],
         ]);
     }
 }

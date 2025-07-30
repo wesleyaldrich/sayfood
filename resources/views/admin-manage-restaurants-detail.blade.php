@@ -130,18 +130,18 @@
                         <a href="{{ route('show.manage.restaurants.detail.export', $restaurant_registration->id) }}" class="btn btn-export my-auto" onclick="
                             event.preventDefault();
                             document.getElementById('download-btn').submit();
-                        ">{{ __('admin.export_button') }}</a>
+                        " dusk="export-btn">{{ __('admin.export_button') }}</a>
                     @else
                         <form id="approve-btn" action="{{ route('show.manage.restaurants.detail.approve', $restaurant_registration->id) }}" method="POST" hidden>@csrf</form>
                         <form id="reject-btn" action="{{ route('show.manage.restaurants.detail.reject', $restaurant_registration->id) }}" method="POST" hidden>@csrf</form>
                         <a href="{{ route('show.manage.restaurants.detail.reject', $restaurant_registration->id) }}" class="btn btn-reject my-auto" onclick="
                             event.preventDefault();
                             document.getElementById('reject-btn').submit();
-                        ">{{ __('admin.reject_button') }}</a>
+                        " dusk="reject-btn">{{ __('admin.reject_button') }}</a>
                         <a href="{{ route('show.manage.restaurants.detail.approve', $restaurant_registration->id) }}" class="btn btn-export my-auto" onclick="
                             event.preventDefault();
                             document.getElementById('approve-btn').submit();
-                        ">{{ __('admin.approve_button') }}</a>
+                        " dusk="approve-btn">{{ __('admin.approve_button') }}</a>
                     @endif
                 @endif
             </div>
