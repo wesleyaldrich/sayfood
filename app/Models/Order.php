@@ -17,7 +17,6 @@ class Order extends Model
     {
         return LogOptions::defaults()
         ->useLogName('order')
-        ->logOnly(['customer_id', 'restaurant_id', 'status'])
         ->logOnlyDirty();
     }
 

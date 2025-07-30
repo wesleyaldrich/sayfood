@@ -17,7 +17,6 @@ class RestaurantRegistration extends Model
     {
         return LogOptions::defaults()
         ->useLogName('restaurant_registration')
-        ->logOnly(['name', 'address', 'email', 'status'])
         ->logOnlyDirty();
     }
 
