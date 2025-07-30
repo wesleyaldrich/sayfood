@@ -1,7 +1,7 @@
 @props(['events'])
 
     @foreach ($events as $event)
-        <div class="event-card d-flex align-items-center">
+        <div class="event-card d-flex align-items-center" dusk="past-events-card">
             <div class="event-card-header">
                 <h3>{{ $event->title }}</h3>
                 <p>{{ __('activity.by') }} {{ $event->organizer }}</p>

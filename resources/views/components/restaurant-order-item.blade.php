@@ -3,7 +3,7 @@
 <div class="restaurant-order-item d-flex flex-column">
     <p class="date">{{ $date }}</p>
     <div class="customer-profile my-3 d-flex flex-row align-items-center">
-        <img class="profpic" src="{{ $profile }}" alt="">
+        <img class="profpic" src="{{ $profile }}" alt="" style="object-fit: cover">
         <div class="name-role">
             <p class="customer-name">{{ $name }}</p>
             <p>{{ __('restaurant.customer_role') }}</p>

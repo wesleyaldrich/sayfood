@@ -108,6 +108,7 @@ class FD100_FoodDiscoveryAndFilteringTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::where('role', 'customer')->first())
                 ->visit('/foods')
+                ->waitFor('@sort-popular-button')
                 ->click('@sort-popular-button') // click “Most Popular”
                 ->pause(1000)
                 ->click('@main-course-view-more')
@@ -134,6 +135,7 @@ class FD100_FoodDiscoveryAndFilteringTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::where('role', 'customer')->first())
                 ->visit('/foods')
+                ->waitFor('#filterBtn')
                 ->click('#filterBtn')
                 ->pause(500)
                 ->script([
@@ -167,6 +169,7 @@ class FD100_FoodDiscoveryAndFilteringTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::where('role', 'customer')->first())
                 ->visit('/foods')
+                ->waitFor('#filterBtn')
                 ->click('#filterBtn')
                 ->pause(500)
                 ->script([
@@ -198,6 +201,7 @@ class FD100_FoodDiscoveryAndFilteringTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::where('role', 'customer')->first())
                 ->visit('/foods')
+                ->waitFor('#filterBtn')
                 ->click('#filterBtn')
                 ->pause(500)
                 ->script([

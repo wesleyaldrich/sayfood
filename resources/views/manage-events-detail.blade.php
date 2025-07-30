@@ -184,7 +184,7 @@
                             <div><strong>{{ __('admin.description_label') }}</strong><br>{{ $event->description }}</div>
                         </div>
 
-                        @if(in_array($event->status, ['Coming Soon', 'On Going', 'Completed']))
+                        @if(in_array($event->status, ['Coming Soon', 'Completed']))
                             <div class="detail-item">
                                 <i class="fas fa-users"></i>
                                 <div><strong>{{ __('admin.group_link_detail_label') }}</strong><br>
@@ -203,7 +203,7 @@
             </div>
 
             <div class="col-lg-4">
-                @if(in_array($event->status, ['Coming Soon', 'On Going', 'Completed']))
+                @if(in_array($event->status, ['Coming Soon', 'Completed']))
                     <div class="participants-card">
                         <div class="card-body">
                             <h5>{{ __('admin.participants_heading') }}</h5>

@@ -39,6 +39,9 @@ public function index(Request $request)
         $food->stock = Food::find($food->id)->stock;
     }
 
+    // Remove popular foods with stock = 0
+    $popular = $popular->filter(fn($food) => $food->stock > 0)->values();
+
     // Filter for search & price only (rating is handled later in PHP)
     $filters = function ($query) use ($searchQuery, $priceMax) {
         if ($searchQuery) {
@@ -61,6 +64,9 @@ public function index(Request $request)
             ->where('category_id', $categoryId)
             ->where($filters)
             ->get();
+
+        // Exclude foods with stock = 0
+        $collection = $collection->filter(fn($food) => $food->stock > 0);
 
         // Filter by ratingMin (in PHP, not SQL)
         if ($ratingMin) {
