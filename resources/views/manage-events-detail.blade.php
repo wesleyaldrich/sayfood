@@ -143,7 +143,7 @@
                                                 $statusClass = 'bg-info';
                                             if ($event->status == 'Completed')
                                                 $statusClass = 'bg-success';
-                                            if ($event->status == 'Rejected')
+                                            if ($event->status == 'Canceled')
                                                 $statusClass = 'bg-danger';
                                         @endphp
                                         <span class="badge {{ $statusClass }}">{{ $event->status }}</span>

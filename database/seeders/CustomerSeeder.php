@@ -20,7 +20,7 @@ class CustomerSeeder extends Seeder
             'updated_at' => now(),
         ];
 
-        for ($i = 2; $i <= 9; $i++) {
+        for ($i = 2; $i <= 10; $i++) {
             $customers[] = [
                 'id'         => $i,
                 'user_id'    => $i,
