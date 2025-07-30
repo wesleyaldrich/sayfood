@@ -36,6 +36,7 @@ return new class extends Migration
             $table->string('organizer_email')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

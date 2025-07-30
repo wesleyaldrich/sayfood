@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Food extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'foods';
     protected $casts = [
-    'exp_datetime' => 'datetime'
+        'exp_datetime' => 'datetime'
     ];
 
     protected $fillable = [
