@@ -37,6 +37,7 @@ return [
     'table_header_image' => 'Gambar',
     'table_header_food_name' => 'Nama Makanan',
     'table_header_food_description' => 'Deskripsi Makanan',
+    'table_header_food_price' => 'Harga',
     'table_header_expiration_time' => 'Waktu Kedaluwarsa',
     'table_header_category' => 'Kategori',
     'table_header_stock' => 'Stok',

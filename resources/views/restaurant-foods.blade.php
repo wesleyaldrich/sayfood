@@ -46,6 +46,7 @@
             <th scope="col">{{ __('restaurant.table_header_image') }}</th>
             <th scope="col">{{ __('restaurant.table_header_food_name') }}</th>
             <th scope="col">{{ __('restaurant.table_header_food_description') }}</th>
+            <th scope="col">{{ __('restaurant.table_header_food_price') }}</th>
             <th scope="col">{{ __('restaurant.table_header_expiration_time') }}</th>
             <th scope="col">{{ __('restaurant.table_header_category') }}</th>
             <th scope="col">{{ __('restaurant.table_header_stock') }}</th>
@@ -69,6 +70,7 @@
             </td>
             <td>{{$food->name}}</td>
             <td>{{$food->description}}</td>
+            <td>{{ 'Rp' . $food->price . ',00'}}</td>
             <td>{{$food->exp_datetime}}</td>
             <td>{{$food->category->name}}</td>
             <td>{{$food->stock}}</td>
