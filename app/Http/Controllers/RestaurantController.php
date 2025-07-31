@@ -110,11 +110,6 @@ class RestaurantController extends Controller
     {
         $food = Food::findOrFail($id);
 
-        // Hapus foto dari storage jika ada
-        if ($food->image_url) {
-            Storage::disk('public')->delete($food->image_url);
-        }
-
         $food->delete();
 
         return redirect()->route('manage.food.restaurant')->with('status', 'Food item has been deleted successfully!');

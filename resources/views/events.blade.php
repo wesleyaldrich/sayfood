@@ -38,10 +38,9 @@
         </div>
 
         <div class="container my-4">
-            <div class="row g-4 align-items-start">
-
-                <div class="recommended-cb col-lg-8 col-12 h-100 d-flex flex-column">
-                    <div class="recommended p-3 d-flex flex-column h-100">
+            <div class="g-4 align-items-start">
+                <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+                    <div class="w-100 recommended p-3">
                         <h3>{{ __('events.recommended_for_you') }}</h3>
                         <div class="recommended-wrapper position-relative flex-grow-1">
                             <div class="recommended-list d-flex gap-3 h-100" id="recommendedList">
@@ -102,47 +101,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-12">
-                    <div class="coming-soon fw-bold">
-                        <h3>{{ __('events.coming_soon') }}</h3>
-                        <div class="coming-scroll overflow-auto p-2">
-                            @foreach ($coming_soon as $event)
-                                <div class="coming-item mb-3 d-flex align-items-center">
-                                    <div class="Container-csd rounded p-3 d-flex align-items-center">
-                                        <div class="Container-date-box text-white fw-bold text-center mx-0">
-                                            <div class="date p-3">
-                                                {{ $event['month'] }}<br />
-                                                <div class="date-cs" style="font-size: 25px;">
-                                                    {{ $event['day'] }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cs-description">
-                                            <div class="cs-title fw-bold mx-2 truncate-text1">{{ $event['title'] }}</div>
-                                            <div class="cs-by mx-2 fst-italic text-warning-emphasis">
-                                                {{ __('events.by') }} {{ $event['author'] }}
-                                            </div>
-                                            <div class="d-flex gap-2 mx-2 mt-2">
-                                                <div class="border-loc px-1 py-1 d-flex align-items-center mx-1">
-                                                    <i class="bi bi-geo-alt-fill p-1"></i>
-                                                    <span
-                                                        class="cs-loc fw-bold text-dark-green">{{ $event['location'] }}</span>
-                                                </div>
-                                                <div class="border-date px-1 py-1 d-flex align-items-center">
-                                                    <i class="bi bi-clock-fill p-1"></i>
-                                                    <span class="cs-date fw-bold text-dark-green">{{ $event['duration'] }}
-                                                        {{ __('events.hours') }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
+                </div>  
             </div>
         </div>
 
