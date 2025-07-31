@@ -1,7 +1,7 @@
 @props(['events'])
 
     @foreach ($events as $event)
-        <div class="event-card d-flex align-items-center">
+        <div class="event-card d-flex align-items-center" dusk="past-events-card">
             <div class="event-card-header">
                 <h3>{{ $event->title }}</h3>
                 <p>{{ __('activity.by') }} {{ $event->organizer }}</p>
@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <img src="{{ asset('assets/icon_calendar.svg') }}" alt="Date icon">
-                            <span>{{ $event->date }}</span>
+                            <span>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l, d F Y') }}</span>
                         </div>
                         <div>
                             <img src="{{ asset('assets/icon_clock.svg') }}" alt="Hours icon">

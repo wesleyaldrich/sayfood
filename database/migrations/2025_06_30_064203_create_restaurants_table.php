@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('distance')->nullable();
             $table->string('image_url_resto')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

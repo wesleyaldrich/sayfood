@@ -86,11 +86,11 @@
                     <a href="{{ route('show.manage.reports.detail.suspend', $report->id) }}" class="btn btn-suspend" onclick="
                         event.preventDefault();
                         document.getElementById('suspend-btn').submit();
-                    ">{{ __('admin.suspend_restaurant_button') }}</a>
+                    " dusk="suspend-btn">{{ __('admin.suspend_restaurant_button') }}</a>
                     <a href="{{ route('show.manage.reports.detail.safe', $report->id) }}" class="btn btn-safe" onclick="
                         event.preventDefault();
                         document.getElementById('safe-btn').submit();
-                    ">{{ __('admin.mark_as_safe_button') }}</a>
+                    " dusk="safe-btn">{{ __('admin.mark_as_safe_button') }}</a>
                 @endif
             </div>
         </div>

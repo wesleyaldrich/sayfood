@@ -140,10 +140,10 @@
                             <input type="hidden" name="rating" class="rating-input" value="0">
                             <div class="star-rating mb-3">
                                 @for ($i = 1; $i <= 5; $i++)
-                                    <i class="fa fa-star star-icon" data-rating="{{ $i }}"></i>
+                                    <i class="fa fa-star star-icon" data-rating="{{ $i }}" dusk="star-{{ $i }}"></i>
                                 @endfor
                             </div>
-                            <button type="submit" class="btn submit px-4 rounded-pill">{{ __('activity.submit') }}</button>
+                            <button type="submit" class="btn submit px-4 rounded-pill" dusk="submit-review-btn">{{ __('activity.submit') }}</button>
                         </form>
                     </div>
                 </div>

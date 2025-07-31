@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordResetRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -57,13 +58,9 @@ class PasswordResetController extends Controller
         return view('reset-password', compact('token', 'email'));
     }
 
-    public function resetPassword(Request $request)
+    public function resetPassword(PasswordResetRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|max:320|exists:users,email',
-            'token' => 'required|string|max:32',
-            'password' => 'required|string|confirmed|min:8',
-        ]);
+        $request->validated();
 
         $record = DB::table('password_reset_tokens')->where('email', $request->email)->first();
 

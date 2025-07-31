@@ -39,11 +39,11 @@
             <div class="row w-100 gap-4 mx-0">
                 <div class="d-flex flex-row" style="gap: 6px; height: 40px;">
                     <a href="{{ route('show.manage.reports', array_merge(request()->query(), ['status' => null])) }}"
-                    class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}">
+                    class="oswald filter-button {{ !(request()->query('status')) ? 'active' : '' }}" dusk="filter-pending">
                         {{ __('admin.filter_pending_button') }}
                     </a>
                     <a href="{{ route('show.manage.reports', array_merge(request()->query(), ['status' => 'Resolved'])) }}"
-                    class="oswald filter-button {{ request()->query('status') == 'Resolved' ? 'active' : '' }}">
+                    class="oswald filter-button {{ request()->query('status') == 'Resolved' ? 'active' : '' }}" dusk="filter-resolved">
                         {{ __('admin.filter_resolved_button') }}
                     </a>
                 </div>  
@@ -53,7 +53,7 @@
                         @if(request()->has('status'))
                             <input type="hidden" name="status" value="{{ request()->query('status') }}">
                         @endif
-                        <input class="form-control" name="query" type="search" value="{{ request('query') }}" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}">
+                        <input class="form-control" name="query" type="search" value="{{ request('query') }}" placeholder="{{ __('admin.search_placeholder') }}" aria-label="{{ __('admin.search_placeholder') }}" dusk="search-bar">
                         <button class="btn btn-warning" type="submit">
                             <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                         </button>
@@ -76,7 +76,7 @@
                 </thead>
                 <tbody>
                     @foreach ($reports as $i)
-                        <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.reports.detail', $i->id) }}'" style="cursor: pointer;">
+                        <tr class="table-row-entry" onclick="window.location='{{ route('show.manage.reports.detail', $i->id) }}'" style="cursor: pointer;" dusk="report-{{ $i->id }}">
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $i->customer->id }}</td>
                             <td>{{ $i->customer->user->username }}</td>

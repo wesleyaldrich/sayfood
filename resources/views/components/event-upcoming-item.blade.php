@@ -2,7 +2,7 @@
 
 <div class="event-cards-wrapper">
     @foreach($upcomingEvents as $index => $event)
-        <div class="event-card-upcoming" data-bs-toggle="modal" data-bs-target="#eventModal{{ $index }}">
+        <div class="event-card-upcoming" data-bs-toggle="modal" data-bs-target="#eventModal{{ $index }}" dusk="event-card.upcoming">
             <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}" class="event-background-image">
             <div class="overlay-area d-flex flex-row">
                 <div class="circle d-flex flex-column">
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="info-box">
                                     <img src="{{ asset('assets/icon_calendar.svg') }}" class="event-info-icon" alt="Date">
-                                    <span>{{ $event->date }}</span>
+                                    <span>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l, d F Y') }}</span>
                                 </div>
                                 <div class="info-box">
                                     <img src="{{ asset('assets/icon_person.svg') }}" class="event-info-icon"

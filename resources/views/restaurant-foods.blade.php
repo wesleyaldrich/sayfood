@@ -35,7 +35,7 @@
     <div class="upload-csv d-flex">
         <p class="csv-instruction">{{ __('restaurant.upload_csv_instruction_1') }}</p>
         <img class="arrow" src="assets/arrow.svg" alt="">
-        <button class="csv-btn btn m-0" data-bs-target="#uploadCsv" data-bs-toggle="modal">{{ __('restaurant.upload_csv_import_button') }}</button>
+        <button class="csv-btn btn m-0" data-bs-target="#uploadCsv" data-bs-toggle="modal" dusk="import-button">{{ __('restaurant.upload_csv_import_button') }}</button>
     </div>
 </div>
 <div class="table-responsive-wrapper">
@@ -52,11 +52,11 @@
             <th scope="col">{{ __('restaurant.table_header_stock') }}</th>
             <th scope="col">{{ __('restaurant.table_header_status') }}</th>
             <th scope="col">
-                <button type="button" class="add-btn btn-success w-75" data-bs-toggle="modal" data-bs-target="#addFoodModal">{{ __('restaurant.add_food_button') }}</button>
+                <button type="button" class="add-btn btn-success w-75" data-bs-toggle="modal" data-bs-target="#addFoodModal" dusk="open-add-food-modal">{{ __('restaurant.add_food_button') }}</button>
             </th>
         </tr>
     </thead>
-    <tbody class="tbody">
+    <tbody class="tbody" dusk="food-list">
         @foreach ($foods as $food)
             <tr data-category="{{$food->category->name}}" data-food='@json($food)'> {{-- Menyimpan data food sebagai JSON --}}
             <th scope="row">{{$loop->iteration}}</th>
@@ -77,8 +77,8 @@
             <td>{{$food->status}}</td>
             <td>
                 <div class="manage-button d-flex">
-                    <button type="button" class="edit-btn btn-warning mx-1" data-bs-toggle="modal" data-bs-target="#editFoodModal">{{ __('restaurant.edit_button') }}</button>
-                    <button type="button" class="delete-btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#deleteFoodModal" data-food-id="{{ $food->id }}" data-food-name="{{ $food->name }}">{{ __('restaurant.delete_button') }}</button>
+                    <button type="button" class="edit-btn btn-warning mx-1" data-bs-toggle="modal" data-bs-target="#editFoodModal" dusk="edit-food-button-{{ $food->id }}">{{ __('restaurant.edit_button') }}</button>
+                    <button type="button" class="delete-btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#deleteFoodModal" data-food-id="{{ $food->id }}" data-food-name="{{ $food->name }}" dusk="delete-food-button-{{ $food->id }}">{{ __('restaurant.delete_button') }}</button>
                 </div>
             </td>
             </tr>
@@ -132,7 +132,7 @@
 
             <x-slot name="footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('restaurant.close_button') }}</button>
-                <button type="submit" class="btn btn-primary">{{ __('restaurant.submit_button') }}</button>
+                <button type="submit" class="btn btn-primary" dusk="submit-create-food">{{ __('restaurant.submit_button') }}</button>
             </x-slot>
         </x-popup-modal>
 </form>
@@ -184,7 +184,7 @@
 
         <x-slot name="footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('restaurant.close_button') }}</button>
-            <button type="submit" class="btn btn-primary">{{ __('restaurant.save_changes_button') }}</button>
+            <button type="submit" class="btn btn-primary" dusk="submit-edit-food">{{ __('restaurant.save_changes_button') }}</button>
         </x-slot>
     </x-popup-modal>
 </form>
@@ -197,7 +197,7 @@
         <p class="text-danger">{{ __('restaurant.delete_undo_warning') }}</p>
         <x-slot name="footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('restaurant.cancel_button') }}</button>
-            <button type="submit" class="btn btn-danger">{{ __('restaurant.yes_delete_button') }}</button>
+            <button type="submit" class="btn btn-danger" dusk="submit-delete-food">{{ __('restaurant.yes_delete_button') }}</button>
         </x-slot>
     </x-popup-modal>
 </form>
@@ -229,7 +229,7 @@
 
         <x-slot name="footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('restaurant.close_button') }}</button>
-            <button type="submit" class="btn btn-primary">{{ __('restaurant.upload_and_proceed_button') }}</button>
+            <button type="submit" class="btn btn-primary" dusk="submit-upload">{{ __('restaurant.upload_and_proceed_button') }}</button>
         </x-slot>
     </x-popup-modal>
 </form>

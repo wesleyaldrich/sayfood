@@ -14,14 +14,14 @@
                 <form class="d-flex me-3" role="search">
                     <input type="hidden" name="status" value="{{ request('status', 'All') }}">
                     <input class="form-control" type="search" placeholder="{{ __('admin.search_event_placeholder') }}"
-                        name="search" value="{{ request('search') }}" aria-label="Search" />
+                        name="search" value="{{ request('search') }}" aria-label="Search" dusk="search-bar"/>
                     <button class="btn btn-warning" type="submit">
                         <img class="p-0" src="{{asset('assets/icon_search.png')}}" width="20">
                     </button>
                 </form>
                 <div class="create-btn">
                     <a href="#" class="btn btn-success text-light" style="font-weight: bold; background-color: darkgreen;"
-                        data-bs-target="#createEventModal" data-bs-toggle="modal">{{ __('admin.create_button') }}</a>
+                        data-bs-target="#createEventModal" data-bs-toggle="modal" dusk="open-create-event-modal">{{ __('admin.create_button') }}</a>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 @foreach ($statuses as $status)
                     <li class="nav-item m-1">
                         <a class="nav-link {{ request('status') == $status ? 'active' : '' }}"
-                            href="{{ route('show.manage.events', ['status' => $status]) }}">
+                            href="{{ route('show.manage.events', ['status' => $status]) }}" dusk="filter-{{ Str::slug($status, '-') }}">
                             @if ($status === 'Pending')
                                 {{ __('admin.pending') }}
                             @elseif ($status === 'Coming Soon')
@@ -71,9 +71,9 @@
                         <th scope="col">{{ __('admin.status_label') }}</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody dusk="event-table">
                     @forelse ($events as $event)
-                        <tr onclick="window.location='{{ route('show.manage.events.detail', $event->id) }}';">
+                        <tr onclick="window.location='{{ route('show.manage.events.detail', $event->id) }}';" dusk="event-{{ $event->id }}">
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $event->id }}</td>
                             <td>{{ $event->name }}</td>

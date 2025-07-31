@@ -19,7 +19,7 @@
 
             @for ($i = 1; $i <= 5; $i++)
                 <a href="{{ route('restaurant-activity', ['rating' => $i]) }}"
-                class="btn {{ $selectedRating == $i ? 'btn-active' : 'btn-tab' }}">
+                class="btn {{ $selectedRating == $i ? 'btn-active' : 'btn-tab' }}" dusk="filter-rating-{{ $i }}">
                     <i class="fas fa-star text-warning"></i> {{ $i }}
                 </a>
             @endfor
@@ -29,6 +29,8 @@
             <thead class="custom-thead">
                 <tr>
                     <th>{{ __('restaurant.table_header_no') }}</th>
+                    <th>{{ __('restaurant.table_header_id') }}</th>
+                    <th>{{ __('restaurant.table_header_order_date') }}</th>
                     <th>{{ __('restaurant.table_header_customer_name') }}</th>
                     <th>{{ __('restaurant.table_header_rating') }}</th>
                 </tr>
@@ -40,13 +42,15 @@
                     @if ($order->rating !== null && (request('rating') === null || $order->rating == request('rating')))
                         <tr>
                             <td>{{ $no++ }}</td>
+                            <td>{{ $order->id }}</td>
+                            <td>{{ $order->created_at->format('d/m/y') }}</td>
                             <td>{{ optional($order->customer)->user->username ?? __('restaurant.unknown_customer') }}</td>
                             <td>
                                 @for ($i = 1; $i <= 5; $i++)
                                     @if ($i <= $order->rating)
-                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning" dusk="star-{{ $i }}"></i>
                                     @else
-                                        <i class="far fa-star text-muted"></i>
+                                        <i class="far fa-star text-muted" dusk="nostar-{{ $i }}"></i>
                                     @endif
                                 @endfor
                             </td>

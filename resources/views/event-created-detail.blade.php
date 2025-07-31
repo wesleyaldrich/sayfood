@@ -130,18 +130,17 @@
                                                 $statusClass = 'bg-info';
                                             if ($event->status == 'Completed')
                                                 $statusClass = 'bg-success';
-                                            if ($event->status == 'Rejected')
+                                            if ($event->status == 'Canceled')
                                                 $statusClass = 'bg-danger';
                                         @endphp
                                         {{-- Using the dynamic key for status, e.g., activity.status_Pending --}}
-                                        <span class="badge {{ $statusClass }}">{{ __('activity.status_' . str_replace(' ', '', $event->status)) }}</span>
+                                        <span class="badge {{ $statusClass }}">{{ $event->status }}</span>
                                     </div>
                                 </div>
                                 <div class="detail-item">
                                     <i class="fas fa-user-edit"></i>
                                     <div><strong>{{ __('activity.creator_label') }}</strong><br>
-                                        {{ $event->creator->user->username ?? __('activity.unknown_creator') }} (ID:
-                                        {{ $event->creator_id }})
+                                        {{ $event->creator->user->username ?? __('activity.unknown_creator') }}
                                     </div>
                                 </div>
                                 <div class="detail-item">
@@ -153,7 +152,7 @@
                                 <div class="detail-item">
                                     <i class="fas fa-calendar-alt"></i>
                                     <div>
-                                        <strong>{{ __('activity.date_label') }}</strong><br>{{ $event->date}} | {{ $event->start_time}} - {{ $event->end_time}}
+                                        <strong>{{ __('activity.date_label') }}</strong><br>{{ \Carbon\Carbon::parse($event->date)->translatedFormat('l, d F Y') }} | {{ $event->start_time}} - {{ $event->end_time}}
                                     </div>
                                 </div>
                                 <div class="detail-item">

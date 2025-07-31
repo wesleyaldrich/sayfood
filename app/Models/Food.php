@@ -3,12 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Food extends Model
 {
+    use SoftDeletes, LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->useLogName('food')
+        ->logOnlyDirty();
+    }
+
     protected $table = 'foods';
     protected $casts = [
-    'exp_datetime' => 'datetime'
+        'exp_datetime' => 'datetime'
     ];
 
     protected $fillable = [
