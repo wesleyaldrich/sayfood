@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "illuminate/cache": "*",
         "laravel/framework": "^11.31",
         "laravel/socialite": "^5.21",
         "laravel/tinker": "^2.9",

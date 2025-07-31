@@ -53,6 +53,12 @@ class CustomerEventStoreRequest extends FormRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'image_url' => 'image',
+        ];
+    }
     /**
      * Tambahan validasi kustom setelah rules() diproses.
      */

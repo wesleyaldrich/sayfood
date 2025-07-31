@@ -76,6 +76,7 @@ return [
     'reject_button' => 'Reject',
     'approve_button' => 'Approve',
     'status_label' => 'Status',
+    
     // Dynamic status keys (important to match database values exactly, no spaces in the key name)
     'status_Pending' => 'Pending',
     'status_ComingSoon' => 'Coming Soon', // Changed to remove space for consistency with str_replace
