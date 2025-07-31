@@ -119,6 +119,15 @@
                     </form>
                 </div>
             @endif
+
+            @if ($event->status == 'Coming Soon')
+                <div class="action-buttons">
+                    <form action="{{ route('completed.event', $event->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success" dusk="btn-approve"><i class="fas fa-check-circle me-1"></i> {{ __('activity.status_Completed') }}</button>
+                    </form>
+                </div>
+            @endif
         </div>
 
         <div class="row">
