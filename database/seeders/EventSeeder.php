@@ -218,7 +218,7 @@ class EventSeeder extends Seeder
                 'image_url' => 'event_images/ev10.jpg',
                 'date' => Carbon::now()->addDays(10)->toDateString(),   // 10 hari lagi
                 'location' => 'Oakwood Hotel & Apartments Grand Batam',
-                'status' => 'Canceled',
+                'status' => 'Coming Soon',
                 'estimated_participants' => 300,
                 'supporting_files' => json_encode(['takjil_campaign.jpg']),
                 'duration' => 1,
@@ -239,7 +239,7 @@ class EventSeeder extends Seeder
                 'description' => 'Kampanye untuk menyelamatkan makanan berlebih dan membagikannya ke panti sosial.',
                 'date' => Carbon::now()->addWeeks(2)->toDateString(),   // 2 minggu lagi
                 'location' => 'Lapangan Banteng, Jakarta',
-                'status' => 'Canceled',
+                'status' => 'Coming Soon',
                 'estimated_participants' => 120,
                 'supporting_files' => json_encode(['rescue_flyer.pdf']),
                 'duration' => 2,
