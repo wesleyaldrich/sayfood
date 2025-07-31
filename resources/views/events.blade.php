@@ -18,7 +18,8 @@
 
         <div class="event-categories row mx-0 gap-5 w-auto">
             <div class="col-3 p-3 mx-5 gap-3">
-                <h1 class="event-categories" style="font-size: 35px; font-weight: bold;">{{ __('events.event_categories') }}</h1>
+                <h1 class="event-categories" style="font-size: 35px; font-weight: bold;">{{ __('events.event_categories') }}
+                </h1>
             </div>
             <div class="category-list p-0 d-flex flex-wrap gap-3">
                 <div class="category-card" style="width: 250px;">
@@ -37,10 +38,9 @@
         </div>
 
         <div class="container my-4">
-            <div class="row g-4 align-items-start">
-
-                <div class="recommended-cb col-lg-8 col-12 h-100 d-flex flex-column">
-                    <div class="recommended p-3 d-flex flex-column h-100">
+            <div class="g-4 align-items-start">
+                <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+                    <div class="w-100 recommended p-3">
                         <h3>{{ __('events.recommended_for_you') }}</h3>
                         <div class="recommended-wrapper position-relative flex-grow-1">
                             <div class="recommended-list d-flex gap-3 h-100" id="recommendedList">
@@ -80,7 +80,8 @@
                                                 <div>
                                                     <p class="title fw-bold mb-0 truncate-text" style="font-size: 20px;">
                                                         {{ $event['title'] }}</p>
-                                                    <p class="host fst-italic mb-0 text-warning">{{ __('events.by') }} {{ $event['host'] }}
+                                                    <p class="host fst-italic mb-0 text-warning">{{ __('events.by') }}
+                                                        {{ $event['host'] }}
                                                     </p>
                                                 </div>
                                                 <div class="text-end me-5">
@@ -100,47 +101,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-12">
-                    <div class="coming-soon fw-bold">
-                        <h3>{{ __('events.coming_soon') }}</h3>
-                        <div class="coming-scroll overflow-auto p-2">
-                            @foreach ($coming_soon as $event)
-                                <div class="coming-item mb-3 d-flex align-items-center">
-                                    <div class="Container-csd rounded p-3 d-flex align-items-center">
-                                        <div class="Container-date-box text-white fw-bold text-center mx-0">
-                                            <div class="date p-3">
-                                                {{ $event['month'] }}<br />
-                                                <div class="date-cs" style="font-size: 25px;">
-                                                    {{ $event['day'] }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cs-description">
-                                            <div class="cs-title fw-bold mx-2 truncate-text1">{{ $event['title'] }}</div>
-                                            <div class="cs-by mx-2 fst-italic text-warning-emphasis">
-                                                {{ __('events.by') }} {{ $event['author'] }}
-                                            </div>
-                                            <div class="d-flex gap-2 mx-2 mt-2">
-                                                <div class="border-loc px-1 py-1 d-flex align-items-center mx-1">
-                                                    <i class="bi bi-geo-alt-fill p-1"></i>
-                                                    <span
-                                                        class="cs-loc fw-bold text-dark-green">{{ $event['location'] }}</span>
-                                                </div>
-                                                <div class="border-date px-1 py-1 d-flex align-items-center">
-                                                    <i class="bi bi-clock-fill p-1"></i>
-                                                    <span class="cs-date fw-bold text-dark-green">{{ $event['duration'] }}
-                                                        {{ __('events.hours') }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
+                </div>  
             </div>
         </div>
 
@@ -177,12 +138,14 @@
                             <div class="border-loc px-2 py-1 d-flex align-items-center rounded"
                                 style="border: 2px solid #cd8200;">
                                 <i class="bi bi-people-fill me-2 text-dark-green"></i>
-                                <span class="fw-bold text-dark-green">{{ $slide['people'] }} {{ __('events.participants') }}</span>
+                                <span class="fw-bold text-dark-green">{{ $slide['people'] }}
+                                    {{ __('events.participants') }}</span>
                             </div>
                             <div class="border-loc px-2 py-1 d-flex align-items-center rounded"
                                 style="border: 2px solid #cd8200;">
                                 <i class="bi bi-clock-fill me-2 text-dark-green"></i>
-                                <span class="fw-bold text-dark-green">{{ $slide['duration'] }} {{ __('events.hours') }}</span>
+                                <span class="fw-bold text-dark-green">{{ $slide['duration'] }}
+                                    {{ __('events.hours') }}</span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
@@ -197,6 +160,8 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class="mt-4 flex justify-center">
             {{ $slides->links() }}
         </div>
     </div>

@@ -103,6 +103,18 @@
             <a href="{{ route('activity', ['tab' => 'eventactivity']) }}" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left me-1"></i> {{ __('activity.back') }}
             </a>
+            <div class="header-section">
+                <h1 class="event-title">{{ $event->name }}</h1>
+
+                @if ($event->status == 'Coming Soon')
+                    <div class="action-buttons">
+                        <form action="{{ route('completed.event', $event->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-success" dusk="btn-approve"><i class="fas fa-check-circle me-1"></i> {{ __('activity.status_Completed') }}</button>
+                        </form>
+                    </div>
+                @endif
+            </div>
         </div>
 
         <div class="row">

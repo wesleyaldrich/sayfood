@@ -32,7 +32,10 @@ class HomeDishesController extends Controller
                 }
                 return $restaurant;
             });
-        $events = Event::with(['creator.user', 'customers'])->get();
+        $events = Event::with(['creator.user', 'customers'])
+            ->whereNotIn('status', ['Canceled', 'Pending', 'Completed'])
+            ->get();
+
 
         // Ambil 3 kategori utama
         $newestEvent = $events->sortByDesc('date')->first();
