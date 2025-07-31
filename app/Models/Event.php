@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +23,7 @@ class Event extends Model
     
     public function customers()
     {
-        return $this->belongsToMany(Customer::class, 'customer_event','event_id','customer_id');
+        return $this->belongsToMany(Customer::class, 'customer_event', 'event_id', 'customer_id');
     }
 
     protected $fillable = [
@@ -57,7 +58,9 @@ class Event extends Model
         return $this->belongsTo(EventCategory::class, 'event_category_id');
     }
 
-    public function participants(){
-        return $this->belongsToMany(Customer::class,'customer_event','event_id','customer_id')->withPivot('phone_number');
-    }
+    public function participants()
+    {
+        return $this->belongsToMany(Customer::class, 'customer_event', 'event_id', 'customer_id')->withPivot('phone_number');
+    }  
+
 }

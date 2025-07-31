@@ -12,15 +12,12 @@ use Illuminate\Support\Facades\DB;
 
 class EventCustController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        
         $slides = Event::with(['creator.user', 'customers'])
+            ->where('status', 'Coming Soon')
             ->latest()
-            ->paginate(4) // Ambil 10 per halaman
+            ->paginate(4)
             ->through(function ($event) {
                 $formattedDate = Carbon::parse($event->date)
                     ->locale('id')
@@ -40,41 +37,10 @@ class EventCustController extends Controller
                     'duration' => $event->hour,
                 ];
             });
-
-        $coming_soon = Event::with(['creator.user', 'customers'])
-            ->where('status', 'Coming Soon')
-            ->latest()
-            ->take(5)
-            ->get()
-            ->map(function ($event) {
-                $date = Carbon::parse($event->date)->locale('id');
-                $author = $event->creator?->user?->username ?? 'Unknown';
-                $location = $event->location ?? '';
-                $shortLocation = $location;
-                if (strpos($location, ',') !== false) {
-                    $pos = strrpos($location, ','); // cari koma terakhir
-                    $shortLocation = trim(substr($location, $pos + 1)); // ambil setelah koma terakhir
-                }
-
-
-                return [
-                    'id' => $event->id,
-                    'title' => $event->name,
-                    'author' => $author,
-                    'location' => $shortLocation,
-                    'image' => $event->image_url,
-                    'people' => $event->customers->count(),
-                    'formatted_date' => $date->translatedFormat('l, j F Y'),
-                    'month' => $date->translatedFormat('F'),
-                    'day' => $date->translatedFormat('j'),
-                    'description' => $event->description,
-                    'duration' => $event->hour,
-                ];
-            });
-
-        // Bagian Recommended (misalnya event populer, bisa filter pakai kondisi lain)
+        
         $events = Event::with(['creator.user', 'customers'])
-            ->latest()
+            ->where('status', 'Coming Soon')
+            ->inRandomOrder()
             ->take(3) // ambil 
             ->get()
             ->map(function ($event) {
@@ -100,7 +66,7 @@ class EventCustController extends Controller
                 ];
             });
 
-        return view('events', compact('slides', 'coming_soon', 'events'));
+        return view('events', compact('slides', 'events'));
     }
 
 

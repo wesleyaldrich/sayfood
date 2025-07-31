@@ -443,6 +443,7 @@ body {
 
 .recommended {
   background-color: white;
+  max-width: 100%;
   border-radius: 15px;
   padding: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -643,9 +644,7 @@ button {
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 900px;
-  transform: translateX(-7%);
+  max-width: 100%;
   box-sizing: border-box;
 }
 
@@ -995,7 +994,7 @@ button {
 
 .truncate-text {
     display: block;          /* Pastikan ini dianggap block */
-    max-width: 100px;        /* Atur lebar sesuai kebutuhan */
+    max-width: 200px;        /* Atur lebar sesuai kebutuhan */
     white-space: nowrap;     /* Jangan pindah baris */
     overflow: hidden;        /* Sembunyikan teks berlebih */
     text-overflow: ellipsis; /* Tambahkan ... di akhir */
