@@ -12,15 +12,12 @@ use Illuminate\Support\Facades\DB;
 
 class EventCustController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        
         $slides = Event::with(['creator.user', 'customers'])
+            ->whereNotIn('status', ['Canceled', 'Pending', 'Completed']) // Filter status
             ->latest()
-            ->paginate(4) // Ambil 10 per halaman
+            ->paginate(4)
             ->through(function ($event) {
                 $formattedDate = Carbon::parse($event->date)
                     ->locale('id')
@@ -72,7 +69,7 @@ class EventCustController extends Controller
                 ];
             });
 
-        // Bagian Recommended (misalnya event populer, bisa filter pakai kondisi lain)
+        
         $events = Event::with(['creator.user', 'customers'])
             ->latest()
             ->take(3) // ambil 

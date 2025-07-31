@@ -18,7 +18,8 @@
 
         <div class="event-categories row mx-0 gap-5 w-auto">
             <div class="col-3 p-3 mx-5 gap-3">
-                <h1 class="event-categories" style="font-size: 35px; font-weight: bold;">{{ __('events.event_categories') }}</h1>
+                <h1 class="event-categories" style="font-size: 35px; font-weight: bold;">{{ __('events.event_categories') }}
+                </h1>
             </div>
             <div class="category-list p-0 d-flex flex-wrap gap-3">
                 <div class="category-card" style="width: 250px;">
@@ -80,7 +81,8 @@
                                                 <div>
                                                     <p class="title fw-bold mb-0 truncate-text" style="font-size: 20px;">
                                                         {{ $event['title'] }}</p>
-                                                    <p class="host fst-italic mb-0 text-warning">{{ __('events.by') }} {{ $event['host'] }}
+                                                    <p class="host fst-italic mb-0 text-warning">{{ __('events.by') }}
+                                                        {{ $event['host'] }}
                                                     </p>
                                                 </div>
                                                 <div class="text-end me-5">
@@ -177,12 +179,14 @@
                             <div class="border-loc px-2 py-1 d-flex align-items-center rounded"
                                 style="border: 2px solid #cd8200;">
                                 <i class="bi bi-people-fill me-2 text-dark-green"></i>
-                                <span class="fw-bold text-dark-green">{{ $slide['people'] }} {{ __('events.participants') }}</span>
+                                <span class="fw-bold text-dark-green">{{ $slide['people'] }}
+                                    {{ __('events.participants') }}</span>
                             </div>
                             <div class="border-loc px-2 py-1 d-flex align-items-center rounded"
                                 style="border: 2px solid #cd8200;">
                                 <i class="bi bi-clock-fill me-2 text-dark-green"></i>
-                                <span class="fw-bold text-dark-green">{{ $slide['duration'] }} {{ __('events.hours') }}</span>
+                                <span class="fw-bold text-dark-green">{{ $slide['duration'] }}
+                                    {{ __('events.hours') }}</span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
@@ -197,6 +201,8 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class="mt-4 flex justify-center">
             {{ $slides->links() }}
         </div>
     </div>
