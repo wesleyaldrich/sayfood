@@ -37,6 +37,7 @@ return [
     'table_header_image' => 'Image',
     'table_header_food_name' => 'Food Name',
     'table_header_food_description' => 'Food Description',
+    'table_header_food_price'=>'Price',
     'table_header_expiration_time' => 'Expiration Time',
     'table_header_category' => 'Category',
     'table_header_stock' => 'Stock',

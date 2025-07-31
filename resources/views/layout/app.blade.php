@@ -24,13 +24,11 @@
     @endif
 
     <div class="sayfood-content-container">
-        @if ($errors->any())
+        @if ($errors->has('error'))
         <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+            <div class="alert alert-danger">
+                {{ $errors->first('error') }}
+            </div>
         </div>
         @endif
 
