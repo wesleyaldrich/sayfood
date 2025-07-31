@@ -10,6 +10,7 @@ use App\Models\Restaurant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -24,7 +25,7 @@ class RestaurantController extends Controller
         $snacks      = Food::where('restaurant_id', $id)->where('category_id', 4)->get();
         return view('restaurantmenu-customer', compact('restaurant', 'mainCourses', 'desserts', 'snacks', 'drinks'));
     }
-    
+
     public function manageFood()
     {
         $restaurantId = Auth::user()->restaurant->id;
@@ -37,80 +38,91 @@ class RestaurantController extends Controller
 
     public function store(RestaurantStoreUpdateRequest $request)
     {
-        $validatedData = $request->validated();
+        try {
+            $validatedData = $request->validated();
+            $restaurantId = Auth::user()->restaurant->id;
 
-        $restaurantId = Auth::user()->restaurant->id;
+            $expDatetime = Carbon::parse($validatedData['exp_date'] . ' ' . $validatedData['exp_time']);
+            $status = $request->has('status') ? 'Available' : 'Out of Stock';
 
-        $expDatetime = Carbon::parse($validatedData['exp_date'] . '' . $validatedData['exp_time']);
+            $photoPath = null;
+            if ($request->hasFile('image_url')) {
+                $restaurantName = Auth::user()->restaurant->name;
+                $folderName = Str::slug($restaurantName, '_');
+                $path = 'food_images/' . $folderName;
+                $photoPath = $request->file('image_url')->store($path, 'public');
+            }
 
-        $status = $request->has('status') ? 'Available' : 'Out of Stock';
+            Food::create([
+                'restaurant_id' => $restaurantId,
+                'name' => $validatedData['name'],
+                'category_id' => $validatedData['category_id'],
+                'description' => $validatedData['description'],
+                'price' => $validatedData['price'],
+                'exp_datetime' => $expDatetime,
+                'image_url' => $photoPath,
+                'stock' => $validatedData['stock'],
+                'status' => $status,
+            ]);
 
-        $photoPath = null;
-        if ($request->hasFile('image_url')) {
-            $restaurantName = Auth::user()->restaurant->name;
-            $folderName = Str::slug($restaurantName, '_');
-            $path = 'food_images/' . $folderName;
+            return redirect()->back()->with('status', 'Food item has been added successfully!');
+        } catch (\Exception $e) {
+            Log::error('Food creation failed: ' . $e->getMessage());
 
-            $photoPath = $request->file('image_url')->store($path, 'public');
+            return redirect()->back()
+                ->withErrors(['error' => 'An error occurred while adding the food item. Please try again.'])
+                ->withInput()
+                ->with('show_modal', 'addFoodModal'); 
         }
-
-        Food::create([
-            'restaurant_id' => $restaurantId,
-            'name' => $validatedData['name'],
-            'category_id' => $validatedData['category_id'],
-            'description' => $validatedData['description'],
-            'exp_datetime' => $expDatetime,
-            'image_url' => $photoPath,
-            'stock' => $validatedData['stock'],
-            'status' => $status,
-        ]);
-
-        return redirect()->back()->with('status', 'Food item has been added successfully!');
     }
 
     public function update(RestaurantStoreUpdateRequest $request, $id)
     {
-        // dd($request->all());
-        $food = Food::findOrFail($id);
+        try {
+            $food = Food::findOrFail($id);
+            $validatedData = $request->validated();
 
-        $validatedData = $request->validated();
+            $expDatetime = Carbon::parse($validatedData['exp_date'] . ' ' . $validatedData['exp_time']);
+            $status = $request->has('status') ? 'Available' : 'Out of Stock';
 
-        $expDatetime = Carbon::parse($validatedData['exp_date'] . '' . $validatedData['exp_time']);
+            $photoPath = $food->image_url;
+            if ($request->hasFile('image_url')) {
+                if ($food->image_url) {
+                    Storage::disk('public')->delete($food->image_url);
+                }
 
-        $status = $request->has('status') ? 'Available' : 'Out of Stock';
-
-        $photoPath = $food->image_url;
-        if ($request->hasFile('image_url')) {
-            if ($food->image_url) {
-                Storage::disk('public')->delete($food->image_url);
+                $restaurantName = $food->restaurant->name;
+                $folderName = Str::slug($restaurantName, '_');
+                $path = 'food_images/' . $folderName;
+                $photoPath = $request->file('image_url')->store($path, 'public');
             }
 
-            $restaurantName = $food->restaurant->name;
-            $folderName = Str::slug($restaurantName, '_');
-            $path = 'food_images/' . $folderName;
+            $food->update([
+                'name' => $validatedData['name'],
+                'category_id' => $validatedData['category_id'],
+                'description' => $validatedData['description'],
+                'price' => $validatedData['price'],
+                'exp_datetime' => $expDatetime,
+                'image_url' => $photoPath,
+                'stock' => $validatedData['stock'],
+                'status' => $status,
+            ]);
 
-            $photoPath = $request->file('image_url')->store($path, 'public');
+            return redirect()->back()->with('status', 'Food item has been updated successfully!');
+        } catch (\Exception $e) {
+            Log::error('Food update failed for food ID ' . $id . ': ' . $e->getMessage());
+
+            return redirect()->back()
+                ->withErrors(['error' => 'An error occurred while updating the food item. Please try again.'])
+                ->withInput()
+                ->with('show_modal', 'editFoodModal');
         }
-
-        $food->update([
-            'name' => $validatedData['name'],
-            'category_id' => $validatedData['category_id'],
-            'description' => $validatedData['description'],
-            'exp_datetime' => $expDatetime,
-            'image_url' => $photoPath,
-            'stock' => $validatedData['stock'],
-            'status' => $status,
-        ]);
-
-
-        return redirect()->back()->with('status', 'Food item has been updated successfully!');
     }
 
     public function destroy($id)
     {
         $food = Food::findOrFail($id);
 
-        // Hapus foto dari storage jika ada
         if ($food->image_url) {
             Storage::disk('public')->delete($food->image_url);
         }
