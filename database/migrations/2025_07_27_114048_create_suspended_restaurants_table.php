@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('image_url_resto')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reports', function (Blueprint $table) {
-        $table->id();
+            $table->id();
             $table->foreignId('customer_id')->nullable()->constrained('customers', 'id')->nullOnDelete()->cascadeOnUpdate();
             $table->foreignId('restaurant_id')->nullable()->constrained('restaurants', 'id')->nullOnDelete()->cascadeOnUpdate();
             $table->foreignId('suspended_restaurant_id')->nullable()->constrained('suspended_restaurants', 'id')->cascadeOnDelete()->cascadeOnUpdate();
             $table->text('description');
             $table->enum('status', ['Pending', 'Resolved'])->default('Pending');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

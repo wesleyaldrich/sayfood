@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('two_factor_code')->nullable();
             
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->integer('two_factor_code')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
