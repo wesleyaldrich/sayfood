@@ -120,7 +120,7 @@
                 </div>
             @endif
 
-            @if ($event->status == 'Coming Soon')
+            @if ($event->status == 'Coming Soon' && Auth::id() == $event->creator_id)
                 <div class="action-buttons">
                     <form action="{{ route('completed.event', $event->id) }}" method="POST">
                         @csrf
