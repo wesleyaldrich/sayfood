@@ -183,6 +183,14 @@ class EventController extends Controller
         return redirect()->back()->with('danger', 'Event "' . $event->name . '" has been rejected.');
     }
 
+    public function completed(Event $event)
+    {
+        $event->status = 'Completed';
+        $event->save();
+
+        return redirect()->back()->with('success', 'Event "' . $event->name . '" has been done.');
+    }
+
     public function showCreatedEvent(Request $request, $id) // Tambahkan Request $request
     {
         $event = Event::with(['creator.user', 'participants.user', 'category'])->findOrFail($id);
