@@ -200,7 +200,9 @@ class TransactionController extends Controller
                     'participant_details' => $event->participants->map(function ($participant) {
                         return [
                             'username' => $participant->user->username ?? 'Unknown',
-                            'profile_image' => $participant->user->profile_image,
+                            'profile_image' => $participant->user->profile_image
+                                ? $participant->user->profile_image
+                                : asset('assets/example/sayfood_profile.png'),
                         ];
                     })->toArray(),
                     'image' => $event->image_url,
