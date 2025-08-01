@@ -96,4 +96,7 @@ return [
     'total_participants_label' => 'Total Participants',
     'phone_number_label' => 'Phone Number',
     'no_participants_yet' => 'No participants yet.',
+
+    'start_time_label' => 'Start Time',
+    'end_time_label' => 'End Time',
 ];

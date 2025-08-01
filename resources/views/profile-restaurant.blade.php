@@ -111,7 +111,7 @@
                         {{ __('foods.cancel') }}
                     </button>
                     <button type="button" class="btn btn-confirm"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();" dusk="btn-logout">
                         {{ __('profile.logout_button') }}
                     </button>
                 </div>
@@ -141,7 +141,7 @@
                         onclick="
                             event.preventDefault();
                             document.getElementById('delete-account-form').submit()"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();" dusk="btn-delete-account">
                         {{ __('profile.delete_account_button') }}
                     </button>
                 </div>

@@ -24,10 +24,10 @@ class EV300_ManageEventTest extends DuskTestCase
                 ->assertSeeIn('@event-table', 'Completed')
 
                 // Search by keyword
-                ->type('@search-bar', 'ramadan')
+                ->type('@search-bar', 'festival')
                 ->keys('@search-bar', '{enter}')
-                ->waitForText('Ascott Takes Part Ramadan 2025')
-                ->assertSee('Ascott Takes Part Ramadan 2025');
+                ->waitForText('Wonderfood Festival 2025')
+                ->assertSee('Wonderfood Festival 2025');
         });
     }
 
@@ -42,8 +42,8 @@ class EV300_ManageEventTest extends DuskTestCase
 
                 ->waitFor('@filter-pending')
                 ->click('@filter-pending')
-                ->waitFor('@event-2')
-                ->click('@event-2')
+                ->waitFor('@event-8')
+                ->click('@event-8')
                 ->waitFor('@btn-approve')
                 ->click('@btn-approve')
                 ->waitForText('Customer Name')
@@ -52,8 +52,8 @@ class EV300_ManageEventTest extends DuskTestCase
                 
                 ->click('@btn-back')
                 ->click('@filter-pending')
-                ->waitFor('@event-8')
-                ->click('@event-8')
+                ->waitFor('@event-9')
+                ->click('@event-9')
                 ->waitFor('@btn-reject')
                 ->click('@btn-reject')
                 ->waitForText('Canceled')
