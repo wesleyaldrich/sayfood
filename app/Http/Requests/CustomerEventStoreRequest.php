@@ -39,7 +39,7 @@ class CustomerEventStoreRequest extends FormRequest
             'estimated_participants' => ['required', 'integer', 'min:1'],
             'organizer_name' => ['required', 'string'],
             'organizer_email' => ['required', 'email'],
-            'organizer_phone' => ['required'],
+            'organizer_phone' => ['required', 'numeric'],
             'group_link' => ['required', 'url'],
 
             'start_hour' => ['required'],

@@ -201,8 +201,8 @@ class TransactionController extends Controller
                         return [
                             'username' => $participant->user->username ?? 'Unknown',
                             'profile_image' => $participant->user->profile_image
-                                ? asset('storage/' . $participant->user->profile_image)
-                                : asset('assets/icon_profile.png'),
+                                ? $participant->user->profile_image
+                                : asset('assets/example/sayfood_profile.png'),
                         ];
                     })->toArray(),
                     'image' => $event->image_url,
