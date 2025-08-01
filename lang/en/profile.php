@@ -56,4 +56,10 @@ return [
     'register_otp_page_title' => 'Sayfood | Register Page',
     'otp_code_label' => 'OTP CODE',
     'resend_otp_link' => 'Resend OTP',
+
+    'logout_modal_title' => 'Confirm Logout',
+    'logout_modal_body' => 'Are you sure you want to logout from your account?',
+    'close' => 'Close',
+    'delete_account_modal_title' => 'Delete Account',
+    'delete_account_modal_body' => 'Are you sure you want to permanently delete your account? This action cannot be undone.',
 ];

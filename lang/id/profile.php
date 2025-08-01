@@ -56,4 +56,10 @@ return [
     'register_otp_page_title' => 'Sayfood | Halaman Daftar',
     'otp_code_label' => 'KODE OTP',
     'resend_otp_link' => 'Kirim Ulang OTP',
+
+    'logout_modal_title' => 'Konfirmasi Keluar',
+    'logout_modal_body' => 'Apakah Anda yakin ingin keluar dari akun Anda?',
+    'close' => 'Tutup',
+    'delete_account_modal_title' => 'Hapus Akun',
+    'delete_account_modal_body' => 'Apakah Anda yakin ingin menghapus akun Anda secara permanen? Tindakan ini tidak dapat dibatalkan.',
 ];
