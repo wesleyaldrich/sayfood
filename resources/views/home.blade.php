@@ -309,7 +309,6 @@
     </div>
     @if (session('open_modal') && $errors->any())
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById('modalEventTitle').textContent = "{{ session('modal_data.title') }}";
                 document.getElementById('modalEventHost').textContent = "{{ session('modal_data.host') }}";
                 document.getElementById('modalEventLocation').textContent = "{{ session('modal_data.location') }}";
@@ -318,7 +317,6 @@
 
                 const modal = new bootstrap.Modal(document.getElementById('joinFormModal'));
                 modal.show();
-            });
         </script>
     @endif
     <div class="container-fluid text-center">
