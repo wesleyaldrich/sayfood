@@ -109,3 +109,25 @@
     width: 100%;
     margin: 0;
 }
+
+.modal {
+    font-family: 'Oswald';
+}
+
+.modal-header {
+    background-color: #234C4C;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+}
+
+.modal-body {
+    font-family: 'Lato';
+}
+
+.btn-confirm {
+    background: #234C4C;
+    color: white;
+}
