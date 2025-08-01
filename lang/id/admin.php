@@ -96,4 +96,8 @@ return [
     'total_participants_label' => 'Total Peserta',
     'phone_number_label' => 'Nomor Telepon',
     'no_participants_yet' => 'Belum ada peserta.',
+
+    'start_time_label' => 'Waktu Mulai',
+    'end_time_label' => 'Waktu Selesai',
+
 ];
