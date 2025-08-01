@@ -112,7 +112,7 @@
                 @if ($restaurant_registration->restaurant && $restaurant_registration->restaurant->image_url_resto)
                     <img src="{{ asset($restaurant_registration->restaurant->image_url_resto) }}" class="restaurant-image" alt="restaurant image">
                 @else
-                    <img src="{{ asset('assets/example/profile.jpg') }}" class="restaurant-image" alt="restaurant image">
+                    <img src="{{ asset('assets/example/sayfood_profile.png') }}" class="restaurant-image" alt="restaurant image">
                 @endif
             @endif
             <div class="d-flex flex-column">

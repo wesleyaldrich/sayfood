@@ -30,7 +30,7 @@
                 @if (Auth::check() && Auth::user()->two_factor_verified)
                     <img src="{{ Auth::user()->restaurant->image_url_resto
                         ? asset('' . Auth::user()->restaurant->image_url_resto)
-                        : asset('assets/example/profile.jpg') }}"
+                        : asset('assets/example/sayfood_profile.png') }}"
                         alt="Profile Icon" class="profile-icon-img" style="width: 40px; border-radius: 50%; border: 2px solid #234c4c; object-fit: cover;">
                 @else
                     <img src="{{ asset('assets/icon_profile.png') }}" alt="Profile Icon" class="profile-icon-img">
