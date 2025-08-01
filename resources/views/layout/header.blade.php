@@ -72,7 +72,7 @@
             </div>
             <a href="{{ route('profile') }}">
                 @if (Auth::check() && Auth::user()->two_factor_verified)
-                    <img src="{{ Auth::user()->profile_image ? asset('' . Auth::user()->profile_image) : asset('assets/example/profile.jpg') }}"
+                    <img src="{{ Auth::user()->profile_image ? asset('' . Auth::user()->profile_image) : asset('assets/example/sayfood_profile.png') }}"
                         alt="Profile Icon" class="profile-icon-img"
                         style="width: 40px; border-radius: 50%; border: 2px solid #234c4c; object-fit: cover;">
                 @else

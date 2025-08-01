@@ -39,7 +39,7 @@ class PR100_ManageAccountCustomerTest extends DuskTestCase
                 ->waitFor('#profile-image-form')
                 ->pause(500)
                 ->waitFor('.profile-image')
-                ->assertAttributeContains('.profile-image', 'src', 'assets/example/profile.jpg');
+                ->assertAttributeContains('.profile-image', 'src', 'assets/example/sayfood_profile.png');
         });
     }
 
