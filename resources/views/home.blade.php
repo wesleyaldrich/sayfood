@@ -271,6 +271,10 @@
                     <p class="modal-title text-xl text-[#234C4C] font-bold" id="joinEventLabel">
                         {{ __('home.join_event2') }} <span id="modalEventTitle" class="text-xl"></span>
                     </p>
+                    <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close"
+                        style="background: rgb(165, 157, 157); border-radius: 50px; height: 32px;">
+                        <i class="bi bi-x-lg text-white fs-4 p-2"></i>
+                    </button>
                 </div>
 
                 <div class="modal-body">
@@ -287,11 +291,11 @@
 
                         <div class="mb-3">
                             <label for="phoneNumber"
-                                class="form-label text-[#234C4C] text-xl">{{ __('home.phone_number') }}</label>
-                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
-                                value="{{ old('phoneNumber') }}">
+                                class="form-label text-[#234C4C] text-xl">{{ __('events.phone_number') }}</label>
+                            <input type="tel" class="form-control @error('phoneNumber') is-invalid @enderror"
+                                id="phoneNumber" name="phoneNumber" value="{{ old('phoneNumber') }}">
                             @error('phoneNumber')
-                                <span class="invalid-feedback">{{ $message }}</span>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -303,6 +307,20 @@
             </div>
         </div>
     </div>
+    @if (session('open_modal') && $errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById('modalEventTitle').textContent = "{{ session('modal_data.title') }}";
+                document.getElementById('modalEventHost').textContent = "{{ session('modal_data.host') }}";
+                document.getElementById('modalEventLocation').textContent = "{{ session('modal_data.location') }}";
+                document.getElementById('modalEventDate').textContent = "{{ session('modal_data.date') }}";
+                document.getElementById('eventId').value = "{{ old('event_id') }}";
+
+                const modal = new bootstrap.Modal(document.getElementById('joinFormModal'));
+                modal.show();
+            });
+        </script>
+    @endif
     <div class="container-fluid text-center">
         <div class="row">
             <div class="col photo_kiri_carousel_event">

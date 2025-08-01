@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Event;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
 
 class HomeStoreRequest extends FormRequest
@@ -12,7 +15,7 @@ class HomeStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-       return Auth::check();
+        return Auth::check();
     }
 
     /**
@@ -32,5 +35,22 @@ class HomeStoreRequest extends FormRequest
                 'required',
             ]
         ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        $event = Event::find($this->event_id);
+
+        throw new HttpResponseException(
+            redirect()->back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('open_modal', true)
+                ->with('modal_data', [
+                    'title' => $event->name ?? '',
+                    'host' => $event->creator?->user?->username ?? '',
+                    'location' => $event->location ?? '',
+                    'date' => $event->date ?? '',
+                ])
+        );
     }
 }
