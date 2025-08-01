@@ -185,6 +185,9 @@ class EventController extends Controller
 
     public function completed(Event $event)
     {
+        if (Auth::id() !== $event->creator_id) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $event->status = 'Completed';
         $event->save();
 

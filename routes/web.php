@@ -43,6 +43,7 @@ Route::middleware('twofactor')->group(function () {
     Route::middleware('role:admincustomer')->group(function () {
 
         Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
+        Route::post('/created-event/completed/{event}', [EventController::class, 'completed'])->name('completed.event');
     });
 
     // CUSTOMER ROUTES
@@ -54,7 +55,6 @@ Route::middleware('twofactor')->group(function () {
         Route::post('/events/propose', [EventController::class, 'store'])->name('events.store');
 
         Route::get('/created-event/{id}', [EventController::class, 'showCreatedEvent'])->name('show.created-event');
-        Route::post('/created-event/completed/{event}', [EventController::class, 'completed'])->name('completed.event');
 
         Route::get('/cart', [CartController::class, 'show'])->name('show.cart')->middleware('auth');
         Route::post('/cart/add/{food}', [CartController::class, 'store'])->name('add.cart')->middleware('auth');
