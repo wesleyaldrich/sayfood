@@ -3,6 +3,6 @@
 !public/
 !.gitignore
 !public/food_images/
-!public/food_images/*
+!public/food_images/**
 !public/event_images/
 !public/event_images/*
