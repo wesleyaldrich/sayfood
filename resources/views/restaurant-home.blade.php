@@ -42,7 +42,7 @@
                         @foreach ($orders as $order)
                             @php
                                 $date = $order->created_at->format('d M Y');
-                                $profile = $order->customer->user->profile_image ?? asset('assets/example/profile.jpg');
+                                $profile = $order->customer->user->profile_image ?? asset('assets/example/sayfood_profile.png');
                                 $name = $order->customer->user->username ?? __('restaurant.unknown_customer');
 
                                 $groupedItems = [];
