@@ -101,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
 
@@ -173,6 +173,10 @@
                     <p class="modal-title text-xl text-[#234C4C] font-bold" id="joinEventLabel">
                         {{ __('home.join_event2') }} <span id="modalEventTitle" class="text-xl"></span>
                     </p>
+                    <button type="button" class="btn p-0 ms-auto" data-bs-dismiss="modal" aria-label="Close"
+                        style="background: rgb(165, 157, 157); border-radius: 50px; height: 32px;">
+                        <i class="bi bi-x-lg text-white fs-4 p-2"></i>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <label class="form-label text-[#234C4C] text-xl">{{ __('events.host') }}</label>
@@ -201,8 +205,18 @@
             </div>
         </div>
     </div>
+    @if (session('open_modal') && $errors->any())
+        <script>
+            document.getElementById('modalEventTitle').textContent = "{{ session('modal_data.title') }}";
+            document.getElementById('modalEventHost').textContent = "{{ session('modal_data.host') }}";
+            document.getElementById('modalEventLocation').textContent = "{{ session('modal_data.location') }}";
+            document.getElementById('modalEventDate').textContent = "{{ session('modal_data.date') }}";
+            document.getElementById('eventId').value = "{{ old('event_id') }}";
 
-    </div>
+            const modal = new bootstrap.Modal(document.getElementById('joinFormModal'));
+            modal.show();
+        </script>
+    @endif
 
 
     <div class="volunteering-list row row-cols-1 row-cols-md-3 g-4 container-fluid py-5">
