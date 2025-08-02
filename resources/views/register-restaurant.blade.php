@@ -14,7 +14,7 @@
 
                 <div class="form-group mb-2">
                     <label for="restaurant-name" class="oswald">{{ __('profile.restaurant_name_label') }}</label>
-                    <input type="text" class="form-control" id="restaurant-name" name="name" required>
+                    <input type="text" class="form-control" id="restaurant-name" name="name" required value="{{ old('name') }}">
                     @error('name')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -23,7 +23,7 @@
                 {{-- long input for address --}}
                 <div class="form-group mb-2">
                     <label for="restaurant-address" class="oswald">{{ __('profile.restaurant_address_label') }}</label>
-                    <input type="text" class="form-control" id="restaurant-address" name="address" required>
+                    <input type="text" class="form-control" id="restaurant-address" name="address" required value="{{ old('address') }}">
                     @error('address')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -31,7 +31,7 @@
 
                 <div class="form-group mb-2">
                     <label for="restaurant-email" class="oswald">{{ __('profile.contact_email_label') }}</label>
-                    <input type="email" class="form-control" id="restaurant-email" name="email" required>
+                    <input type="email" class="form-control" id="restaurant-email" name="email" required value="{{ old('email') }}">
                     @error('email')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
