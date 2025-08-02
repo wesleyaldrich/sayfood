@@ -74,7 +74,7 @@
         <img src=" {{ asset($restaurant->image_url_resto) }}" class="hero-img" alt="">
 
         <!-- Back Icon -->
-        <a href="javascript:history.back()" class="back-icon">
+        <a href="{{ route('foods')}}" class="back-icon">
             <i class="fas fa-chevron-left"></i>
         </a>
         <!-- Dark overlay over image -->
