@@ -313,7 +313,7 @@ class TransactionController extends Controller
                 $index + 1,
                 $transaction->order_id ?? 'N/A',
                 $transaction->created_at->format('Y-m-d'),
-                $transaction->order->customer->username ?? 'N/A',
+                $transaction->order->customer->user->username ?? 'N/A',
                 $transaction->food->name ?? 'N/A',
                 $transaction->qty,
                 number_format($transaction->food->price, 2),
