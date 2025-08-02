@@ -34,9 +34,7 @@ return new class extends Migration
             $table->string('organizer_name')->nullable();
             $table->string('organizer_phone')->nullable();
             $table->string('organizer_email')->nullable();
-
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('qty');
             $table->string('notes')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

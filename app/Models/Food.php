@@ -11,6 +11,15 @@ class Food extends Model
 {
     use SoftDeletes, LogsActivity;
 
+    protected static function booted()
+    {
+        static::deleting(function ($food) {
+            if (!$food->isForceDeleting()) {
+                $food->cart()->delete();
+            }
+        });
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -36,7 +45,7 @@ class Food extends Model
     ];
 
     public function restaurant(){
-        return $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Restaurant::class)->withTrashed();
     }
 
     public function category(){
@@ -47,9 +56,9 @@ class Food extends Model
         return $this->hasMany(Cart::class);
     }
 
-    public function orders()
+    public function transactions()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Transaction::class);
     }
 }
 

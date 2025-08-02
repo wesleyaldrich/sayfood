@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Customer extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use LogsActivity;
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -43,7 +43,7 @@ class Customer extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function getNameAttribute()

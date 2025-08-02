@@ -465,6 +465,29 @@
 </div>
 </div>
 
+@if (session('success'))
+    <div id="popupSuccess"
+        class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-4 shadow text-center"
+        style="z-index: 1055; max-width: 500px; left: 50%; transform: translateX(-50%);">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const popup = document.getElementById('popupSuccess');
+            if (popup) {
+                setTimeout(() => {
+                    const bsAlert = bootstrap.Alert.getOrCreateInstance(popup);
+                    bsAlert.close();
+                }, 3000);
+            }
+        });
+    </script>
+@endpush
+
 
 
 @push('styles')

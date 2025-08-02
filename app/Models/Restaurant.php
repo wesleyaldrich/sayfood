@@ -13,6 +13,16 @@ class Restaurant extends Model
     /** @use HasFactory<\Database\Factories\RestaurantFactory> */
     use HasFactory, SoftDeletes, LogsActivity;
 
+    protected static function booted()
+    {
+        static::deleting(function ($restaurant) {
+            if (!$restaurant->isForceDeleting()) {
+                $restaurant->foods()->delete();
+            }
+        });
+    }
+
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -57,7 +67,7 @@ class Restaurant extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function foods()

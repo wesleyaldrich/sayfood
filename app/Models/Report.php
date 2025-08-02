@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Report extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use LogsActivity;
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -29,7 +29,7 @@ class Report extends Model
 
     public function restaurant()
     {
-        return $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Restaurant::class)->withTrashed();
     }
 
     public function customer()

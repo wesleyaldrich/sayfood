@@ -109,7 +109,7 @@ class EventController extends Controller
             // Simpan gambar jika ada
             if ($request->hasFile('image_url')) {
                 $originalName = $request->file('image_url')->getClientOriginalName();
-                $imagePath = $request->file('image_url')->storeAs('events', $originalName, 'public');
+                $imagePath = $request->file('image_url')->storeAs('event_images', $originalName, 'public');
             }
 
             // Simpan file pendukung jika ada

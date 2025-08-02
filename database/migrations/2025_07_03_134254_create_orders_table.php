@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             
             $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
-            $table->foreignId('restaurant_id')->constrained('restaurants')->cascadeOnDelete();
+            $table->foreignId('restaurant_id')->nullable()->constrained('restaurants')->cascadeOnDelete();
             
             $table->enum('status', [
                 'Order Created',
@@ -27,7 +27,6 @@ return new class extends Migration
             $table->float('rating')->nullable()->default(null);
 
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -14,7 +14,7 @@
 
                 <div class="form-group mb-2">
                     <label for="username" class="oswald">{{ __('profile.restaurant_username_label') }}</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <input type="text" class="form-control" id="username" name="username" required value="{{ old('username') }}">
                     @error('username')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
