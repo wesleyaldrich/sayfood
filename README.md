@@ -3,16 +3,16 @@
 Sayfood is a project in form of a web application to help restaurants reduce their waste. Restaurants would be able to sell their excess food in our website without getting profit from it. The money customers paid is actually for our team to use for charity. Our web application can also be a platform where people can create and participate on charity events.
 
 ## Team Members
-- Wesley Aldrich
+- Wesley Aldrich (Scrum Master)
+- Putu Crysta Lovita Atmaja (Product Owner)
 - Kalista Gabriela Willies
 - Monica Agustina Chandra
 - Naufal Dimas Azizan
-- Putu Crysta Lovita Atmaja
 - Teresa Naomi
 
 ## 🚀 Use Case Diagram
 
-<img width="835" height="1122" alt="SayFoodSystem_UseCase_Updated (1)" src="https://github.com/user-attachments/assets/5865fe5e-7592-43a1-9cf4-8e94509e8126" />
+<img width="835" height="1122" alt="image" src="https://github.com/user-attachments/assets/02bd1e2b-9b10-479f-a185-bd3a3c7f47e8" />
 
 ## ⚙️ Installation
 
