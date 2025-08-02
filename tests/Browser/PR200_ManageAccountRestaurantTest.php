@@ -40,8 +40,8 @@ class PR200_ManageAccountRestaurantTest extends DuskTestCase
                 ->pause(500)
                 ->attach('#profile-image-input', $filePath)
                 ->waitFor('#profile-image-preview')
-                ->waitForText('The profile image field must be a file of type: jpeg, png, jpg, gif.')
-                ->assertSee('The profile image field must be a file of type: jpeg, png, jpg, gif.');
+                ->waitForText('The profile image field must be an image.')
+                ->assertSee('The profile image field must be an image.');
         });
     }
 
@@ -123,6 +123,8 @@ class PR200_ManageAccountRestaurantTest extends DuskTestCase
                 ->visit('/profile')
                 ->waitFor('@logout-btn')
                 ->press('@logout-btn')
+                ->waitFor('#logoutModal')
+                ->press('@btn-logout')
                 ->pause(500)
                 ->assertPathIs('/')
                 ->assertGuest();
@@ -139,6 +141,9 @@ class PR200_ManageAccountRestaurantTest extends DuskTestCase
                 ->visit('/profile')
                 ->waitFor('@delete-account-btn')
                 ->press('@delete-account-btn')
+                ->pause(500)
+                ->waitFor('#deleteAccountModal')
+                ->press('@btn-delete-account')
                 ->pause(500)
                 ->assertPathIs('/')
                 ->assertGuest();

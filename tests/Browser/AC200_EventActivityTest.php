@@ -21,8 +21,8 @@ class AC200_EventActivityTest extends DuskTestCase
                 ->click('#charity-tab')
                 ->waitFor('.created-event-wrapper')
                 ->click('.created-events-card')
-                ->waitForText('Pending')
-                ->assertSee('Pending');
+                ->waitForText('Coming Soon')
+                ->assertSee('Coming Soon');
         });
     }
 
@@ -39,7 +39,7 @@ class AC200_EventActivityTest extends DuskTestCase
                 ->waitFor('.event-cards-wrapper')
                 ->click('@event-card.upcoming')
                 ->waitFor('#eventModal0')
-                ->assertSee('Community');
+                ->assertSee('Group Link:');
         });
     }
 
@@ -47,7 +47,7 @@ class AC200_EventActivityTest extends DuskTestCase
     public function test_customer_sees_joined_past_events()
     {
         $this->browse(function (Browser $browser) {
-            $user = User::where('role', 'customer')->skip(3)->first();
+            $user = User::where('role', 'customer')->first();
 
             $browser->loginAs($user)
                 ->visit('/activity')
