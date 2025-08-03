@@ -54,7 +54,6 @@
                     <th scope="col">{{ __('restaurant.table_header_expiration_time') }}</th>
                     <th scope="col">{{ __('restaurant.table_header_category') }}</th>
                     <th scope="col">{{ __('restaurant.table_header_stock') }}</th>
-                    <th scope="col">{{ __('restaurant.table_header_status') }}</th>
                     <th scope="col">
                         <button type="button" class="add-btn btn-success w-75" data-bs-toggle="modal"
                             data-bs-target="#addFoodModal"
@@ -82,7 +81,6 @@
                         <td>{{$food->exp_datetime}}</td>
                         <td>{{$food->category->name}}</td>
                         <td>{{$food->stock}}</td>
-                        <td>{{$food->status}}</td>
                         <td>
                             <div class="manage-button d-flex">
                                 <button type="button" class="edit-btn btn-warning mx-1" data-bs-toggle="modal"

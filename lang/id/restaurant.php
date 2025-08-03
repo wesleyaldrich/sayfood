@@ -85,7 +85,7 @@ return [
     'yes_delete_button' => 'Ya, Hapus',
 
     // Unggah CSV Modal
-    'upload_csv_modal_title' => 'Unggah File CSV',
+    'upload_csv_modal_title' => 'Unggah File ZIP',
     'csv_instruction_heading' => 'Instruksi:',
     'csv_instruction_1' => '1. Unduh template CSV yang disediakan.',
     'csv_instruction_2' => '2. Isi data makanan Anda sesuai contoh, lalu simpan file.',
