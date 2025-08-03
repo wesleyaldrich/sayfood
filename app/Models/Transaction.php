@@ -11,7 +11,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Transaction extends Model
 {
     /** @use HasFactory<\Database\Factories\TransactionFactory> */
-    use HasFactory, SoftDeletes, LogsActivity;
+    use HasFactory, LogsActivity;
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -34,7 +34,7 @@ class Transaction extends Model
 
     public function food()
     {
-        return $this->belongsTo(Food::class);
+        return $this->belongsTo(Food::class)->withTrashed();
     }
 
 }

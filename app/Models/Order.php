@@ -11,7 +11,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
-    use HasFactory, LogsActivity, SoftDeletes;
+    use HasFactory, LogsActivity;
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -37,7 +37,7 @@ class Order extends Model
 
     public function restaurant()
     {
-        return $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Restaurant::class)->withTrashed();
     }
 
     public function getTotalPriceAttribute()

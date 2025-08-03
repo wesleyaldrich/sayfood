@@ -15,7 +15,7 @@
                 <li><a href="{{ route('manage.food.restaurant') }}" class="oswald nav-button {{ request()->routeIs('manage.food.restaurant') ? 'nav-active' : '' }}">{{ __('navigation.foods') }}</a></li>
                 <li><a href="{{ route('restaurant-orders') }}" class="oswald nav-button {{ request()->routeIs('restaurant-orders') ? 'nav-active' : '' }}">{{ __('navigation.orders') }}</a></li>
                 <li><a href="{{ route('restaurant-activity') }}" class="oswald nav-button {{ request()->routeIs('restaurant-activity') ? 'nav-active' : '' }}">{{ __('navigation.activity') }}</a></li>
-                <li><a href="{{ route('restaurant-transactions') }}" class="oswald nav-button {{ request()->routeIs('restaurant-transactions') ? 'nav-active' : '' }}">{{ __('navigation.report') }}</a></li>
+                <li><a href="{{ route('restaurant-transactions') }}" class="oswald nav-button {{ (request()->routeIs('restaurant-transactions') || request()->routeIs('restaurant-transactions.filter')) ? 'nav-active' : '' }}">{{ __('navigation.report') }}</a></li>
                 <li class="nav-hide"><a href="{{ route('profile') }}" class="oswald nav-button {{ request()->routeIs('profile') ? 'nav-active' : '' }}">{{ __('navigation.profile') }}</a></li>
             </ul>
         </nav>

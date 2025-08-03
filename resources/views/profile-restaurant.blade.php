@@ -72,10 +72,7 @@
                         <img src="{{ asset('assets/profile_option_login_as_restaurant.png') }}" class="p-2" alt="icon">
                         <p class="oswald">{{ __('profile.login_as_customer_button') }}</p>
                     </a>
-                    <a href="{{ route('logout') }}"
-                    onclick="
-                        event.preventDefault();
-                        document.getElementById('logout-form').submit();"
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"
                     class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0" dusk="logout-btn">
                         <img src="{{ asset('assets/profile_option_logout.png') }}" class="p-2" alt="icon">
                         <p class="oswald">{{ __('profile.logout_button') }}</p>
@@ -85,14 +82,68 @@
                         <img src="{{ asset('assets/profile_option_reset_password.png') }}" class="p-2" alt="icon">
                         <p class="oswald">{{ __('profile.reset_password_button') }}</p>
                     </a>
-                    <a href="{{ route('delete.account') }}"
-                    onclick="
-                        event.preventDefault();
-                        document.getElementById('delete-account-form').submit()"
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"
                     class="profile-option mb-2 col-md-5 d-flex flex-row align-items-center justify-content-start px-0" dusk="delete-account-btn">
                         <img src="{{ asset('assets/profile_option_delete.png') }}" class="p-2" alt="icon">
                         <p class="oswald">{{ __('profile.delete_account_button') }}</p>
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __('profile.logout_modal_title') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="{{ __('profile.close') }}"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>{{ __('profile.logout_modal_body') }}</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{ __('foods.cancel') }}
+                    </button>
+                    <button type="button" class="btn btn-confirm"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();" dusk="btn-logout">
+                        {{ __('profile.logout_button') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __('profile.delete_account_modal_title') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="{{ __('profile.close') }}"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>{{ __('profile.delete_account_modal_body') }}</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{ __('foods.cancel') }}
+                    </button>
+                    <button type="button" class="btn btn-confirm"
+                        onclick="
+                            event.preventDefault();
+                            document.getElementById('delete-account-form').submit()"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();" dusk="btn-delete-account">
+                        {{ __('profile.delete_account_button') }}
+                    </button>
                 </div>
             </div>
         </div>

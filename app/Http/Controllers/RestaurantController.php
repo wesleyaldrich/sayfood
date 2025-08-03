@@ -123,9 +123,9 @@ class RestaurantController extends Controller
     {
         $food = Food::findOrFail($id);
 
-        if ($food->image_url) {
-            Storage::disk('public')->delete($food->image_url);
-        }
+        // if ($food->image_url) {
+        //     Storage::disk('public')->delete($food->image_url);
+        // }
 
         $food->delete();
 

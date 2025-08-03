@@ -56,8 +56,8 @@ class PR100_ManageAccountCustomerTest extends DuskTestCase
 
                 ->attach('#profile-image-input', $filePath)
                 ->waitFor('#profile-image-preview')
-                ->waitForText('The profile image field must be a file of type: jpeg, png, jpg, gif.')
-                ->assertSee('The profile image field must be a file of type: jpeg, png, jpg, gif.');
+                ->waitForText('The profile image field must be an image.')
+                ->assertSee('The profile image field must be an image.');
         });
     }
 
@@ -133,6 +133,8 @@ class PR100_ManageAccountCustomerTest extends DuskTestCase
                 ->waitFor('@logout-btn')
                 ->press('@logout-btn')
                 ->pause(500)
+                ->waitFor('#logoutModal')
+                ->press('@btn-logout')
                 ->assertPathIs('/') // redirected to homepage
                 ->assertGuest();    // session destroyed
         });
@@ -148,6 +150,9 @@ class PR100_ManageAccountCustomerTest extends DuskTestCase
                 ->visit('/profile')
                 ->waitFor('@delete-account-btn')
                 ->press('@delete-account-btn')
+                ->pause(500)
+                ->waitFor('#deleteAccountModal')
+                ->press('@btn-delete-account')
                 ->pause(500)
                 ->assertPathIs('/')
                 ->assertGuest();

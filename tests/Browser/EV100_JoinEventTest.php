@@ -38,8 +38,6 @@ class EV100_JoinEventTest extends DuskTestCase
                 ->press('@submit-join-event-btn')
                 ->waitForText('The phone number field is required.')
                 ->assertSee('The phone number field is required.')
-                ->waitFor('.event-card')
-                ->press('@join-event-btn')
                 ->waitFor('#joinFormModal')
                 ->type('#phoneNumber', '123') // incorrect length of phone number
                 ->press('@submit-join-event-btn')

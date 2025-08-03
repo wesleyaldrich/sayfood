@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Category extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use LogsActivity;
 
     public function getActivitylogOptions(): LogOptions
     {

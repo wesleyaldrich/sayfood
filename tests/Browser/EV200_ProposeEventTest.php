@@ -17,6 +17,7 @@ class EV200_ProposeEventTest extends DuskTestCase
 
             $browser->loginAs($user)
                 ->visit('/activity')
+                ->waitFor('#charity-tab')
                 ->click('#charity-tab')
                 ->waitFor('.create-event')
                 ->press('.btn-propose-event')
@@ -89,7 +90,7 @@ class EV200_ProposeEventTest extends DuskTestCase
                 ->assertSee('The description field is required.')
                 ->assertSee('The estimated participants field is required.')
                 ->assertSee('The group link field is required.')
-                ->assertSee('The image url field is required.')
+                ->assertSee('The image field is required.')
                 ->assertSee('The location field is required.')
                 ->assertSee('The date field is required.')
                 ->assertSee('The start hour field is required.')
@@ -125,6 +126,7 @@ class EV200_ProposeEventTest extends DuskTestCase
 
             $browser->loginAs($user)
                 ->visit('/activity')
+                ->waitFor('#charity-tab')
                 ->click('#charity-tab')
                 ->waitFor('.create-event')
                 ->press('.btn-propose-event')
