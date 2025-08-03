@@ -29,7 +29,7 @@
                 <a href="https://web.facebook.com/sayfood.sayfood" class="text-[#FFD18F] hover:text-gray-900 transition text-2xl">
                     <i class="fab fa-facebook"></i>
                 </a>
-                <a href="https://api.whatsapp.com/send/?phone=6281547456202&text&type=phone_number&app_absent=0" class="text-[#FFD18F] hover:text-gray-900 transition text-2xl">
+                <a href="https://wa.me/6281547456202?text=Hi,%20SayFood" class="text-[#FFD18F] hover:text-gray-900 transition text-2xl">
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </div>
