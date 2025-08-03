@@ -7,11 +7,11 @@
                 <div class="flex flex-col space-y-3">
                     <a href="tel:+6281234567890" class="text-white hover:text-gray-900 transition flex items-center justify-center md:justify-start lato-light">
                         <i class="fas fa-phone-alt mr-2 text-lg text-[#FFD18F]"></i>
-                        +62 812 3456 7890
+                        +62 815-4745-6202
                     </a>
-                    <a href="mailto:sayfood@cold" class="text-white hover:text-gray-900 transition flex items-center justify-center md:justify-start lato-light">
+                    <a href="mailto:sayfood.web@gmail.com" class="text-white hover:text-gray-900 transition flex items-center justify-center md:justify-start lato-light">
                         <i class="fas fa-envelope mr-2 text-lg text-[#FFD18F]"></i>
-                        sayfood@cold
+                        sayfood.web@gmail.com
                     </a>
                 </div>
             </div>
@@ -23,13 +23,13 @@
             
             <!-- Social media icons -->
             <div class="flex justify-center space-x-4 mb-6 md:mb-0 w-full md:w-auto">
-                <a href="#" class="text-[#FFD18F] hover:text-gray-900 transition text-2xl">
+                <a href="https://www.instagram.com/pptibca.17/" class="text-[#FFD18F] hover:text-gray-900 transition text-2xl">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="#" class="text-[#FFD18F] hover:text-gray-900 transition text-2xl">
+                <a href="https://web.facebook.com/sayfood.sayfood" class="text-[#FFD18F] hover:text-gray-900 transition text-2xl">
                     <i class="fab fa-facebook"></i>
                 </a>
-                <a href="#" class="text-[#FFD18F] hover:text-gray-900 transition text-2xl">
+                <a href="https://api.whatsapp.com/send/?phone=6281547456202&text&type=phone_number&app_absent=0" class="text-[#FFD18F] hover:text-gray-900 transition text-2xl">
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </div>
