@@ -85,7 +85,7 @@ return [
     'yes_delete_button' => 'Yes, Delete',
 
     // Upload CSV Modal
-    'upload_csv_modal_title' => 'Upload CSV File',
+    'upload_csv_modal_title' => 'Upload ZIP File',
     'csv_instruction_heading' => 'Instructions:',
     'csv_instruction_1' => '1. Download the provided CSV template.',
     'csv_instruction_2' => '2. Fill in your food data according to the example, then save the file.',
