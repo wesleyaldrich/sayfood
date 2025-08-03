@@ -18,6 +18,11 @@ There are three physical actors in our system, i.e. Customer, Restaurant, Admin.
 
 <img width="835" height="1122" alt="image" src="https://github.com/user-attachments/assets/02bd1e2b-9b10-479f-a185-bd3a3c7f47e8" />
 
+## Database Schema
+
+Here is the ERD of our database (excluding sessions, activity_logs, cache, etc.):
+<img width="2283" height="2341" alt="sayfood_erd" src="https://github.com/user-attachments/assets/0ec47410-2bdc-4ac5-bdf1-14412904c61d" />
+
 ## Installation
 
 1. Install the necessary files by running:
