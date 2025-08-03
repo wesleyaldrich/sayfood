@@ -20,9 +20,6 @@
             </ul>
         </nav>
         <div class="icons">
-            <a id="openOffcanvasNotif" href="#" role="button">
-                <img src="{{ asset('assets/icon_notif.png') }}" alt="Notification Icon" class="notif-icon-img">
-            </a>
             <div class="icon-language">
                 <img src="{{ asset('assets/icon_globe.png') }}" alt="Language Icon" class="language-icon-img">
             </div>
@@ -75,21 +72,3 @@
         </ul>
     </div>
 </header>
-
-<div id="notifOffcanvas" class="offcanvas-notif">
-    <div class="offcanvas-header">
-        <h4>Notifications</h4>
-        <button id="closeOffcanvas" class="close-btn">&times;</button>
-    </div>
-    <div class="offcanvas-body">
-        @for ($i = 0; $i < 10; $i++)
-            <x-notification-card 
-                title="Welcome to SayFood!" 
-                desc="Hi Adit! Thanks for joining SayFood. Let’s start saving food together! 😋🍉" 
-                time="25 days ago" 
-            />
-        @endfor
-    </div>
-</div>
-
-<div id="offcanvasOverlay" class="offcanvas-overlay"></div>
