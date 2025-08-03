@@ -12,13 +12,13 @@ Sayfood is a project in form of a web application to help restaurants reduce the
 - Naufal Dimas Azizan
 - Teresa Naomi
 
-## 🚀 Use Case Diagram
+## Features
 
 There are three physical actors in our system, i.e. Customer, Restaurant, Admin. We refer to **Customer** as someone who access our application to get food from restaurants by paying a relatively smaller amount of cost, while the money will be used by our company to donate to charities. **Customer**s may also create or participate in charity events. **Restaurant**s are able to sell their leftover foods in our application instead of throwing it all to waste. To monitor all the operations, our company also hire **Admin**s to make sure the system is in control. An **Admin** may approve restaurant registrations and event proposal, review reports, suspend malicious restaurants, or even export transaction reports for analytical purposes. Here is the use case diagram for a more complete view on our features and the actors.
 
 <img width="835" height="1122" alt="image" src="https://github.com/user-attachments/assets/02bd1e2b-9b10-479f-a185-bd3a3c7f47e8" />
 
-## ⚙️ Installation
+## Installation
 
 1. Install the necessary files by running:
 ```bash
