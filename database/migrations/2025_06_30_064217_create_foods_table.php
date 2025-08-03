@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->dateTime('exp_datetime')->nullable();
             $table->integer('price')->nullable();
-            $table->enum('status', ['Available', 'Out of Stock'])->default('Available')->nullable();
+            $table->enum('status', ['Available', 'Out of Stock'])->default('Available');
             $table->timestamps();
             $table->softDeletes();
         });
