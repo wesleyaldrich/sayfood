@@ -175,10 +175,10 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-check">
+            {{-- <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="addStatus" name="status" value="available" checked>
                 <label class="form-check-label" for="addStatus">{{ __('restaurant.add_status_available') }}</label>
-            </div>
+            </div> --}}
 
             <x-slot name="footer">
                 <button type="button" class="btn btn-secondary"
@@ -266,11 +266,11 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-check form-switch mb-3">
+            {{-- <div class="form-check form-switch mb-3">
                 <input class="form-check-input" type="checkbox" role="switch" id="editStatus" name="status"
                     value="available">
                 <label class="form-check-label" for="editStatus">{{ __('restaurant.edit_status_available') }}</label>
-            </div>
+            </div> --}}
 
             <x-slot name="footer">
                 <button type="button" class="btn btn-secondary"
@@ -369,11 +369,11 @@
     $('#editExpDate').val(date);
     $('#editExpTime').val(time);
 
-    if (food.status.toLowerCase() === 'available') {
-    $('#editStatus').prop('checked', true);
-    } else {
-    $('#editStatus').prop('checked', false);
-    }
+    // if (food.status.toLowerCase() === 'available') {
+    // $('#editStatus').prop('checked', true);
+    // } else {
+    // $('#editStatus').prop('checked', false);
+    // }
     });
 
     $('.delete-btn').on('click', function () {
