@@ -28,7 +28,7 @@ return [
     'only_number' => 'Masukkan nomor telepon yang valid (hanya angka, 10–15 digit)',
     'age' => 'Usia',
     'address' => 'Alamat',
-    'submit_form' => 'Kirim Formulir',
+    'submit_form' => 'Kirim',
 
     'host' => 'Penyelenggara',
     'location' => 'Lokasi',

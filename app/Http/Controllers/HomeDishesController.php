@@ -84,7 +84,7 @@ class HomeDishesController extends Controller
                 'badge_color' => $badgeColor,
                 'image_url' => $event->image_url,
                 'participants' => $event->customers->count(),
-                'date' => $event->date,
+                'date' => $event->formatted_date = Carbon::parse($event->date)->translatedFormat('l, d F Y'),
             ];
         });
 
