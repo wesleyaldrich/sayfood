@@ -53,6 +53,8 @@ return [
     'confirm_password_label' => 'Konfirmasi Kata Sandi',
     'reset_password_button' => 'ATUR ULANG KATA SANDI',
 
+    'desc_label' => 'Deskripsi',
+
     'register_otp_page_title' => 'Sayfood | Halaman Daftar',
     'otp_code_label' => 'KODE OTP',
     'resend_otp_link' => 'Kirim Ulang OTP',

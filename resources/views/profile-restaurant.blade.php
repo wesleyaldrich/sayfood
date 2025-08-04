@@ -45,6 +45,14 @@
                         @enderror
                     </div>
 
+                    <div class="form-group mb-3">
+                        <label for="address" class="oswald">{{ __('profile.desc_label') }}</label>
+                        <input type="text" class="oswald form-control" id="description" name="description" autocomplete="on" value="{{ $user->restaurant->description }}">
+                        @error('description')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     @error('profile-update')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror

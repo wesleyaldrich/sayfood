@@ -24,7 +24,8 @@ class AuthUpdateProfileRestaurantRequest extends FormRequest
         return [
             'username' => 'required|string|max:64',
             'restaurant_name' => 'required|string|max:64',
-            'address' => 'nullable|string|max:200'
+            'address' => 'nullable|string|max:200',
+            'description' => 'nullable|string|max:255'
         ];
     }
 }

@@ -47,6 +47,8 @@ return [
     'restaurant_name_field_label' => 'Restaurant Name',
     'login_as_customer_button' => 'LOG IN AS CUSTOMER',
 
+    'desc_label' => 'Description',
+
     'forgot_password_title' => 'Sayfood | Forgot Password Page',
     'password_reset_form_heading' => 'PASSWORD RESET FORM',
     'new_password_label' => 'New Password',
