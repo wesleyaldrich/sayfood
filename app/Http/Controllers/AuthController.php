@@ -377,6 +377,8 @@ class AuthController extends Controller
             $currentUser->username = $validatedData['username'];
             $currentUser->restaurant->name = $validatedData['restaurant_name'];
             $currentUser->restaurant->address = $validatedData['address'];
+            $currentUser->restaurant->description = $validatedData['description'];
+            
             $currentUser->save();
             $currentUser->restaurant->save();
         }
