@@ -41,38 +41,65 @@ class RestaurantController extends Controller
         try {
             $validatedData = $request->validated();
             $restaurantId = Auth::user()->restaurant->id;
+            $foodName = $validatedData['name'];
+            $newStock = (int)$validatedData['stock'];
+
+            $existingFood = Food::where('restaurant_id', $restaurantId)
+                ->where('name', $foodName)
+                ->first();
 
             $expDatetime = Carbon::parse($validatedData['exp_date'] . ' ' . $validatedData['exp_time']);
-            $status = $request->has('status') ? 'Available' : 'Out of Stock';
 
-            $photoPath = null;
-            if ($request->hasFile('image_url')) {
-                $restaurantName = Auth::user()->restaurant->name;
-                $folderName = Str::slug($restaurantName, '_');
-                $path = 'food_images/' . $folderName;
-                $photoPath = $request->file('image_url')->store($path, 'public');
+            if ($existingFood) {
+                $existingFood->stock += $newStock;
+                $existingFood->description = $validatedData['description'];
+                $existingFood->price = $validatedData['price'];
+                $existingFood->category_id = $validatedData['category_id'];
+                $existingFood->exp_datetime = $expDatetime;
+
+                if ($request->hasFile('image_url')) {
+                    if ($existingFood->image_url) {
+                        Storage::disk('public')->delete($existingFood->image_url);
+                    }
+                    $restaurantName = Auth::user()->restaurant->name;
+                    $folderName = Str::slug($restaurantName, '_');
+                    $path = 'food_images/' . $folderName;
+                    $existingFood->image_url = $request->file('image_url')->store($path, 'public');
+                }
+
+                $existingFood->save();
+
+                return redirect()->back()->with('status', "Stock for '" . $foodName . "' has been updated successfully!");
+            } else {
+                $photoPath = null;
+                if ($request->hasFile('image_url')) {
+                    $restaurantName = Auth::user()->restaurant->name;
+                    $folderName = Str::slug($restaurantName, '_');
+                    $path = 'food_images/' . $folderName;
+                    $photoPath = $request->file('image_url')->store($path, 'public');
+                }
+
+                Food::create([
+                    'restaurant_id' => $restaurantId,
+                    'name' => $foodName,
+                    'category_id' => $validatedData['category_id'],
+                    'description' => $validatedData['description'],
+                    'price' => $validatedData['price'],
+                    'exp_datetime' => $expDatetime,
+                    'image_url' => $photoPath,
+                    'stock' => $newStock,
+                    'status' => 'Available',
+                ]);
+
+                return redirect()->back()->with('status', "Food '" . $foodName . "' has been added successfully!");
             }
-
-            Food::create([
-                'restaurant_id' => $restaurantId,
-                'name' => $validatedData['name'],
-                'category_id' => $validatedData['category_id'],
-                'description' => $validatedData['description'],
-                'price' => $validatedData['price'],
-                'exp_datetime' => $expDatetime,
-                'image_url' => $photoPath,
-                'stock' => $validatedData['stock'],
-                'status' => $status,
-            ]);
-
-            return redirect()->back()->with('status', 'Food item has been added successfully!');
         } catch (\Exception $e) {
-            Log::error('Food creation failed: ' . $e->getMessage());
+            Log::error('Food creation/update failed: ' . $e->getMessage());
 
             return redirect()->back()
-                ->withErrors(['error' => 'An error occurred while adding the food item. Please try again.'])
+                ->withErrors(['error' => 'An error occurred while processing the food item. Please try again.'])
                 ->withInput()
-                ->with('show_modal', 'addFoodModal'); 
+                ->with('show_modal', 'addFoodModal');
         }
     }
 
