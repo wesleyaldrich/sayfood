@@ -61,6 +61,8 @@ return [
     'add_status_available' => 'Available',
     'close_button' => 'Close',
     'submit_button' => 'Submit',
+    'status_stock' => 'Stock for ',
+    'stock_success' => 'updated successfully!',
 
     // Edit Food Modal
     'edit_food_modal_title' => 'Edit Food',

@@ -132,7 +132,6 @@ public function processZipUpload(ProcessZipUploadRequest $request)
         'zip_file' => 'required|file|mimes:zip|max:20480',
     ]);
 
-    // Ambil data restoran dari user yang login
     $restaurant = Auth::user()->restaurant;
     if (!$restaurant) {
         return back()->with('error', 'Restaurant data not found for this user.');
@@ -162,7 +161,6 @@ public function processZipUpload(ProcessZipUploadRequest $request)
             return back()->with('error', 'CSV file not found in ZIP.');
         }
         
-        // Kirim model restoran ke proses CSV
         $this->processCsv($csvFile, $tempPath, $restaurant);
 
     } else {
@@ -176,13 +174,9 @@ public function processZipUpload(ProcessZipUploadRequest $request)
 
 private function processCsv($csvFile, $tempPath, $restaurant)
 {
-    // Gunakan titik koma (;) sebagai pemisah
-    $delimiter = ';'; 
-
+    $delimiter = ';';
     $fileHandle = fopen($csvFile->getRealPath(), 'r');
     $header = array_map('strtolower', fgetcsv($fileHandle, 0, $delimiter));
-
-    // Hapus BOM jika ada
     if (isset($header[0]) && strpos($header[0], "\xef\xbb\xbf") === 0) {
         $header[0] = substr($header[0], 3);
     }
@@ -191,32 +185,19 @@ private function processCsv($csvFile, $tempPath, $restaurant)
         if (!array_filter($row) || count($header) !== count($row)) {
             continue;
         }
-        
+
         $data = array_combine($header, $row);
-        $foodName = $data['name'] ?? null;
+        $foodName = trim($data['name'] ?? null);
+        $newStock = (int)($data['stock'] ?? 0);
 
         if (!$foodName) {
             continue;
         }
-
-        $categoryName = $data['category_name'] ?? null;
-        $category = $categoryName ? Category::where('name', trim($categoryName))->first() : null;
-
-        $imageName = $data['image_url'] ?? null;
-        $finalImagePath = null;
-        if ($imageName && File::exists($tempPath . '/' . $imageName)) {
-            $restaurantSlug = Str::slug($restaurant->name,'_');
-            $foodSlug = Str::slug($foodName);
-            $extension = pathinfo($imageName, PATHINFO_EXTENSION);
-            
-            $targetDirectory = "food_images/{$restaurantSlug}";
-            $newImageName = "{$foodSlug}-" . Str::random(5) . ".{$extension}";
-
-            $finalImagePath = Storage::disk('public')->putFileAs(
-                $targetDirectory, new IlluminateFile($tempPath . '/' . $imageName), $newImageName
-            );
-        }
-
+        
+        $existingFood = Food::where('restaurant_id', $restaurant->id)
+                            ->where('name', $foodName)
+                            ->first();
+                            
         $expDateTime = null;
         if (!empty($data['exp_datetime'])) {
             try {
@@ -226,17 +207,44 @@ private function processCsv($csvFile, $tempPath, $restaurant)
             }
         }
 
-        Food::create([
-            'restaurant_id' => $restaurant->id,
-            'category_id'   => $category ? $category->id : null,
-            'name'          => $foodName,
-            'description'   => $data['description'] ?? null,
-            'price'         => $data['price'] ?? 0,
-            'stock'         => $data['stock'] ?? 0,
-            'exp_datetime'  => $expDateTime,
-            'status'        => $data['status'] ?? 'Available',
-            'image_url'     => $finalImagePath,
-        ]);
+        if ($existingFood) {
+            $existingFood->stock += $newStock;
+            $existingFood->price = $data['price'] ?? $existingFood->price;
+            $existingFood->description = $data['description'] ?? $existingFood->description;
+            if ($expDateTime) {
+                $existingFood->exp_datetime = $expDateTime;
+            }
+            $existingFood->save();
+
+        } else {
+            $categoryName = $data['category_name'] ?? null;
+            $category = $categoryName ? Category::where('name', trim($categoryName))->first() : null;
+
+            $imageName = $data['image_url'] ?? null;
+            $finalImagePath = null;
+            if ($imageName && File::exists($tempPath . '/' . $imageName)) {
+                $restaurantSlug = Str::slug($restaurant->name, '_');
+                $foodSlug = Str::slug($foodName);
+                $extension = pathinfo($imageName, PATHINFO_EXTENSION);
+                $targetDirectory = "food_images/{$restaurantSlug}";
+                $newImageName = "{$foodSlug}-" . Str::random(5) . ".{$extension}";
+                $finalImagePath = Storage::disk('public')->putFileAs(
+                    $targetDirectory, new IlluminateFile($tempPath . '/' . $imageName), $newImageName
+                );
+            }
+
+            Food::create([
+                'restaurant_id' => $restaurant->id,
+                'category_id'   => $category ? $category->id : null,
+                'name'          => $foodName,
+                'description'   => $data['description'] ?? null,
+                'price'         => $data['price'] ?? 0,
+                'stock'         => $newStock,
+                'exp_datetime'  => $expDateTime,
+                'status'        => $data['status'] ?? 'Available',
+                'image_url'     => $finalImagePath,
+            ]);
+        }
     }
 
     fclose($fileHandle);

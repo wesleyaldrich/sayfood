@@ -61,6 +61,8 @@ return [
     'add_status_available' => 'Tersedia',
     'close_button' => 'Tutup',
     'submit_button' => 'Kirim',
+    'status_stock' => 'Stok untuk ',
+    'stock_success' => 'berhasil di perbarui!',
 
     // Edit Makanan Modal
     'edit_food_modal_title' => 'Edit Makanan',
