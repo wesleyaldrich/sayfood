@@ -18,6 +18,9 @@
                     <label for="otp" class="oswald">{{ __('profile.otp_code_label') }}</label>
                     <input type="text" class="form-control" id="otp" name="otp" maxlength="6" required>
                 </div>
+                @error('otp')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
 
                 <div class="container d-flex justify-content-center pt-3">
                     <button type="submit" class="btn btn-primary oswald auth-button">{{ __('profile.register_button') }}</button>
