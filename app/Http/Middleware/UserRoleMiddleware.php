@@ -30,7 +30,7 @@ class UserRoleMiddleware
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
-            abort(403, 'Unauthorized access: wrong user role!');
+            return back()->withErrors(['error' => 'Unauthorized access: wrong user role!']);
         }
         if ($role === 'restaurant'){
             if ($currentUserRole === 'restaurant'){
@@ -42,7 +42,7 @@ class UserRoleMiddleware
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
-            abort(403, 'Unauthorized access: wrong user role!');
+            return back()->withErrors(['error' => 'Unauthorized access: wrong user role!']);
         }
         if ($role === 'admin') {
             if ($currentUserRole === 'admin') {
@@ -54,7 +54,7 @@ class UserRoleMiddleware
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
-            abort(403, 'Unauthorized access: wrong user role!');
+            return back()->withErrors(['error' => 'Unauthorized access: wrong user role!']);
         }
         if ($role === 'admincustomer') {
             if ($currentUserRole === 'customer' || $currentUserRole === 'admin') {
@@ -66,7 +66,7 @@ class UserRoleMiddleware
                 'id' => $currentUser->id,
                 'username' => $currentUser->username
             ]);
-            abort(403, 'Unauthorized access: wrong user role!');
+            return back()->withErrors(['error' => 'Unauthorized access: wrong user role!']);
         }
         
         // Unexpected role (server side's fault)!
